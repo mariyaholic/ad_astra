@@ -7,17 +7,21 @@
   "summary": "Two bounded analyses of TESS SPOC 120-s light curves of WASP-12 (TIC 86396382). The known planet WASP-12 b was recovered in Sector 20 as a pipeline check; a residual screen of Sectors 20 and 43 found no excursion outside the known transit window. No candidate.",
   "description_md": "Both runs use public MAST TESS SPOC light curves whose SHA-256 checksums match the Tier-1 manifest. The **recovery test** (`wasp12_sector20`) is a pipeline check on a known planet, not a detection. The **residual screen** (`tess-wasp12-residual-01`) is a bounded null: its −5 robust-MAD threshold is uncalibrated, and pixel-level, centroid-correlation, injection–recovery and literature checks were **not tested**.\n\nThe normalized light-curve tables are derived from public NASA TESS data and are offered for reproduction; cite MAST and the TESS mission when using them.",
   "research_status": "Completed · bounded null · no candidate",
-  "license": null,
+  "license": "Apache-2.0",
   "citation": "Project Cygnus / Astraea, WASP-12 TESS recovery test and residual screen (2026).",
-  "related": ["collection:tier1-baseline-pack-2026-09", "document:analysis-suite", "campaign:tess-mono-01"],
+  "related": [
+    "collection:tier1-baseline-pack-2026-09",
+    "document:analysis-suite",
+    "campaign:tess-mono-01"
+  ],
   "items": [
     {"id": "residual-spec", "kind": "campaign", "source": "campaigns/tess-wasp12-residual-01.yaml", "title": "Residual screen of WASP-12, Sectors 20 and 43", "description": "Declared test: isolated negative excursions ≥5 robust-MAD, ≥2 cadences, in both SAP and PDCSAP, outside ±0.08 phase of the known transit.", "origin": "project", "download": true, "params": {"status": "completed — bounded null"}},
     {"id": "residual-report", "kind": "document", "source": "reports/tess-wasp12-residual-01/REPORT.md", "title": "Report: WASP-12 residual screen", "description": "Outcome, falsification statement, provenance and caveats.", "origin": "project", "download": true},
     {"id": "residual-search-log", "kind": "document", "source": "reports/tess-wasp12-residual-01/SEARCH_LOG.md", "title": "Search log: WASP-12 residual screen", "description": "Exact products, checksums, queries, exclusions and untested checks.", "origin": "project", "download": true},
     {"id": "residual-s20-screen", "kind": "file", "source": "reports/tess-wasp12-residual-01/sector20/screen.json", "title": "Sector 20 screen output (JSON)", "origin": "derived", "download": true},
     {"id": "residual-s43-screen", "kind": "file", "source": "reports/tess-wasp12-residual-01/sector43/screen.json", "title": "Sector 43 screen output (JSON)", "origin": "derived", "download": true},
-    {"id": "residual-s20-series", "kind": "file", "source": "reports/tess-wasp12-residual-01/sector20/normalized_series.csv", "title": "Sector 20 normalized series (CSV)", "description": "Derived from the public MAST TESS SPOC light curve; stored TIME is BTJD (TDB).", "origin": "derived", "download": true},
-    {"id": "residual-s43-series", "kind": "file", "source": "reports/tess-wasp12-residual-01/sector43/normalized_series.csv", "title": "Sector 43 normalized series (CSV)", "description": "Derived from the public MAST TESS SPOC light curve; stored TIME is BTJD (TDB).", "origin": "derived", "download": true},
+    {"id": "residual-s20-series", "kind": "file", "source": "reports/tess-wasp12-residual-01/sector20/normalized_series.csv", "title": "Sector 20 normalized series (CSV)", "description": "Derived from the public MAST TESS SPOC light curve; stored TIME is BTJD (TDB).", "origin": "derived", "download": true, "license": "Apache-2.0 for the derivation; underlying data are public NASA TESS light curves from MAST (acknowledge MAST and the TESS mission)"},
+    {"id": "residual-s43-series", "kind": "file", "source": "reports/tess-wasp12-residual-01/sector43/normalized_series.csv", "title": "Sector 43 normalized series (CSV)", "description": "Derived from the public MAST TESS SPOC light curve; stored TIME is BTJD (TDB).", "origin": "derived", "download": true, "license": "Apache-2.0 for the derivation; underlying data are public NASA TESS light curves from MAST (acknowledge MAST and the TESS mission)"},
     {"id": "recovery-report", "kind": "document", "source": "campaigns/wasp12_sector20/REPORT.md", "title": "Report: known-planet recovery, Sector 20", "description": "BLS recovery of WASP-12 b as a pipeline smoke test, with its artifact-audit table.", "origin": "project", "download": true},
     {"id": "recovery-search-log", "kind": "document", "source": "campaigns/wasp12_sector20/SEARCH_LOG.md", "title": "Search log: known-planet recovery", "origin": "project", "download": true},
     {"id": "recovery-results", "kind": "file", "source": "campaigns/wasp12_sector20/results.json", "title": "Recovery results (JSON)", "origin": "derived", "download": true}
