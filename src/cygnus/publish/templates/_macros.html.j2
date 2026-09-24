@@ -1,0 +1,92 @@
+{# Shared presentation macros. Missing values render as an explicit, styled
+   "not recorded" — never as a blank or an invented default. #}
+
+{% macro val(v, missing='not recorded') -%}
+{%- if v is none or v == '' -%}<span class="unset">{{ missing }}</span>{%- else -%}{{ v }}{%- endif -%}
+{%- endmacro %}
+
+{% macro idval(v, missing='not recorded') -%}
+{%- if v is none or v == '' -%}<span class="unset">{{ missing }}</span>{%- else -%}<span class="id">{{ v }}</span>{%- endif -%}
+{%- endmacro %}
+
+{% macro bytes(n) -%}
+{%- if n is none -%}<span class="unset">size not recorded</span>{%- else -%}<span class="mono">{{ fmt_bytes(n) }}</span>{%- endif -%}
+{%- endmacro %}
+
+{% macro hash(h, label='sha256') -%}
+{%- if h -%}<span class="id" title="{{ label }} {{ h }}">{{ label }} {{ h | short_hash }}</span> <button type="button" class="copy" data-copy="{{ h }}" hidden>copy</button>
+{%- else -%}<span class="unset">no checksum recorded</span>{%- endif -%}
+{%- endmacro %}
+
+{% macro state(s, label=None) -%}
+<span class="state state--{{ s }}">{{ label or s | replace('_', ' ') }}</span>
+{%- endmacro %}
+
+{% macro availability(a) -%}
+{%- set cls = {'download': 'badge--accent', 'online': '', 'link': 'badge--quiet', 'restricted': 'badge--restricted', 'withdrawn': 'badge--withdrawn'}[a] -%}
+<span class="badge {{ cls }}">{{ AVAILABILITY_LABELS[a] }}</span>
+{%- endmacro %}
+
+{% macro origin(o) -%}
+{%- if o == 'project' %}<span class="badge badge--quiet" title="Authored in this project">Project-authored</span>
+{%- elif o == 'derived' %}<span class="badge badge--quiet" title="Computed in this project from other data">Derived</span>
+{%- elif o == 'third_party' %}<span class="badge badge--quiet" title="Produced by an external archive or survey">Third-party</span>{% endif -%}
+{%- endmacro %}
+
+{% macro collection_status(status) -%}
+{%- if status == 'published' %}<span class="badge">Published</span>
+{%- elif status == 'withdrawn' %}<span class="badge badge--withdrawn">Withdrawn</span>
+{%- else %}<span class="badge badge--draft">Draft</span>{% endif -%}
+{%- endmacro %}
+
+{% macro files(list) -%}
+{%- if list %}
+<ul class="files">
+  {% for f in list %}
+  <li>
+    <span class="fname">{{ f.filename }}</span>
+    <span class="fmeta">{{ f.label }} · {{ fmt_bytes(f.bytes) }} · {{ hash(f.sha256) }}</span>
+    <a class="btn" href="{{ f.url }}" download>Download<span class="visually-hidden"> {{ f.filename }}</span></a>
+  </li>
+  {% endfor %}
+</ul>
+{%- endif %}
+{%- endmacro %}
+
+{% macro state_bar(counts, total, name) -%}
+{# stacked bar of manifest row states; order fixed: held, excluded, failed, unknown #}
+{%- set order = ['held', 'excluded', 'failed', 'unknown'] -%}
+<svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="{{ name }}: {% for k in order if counts.get(k) %}{{ counts[k] }} {{ k }}{{ ', ' if not loop.last }}{% endfor %}">
+  {%- set ns = namespace(x=0) -%}
+  {%- for k in order if counts.get(k) -%}
+  {%- set w = (counts[k] / total * 100) -%}
+  <rect vector-effect="non-scaling-stroke" class="seg-{{ k }}" x="{{ '%.2f' | format(ns.x) }}" y="1" width="{{ '%.2f' | format([w - 0.6, 0.4] | max) }}" height="12" rx="1"><title>{{ counts[k] }} {{ k }}</title></rect>
+  {%- set ns.x = ns.x + w -%}
+  {%- endfor -%}
+</svg>
+{%- endmacro %}
+
+{% macro state_legend() -%}
+<ul class="legend" aria-label="Legend">
+  <li><svg viewBox="0 0 14 10" aria-hidden="true"><rect class="seg-held" width="14" height="10" rx="1"/></svg>Retrieved, held privately</li>
+  <li><svg viewBox="0 0 14 10" aria-hidden="true"><rect class="seg-excluded" x=".5" y=".5" width="13" height="9" rx="1"/></svg>Excluded (not retrieved)</li>
+  <li><svg viewBox="0 0 14 10" aria-hidden="true"><rect class="seg-failed" width="14" height="10" rx="1"/></svg>Retrieval failed</li>
+</ul>
+{%- endmacro %}
+
+{% macro related(list, exclude=None) -%}
+{%- set items = list | uniq_links(exclude) -%}
+{%- if items %}
+<ul class="related">
+  {% for r in items %}<li><span class="related-type">{{ TYPE_LABELS.get(r.type, r.type) }}</span><a href="{{ r.url }}">{{ r.title }}</a></li>{% endfor %}
+</ul>
+{%- else %}<p class="unset">No related published material.</p>{% endif -%}
+{%- endmacro %}
+
+{% macro ladder(level_rank) -%}
+<ol class="ladder" aria-label="Evidence level">
+  {% for key, label in [('unverified_lead', 'Unverified lead'), ('vetted_candidate', 'Vetted candidate'), ('independently_supported_candidate', 'Independently supported candidate'), ('established', 'Established object / phenomenon')] %}
+  <li class="{{ 'current' if loop.index0 == level_rank else ('reached' if loop.index0 < level_rank else '') }}"{% if loop.index0 == level_rank %} aria-current="step"{% endif %}>{{ label }}</li>
+  {% endfor %}
+</ol>
+{%- endmacro %}

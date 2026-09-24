@@ -1,0 +1,61 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}Candidates · {{ site.title }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="kicker">Candidate dossiers · {{ candidates | length }} published</p>
+  <h1>Candidates</h1>
+  <p class="lede">A dossier records one signal and everything done to try to explain it away. Its evidence level describes how far it has survived those tests — not how interesting it is.</p>
+</header>
+
+<div class="grid-2">
+  <div>
+  {% if candidates %}
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Ranked leads">
+      <table>
+        <caption>Ranked by evidence level, then working ID. Ranking is by evidence only; calibrated scientific scoring is not yet implemented.</caption>
+        <thead><tr><th scope="col">Working ID</th><th scope="col">Evidence</th><th scope="col">Audit</th><th scope="col">Bottom line</th><th scope="col">Next test</th></tr></thead>
+        <tbody>
+        {% for coll, v in candidates %}
+          {% set d = v.data %}
+          <tr>
+            <td class="id"><a href="{{ v.page_url }}">{{ d.id }}</a></td>
+            <td class="small">{{ d.evidence_label }}</td>
+            <td class="small nowrap">{% for s in ['passed', 'failed', 'inconclusive', 'not_tested'] if d.audit_counts[s] %}{{ m.state(s, d.audit_counts[s] ~ ' ' ~ s | replace('_', ' ')) }}<br>{% endfor %}</td>
+            <td class="small">{{ m.val(d.bottom_line) }}</td>
+            <td class="small">{{ m.val(d.next_test) }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty">
+      <h2>No candidate dossiers have been published</h2>
+      {% if overview %}<p>The project’s provenance ledger currently holds <strong>{{ overview.candidates }}</strong> candidate record{{ '' if overview.candidates == 1 else 's' }} and <strong>{{ overview.prior_art }}</strong> prior-art check{{ '' if overview.prior_art == 1 else 's' }} (counted at build time).</p>{% endif %}
+      <p>The first search campaign is still a draft. When a dossier is published it will show its evidence level, every artifact test as passed, failed, inconclusive or not tested, the catalog and literature checks, competing explanations, and how to reproduce it.</p>
+      <p><a href="{{ url('campaigns/') }}">See campaign status →</a></p>
+    </div>
+  {% endif %}
+  </div>
+  <aside class="stack" aria-label="How to read evidence levels">
+    <div class="panel">
+      <p class="panel-title">Evidence levels</p>
+      <dl class="meta">
+        <dt>1</dt><dd><strong>Unverified lead.</strong> A feature was observed; the artifact audit is incomplete.</dd>
+        <dt>2</dt><dd><strong>Vetted candidate.</strong> Reproducible and survives every available artifact test; alternatives remain.</dd>
+        <dt>3</dt><dd><strong>Independently supported.</strong> Corroborated by independent data, epochs, instruments or reductions.</dd>
+        <dt>4</dt><dd><strong>Established.</strong> Confirmed, including by the community. Not reachable from this toolchain alone.</dd>
+      </dl>
+      <p class="small muted">Any audit test not marked passed holds a record at level 1.</p>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Audit states</p>
+      <ul class="pill-list">
+        <li>{{ m.state('passed') }}</li><li>{{ m.state('failed') }}</li><li>{{ m.state('inconclusive') }}</li><li>{{ m.state('not_tested', 'not tested') }}</li>
+      </ul>
+      <p class="small muted section">A test that could not be run is “not tested”, never “passed”.</p>
+    </div>
+  </aside>
+</div>
+{% endblock %}

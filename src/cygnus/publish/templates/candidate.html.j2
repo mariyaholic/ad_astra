@@ -1,0 +1,113 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}{{ item.data.id }} ({{ item.data.evidence_label }}) · {{ site.title }}{% endblock %}
+{% block main %}
+{% set d = item.data %}
+<header class="page-head">
+  <p class="crumbs"><a href="{{ url('candidates/') }}">Candidates</a><span aria-hidden="true">/</span><span class="id">{{ d.id }}</span></p>
+  <p class="kicker">Candidate dossier · working identifier</p>
+  <h1 class="id">{{ d.id }}</h1>
+  <p class="lede">{{ d.bottom_line or 'No bottom line recorded.' }}</p>
+  <p class="badges"><span class="badge">{{ d.evidence_label }}</span></p>
+</header>
+
+<div class="callout callout--note" role="note">
+  <p class="callout-title">Working identifier, not a designation</p>
+  <p><span class="id">{{ d.id }}</span> is a local label used inside this project. It is not an official catalog name and does not imply the object is new or confirmed.</p>
+</div>
+
+<div class="grid-2">
+  <div>
+    <section class="section" aria-labelledby="measured">
+      <h2 class="section-title" id="measured">Measured signal</h2>
+      {% if d.measured %}
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Measured signal">
+        <table>
+          <thead><tr><th scope="col">Quantity</th><th scope="col" class="num">Value</th><th scope="col">Unit</th><th scope="col">Uncertainty</th><th scope="col">Method</th></tr></thead>
+          <tbody>
+          {% for q in d.measured %}
+            <tr><td class="id">{{ q.name }}</td><td class="num">{{ m.val(q.value) }}</td><td class="small">{{ m.val(q.unit) }}</td><td class="small">{{ m.val(q.uncertainty) }}</td><td class="small">{{ m.val(q.method) }}</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}<p class="unset">No measurements recorded.</p>{% endif %}
+      {% if d.ledger_measurements %}
+      <h3>Ledger measurements</h3>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Ledger measurements">
+        <table>
+          <thead><tr><th scope="col">Name</th><th scope="col" class="num">Value</th><th scope="col">Unit</th><th scope="col">Uncertainty</th><th scope="col">Run</th><th scope="col">Inputs</th></tr></thead>
+          <tbody>
+          {% for q in d.ledger_measurements %}
+          <tr><td class="id">{{ q.name }}</td><td class="num">{{ q.value }}</td><td class="small">{{ m.val(q.unit) }}</td><td class="small">{{ m.val(q.uncertainty) }}</td><td class="id">#{{ q.run_id }} {{ q.script }}</td>
+            <td class="small">{% for p in q.products %}<span class="id">{{ p.ref }}</span>{% if not p.resolved %} <span class="state state--inconclusive">unresolved</span>{% endif %}<br>{% else %}<span class="unset">none</span>{% endfor %}</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </section>
+
+    <section class="section" aria-labelledby="audit">
+      <h2 class="section-title" id="audit">Artifact audit <span class="count">{{ d.audit | length }} tests</span></h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Artifact audit">
+        <table>
+          <thead><tr><th scope="col">Test</th><th scope="col">State</th></tr></thead>
+          <tbody>
+          {% for a in d.audit %}<tr><td class="id">{{ a.test }}</td><td>{{ m.state(a.state, a.label) }}</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">“Not tested” means the test was unavailable or not run. It never counts toward a higher evidence level.</p>
+    </section>
+
+    <section class="section" aria-labelledby="catalog">
+      <h2 class="section-title" id="catalog">Catalog and literature audit</h2>
+      {% if d.catalog_audit %}
+      <dl class="meta">{% for k, v in d.catalog_audit.items() %}<dt>{{ k }}</dt><dd>{{ v }}</dd>{% endfor %}</dl>
+      {% else %}<p class="unset">None recorded.</p>{% endif %}
+      <h3>Prior-art gate (ledger)</h3>
+      {% if d.prior_art %}
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Prior-art checks">
+        <table>
+          <thead><tr><th scope="col">Gate</th><th scope="col">Service</th><th scope="col">Query</th><th scope="col">Result</th><th scope="col">As of (UTC)</th></tr></thead>
+          <tbody>
+          {% for p in d.prior_art %}<tr><td class="id">{{ p.gate }}</td><td class="small">{{ p.service }}</td><td class="small wrap-any"><code>{{ p['query'] or '—' }}</code></td><td class="small wrap-any">{{ p.result }}</td><td class="mono small nowrap">{{ p.retrieved_utc }}</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">A missing match means “not found in the services searched as of that date”, not “uncatalogued”.</p>
+      {% else %}<p class="unset">No prior-art checks recorded in the ledger.</p>{% endif %}
+    </section>
+
+    <section class="section" aria-labelledby="competing">
+      <h2 class="section-title" id="competing">Competing explanations</h2>
+      {% if d.competing %}<ul>{% for c in d.competing %}<li>{{ c }}</li>{% endfor %}</ul>{% else %}<p class="unset">None recorded.</p>{% endif %}
+    </section>
+
+    <section class="section" aria-labelledby="repro">
+      <h2 class="section-title" id="repro">Reproduction</h2>
+      {% if d.reproduction %}<dl class="meta">{% for k, v in d.reproduction.items() %}<dt>{{ k }}</dt><dd class="id">{{ v }}</dd>{% endfor %}</dl>{% else %}<p class="unset">None recorded.</p>{% endif %}
+    </section>
+
+    <section class="section" aria-labelledby="next">
+      <h2 class="section-title" id="next">Next test</h2>
+      <p>{{ m.val(d.next_test) }}</p>
+    </section>
+  </div>
+
+  <aside class="stack" aria-label="Dossier summary">
+    <div class="panel">
+      <p class="panel-title">Evidence level</p>
+      {{ m.ladder(d.evidence_rank) }}
+    </div>
+    <div class="panel">
+      <p class="panel-title">Provenance</p>
+      {% if d.provenance %}<dl class="meta">{% for k, v in d.provenance.items() %}<dt>{{ k }}</dt><dd>{{ v }}</dd>{% endfor %}</dl>{% else %}<p class="unset">None recorded.</p>{% endif %}
+      {% if d.coordinates %}<p class="small">Ledger coordinates: <span class="id">{{ d.coordinates }}</span></p>{% endif %}
+    </div>
+    {% if item.files %}<div class="panel"><p class="panel-title">Files</p>{{ m.files(item.files) }}</div>{% endif %}
+    <div class="panel"><p class="panel-title">Published in</p><p><a href="{{ coll.url }}">{{ coll.title }}</a></p>{% if backlinks %}{{ m.related(backlinks, item.page_url) }}{% endif %}</div>
+  </aside>
+</div>
+{% endblock %}

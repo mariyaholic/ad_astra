@@ -1,0 +1,129 @@
+{
+  "id": "tier1-baseline-pack-2026-09",
+  "title": "Tier-1 archive baseline pack, September 2026",
+  "type": "dataset",
+  "status": "published",
+  "published": "2026-09-24",
+  "summary": "Provenance record of a bounded test retrieval from eight anonymous-access archives (MAST, Gaia, SkyView, CDS, NED, ESO, IRSA, Legacy Surveys) around benchmark fields and well-known targets. Engineering baseline for access and provenance tooling; no scientific analysis has been run on it.",
+  "description_md": "The pack exercised each archive client and the provenance ledger: every product was checksummed and logged, and uploaded products were verified against their manifest before the local staging copy was removed.\n\nWhat is published here is the **manifest record**: product IDs, checksums, retrieval times, endpoints, queries verbatim, recorded terms, and the outcome of every attempt, including exclusions and failures. The archive products themselves are **not** redistributed; follow the archive links to obtain them under each archive's terms.\n\nManifests were copied from the staging area into the worktree at the snapshot time shown for each pack; later changes to the staging area are not reflected until the next snapshot. The `mast` pack is an earlier staging run (TESScut cutouts, plus SPOC name probes that returned zero rows); `01_mast` repeated the SPOC search with cone queries.",
+  "research_status": "Engineering baseline · not a scientific result",
+  "license": null,
+  "citation": "Project Cygnus / Astraea, Tier-1 archive baseline pack manifests (2026).",
+  "related": [
+    "document:data-sources",
+    "collection:archive-access-probe-2026-09-23"
+  ],
+  "items": [
+    {
+      "id": "pack-search-log",
+      "kind": "document",
+      "source": "docs/tier1_pack/SEARCH_LOG.md",
+      "title": "Tier-1 pack: search log",
+      "description": "Service summary, recorded data gaps and the collector log.",
+      "origin": "project",
+      "download": true
+    },
+    {
+      "id": "pack-readme",
+      "kind": "document",
+      "source": "docs/tier1_pack/README.md",
+      "title": "Tier-1 pack: overview",
+      "origin": "project",
+      "download": true
+    },
+    {
+      "id": "pack-01-mast",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/01_mast.json",
+      "title": "MAST: TESS SPOC light curves, JWST and HST samples",
+      "description": "Manifest metadata is project-derived and downloadable; the listed products belong to MAST.",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-02-gaia",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/02_gaia.json",
+      "title": "Gaia DR3: cones, non-single-star, variability and XP tables",
+      "description": "Extracts are reproducible from the ESA Gaia Archive with the queries shown.",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-03-skyview",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/03_skyview.json",
+      "title": "SkyView: survey cutouts of three benchmark fields",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-04-cds",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/04_cds.json",
+      "title": "CDS: VizieR watchlist extracts and SIMBAD benchmark identifications",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-05-ned",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/05_ned.json",
+      "title": "NED: benchmark object identifications",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-06-eso",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/06_eso.json",
+      "title": "ESO: TAP probe (failed)",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-07-irsa",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/07_irsa.json",
+      "title": "IRSA: AllWISE cones and ZTF light curves",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-08-legacy-survey",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/08_legacy_survey.json",
+      "title": "Legacy Surveys: bricks, Tractor catalogs and cutouts",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "pack-mast-early",
+      "kind": "archive_manifest",
+      "source": "publish/data/tier1-pack/mast.json",
+      "title": "MAST: earlier staging run (TESScut cutouts, SPOC name probes)",
+      "origin": "derived",
+      "download": true
+    },
+    {
+      "id": "ingest-runs",
+      "kind": "ledger_runs",
+      "title": "Ingest run log (cygnus.ingest.tier1)",
+      "description": "Every ledger run of the Tier-1 ingest script, including runs that never recorded a close.",
+      "origin": "derived",
+      "download": true,
+      "params": {
+        "script": "cygnus.ingest.tier1"
+      }
+    },
+    {
+      "id": "name-resolutions",
+      "kind": "file",
+      "source": "docs/tier1_pack/NAME_RESOLUTIONS.json",
+      "title": "Name resolutions (CDS Sesame)",
+      "origin": "derived",
+      "download": true
+    }
+  ],
+  "updated": "2026-09-24"
+}

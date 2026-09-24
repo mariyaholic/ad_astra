@@ -1,0 +1,192 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}{{ c.title }} · {{ site.title }}{% endblock %}
+{% block description %}{{ c.summary }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="crumbs"><a href="{{ url('repository/') }}">Repository</a><span aria-hidden="true">/</span>collections<span aria-hidden="true">/</span><span class="id">{{ c.id }}</span></p>
+  <p class="kicker">Collection · {{ c.type }}</p>
+  <h1>{{ c.title }}</h1>
+  <p class="lede">{{ c.summary }}</p>
+  <p class="badges">{{ m.collection_status('published') }} {% if c.research_status %}<span class="badge">{{ c.research_status }}</span>{% endif %}</p>
+</header>
+
+<div class="grid-2">
+  <div>
+    {% if c.description_html %}<div class="prose">{{ c.description_html | safe }}</div>{% endif %}
+
+    <h2 class="section-title">Contents <span class="count">{{ c['items'] | length }} items</span></h2>
+    {% for it in c['items'] %}
+    <section class="section" id="{{ it.id }}" aria-labelledby="{{ it.id }}-title">
+      <h3 id="{{ it.id }}-title">{% if it.page_url %}<a href="{{ it.page_url }}">{{ it.title }}</a>{% else %}{{ it.title }}{% endif %}</h3>
+      <p class="badges">{{ m.availability(it.availability) }} {{ m.origin(it.origin) }} <span class="badge badge--quiet">{{ it.kind | replace('_', ' ') }}</span></p>
+      {% if it.description %}<p class="prose">{{ it.description }}</p>{% endif %}
+
+      {% if it.access == 'restricted' or it.availability == 'restricted' %}
+      <div class="callout"><p class="callout-title">Not public</p><p>{{ it.access_note or 'This item is listed for reference only.' }}</p></div>
+
+      {% elif it.kind == 'document' %}
+      <dl class="meta">
+        <dt>Maintained</dt><dd>{{ m.val(it.data.maintained) }}</dd>
+        <dt>Size</dt><dd>{{ m.bytes(it.size) }}</dd>
+        <dt>Public copy</dt><dd>{% if it.data.redacted %}Private storage locations replaced with placeholders{% else %}Unmodified{% endif %}</dd>
+        <dt>License</dt><dd>{{ m.val(it.license, 'not specified by the project') }}</dd>
+      </dl>
+      <p><a href="{{ it.page_url }}">Read online →</a></p>
+
+      {% elif it.kind == 'campaign' %}
+      <dl class="meta">
+        <dt>Campaign</dt><dd class="id">{{ it.data.id }}</dd>
+        <dt>Status</dt><dd>{% if it.data.status == 'draft' %}<span class="badge badge--draft">Draft · not executed</span>{% else %}{{ it.data.status }}{% endif %}</dd>
+        <dt>Domain</dt><dd class="id">{{ m.val(it.data.domain) }}</dd>
+        <dt>Steps</dt><dd>{{ it.data.steps | length }}</dd>
+      </dl>
+      <p><a href="{{ it.page_url }}">Campaign page →</a></p>
+
+      {% elif it.kind == 'archive_manifest' %}
+      {% set d = it.data %}
+      <dl class="meta">
+        <dt>Service</dt><dd>{{ m.val(d.service) }}</dd>
+        <dt>Pack</dt><dd class="id">{{ d.pack_dir }}</dd>
+        <dt>Rows</dt><dd>{{ d.rows | length }} ({% for k, n in d.counts | dictsort %}{{ n }} {{ k }}{{ ', ' if not loop.last }}{% endfor %})</dd>
+        <dt>Held volume</dt><dd>{{ m.bytes(d.held_bytes) }}</dd>
+        <dt>Source manifest</dt><dd><span class="id">{{ d.source_manifest }}</span> · {{ m.hash(d.source_sha256) }} · modified {{ m.val(d.source_modified_utc) }}</dd>
+        <dt>Snapshot</dt><dd class="mono">{{ m.val(d.snapshot_utc) }}</dd>
+        <dt>Terms recorded</dt><dd>{% if d.licenses %}{{ d.licenses | join('; ') }}{% else %}<span class="unset">not recorded</span>{% endif %}</dd>
+      </dl>
+      <div class="callout callout--note small"><p>These are third-party archive products. They are described here and linked to the originating archive; the files themselves are not redistributed by this site.</p></div>
+      {{ m.state_legend() }}
+      <div class="bars"><div class="bar-row"><span>{{ d.pack_dir }}</span>{{ m.state_bar(d.counts, d.rows | length, d.pack_dir) }}<span class="total">{{ d.rows | length }} rows</span></div></div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="{{ d.pack_dir }} products">
+        <table>
+          <thead><tr><th scope="col">Product ID</th><th scope="col">State</th><th scope="col" class="num">Size</th><th scope="col">Retrieved (UTC)</th><th scope="col">Checksum</th><th scope="col">Source</th><th scope="col">Note</th></tr></thead>
+          <tbody>
+          {% for r in d.rows %}
+            <tr>
+              <td class="id">{{ r.product_id }}</td>
+              <td>{{ m.state(r.state_class, r.state | replace('_', ' ')) }}</td>
+              <td class="num">{% if r.bytes %}{{ fmt_bytes(r.bytes) }}{% else %}<span class="unset">—</span>{% endif %}</td>
+              <td class="mono nowrap small">{{ m.val(r.retrieved_utc) }}</td>
+              <td class="small nowrap">{% if r.sha256 %}{{ m.hash(r.sha256) }}{% else %}<span class="unset">—</span>{% endif %}</td>
+              <td class="small">{% if r.archive_link %}<a class="ext" href="{{ r.archive_link }}" rel="noopener">archive</a>{% else %}<span class="wrap-any">{{ m.val(r.endpoint) }}</span>{% endif %}</td>
+              <td class="small wrap-any">{{ m.val(r.note, '') }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <details class="disclose">
+        <summary>Queries and endpoints, verbatim ({{ d.rows | length }})</summary>
+        <div class="body">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="{{ d.pack_dir }} queries">
+            <table>
+              <thead><tr><th scope="col">Product ID</th><th scope="col">Endpoint</th><th scope="col">Query / selection</th></tr></thead>
+              <tbody>
+              {% for r in d.rows %}<tr><td class="id">{{ r.product_id }}</td><td class="small wrap-any">{{ m.val(r.endpoint) }}</td><td class="small wrap-any"><code>{{ r['query'] or '—' }}</code></td></tr>{% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      {% elif it.kind == 'ledger_run' %}
+      {% set run = it.data %}
+      <dl class="meta">
+        <dt>Run</dt><dd class="id">#{{ run.id }} · {{ run.script }}</dd>
+        <dt>Status</dt><dd>{{ m.state(run.status) }}</dd>
+        <dt>Started / finished</dt><dd class="mono small">{{ run.started_utc }} → {{ m.val(run.finished_utc) }}</dd>
+        <dt>Code version</dt><dd class="id">{{ m.val(run.code_version) }}</dd>
+        <dt>Config hash</dt><dd class="id">{{ m.val(run.config_hash) }}</dd>
+        <dt>Seed</dt><dd class="id">{{ m.val(run.seed) }}</dd>
+        <dt>Summary</dt><dd>{{ m.val(run.summary) }}</dd>
+      </dl>
+      <h4>Measurements</h4>
+      {% if run.measurements %}
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Run {{ run.id }} measurements">
+        <table>
+          <thead><tr><th scope="col">Name</th><th scope="col" class="num">Value</th><th scope="col">Unit</th><th scope="col">Uncertainty</th><th scope="col">Method</th><th scope="col">Input products</th></tr></thead>
+          <tbody>
+          {% for ms in run.measurements %}
+          <tr>
+            <td class="id">{{ ms.name }}</td>
+            <td class="num">{{ ms.value }}</td>
+            <td class="small">{{ m.val(ms.unit) }}</td>
+            <td class="small">{{ m.val(ms.uncertainty) }}</td>
+            <td class="id">{{ m.val(ms.method) }}</td>
+            <td class="small">
+              {% for p in ms.products %}
+                {% if p.resolved %}<span class="id">{{ p.ref }}</span> · {{ p.product.archive }}{% if p.product.archive_link %} · <a class="ext" href="{{ p.product.archive_link }}" rel="noopener">archive</a>{% endif %}
+                {% else %}<span class="id">{{ p.ref }}</span> <span class="state state--inconclusive">unresolved</span>
+                  <span class="muted">No exact ledger product has this ID.{% if p.possible %} Closest by prefix: <span class="id">{{ p.possible | join(', ') }}</span> (not assumed to be the same product).{% endif %}</span>
+                {% endif %}
+              {% else %}<span class="unset">none recorded</span>{% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}<p class="unset">No measurements recorded for this run.</p>{% endif %}
+
+      {% elif it.kind == 'ledger_runs' %}
+      {% set log = it.data %}
+      <p class="small">{{ log.runs | length }} runs of <span class="id">{{ log.script }}</span>: {% for k, n in log.counts | dictsort %}{{ n }} {{ k }}{{ ', ' if not loop.last }}{% endfor %}. “Open” means the run was started but no close was recorded.</p>
+      <p><a href="{{ url('log/') }}#{{ it.id }}">Full run table in the search log →</a></p>
+
+      {% elif it.kind == 'module_register' %}
+      {% set reg = it.data %}
+      <p class="small">Build status as recorded in <span class="id">{{ reg.source }}</span>: {% for k, n in reg.counts | dictsort %}{{ n }} {{ k }}{{ ', ' if not loop.last }}{% endfor %}. “Planned” modules are designs, not working features.</p>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Module register">
+        <table>
+          <thead><tr><th scope="col">Module</th><th scope="col">Function</th><th scope="col">Status</th></tr></thead>
+          <tbody>
+          {% for r in reg.rows %}
+            <tr><td class="id">{{ r.module }}</td><td class="small">{{ r.function_html | safe }}</td><td class="small">{{ m.state(r.status_class) }}<br><span class="muted">{{ r.status_html | safe }}</span></td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      {% elif it.kind == 'candidate' %}
+      <dl class="meta">
+        <dt>Working ID</dt><dd class="id">{{ it.data.id }} <span class="muted">(not an official designation)</span></dd>
+        <dt>Evidence</dt><dd>{{ it.data.evidence_label }}</dd>
+      </dl>
+      <p><a href="{{ it.page_url }}">Dossier →</a></p>
+      {% endif %}
+
+      {% if it.files %}<h4>Files</h4>{{ m.files(it.files) }}{% endif %}
+    </section>
+    {% endfor %}
+  </div>
+
+  <aside class="stack" aria-label="Collection details">
+    <div class="panel">
+      <p class="panel-title">Record</p>
+      <dl class="meta">
+        <dt>Stable URL</dt><dd class="id">{{ c.url }}</dd>
+        <dt>Published</dt><dd class="mono">{{ c.published }}</dd>
+        <dt>Updated</dt><dd class="mono">{{ m.val(c.updated, 'not since publication') }}</dd>
+        <dt>License</dt><dd>{{ m.val(c.license, 'not specified by the project') }}</dd>
+        <dt>Public files</dt><dd>{{ c.downloads | length }}</dd>
+        {% if c.size %}<dt>Described volume</dt><dd>{{ fmt_bytes(c.size) }} <span class="muted">(listed items; not all hosted here)</span></dd>{% endif %}
+        <dt>Metadata</dt><dd><a href="{{ c.url }}collection.json">collection.json</a></dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Cite</p>
+      {% if c.citation %}
+      <p class="cite">{{ c.citation }} {{ c.url }} (accessed YYYY-MM-DD).</p>
+      <button type="button" class="copy" data-copy="{{ c.citation }} {{ c.url }}" hidden>copy citation</button>
+      {% else %}
+      <p class="small">No citation text supplied. Cite as: <span class="cite">{{ site.title }}, “{{ c.title }}”, {{ c.published }}, {{ c.url }}.</span></p>
+      {% endif %}
+      <p class="small muted">Cite third-party products through their originating archive, as each archive requests.</p>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Related</p>
+      {{ m.related(c.related) }}
+    </div>
+  </aside>
+</div>
+{% endblock %}

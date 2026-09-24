@@ -1,0 +1,88 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block main %}
+<section class="hero" aria-labelledby="hero-title">
+  <div>
+    <p class="kicker">{{ site.title }} · public repository</p>
+    <h1 id="hero-title">{{ site.headline }}</h1>
+    <p class="lede">{{ site.tagline }}</p>
+  </div>
+  <nav aria-label="Start here">
+    <ul class="routes">
+      <li><a href="{{ url('repository/') }}"><strong>Browse the repository</strong><span>{{ type_counts.values() | sum }} published entries: documents, datasets, campaigns, software</span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="{{ url('campaigns/') }}"><strong>Campaigns</strong><span>Scope, methods and status of each search</span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="{{ url('candidates/') }}"><strong>Candidate dossiers</strong><span>{% if candidates %}{{ candidates | length }} published{% else %}None published yet{% endif %}</span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="{{ url('methods/') }}"><strong>How Cygnus works</strong><span>Evidence levels, audits, provenance, publication</span><span class="arrow" aria-hidden="true">→</span></a></li>
+    </ul>
+  </nav>
+</section>
+
+<section class="section" aria-labelledby="status-title">
+  <h2 class="section-title" id="status-title">Status at build time <span class="count">read {{ build_utc }}</span></h2>
+  {% set drafts = campaigns | selectattr('data.status', 'equalto', 'draft') | list %}
+  <dl class="statline">
+    <div><dt>Published collections</dt><dd>{{ views | length }}</dd></div>
+    <div><dt>Campaigns</dt><dd>{{ campaigns | length }}<small>{% if drafts %}{{ drafts | length }} draft, not executed{% else %}&nbsp;{% endif %}</small></dd></div>
+    <div><dt>Candidate dossiers</dt><dd>{{ candidates | length }}<small>published</small></dd></div>
+    {% if overview %}
+    <div><dt>Ledger candidates</dt><dd>{{ overview.candidates }}<small>recorded privately</small></dd></div>
+    <div><dt>Ledger products</dt><dd>{{ overview.products }}<small>archive products logged</small></dd></div>
+    <div><dt>Ledger runs</dt><dd>{{ overview.runs }}<small>ingest and probe runs</small></dd></div>
+    {% else %}
+    <div><dt>Ledger</dt><dd>—<small>unavailable at build</small></dd></div>
+    {% endif %}
+  </dl>
+  <p class="small muted">Figures are counted when the site is built, not streamed live. Ledger figures are totals only; the ledger itself is not published.</p>
+  {% if not candidates %}
+  <div class="callout callout--note">
+    <p class="callout-title">No discovery claims</p>
+    <p>No candidate dossier has been published{% if overview %}, and the provenance ledger holds {{ overview.candidates }} candidate record{{ '' if overview.candidates == 1 else 's' }}{% endif %}. What is here today is infrastructure: specifications, a draft campaign plan, archive-access tests, and their provenance.</p>
+  </div>
+  {% endif %}
+</section>
+
+{% if manifests %}
+<section class="section" aria-labelledby="coverage-title">
+  <h2 class="section-title" id="coverage-title">Archive retrieval record <span class="count">{{ manifests | length }} manifests</span></h2>
+  <p class="prose small">Each row is one staged pack from a public archive. Counts are manifest rows: products retrieved and held in private project storage, rows excluded before retrieval, and failed attempts. Failures are kept as part of the record.</p>
+  {{ m.state_legend() }}
+  <div class="bars">
+  {% for view, it in manifests %}
+    {% set total = it.data.rows | length %}
+    <div class="bar-row">
+      <a href="{{ view.url }}#{{ it.id }}">{{ it.data.pack_dir }}</a>
+      {{ m.state_bar(it.data.counts, total, it.data.pack_dir) }}
+      <span class="total">{{ total }} rows</span>
+    </div>
+  {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="section" aria-labelledby="recent-title">
+  <h2 class="section-title" id="recent-title">Collections <span class="count">{{ views | length }}</span></h2>
+  {% if views %}
+  <ul class="entries">
+    {% for c in views | sort(attribute='published', reverse=True) %}
+    <li>
+      <article class="entry">
+        <div class="entry-type">{{ c.type }}</div>
+        <div>
+          <h3 class="entry-title"><a href="{{ c.url }}">{{ c.title }}</a></h3>
+          <p class="entry-summary">{{ c.summary }}</p>
+          {% if c.research_status %}<div class="badges"><span class="badge">{{ c.research_status }}</span></div>{% endif %}
+        </div>
+        <dl class="entry-facts">
+          <div><dt>Published</dt><dd>{{ c.published }}</dd></div>
+          <div><dt>Items</dt><dd>{{ c['items'] | length }}</dd></div>
+          <div><dt>Files</dt><dd>{{ c.downloads | length }}</dd></div>
+        </dl>
+      </article>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty"><h3>Nothing published yet</h3><p>The repository is empty until an operator publishes a collection. See the methods page for how publication works.</p></div>
+  {% endif %}
+</section>
+{% endblock %}

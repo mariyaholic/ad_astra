@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cygnus"
+version = "0.1.0"
+description = "Project Cygnus/Astraea astronomical data-forensics toolkit (analysis layer)"
+requires-python = ">=3.10"
+# Core is stdlib-only so the scaffold's unit tests run without the science stack.
+dependencies = []
+
+[project.optional-dependencies]
+mast = ["astroquery>=0.4.7", "astropy>=5.3", "lightkurve>=2.4"]
+timing = ["wotan>=1.12", "transitleastsquares>=1.0.24", "celerite2>=0.3", "batman-package>=2.4", "dynesty>=2.0"]
+imaging = ["photutils>=1.8", "sep>=1.4", "astroscrappy>=1.2"]
+analysis = ["numpy>=1.24", "astropy>=5.3"]
+moving = ["skyfield>=1.45", "astroquery>=0.4.7"]
+site = ["jinja2>=3.1", "pyyaml>=6.0"]
+test = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"cygnus.publish" = ["templates/*.j2", "static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "network: requires live internet access to public archives (not run by default)",
+]
+addopts = "-m 'not network'"

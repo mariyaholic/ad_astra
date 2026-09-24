@@ -1,0 +1,16 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}Withdrawn: {{ c.title }} · {{ site.title }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="crumbs"><a href="{{ url('repository/') }}">Repository</a><span aria-hidden="true">/</span>collections<span aria-hidden="true">/</span><span class="id">{{ c.id }}</span></p>
+  <p class="kicker">Collection · withdrawn</p>
+  <h1>{{ c.title }}</h1>
+  <p class="badges">{{ m.collection_status('withdrawn') }}</p>
+</header>
+<div class="callout callout--caution prose">
+  <p class="callout-title">This collection was withdrawn on <time datetime="{{ c.withdrawn.date }}">{{ c.withdrawn.date }}</time>.</p>
+  <p>{{ c.withdrawn.reason }}</p>
+  <p>Its pages and files are no longer served. This notice keeps the address stable so earlier citations resolve to an explanation rather than an error.</p>
+</div>
+{% endblock %}

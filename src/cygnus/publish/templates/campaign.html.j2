@@ -1,0 +1,115 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}{{ item.data.id }} ({{ item.data.status }}) · {{ site.title }}{% endblock %}
+{% block main %}
+{% set d = item.data %}
+<header class="page-head">
+  <p class="crumbs"><a href="{{ url('campaigns/') }}">Campaigns</a><span aria-hidden="true">/</span><span class="id">{{ d.id }}</span></p>
+  <p class="kicker">Campaign · <span class="id">{{ d.domain }}</span></p>
+  <h1><span class="id">{{ d.id }}</span>{% if item.title != d.id %}<br>{{ item.title }}{% endif %}</h1>
+  {% if item.description %}<p class="lede">{{ item.description }}</p>{% endif %}
+  {% if d.objective %}<p class="prose small">{{ d.objective }}</p>{% endif %}
+  <p class="badges">{% if d.status == 'draft' %}<span class="badge badge--draft">Draft · not executed</span>{% else %}<span class="badge">{{ d.status }}</span>{% endif %}</p>
+</header>
+
+{% if d.status == 'draft' %}
+<div class="callout callout--draft" role="note">
+  <p class="callout-title">Draft campaign — no results</p>
+  <p>This campaign has not been executed. It has {{ d.targets | length }} target{{ '' if d.targets | length == 1 else 's' }}, no search log, and no measurements. {% if d.status_note %}The specification itself says: “{{ d.status_note }}”.{% endif %} Nothing here is a finding.</p>
+</div>
+{% endif %}
+
+<div class="grid-2">
+  <div>
+    <section class="section" aria-labelledby="scope">
+      <h2 class="section-title" id="scope">Scope</h2>
+      <dl class="meta">
+        <dt>Domain</dt><dd class="id">{{ m.val(d.domain) }}</dd>
+        <dt>Target pool</dt><dd>{{ m.val(d.target_source) }}{% if d.target_source_note %} <span class="muted">— {{ d.target_source_note }}</span>{% endif %}</dd>
+        <dt>Targets</dt><dd>{% if d.targets %}{{ d.targets | join(', ') }}{% else %}<span class="unset">none selected yet</span>{% endif %}</dd>
+      </dl>
+    </section>
+
+    <section class="section" aria-labelledby="method">
+      <h2 class="section-title" id="method">Method <span class="count">{{ d.steps | length }} steps, run in order</span></h2>
+      {% if register_url %}<p class="small muted">Implementation status is taken from the <a href="{{ register_url }}">module register</a>. A step whose module is only designed cannot run yet.</p>{% endif %}
+      <ol class="steps">
+        {% for s in d.steps %}
+        <li>
+          <div class="step-name">{{ s.name }}</div>
+          {% if s.note %}<p class="step-note">{{ s.note }}</p>{% endif %}
+          {% if s.module %}{{ m.state(s.module.status_class) }} <span class="small muted"><span class="id">{{ s.module.module }}</span> — {{ s.module.status_html | safe }}</span>
+          {% else %}<span class="state state--unknown">status unknown</span> <span class="small muted">no matching module in the register</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+
+    <section class="section" aria-labelledby="thresholds">
+      <h2 class="section-title" id="thresholds">Thresholds</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Thresholds">
+        <table>
+          <thead><tr><th scope="col">Parameter</th><th scope="col">Value</th><th scope="col">Note</th></tr></thead>
+          <tbody>
+          {% for t in d.thresholds %}
+            <tr><td class="id">{{ t.name }}</td><td>{% if t.value is none %}<span class="unset">not set</span>{% else %}<span class="mono">{{ t.value }}</span>{% endif %}</td><td class="small">{{ m.val(t.note, '') }}</td></tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% if d.notes %}<p class="prose small">{{ d.notes }}</p>{% endif %}
+    </section>
+
+    <section class="section" aria-labelledby="log">
+      <h2 class="section-title" id="log">Search log</h2>
+      {% if d.status == 'draft' %}
+      <div class="empty"><h3>No search has run</h3><p>Screened, excluded, rejected and retained counts will be recorded here once the campaign executes. A draft has none.</p></div>
+      {% else %}
+      {% set docs = coll['items'] | selectattr('kind', 'equalto', 'document') | list %}
+      {% if docs %}<ul class="related">{% for dd in docs %}<li><span class="related-type">Document</span><a href="{{ dd.page_url }}">{{ dd.title }}</a></li>{% endfor %}</ul>
+      {% else %}<p class="unset">No published search log for this campaign.</p>{% endif %}
+      {% endif %}
+    </section>
+
+    <section class="section" aria-labelledby="negatives">
+      <h2 class="section-title" id="negatives">Negative results and limitations</h2>
+      {% if d.status == 'draft' %}
+      <p>No results of any kind yet. Known limitations of the plan as written:</p>
+      <ul>
+        {% if not d.targets %}<li>The target pool is empty; selection criteria are not yet pinned.</li>{% endif %}
+        {% set unset_thr = d.thresholds | selectattr('value', 'none') | list %}
+        {% if unset_thr %}<li>{{ unset_thr | length }} threshold{{ '' if unset_thr | length == 1 else 's' }} ({{ unset_thr | map(attribute='name') | join(', ') }}) remain unset until calibration.</li>{% endif %}
+        {% set planned = d.steps | selectattr('module') | selectattr('module.status_class', 'equalto', 'planned') | list %}
+        {% if planned %}<li>{{ planned | length }} of {{ d.steps | length }} steps depend on modules that are designed but not implemented ({{ planned | map(attribute='name') | join(', ') }}).</li>{% endif %}
+      </ul>
+      {% else %}
+      <p>Recorded in the campaign's report and search log, including every check marked not tested.</p>
+      {% endif %}
+    </section>
+  </div>
+
+  <aside class="stack" aria-label="Campaign details">
+    <div class="panel">
+      <p class="panel-title">Specification</p>
+      <dl class="meta">
+        <dt>File</dt><dd class="id">campaigns/{{ d.filename }}</dd>
+        <dt>Modified</dt><dd class="mono small">{{ d.source_modified_utc }}</dd>
+        <dt>Size</dt><dd>{{ m.bytes(d.bytes) }}</dd>
+      </dl>
+      {{ m.files(item.files) }}
+    </div>
+    <div class="panel">
+      <p class="panel-title">Published in</p>
+      <p><a href="{{ coll.url }}">{{ coll.title }}</a></p>
+      {% if backlinks or coll.related %}
+      <p class="panel-title">Related</p>
+      {{ m.related(backlinks + coll.related, item.page_url) }}
+      {% endif %}
+    </div>
+    <details class="disclose">
+      <summary>Specification text</summary>
+      <div class="body"><pre><code>{{ d.text }}</code></pre></div>
+    </details>
+  </aside>
+</div>
+{% endblock %}

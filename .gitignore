@@ -1,0 +1,20 @@
+# Cygnus worktree hygiene (AGENTS.md: credentials & bulky data out of the repo)
+state/
+scratch/
+cxg_venv/
+venv/
+.venv/
+*.pyc
+__pycache__/
+.pytest_cache/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+.env
+# built public site (regenerate with: python -m cygnus.publish build)
+build/
+
+# machine-local agent/editor config
+.claude/
+*.ipynb_checkpoints/

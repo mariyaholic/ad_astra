@@ -1,0 +1,60 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}Repository · {{ site.title }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="kicker">Repository · {{ entries | length }} entries</p>
+  <h1>Repository</h1>
+  <p class="lede">Everything the operator has published: collections and the documents, datasets, campaigns, software records and dossiers inside them. Third-party archive products are described and linked to their source archive, not re-hosted.</p>
+</header>
+
+<form class="filters" data-filter hidden role="search" aria-label="Filter the repository">
+  <div class="field">
+    <label for="q">Search titles and descriptions</label>
+    <input id="q" type="search" name="q" autocomplete="off" placeholder="e.g. TESS, manifest, prior-art">
+  </div>
+  <fieldset>
+    <legend>Type</legend>
+    <div class="chips">
+      <button type="button" class="chip" data-type="all" aria-pressed="true">All<span class="n">{{ entries | length }}</span></button>
+      {% for t, n in type_counts | dictsort %}
+      <button type="button" class="chip" data-type="{{ t }}" aria-pressed="false">{{ TYPE_LABELS.get(t, t) }}<span class="n">{{ n }}</span></button>
+      {% endfor %}
+    </div>
+  </fieldset>
+</form>
+<p class="result-count" data-result-count aria-live="polite">{{ entries | length }} entries</p>
+
+{% if entries %}
+<ul class="entries">
+  {% for e in entries %}
+  <li data-filter-row data-type="{{ e.type }}" data-search="{{ (e.title ~ ' ' ~ (e.summary or '') ~ ' ' ~ e.collection_title ~ ' ' ~ TYPE_LABELS.get(e.type, e.type) ~ ' ' ~ (e.research_status or '')) | lower }}">
+    <article class="entry">
+      <div class="entry-type">{{ TYPE_LABELS.get(e.type, e.type) }}{% if e.get('subtype') %}<br><span class="muted">{{ e.subtype }}</span>{% endif %}</div>
+      <div>
+        <h2 class="entry-title"><a href="{{ e.url }}">{{ e.title }}</a></h2>
+        {% if e.summary %}<p class="entry-summary">{{ e.summary }}</p>{% endif %}
+        <div class="badges">
+          {{ m.availability(e.availability) }}
+          {% if e.origin %}{{ m.origin(e.origin) }}{% endif %}
+          {% if e.research_status %}<span class="badge">{{ e.research_status }}</span>{% endif %}
+        </div>
+      </div>
+      <dl class="entry-facts">
+        {% if e.type != 'collection' %}<div><dt>In</dt><dd><a href="{{ url('collections/' ~ e.collection ~ '/') }}">{{ e.collection }}</a></dd></div>{% endif %}
+        <div><dt>Date</dt><dd>{{ m.val(e.date, 'undated') }}</dd></div>
+        <div><dt>Size</dt><dd>{% if e.size is not none %}{{ fmt_bytes(e.size) }}{% else %}<span class="unset">—</span>{% endif %}</dd></div>
+        <div><dt>License</dt><dd>{{ m.val(e.license, 'not specified') }}</dd></div>
+      </dl>
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+<div class="empty" data-filter-empty hidden><h2>No entries match</h2><p>Clear the search or choose another type.</p></div>
+{% else %}
+<div class="empty">
+  <h2>Nothing has been published yet</h2>
+  <p>Research material stays private until an operator adds it to a published collection. This is expected for a young project; it is not an error.</p>
+</div>
+{% endif %}
+{% endblock %}

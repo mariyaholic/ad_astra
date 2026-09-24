@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>{% block title %}{{ site.title }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ site.tagline }}{% endblock %}">
+<link rel="stylesheet" href="{{ url('static/site.css') }}">
+<link rel="icon" href="{{ url('static/favicon.svg') }}" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="{{ url('data/catalog.json') }}" title="Publication catalog (JSON)">
+<script src="{{ url('static/theme.js') }}"></script>
+<script src="{{ url('static/site.js') }}" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{% set nav = [
+  ('repository/', 'Repository'),
+  ('campaigns/', 'Campaigns'),
+  ('candidates/', 'Candidates'),
+  ('log/', 'Search log'),
+  ('methods/', 'Methods'),
+] %}
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{{ url() }}">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>{{ site.short_title }} <small>{{ site.subtitle }}</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+      {% for href, label in nav %}
+        <li><a href="{{ url(href) }}"{% if page_path.startswith(href) %} aria-current="page"{% endif %}>{{ label }}</a></li>
+      {% endfor %}
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+  {% block main %}{% endblock %}
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>{{ site.title }}</strong><br>{{ site.footer_note }}</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="{{ build_utc }}" class="mono">{{ build_utc }}</time> by cygnus {{ version }} from curated publication manifests.
+      <a href="{{ url('data/catalog.json') }}">Machine-readable catalog</a> · <a href="{{ url('methods/') }}#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

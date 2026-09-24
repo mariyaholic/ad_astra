@@ -1,0 +1,28 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}{{ item.title }} · {{ site.title }}{% endblock %}
+{% block main %}
+{% set d = item.data %}
+<header class="page-head">
+  <p class="crumbs"><a href="{{ url('repository/') }}">Repository</a><span aria-hidden="true">/</span><a href="{{ coll.url }}">{{ coll.id }}</a><span aria-hidden="true">/</span><span class="id">{{ d.filename }}</span></p>
+  <p class="kicker">Document · {{ d.filename }}</p>
+  <h1>{{ item.title }}</h1>
+  {% if item.description %}<p class="lede">{{ item.description }}</p>{% endif %}
+  <p class="badges">{{ m.origin(item.origin) }} {% if d.maintained %}<span class="badge badge--quiet">Maintained {{ d.maintained }}</span>{% endif %} {% if d.redacted %}<span class="badge badge--quiet" title="Private storage paths replaced with placeholders">Public copy · paths redacted</span>{% endif %}</p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    {% if d.toc %}
+    <p class="panel-title">On this page</p>
+    <ol>
+      {% for level, anchor, text in d.toc %}<li class="l{{ level }}"><a href="#{{ anchor }}">{{ text }}</a></li>{% endfor %}
+    </ol>
+    {% endif %}
+    {% if item.files %}<div class="section">{{ m.files(item.files) }}</div>{% endif %}
+    <p class="small muted section">Part of <a href="{{ coll.url }}">{{ coll.title }}</a>.{% if d.redacted %} Locations of private storage in this public copy read “[private path]” or “[private Drive store]”.{% endif %}</p>
+  </aside>
+  <article class="doc-body prose">
+    {{ d.html | safe }}
+  </article>
+</div>
+{% endblock %}

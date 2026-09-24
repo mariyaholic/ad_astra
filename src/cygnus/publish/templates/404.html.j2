@@ -1,0 +1,10 @@
+{% extends "base.html.j2" %}
+{% block title %}Not found · {{ site.title }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="kicker">404 · no such page</p>
+  <h1>Nothing is published at this address</h1>
+  <p class="lede">The page may never have existed, or its collection may still be private. Withdrawn collections keep a notice at their original address, so a missing page is not a withdrawal.</p>
+</header>
+<p><a class="btn" href="{{ url('repository/') }}">Browse the repository</a> <a class="btn btn--quiet" href="{{ url() }}">Home</a></p>
+{% endblock %}

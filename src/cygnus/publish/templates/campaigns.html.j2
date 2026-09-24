@@ -1,0 +1,34 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}Campaigns · {{ site.title }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="kicker">Campaigns · {{ campaigns | length }}</p>
+  <h1>Campaigns</h1>
+  <p class="lede">A campaign is a finite, reviewable search: a declared target pool, a fixed sequence of analysis steps, thresholds calibrated before use, and a search log that keeps rejected leads and null results.</p>
+</header>
+{% if campaigns %}
+<ul class="entries">
+  {% for coll, v in campaigns %}
+  {% set d = v.data %}
+  <li>
+    <article class="entry">
+      <div class="entry-type">{{ d.domain or 'campaign' }}</div>
+      <div>
+        <h2 class="entry-title"><a href="{{ v.page_url }}"><span class="id">{{ d.id }}</span>{% if v.title != d.id %} — {{ v.title }}{% endif %}</a></h2>
+        {% if v.description %}<p class="entry-summary">{{ v.description }}</p>{% endif %}
+        <div class="badges">{% if d.status == 'draft' %}<span class="badge badge--draft">Draft · not executed</span>{% else %}<span class="badge">{{ d.status }}</span>{% endif %}</div>
+      </div>
+      <dl class="entry-facts">
+        <div><dt>Steps</dt><dd>{{ d.steps | length }}</dd></div>
+        <div><dt>Targets</dt><dd>{{ d.targets | length }}</dd></div>
+        <div><dt>Collection</dt><dd><a href="{{ coll.url }}">{{ coll.id }}</a></dd></div>
+      </dl>
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="empty"><h2>No campaigns published</h2><p>Campaign specifications appear here once an operator publishes them.</p></div>
+{% endif %}
+{% endblock %}

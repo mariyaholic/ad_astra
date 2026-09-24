@@ -1,0 +1,29 @@
+# CYGNUS campaign spec (declarative; executed as a resumable DAG in Sprint 1)
+campaign: tess-mono-01
+domain: worlds.planetary.monotransit
+status: draft          # queued; not yet executed — do not cite results from this file
+
+target_pool:
+  source: manual       # Sprint 1 will pull candidates from TOI/DV-derived pools
+  targets: []
+
+steps:
+  - ingest.mast        # SPOC light curves + Tesscut cutouts (ledgered)
+  - detrend_lab        # robustness score across detrending families
+  - singletransit      # depth/duration/density posteriors + coverage constraints
+  - blendmap           # difference-image centroids; BEB verdicts
+  - jitterwatch        # pointing/centroid correlation audit
+  - priorart           # Known-Object Gate (gates 1-5, watchlists pinned)
+  - dossier            # CYGNUS dossier emission (ledger-driven)
+
+thresholds:
+  robustness_min: null   # pinned after injection_recovery calibration — not guessed
+  fa_alpha: null         # calibrated by nulllab; never assumed Gaussian
+
+storage:
+  scratch: env CYGNUS_SCRATCH          # bulk FITS/intermediates (nonsynced)
+  persistent: cygnus:Cygnus/           # rclone Drive path for reports/manifests
+
+notes: >
+  Placeholder pinning is forbidden: thresholds stay null until
+  injection_recovery/nulllab supply calibrated values. See ANALYSIS_STACK.md.

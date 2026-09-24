@@ -1,0 +1,19 @@
+{% extends "base.html.j2" %}
+{% block title %}Methods · {{ site.title }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="kicker">Methods and publication policy</p>
+  <h1>{{ methods.title if methods else 'Methods' }}</h1>
+</header>
+{% if methods %}
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>{% for level, anchor, text in methods.toc %}<li class="l{{ level }}"><a href="#{{ anchor }}">{{ text }}</a></li>{% endfor %}</ol>
+  </aside>
+  <article class="doc-body prose">{{ methods.html | safe }}</article>
+</div>
+{% else %}
+<div class="empty"><h2>Methods page not written</h2><p>Add <span class="id">publish/pages/methods.md</span> and rebuild.</p></div>
+{% endif %}
+{% endblock %}

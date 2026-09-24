@@ -1,0 +1,38 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Ad Astra — cover</title>
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; background: var(--bg); }
+  .cover svg { position: absolute; inset: 0; }
+  .ink { fill: var(--ink); }
+  .accent { fill: var(--accent); }
+  .rs { fill: var(--rule-strong); }
+  .blk { rx: var(--radius); }
+  .star { fill: var(--bg); rx: var(--radius-tight); }
+  .stroke { stroke: var(--bg); stroke-width: 2.4; fill: none; stroke-linecap: round; }
+  .text { position: absolute; left: 48px; bottom: 40px; max-width: 440px; }
+  .name { font-family: var(--font-serif); font-weight: 600; font-size: 84px; line-height: .95; white-space: nowrap; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+  .tag { font-family: var(--font-ui); font-size: 14px; line-height: 1.4; color: var(--ink-3); margin: 16px 0 0; }
+</style></head>
+<body>
+<div class="cover">
+  <svg viewBox="0 0 960 288" width="960" height="288" aria-hidden="true">
+    <!-- blocks: ink slab 240x288 (5 x s7 wide, full height, bleeds top/bottom/right); accent 192x144 (6 x s6 by 3 x s7); rule-strong 192x80 (s7 + s6, bleeds 16px off the bottom) -->
+    <!-- arrangement: one tall slab with two satellites stacked left of it, s6 (32px) between satellites, s4 (16px) to the slab -->
+    <!-- pattern: literal motif, the Northern Cross (Deneb, Sadr, Albireo, wing stars) at 7x the brand mark, bg-coloured squares on the ink slab: the one shape only this project owns -->
+    <!-- scales: s4 16, s6 32, s7 48; radius 3px on blocks, radius-tight 2px on stars -->
+    <rect class="accent blk" x="512" y="48" width="192" height="144"/>
+    <rect class="rs blk" x="512" y="224" width="192" height="80"/>
+    <rect class="ink" x="720" y="0" width="240" height="288"/>
+    <path class="stroke" d="M840.0 57.9 L840.0 232.9 M759.5 141.9 L920.5 106.9"/>
+    <rect class="star" x="828.8" y="46.7" width="22.4" height="22.4"/><rect class="star" x="830.2" y="114.6" width="19.6" height="19.6"/><rect class="star" x="831.6" y="224.5" width="16.8" height="16.8"/><rect class="star" x="751.1" y="133.5" width="16.8" height="16.8"/><rect class="star" x="912.1" y="98.5" width="16.8" height="16.8"/>
+  </svg>
+  <div class="text">
+    <p class="name">Ad Astra</p>
+    <p class="tag">Field-notebook design system for the Cygnus / Astraea research repository.</p>
+  </div>
+</div>
+</body>
+</html>

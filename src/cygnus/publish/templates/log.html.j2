@@ -1,0 +1,47 @@
+{% extends "base.html.j2" %}
+{% import "_macros.html.j2" as m %}
+{% block title %}Search log · {{ site.title }}{% endblock %}
+{% block main %}
+<header class="page-head">
+  <p class="kicker">Search log</p>
+  <h1>Search and retrieval log</h1>
+  <p class="lede">Runs, retrievals, exclusions and failures from published collections — including the ones that went nowhere. Nothing is dropped from this record because it was unproductive.</p>
+</header>
+
+{% if not groups and not manifests %}
+<div class="empty"><h2>No log entries published</h2><p>Run logs appear here when a published collection includes them.</p></div>
+{% endif %}
+
+{% for g in groups %}
+<section class="section" id="{{ g.item.id }}" aria-labelledby="{{ g.item.id }}-t">
+  <h2 class="section-title" id="{{ g.item.id }}-t">{{ g.item.title }} <span class="count">{{ g.runs | length }} run{{ '' if g.runs | length == 1 else 's' }} · <a href="{{ url('collections/' ~ g.collection.id ~ '/') }}#{{ g.item.id }}">{{ g.collection.id }}</a></span></h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="{{ g.item.title }}">
+    <table>
+      <thead><tr><th scope="col" class="num">Run</th><th scope="col">Script</th><th scope="col">Status</th><th scope="col">Started (UTC)</th><th scope="col">Finished (UTC)</th><th scope="col">Recorded summary</th></tr></thead>
+      <tbody>
+      {% for r in g.runs %}
+        <tr><td class="num">#{{ r.id }}</td><td class="id">{{ r.script }}</td><td>{{ m.state(r.status) }}</td><td class="mono small nowrap">{{ r.started_utc }}</td><td class="mono small nowrap">{{ m.val(r.finished_utc, 'no close recorded') }}</td><td class="small">{{ m.val(r.summary) }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endfor %}
+
+{% if manifests %}
+<section class="section" aria-labelledby="neg">
+  <h2 class="section-title" id="neg">Exclusions and failures</h2>
+  <p class="prose small">Every archive manifest row that did not produce a held product, with the reason recorded at the time.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Exclusions and failures">
+    <table>
+      <thead><tr><th scope="col">Pack</th><th scope="col">Product / probe</th><th scope="col">State</th><th scope="col">When (UTC)</th><th scope="col">Recorded reason</th></tr></thead>
+      <tbody>
+      {% for view, it in manifests %}{% for r in it.data.rows if r.state_class in ('excluded', 'failed') %}
+        <tr><td class="id"><a href="{{ view.url }}#{{ it.id }}">{{ it.data.pack_dir }}</a></td><td class="id">{{ r.product_id }}</td><td>{{ m.state(r.state_class, r.state) }}</td><td class="mono small nowrap">{{ m.val(r.retrieved_utc) }}</td><td class="small wrap-any">{{ m.val(r.note) }}</td></tr>
+      {% endfor %}{% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
