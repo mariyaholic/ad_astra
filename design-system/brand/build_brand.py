@@ -212,18 +212,22 @@ def concept_d(pts, stars, ink, colour=True, size=512, seed=DEFAULT_SEED):
     ux, uy = math.cos(a), -math.sin(a)
     nx, ny = -uy, ux
     ox, oy = cx + nx * tp["b"] * R, cy + ny * tp["b"] * R
-    half, bw = size * 0.49, size * 0.078          # bar reaches past the rim almost to the canvas edge
-    # the bar is a parallelogram with ends cut square to the canvas axis, for a hard, "slashed" look
-    ex, ey = ux * half, uy * half
-    px_, py_ = nx * bw / 2, ny * bw / 2
-    cut = size * 0.03
-    poly = [(ox - ex + px_, oy - ey + py_), (ox + ex + px_ - ux * cut, oy + ey + py_ - uy * cut),
-            (ox + ex - px_, oy + ey - py_), (ox - ex - px_ + ux * cut, oy - ey - py_ + uy * cut)]
-    ptxt = " ".join(f"{x:.2f},{y:.2f}" for x, y in poly)
+    half, bw = size * 0.5, size * 0.085          # bar reaches past the rim almost to the canvas edge
+    # the transit chord as a double-ended blade: a straight spine (+normal side), both ends tapering to a point,
+    # a bevelled cutting edge on the other side, and a fuller (groove) down the middle
     gap = size * 0.022
-    halo = [(x + (nx if i in (0, 1) else -nx) * gap, y + (ny if i in (0, 1) else -ny) * gap) for i, (x, y) in enumerate(poly)]
-    htxt = " ".join(f"{x:.2f},{y:.2f}" for x, y in halo)
-    body += [f'<polygon points="{htxt}" fill="{c["bg"]}"/>', f'<polygon points="{ptxt}" fill="{c["acc"]}"/>']
+    bevel = size * 0.15
+
+    def at(u_, v_):  # u_ along the chord from its centre, v_ across it (+ = spine)
+        return (ox + ux * u_ + nx * v_, oy + uy * u_ + ny * v_)
+
+    blade = [at(-half, bw * 0.28), at(-half + bevel * 0.3, bw / 2), at(half - bevel * 0.3, bw / 2), at(half, bw * 0.28),
+             at(half - bevel, -bw / 2), at(-half + bevel, -bw / 2)]
+    ptxt = " ".join(f"{x:.2f},{y:.2f}" for x, y in blade)
+    f1, f2 = at(-half * 0.6, bw * 0.12), at(half * 0.6, bw * 0.12)
+    body += [f'<polygon points="{ptxt}" fill="{c["bg"]}" stroke="{c["bg"]}" stroke-width="{gap * 2:.2f}" stroke-linejoin="miter" stroke-miterlimit="10"/>',
+             f'<polygon points="{ptxt}" fill="{c["acc"]}"/>',
+             f'<line x1="{f1[0]:.2f}" y1="{f1[1]:.2f}" x2="{f2[0]:.2f}" y2="{f2[1]:.2f}" stroke="{c["bg"]}" stroke-width="{bw * 0.13:.2f}" stroke-linecap="round" opacity=".55"/>']
     # the planet: a dark disc on the bar, in front of everything, with a hard rim
     t = tp["t"]                                    # signed distance along the bar, kept clear of Sadr at the centre
     qx, qy = ox + ux * R * t, oy + uy * R * t
@@ -249,7 +253,7 @@ def main() -> None:
     stars = load()
     pts, rot = project(stars)
     concepts = [("d", "Northern Cross, badged, with a transit", concept_d,
-                 f"The Northern Cross in its true catalogue shape, inside a round badge, struck through by a transit chord with a planet silhouette in front of the stars. The chord's angle, its offset from centre (an impact parameter) and the planet's place along it (kept clear of the central star) are drawn at random from a recorded seed ({DEFAULT_SEED}: {transit_params(DEFAULT_SEED)['angle']}°), so the mark is reproducible. Other seeds are shown below."),
+                 f"The Northern Cross in its true catalogue shape, inside a round badge, struck through by a transit chord drawn as a double-ended blade (straight spine, bevelled edge, fuller), with a planet silhouette riding it in front of the stars. The chord's angle, its offset from centre (an impact parameter) and the planet's place along it (kept clear of the central star) are drawn at random from a recorded seed ({DEFAULT_SEED}: {transit_params(DEFAULT_SEED)['angle']}°), so the mark is reproducible. Other seeds are shown below."),
                 ("a", "Northern Cross", concept_a,
                  "The five bright stars of the Northern Cross in their true relative positions from the Yale Bright Star Catalogue, sized by magnitude. Albireo, the swan's head, is drawn as its gold-and-blue double from the catalogue colours of its two stars."),
                 ("b", "Cross in a reticle", concept_b,
