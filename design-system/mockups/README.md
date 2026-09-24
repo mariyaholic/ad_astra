@@ -37,7 +37,8 @@ The page must be served over HTTP (it fetches `data/sky.json`); opening the file
 | bright stars | Yale Bright Star Catalogue (VizieR V/50), V ≤ 6.5 |
 | Milky Way glow | Gaia DR3 source counts, G < 11, per HEALPix level-5 cell |
 | zoomed star fields | Gaia DR3 cones around each target (J2016.0 positions) |
-| planet systems | NASA Exoplanet Archive `pscomppars` |
+| planet systems | NASA Exoplanet Archive `pscomppars` (orbits, radii, masses, impact parameters, stellar metallicity, age, rotation) |
+| atmospheres | NASA Exoplanet Archive `spectra`, `transitspec`, `emissionspec`: published spectra with references and measured dayside brightness temperatures. Molecule detections are interpretations in the papers and are not listed. |
 | survey images | CDS hips2fits: Pan-STARRS1 DR1 colour (Dec > −29°), else 2MASS colour |
 
 ## Common tasks
@@ -51,6 +52,7 @@ The page must be served over HTTP (it fetches `data/sky.json`); opening the file
 - Never draw a position, footprint or value that is not in an input above. If a query's footprint cannot be parsed, list it without a shape.
 - Renditions (system views, transit discs, generated fields, colour–magnitude diagrams) must say what they are generated from and which parts are illustrative (enlarged planets, unmeasured orbital phases, generic limb darkening).
 - Check states are shown exactly as recorded: passed, failed, inconclusive, not tested.
+- Every planet and star fact carries a tag: **measured** (archive value from observations), **calculated** (archive value computed from others, e.g. equilibrium temperature), **derived** (arithmetic here, e.g. size class, density), **expected** (textbook physics for the regime, not an observation). Portraits are illustrations keyed to these values; only the dayside glow is tied to a measurement (brightness temperature).
 - Third-party terms: Gaia (CC BY-SA 3.0 IGO), Pan-STARRS1, 2MASS and CDS/VizieR need the acknowledgements already present in the captions and `data/PROVENANCE.json`.
 - Keep it self-contained: no CDN scripts or web fonts (the published site's CSP is `default-src 'self'`).
 

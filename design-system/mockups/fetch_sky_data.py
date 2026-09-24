@@ -8,6 +8,7 @@ SHA-256) into data/PROVENANCE.json.
 * Milky Way glow     Gaia DR3 source counts, G < 11, per HEALPix level-5 cell (ESA Gaia TAP)
 * Zoomed star fields Gaia DR3 cones around each Sesame-resolved position (ESA Gaia TAP)
 * Planet systems     NASA Exoplanet Archive pscomppars for the project's planet hosts
+* Atmospheres       NASA Exoplanet Archive spectra / transitspec / emissionspec for those planets
 * Field imagery      CDS hips2fits colour cutouts: Pan-STARRS DR1 (Dec > -29) else 2MASS
 
 Target positions are NOT fetched here: they come from the project's own
@@ -125,7 +126,8 @@ def fetch_fields(prov: dict, targets: dict, only: set[str]) -> None:
 def fetch_planets(prov: dict) -> None:
     hosts = ", ".join("'" + h + "'" for h in EXO_HOSTS.values())
     q = ("SELECT hostname, pl_name, pl_letter, pl_orbper, pl_orbsmax, pl_rade, pl_radj, pl_bmasse, pl_orbeccen, "
-         "pl_eqt, pl_orbper_reflink, pl_rade_reflink, st_teff, st_rad, st_mass, st_spectype, sy_dist, disc_year, discoverymethod, tran_flag "
+         "pl_eqt, pl_orbper_reflink, pl_rade_reflink, st_teff, st_rad, st_mass, st_spectype, sy_dist, disc_year, discoverymethod, tran_flag, "
+         "pl_dens, pl_insol, pl_ratror, pl_imppar, pl_trandur, pl_orbincl, pl_bmassprov, st_met, st_metratio, st_logg, st_age, st_lum, st_rotp, st_vsin "
          f"FROM pscomppars WHERE hostname IN ({hosts}) ORDER BY hostname, pl_orbper")
     b = tap(EXO_TAP, q)
     (OUT / "planets_pscomppars.csv").write_bytes(b)
@@ -133,6 +135,32 @@ def fetch_planets(prov: dict) -> None:
            endpoint=EXO_TAP, query=q, rows=b.count(b"\n") - 1, sha256=sha(b),
            note="pscomppars mixes values from several references per planet; pl_orbper_reflink and pl_rade_reflink name the period and radius references",
            terms="NASA Exoplanet Archive: public; acknowledge per archive policy")
+
+
+def fetch_spectra(prov: dict) -> None:
+    """Published atmospheric spectra of the project's planets: the catalogue of spectra and the data points."""
+    hosts = ", ".join("'" + h + "'" for h in EXO_HOSTS.values())
+    names = [r.split(",")[0].strip('"') for r in tap(EXO_TAP, f"SELECT pl_name FROM pscomppars WHERE hostname IN ({hosts})").decode().splitlines()[1:]]
+    inlist = ", ".join("'" + n + "'" for n in names)
+    queries = {
+        "spectra_catalogue.csv": ("NASA Exoplanet Archive, Atmospheric Spectroscopy (spectra)",
+            f"SELECT pl_name, spec_type, authors, num_datapoints, instrument, facility, minwavelng, maxwavelng, note, bibcode "
+            f"FROM spectra WHERE pl_name IN ({inlist}) ORDER BY pl_name, spec_type, authors"),
+        "spectra_transmission.csv": ("NASA Exoplanet Archive, Transit Spectroscopy (transitspec)",
+            f"SELECT plntname, centralwavelng, bandwidth, plntransdep, plntransdeperr1, plntransdeperr2, plntransdeplim, "
+            f"plnratror, facility, instrument, plntranreflink FROM transitspec WHERE plntname IN ({inlist}) ORDER BY plntname, centralwavelng"),
+        "spectra_emission.csv": ("NASA Exoplanet Archive, Emission Spectroscopy (emissionspec)",
+            f"SELECT plntname, centralwavelng, bandwidth, especlipdep, especlipdeperr1, especlipdeperr2, especlipdeplim, "
+            f"espbritemp, espbritemperr1, espbritemperr2, espbritemplim, facility, instrument, note, plntreflink "
+            f"FROM emissionspec WHERE plntname IN ({inlist}) ORDER BY plntname, centralwavelng"),
+    }
+    for fn, (src, q) in queries.items():
+        b = tap(EXO_TAP, q)
+        (OUT / fn).write_bytes(b)
+        record(prov, fn, source=src, endpoint=EXO_TAP, query=q, rows=b.count(b"\n") - 1, sha256=sha(b),
+               note="Published measurements with their references; species identifications are not part of these tables",
+               terms="NASA Exoplanet Archive: public; acknowledge per archive policy and cite the listed references")
+        print(fn, b.count(b"\n") - 1)
 
 
 def fetch_images(prov: dict, targets: dict, only: set[str]) -> None:
@@ -163,7 +191,7 @@ def fetch_images(prov: dict, targets: dict, only: set[str]) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", nargs="*", default=[])
-    ap.add_argument("--skip", nargs="*", default=[], help="bsc density fields planets images")
+    ap.add_argument("--skip", nargs="*", default=[], help="bsc density fields planets spectra images")
     ap.add_argument("--missing", action="store_true", help="only targets without a field file yet (new analyses)")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -181,9 +209,10 @@ def main() -> None:
     only = set(a.only)
     if a.missing:
         only = {n for n in targets if not (OUT / f"field_{slug(n)}.csv").exists()} or {"<none>"}
-        a.skip = list(set(a.skip) | {"bsc", "density", "planets"})
+        a.skip = list(set(a.skip) | {"bsc", "density", "planets", "spectra"})
     steps = {"bsc": lambda: fetch_bsc(prov), "density": lambda: fetch_density(prov),
              "fields": lambda: fetch_fields(prov, targets, only), "planets": lambda: fetch_planets(prov),
+             "spectra": lambda: fetch_spectra(prov),
              "images": lambda: fetch_images(prov, targets, only)}
     for k, fn in steps.items():
         if k in a.skip:

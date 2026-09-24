@@ -9,12 +9,12 @@
   "terms": "VizieR/CDS: free use with acknowledgement of CDS and the catalogue authors"
  },
  "planets_pscomppars.csv": {
-  "retrieved_utc": "2026-09-24T06:10:31Z",
+  "retrieved_utc": "2026-09-24T07:03:21Z",
   "source": "NASA Exoplanet Archive, Planetary Systems Composite Parameters",
   "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
-  "query": "SELECT hostname, pl_name, pl_letter, pl_orbper, pl_orbsmax, pl_rade, pl_radj, pl_bmasse, pl_orbeccen, pl_eqt, pl_orbper_reflink, pl_rade_reflink, st_teff, st_rad, st_mass, st_spectype, sy_dist, disc_year, discoverymethod, tran_flag FROM pscomppars WHERE hostname IN ('HD 39091', 'HD 209458', 'WASP-12', 'TRAPPIST-1', 'GJ 1214', '51 Peg', 'AU Mic', 'WASP-126', 'DS Tuc A', 'iot Hor', 'Proxima Cen') ORDER BY hostname, pl_orbper",
+  "query": "SELECT hostname, pl_name, pl_letter, pl_orbper, pl_orbsmax, pl_rade, pl_radj, pl_bmasse, pl_orbeccen, pl_eqt, pl_orbper_reflink, pl_rade_reflink, st_teff, st_rad, st_mass, st_spectype, sy_dist, disc_year, discoverymethod, tran_flag, pl_dens, pl_insol, pl_ratror, pl_imppar, pl_trandur, pl_orbincl, pl_bmassprov, st_met, st_metratio, st_logg, st_age, st_lum, st_rotp, st_vsin FROM pscomppars WHERE hostname IN ('HD 39091', 'HD 209458', 'WASP-12', 'TRAPPIST-1', 'GJ 1214', '51 Peg', 'AU Mic', 'WASP-126', 'DS Tuc A', 'iot Hor', 'Proxima Cen') ORDER BY hostname, pl_orbper",
   "rows": 22,
-  "sha256": "bdd585098e3cd1f879cf800e01be8aacd426273bbd2a79325520922d731beef4",
+  "sha256": "96bc27b52b430e6dabeeed1d2d7640ec567faacde192d5d171d221768bf6ed09",
   "note": "pscomppars mixes values from several references per planet; pl_orbper_reflink and pl_rade_reflink name the period and radius references",
   "terms": "NASA Exoplanet Archive: public; acknowledge per archive policy"
  },
@@ -585,5 +585,35 @@
   "sha256": "a1be18037ad592338ac01ec7012f86045689fd0e673c6334792ec7d3df8acfbb",
   "note": "cell centre = mean unit vector of member sources",
   "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "spectra_catalogue.csv": {
+  "retrieved_utc": "2026-09-24T07:03:29Z",
+  "source": "NASA Exoplanet Archive, Atmospheric Spectroscopy (spectra)",
+  "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
+  "query": "SELECT pl_name, spec_type, authors, num_datapoints, instrument, facility, minwavelng, maxwavelng, note, bibcode FROM spectra WHERE pl_name IN ('HD 39091 b', 'pi Men d', 'GJ 1214 b', 'HD 209458 b', 'WASP-12 b', 'TRAPPIST-1 b', 'TRAPPIST-1 c', 'TRAPPIST-1 d', 'TRAPPIST-1 e', 'TRAPPIST-1 f', 'TRAPPIST-1 g', 'TRAPPIST-1 h', 'AU Mic b', 'AU Mic c', 'AU Mic e', 'AU Mic d', 'pi Men c', 'DS Tuc A b', 'WASP-126 b', 'Proxima Cen d', 'Proxima Cen b', '51 Peg b') ORDER BY pl_name, spec_type, authors",
+  "rows": 133,
+  "sha256": "464f39178b8cd64b4a89bed1f3f6da7f5a691a4f7ddd16d9e130fcb6f922950d",
+  "note": "Published measurements with their references; species identifications are not part of these tables",
+  "terms": "NASA Exoplanet Archive: public; acknowledge per archive policy and cite the listed references"
+ },
+ "spectra_transmission.csv": {
+  "retrieved_utc": "2026-09-24T07:03:32Z",
+  "source": "NASA Exoplanet Archive, Transit Spectroscopy (transitspec)",
+  "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
+  "query": "SELECT plntname, centralwavelng, bandwidth, plntransdep, plntransdeperr1, plntransdeperr2, plntransdeplim, plnratror, facility, instrument, plntranreflink FROM transitspec WHERE plntname IN ('HD 39091 b', 'pi Men d', 'GJ 1214 b', 'HD 209458 b', 'WASP-12 b', 'TRAPPIST-1 b', 'TRAPPIST-1 c', 'TRAPPIST-1 d', 'TRAPPIST-1 e', 'TRAPPIST-1 f', 'TRAPPIST-1 g', 'TRAPPIST-1 h', 'AU Mic b', 'AU Mic c', 'AU Mic e', 'AU Mic d', 'pi Men c', 'DS Tuc A b', 'WASP-126 b', 'Proxima Cen d', 'Proxima Cen b', '51 Peg b') ORDER BY plntname, centralwavelng",
+  "rows": 402,
+  "sha256": "a5827c5ec4ad4d12ed5370e977f6eff0800cdd07d8e31c05cd0cfe317b3de552",
+  "note": "Published measurements with their references; species identifications are not part of these tables",
+  "terms": "NASA Exoplanet Archive: public; acknowledge per archive policy and cite the listed references"
+ },
+ "spectra_emission.csv": {
+  "retrieved_utc": "2026-09-24T07:03:35Z",
+  "source": "NASA Exoplanet Archive, Emission Spectroscopy (emissionspec)",
+  "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
+  "query": "SELECT plntname, centralwavelng, bandwidth, especlipdep, especlipdeperr1, especlipdeperr2, especlipdeplim, espbritemp, espbritemperr1, espbritemperr2, espbritemplim, facility, instrument, note, plntreflink FROM emissionspec WHERE plntname IN ('HD 39091 b', 'pi Men d', 'GJ 1214 b', 'HD 209458 b', 'WASP-12 b', 'TRAPPIST-1 b', 'TRAPPIST-1 c', 'TRAPPIST-1 d', 'TRAPPIST-1 e', 'TRAPPIST-1 f', 'TRAPPIST-1 g', 'TRAPPIST-1 h', 'AU Mic b', 'AU Mic c', 'AU Mic e', 'AU Mic d', 'pi Men c', 'DS Tuc A b', 'WASP-126 b', 'Proxima Cen d', 'Proxima Cen b', '51 Peg b') ORDER BY plntname, centralwavelng",
+  "rows": 81,
+  "sha256": "e5b7cdab2e0a8260a6de6ccc1795f84425bb8abd34dcb7135b5a2c0fb8ec640b",
+  "note": "Published measurements with their references; species identifications are not part of these tables",
+  "terms": "NASA Exoplanet Archive: public; acknowledge per archive policy and cite the listed references"
  }
 }

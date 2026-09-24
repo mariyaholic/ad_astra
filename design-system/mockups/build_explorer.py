@@ -191,20 +191,139 @@ def sep_deg(a, b) -> float:
 
 
 # ------------------------------------------------------------------ renditions
+STAR_KEYS = ("st_teff", "st_rad", "st_mass", "sy_dist", "st_met", "st_logg", "st_age", "st_lum", "st_rotp", "st_vsin")
+
+
+_ACCENT = {"ACUTE": "\u0301", "GRAVE": "\u0300", "UML": "\u0308", "TILDE": "\u0303", "CIRC": "\u0302", "CEDIL": "\u0327"}
+
+
+def ref_label(refstr: str) -> str:
+    """Archive reference keys ('L_OACUTE_PEZ_MORALES_ET_AL__2010') to readable text ('López Morales et al. 2010')."""
+    import unicodedata
+
+    def accent(m: re.Match) -> str:
+        return unicodedata.normalize("NFC", m.group(1).lower() + _ACCENT[m.group(2)])
+
+    # accented letters are glued to their word: L_OACUTE_PEZ -> Lópe z pieces joined without spaces
+    t = re.sub(r"_?(?:AMP_)?([A-Z])(ACUTE|GRAVE|UML|TILDE|CIRC|CEDIL)_?", lambda m: "|" + accent(m) + "|", refstr)
+    t = t.replace("|", "\u2063")  # invisible separator marks the glue points
+    words = [w for w in re.split(r"_+", t) if w]
+    out = []
+    for w in words:
+        parts = w.split("\u2063")
+        word = "".join(parts)
+        out.append(word if word.isdigit() else word[:1].upper() + word[1:].lower())
+    text = " ".join(out)
+    return re.sub(r"\bEt Al\b", "et al.", text)
+
+
+def _ref(link: str | None) -> dict | None:
+    m = re.search(r"refstr=(\S+) href=(\S+?)[ >]", link or "")
+    return {"ref": ref_label(m.group(1)), "url": m.group(2)} if m else None
+
+
+def spectra_by_planet() -> dict:
+    """Published spectra (catalogue rows and data points) per planet, as fetched; nothing interpreted."""
+    out: dict = {}
+    f = DATA / "spectra_catalogue.csv"
+    if f.exists():
+        for r in csv.DictReader(f.open(encoding="utf-8")):
+            out.setdefault(r["pl_name"], {"catalogue": [], "transmission": [], "emission": []})["catalogue"].append({
+                "type": r["spec_type"], "authors": r["authors"], "n": int(fnum(r["num_datapoints"]) or 0),
+                "instrument": r["instrument"], "facility": r["facility"], "wl": [fnum(r["minwavelng"]), fnum(r["maxwavelng"])],
+                "bibcode": r["bibcode"] or None})
+    f = DATA / "spectra_transmission.csv"
+    if f.exists():
+        for r in csv.DictReader(f.open(encoding="utf-8")):
+            d, k = fnum(r["plntransdep"]), fnum(r["plnratror"])
+            entry = out.setdefault(r["plntname"], {"catalogue": [], "transmission": [], "emission": []})
+            if fnum(r["centralwavelng"]) is None:
+                continue
+            derived = False
+            if d is None and k is not None and k < 0.5:   # depth (per cent) from the tabulated Rp/R*: (Rp/R*)^2
+                d, derived = 100 * k * k, True
+            if d is None:
+                entry["skipped"] = entry.get("skipped", 0) + 1   # e.g. an Rp/R* column value that cannot be a ratio
+                continue
+            entry["transmission"].append({
+                "wl": fnum(r["centralwavelng"]), "bw": fnum(r["bandwidth"]), "depth": d, "from_ratror": derived,
+                "e1": None if derived else fnum(r["plntransdeperr1"]),
+                "e2": None if derived else fnum(r["plntransdeperr2"]), "lim": int(fnum(r["plntransdeplim"]) or 0),
+                "inst": r["instrument"], **(_ref(r["plntranreflink"]) or {"ref": None, "url": None})})
+    f = DATA / "spectra_emission.csv"
+    if f.exists():
+        for r in csv.DictReader(f.open(encoding="utf-8")):
+            if fnum(r["centralwavelng"]) is None:
+                continue
+            out.setdefault(r["plntname"], {"catalogue": [], "transmission": [], "emission": []})["emission"].append({
+                "wl": fnum(r["centralwavelng"]), "bw": fnum(r["bandwidth"]), "depth": fnum(r["especlipdep"]),
+                "e1": fnum(r["especlipdeperr1"]), "e2": fnum(r["especlipdeperr2"]), "lim": int(fnum(r["especlipdeplim"]) or 0),
+                "tb": fnum(r["espbritemp"]), "tb_e1": fnum(r["espbritemperr1"]), "tb_e2": fnum(r["espbritemperr2"]),
+                "tb_lim": int(fnum(r["espbritemplim"]) or 0), "inst": r["instrument"],
+                **(_ref(r["plntreflink"]) or {"ref": None, "url": None})})
+    return out
+
+
+def characterise(pl: dict) -> list[dict]:
+    """Derived descriptions with their rule and basis stated. 'derived' = arithmetic on archive values;
+    'expected' = textbook physics for that regime, not an observation of this planet."""
+    out = []
+    R, M, rho, teq, P = pl.get("rade"), pl.get("mass_e"), pl.get("dens"), pl.get("teq"), pl.get("P")
+    if R is not None:
+        if R < 1.6:
+            cls, why = "rocky-size", "radius below ~1.6 R⊕, where most well-measured planets are rocky"
+        elif R < 4:
+            cls, why = "sub-Neptune", "radius 1.6–4 R⊕; composition degenerate (rock plus water and/or a gas envelope)"
+        elif R < 8:
+            cls, why = "Neptune-size", "radius 4–8 R⊕; a substantial hydrogen–helium envelope is needed"
+        else:
+            cls, why = "giant", "radius above 8 R⊕; a gas giant"
+        if not pl.get("transits"):
+            why += " (radius is an archive estimate for this non-transiting planet)"
+        out.append({"key": "class", "label": "Size class", "value": cls, "basis": "derived", "rule": why})
+    if rho is not None:
+        out.append({"key": "density", "label": "Bulk density", "value": f"{rho:.2f} g cm⁻³", "basis": "derived",
+                    "rule": "archive mass and radius; Earth 5.51, Jupiter 1.33, Saturn 0.69"})
+    if teq is not None:
+        if teq > 2200:
+            reg = "ultra-hot: molecules such as H₂O partly dissociate on the dayside; strong day–night contrast"
+        elif teq > 1300:
+            reg = "hot: CO and H₂O expected to dominate the gas; alkali metals (Na, K) visible if skies are clear"
+        elif teq > 600:
+            reg = "warm: CH₄ becomes favoured as temperature falls; hazes likely"
+        elif teq > 250:
+            reg = "temperate: water could condense depending on pressure and albedo"
+        else:
+            reg = "cold"
+        out.append({"key": "regime", "label": "Temperature regime", "value": reg, "basis": "expected",
+                    "rule": f"from the archive equilibrium temperature {teq:.0f} K (itself calculated, assuming an albedo); equilibrium chemistry, not a detection"})
+    if P is not None and P < 10:
+        out.append({"key": "tides", "label": "Rotation", "value": "probably tidally locked (one face to the star)", "basis": "expected",
+                    "rule": f"orbital period {P:.2f} d; close-in planets are expected to synchronise, not measured here"})
+    return out
+
+
 def planets_by_host() -> dict:
     out: dict = {}
     f = DATA / "planets_pscomppars.csv"
     if not f.exists():
         return out
+    spec = spectra_by_planet()
     for r in csv.DictReader(f.open(encoding="utf-8")):
-        ref = re.search(r"refstr=(\S+) href=(\S+?)[ >]", r["pl_orbper_reflink"] or "")
-        out.setdefault(r["hostname"], {"star": {k: fnum(r[k]) for k in ("st_teff", "st_rad", "st_mass", "sy_dist")} | {"spt": r["st_spectype"] or None},
-                                       "planets": []})["planets"].append({
+        ref = _ref(r["pl_orbper_reflink"])
+        star = {k: fnum(r.get(k)) for k in STAR_KEYS} | {"spt": r["st_spectype"] or None, "metratio": r.get("st_metratio") or None}
+        pl = {
             "name": r["pl_name"], "P": fnum(r["pl_orbper"]), "a": fnum(r["pl_orbsmax"]), "rade": fnum(r["pl_rade"]),
-            "mass_e": fnum(r["pl_bmasse"]), "e": fnum(r["pl_orbeccen"]), "teq": fnum(r["pl_eqt"]),
+            "mass_e": fnum(r["pl_bmasse"]), "mass_prov": r.get("pl_bmassprov") or None, "e": fnum(r["pl_orbeccen"]),
+            "teq": fnum(r["pl_eqt"]), "dens": fnum(r.get("pl_dens")), "insol": fnum(r.get("pl_insol")),
+            "ratror": fnum(r.get("pl_ratror")), "b": fnum(r.get("pl_imppar")), "dur_h": fnum(r.get("pl_trandur")),
+            "incl": fnum(r.get("pl_orbincl")),
             "year": r["disc_year"], "method": r["discoverymethod"], "transits": r.get("tran_flag") == "1",
-            "ref": ref.group(1).replace("_", " ").replace("  ", " ") if ref else None, "ref_url": ref.group(2) if ref else None,
-        })
+            "ref": ref["ref"] if ref else None, "ref_url": ref["url"] if ref else None,
+            "spectra": spec.get(r["pl_name"]),
+        }
+        pl["traits"] = characterise(pl)
+        out.setdefault(r["hostname"], {"star": star, "planets": []})["planets"].append(pl)
     return out
 
 

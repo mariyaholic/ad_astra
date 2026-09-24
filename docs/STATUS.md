@@ -19,7 +19,8 @@ Last updated: 2026-09-24 (UTC). Read this after `AGENTS.md` when picking the pro
 1. **Convert the published site to the explorer design?** The plan: the explorer as the home page, one page per target and an observing log. After that, update `design-system/project/` to match.
 2. **Publish the restricted source archive** in `publish/collections/cygnus-software-0-1-0.json`? It was withheld while no licence existed; the licence is now Apache-2.0, but nobody has decided to publish it.
 3. **Deployment target** for `build/site/` (GitHub Pages or another static host). Nothing is deployed.
-4. If the explorer's Gaia-derived files are published, Gaia's share-alike terms (CC BY-SA 3.0 IGO) apply to those files.
+4. **Logo.** Three concepts from real catalogue data are in `design-system/brand/index.html` (A Northern Cross, B cross in a reticle, C transit). Once one is chosen: final outlined SVGs, favicon set, and updates to the explorer header, the site and the design system.
+5. If the explorer's Gaia-derived files are published, Gaia's share-alike terms (CC BY-SA 3.0 IGO) apply to those files.
 
 ## Known problems (surface them; do not paper over)
 

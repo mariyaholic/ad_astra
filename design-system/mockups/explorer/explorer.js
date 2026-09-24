@@ -671,7 +671,7 @@
     if (t.records) P.append(recordsSection(t));
     if (t.image) P.append(imageSection(t));
     P.append(patchSection(t));
-    if (t.system) P.append(planetTable(t));
+    // planet parameters now live in the per-planet cards of the rendition section
     P.append(sourceSection(t));
     renderPanelExtras(t);
     $('#panel').scrollTop = 0;
@@ -773,6 +773,9 @@
     const out = [h('h3', {}, 'Rendition · generated from catalogue values'), h('figure', {}, c1, h('figcaption', {}, notes.join(' ')))];
     const tr = pls.filter(p => p.transits && p.rade);
     if (tr.length) out.push(transitRendition(t, tr, Rs, Ts));
+    out.push(hostStarCard(t));
+    out.push(h('h3', {}, `Planets · what is known`), ...t.system.planets.map(pl => planetCard(pl, st)),
+      h('p', { class: 'note' }, 'Tags: measured = archive value from observations; calculated = archive value computed from other parameters; derived = arithmetic on archive values here; expected = textbook physics for that regime, not an observation of this planet. Portraits are illustrations built from these values: colours, bands and textures are schematic, and no surface or cloud map is known for any of these planets.'));
     return out;
   }
 
@@ -782,22 +785,160 @@
     c.setAttribute('aria-label', 'Transit geometry rendition, star and planet discs to scale');
     const pick = tr.find(p => folds(t).some(f => Math.abs(f.period_days - p.P) / p.P < 1e-3)) || tr[0];
     const meas = folds(t).filter(f => f.depth && Math.abs(f.period_days - pick.P) / pick.P < 1e-3);
-    const k = pick.rade * 0.0091577 / Rs;
+    const k = pick.rade * 0.0091577 / Rs, bImp = pick.b != null && pick.b < 1 + k ? pick.b : null;
     const start = performance.now();
     const drawT = now => {
       g.clearRect(0, 0, W2, H2); g.fillStyle = '#02030a'; g.fillRect(0, 0, W2, H2);
       limbDisc(g, cx, cy, R, Ts, 0.6);
       const u = reduceMotion ? 0.5 : ((now - start) / 7000) % 1;
-      const x = cx + (u * 2 - 1) * (R + k * R + 30);
-      g.fillStyle = '#000'; g.beginPath(); g.arc(x, cy, Math.max(1.2, k * R), 0, 7); g.fill();
+      const x = cx + (u * 2 - 1) * (R + k * R + 30), y = cy + (bImp || 0) * R;
+      g.fillStyle = '#000'; g.beginPath(); g.arc(x, y, Math.max(1.2, k * R), 0, 7); g.fill();
       g.fillStyle = 'rgba(232,228,220,.6)'; g.font = '10.5px ' + css('--sans');
       g.fillText(`${pick.name}: Rp/R★ = ${k.toFixed(3)}  →  (Rp/R★)² = ${(k * k * 100).toFixed(2)} %`, 8, 14);
       if (meas.length) g.fillText(`in the project's own data: depth ${meas.map(f => (f.depth.value * 100).toFixed(2) + ' %').join(' · ')}`, 8, H2 - 8);
     };
     if (reduceMotion) drawT(performance.now()); else rendDraws.push(drawT);
-    const cap = [`Star and planet discs to scale from the archive radii (R★ = ${(+Rs).toFixed(2)} R☉, Rp = ${pick.rade.toFixed(2)} R⊕), crossing at impact parameter 0 (not fetched). Generic quadratic limb darkening.`];
+    const cap = [`Star and planet discs to scale from the archive radii (R★ = ${(+Rs).toFixed(2)} R☉, Rp = ${pick.rade.toFixed(2)} R⊕), ${bImp != null ? `crossing at the archive impact parameter b = ${bImp.toFixed(2)}` : 'crossing centrally (no impact parameter in the archive)'}. Generic quadratic limb darkening.`];
     if (meas.length) cap.push(`Project depths (${meas.map(f => `${f.label}: ${f.depth.n_in} in-transit cadences`).join('; ')}) are ${meas[0].depth.method}. A depth is not (Rp/R★)² exactly, because of limb darkening and impact parameter.`);
     return h('figure', {}, c, h('figcaption', {}, cap.join(' ')));
+  }
+
+  // --- planet portraits and characteristics -------------------------------------
+  const TAG = { measured: 'measured', calculated: 'calculated', derived: 'derived', expected: 'expected' };
+  const tag = k => h('span', { class: `tag tag-${k}` }, TAG[k]);
+  function seeded(str) { let x = 2166136261; for (const c of str) x = Math.imul(x ^ c.charCodeAt(0), 16777619); return () => ((x = Math.imul(x ^ (x >>> 15), 2246822507) ^ Math.imul(x ^ (x >>> 13), 3266489909)) >>> 0) / 4294967296; }
+  function sizeClass(pl) { const R = pl.rade; return R == null ? null : R < 1.6 ? 'rocky' : R < 4 ? 'subnep' : R < 8 ? 'neptune' : 'giant'; }
+  function measuredTb(pl) {
+    const e = (pl.spectra && pl.spectra.emission || []).filter(x => x.tb != null && !x.tb_lim);
+    if (!e.length) return null;
+    const v = e.map(x => x.tb).sort((a, b) => a - b);
+    return { median: v[Math.floor(v.length / 2)], min: v[0], max: v[v.length - 1], n: v.length, refs: [...new Set(e.map(x => x.ref).filter(Boolean))] };
+  }
+  function basePalette(cls, teq) {
+    const T = teq == null ? 500 : teq;
+    if (cls === 'giant') return T > 2200 ? [[46, 30, 26], [62, 40, 32]] : T > 1300 ? [[78, 60, 50], [104, 82, 66]] : T > 600 ? [[176, 146, 104], [206, 180, 138]] : [[196, 184, 160], [222, 212, 190]];
+    if (cls === 'neptune' || cls === 'subnep') return T > 1000 ? [[110, 94, 84], [132, 114, 100]] : T > 500 ? [[168, 166, 156], [186, 184, 176]] : [[132, 170, 200], [160, 192, 216]];
+    return T > 1000 ? [[72, 62, 58], [96, 84, 76]] : [[128, 116, 104], [152, 140, 126]];
+  }
+  function planetPortrait(pl, size = 200) {
+    const [c, g] = mkCanvas(size, size);
+    const W2 = size * 2, img = g.createImageData(W2, W2), d = img.data, R = W2 * 0.4, cx = W2 / 2, cy = W2 / 2;
+    const cls = sizeClass(pl) || 'subnep', [c0, c1] = basePalette(cls, pl.teq), rnd = seeded(pl.name);
+    const ph = [rnd() * 6, rnd() * 6, rnd() * 6], craters = cls === 'rocky' ? Array.from({ length: 26 }, () => [rnd() * 2 - 1, rnd() * 2 - 1, 0.04 + rnd() * 0.16, rnd() * 0.5]) : [];
+    const tb = measuredTb(pl), glowT = tb ? tb.median : null, glowC = glowT ? kelvinRGB(glowT) : null;
+    const glowK = glowT ? Math.min(1.3, Math.pow(glowT / 2600, 4)) : 0;
+    const L = [-0.78, -0.18, 0.6], Ln = Math.hypot(...L);
+    for (let py = 0; py < W2; py++) for (let px = 0; px < W2; px++) {
+      const x = (px - cx) / R, y = (py - cy) / R, r2 = x * x + y * y, i = (py * W2 + px) * 4;
+      if (r2 > 1) { d[i + 3] = 0; continue; }
+      const z = Math.sqrt(1 - r2), lat = Math.asin(-y), lon = Math.atan2(x, z);
+      let m;
+      if (cls === 'giant') m = 0.5 + 0.5 * Math.sin(lat * 9 + ph[0] + 0.35 * Math.sin(lon * 3 + lat * 4 + ph[1])) * (0.7 + 0.3 * Math.sin(lat * 23 + ph[2]));
+      else if (cls === 'rocky') { m = 0.55 + 0.2 * Math.sin(lon * 5 + ph[0]) * Math.sin(lat * 4 + ph[1]); for (const [a, b, rr, dk] of craters) { const dd = Math.hypot(x - a, y - b); if (dd < rr) m -= dk * (1 - dd / rr); } }
+      else m = 0.5 + 0.18 * Math.sin(lat * 5 + ph[0] + 0.2 * Math.sin(lon * 2 + ph[1]));
+      m = Math.max(0, Math.min(1, m));
+      const nd = Math.max(0, (x * L[0] + -y * L[1] + z * L[2]) / Ln);
+      const light = 0.035 + 0.965 * Math.pow(nd, 0.85);
+      const limb = cls === 'rocky' ? 0 : Math.pow(1 - z, 3) * 0.35 * Math.min(1, nd * 3);
+      for (let k = 0; k < 3; k++) {
+        let v = (c0[k] + (c1[k] - c0[k]) * m) * light + limb * [150, 185, 230][k];
+        if (glowC) v = v * (1 - 0.35 * glowK * nd) + glowC[k] * glowK * Math.pow(nd, 1.6) * 0.42 * (0.75 + 0.25 * m);
+        d[i + k] = Math.min(255, v);
+      }
+      d[i + 3] = r2 > 0.985 ? Math.round(255 * (1 - r2) / 0.015) : 255;
+    }
+    const tmp = document.createElement('canvas'); tmp.width = tmp.height = W2; tmp.getContext('2d').putImageData(img, 0, 0);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W2, W2); g.drawImage(tmp, 0, 0);
+    c.setAttribute('aria-label', `Illustrative portrait of ${pl.name}`);
+    return c;
+  }
+  function fact(label, value, basis, note) {
+    return [h('dt', {}, label), h('dd', {}, h('span', { class: 'fv' }, value), basis ? tag(basis) : null, note ? h('span', { class: 'cnote' }, note) : null)];
+  }
+  const fmt = (v, d = 2) => v == null ? null : (+v).toFixed(d);
+  function planetCard(pl, star) {
+    const tb = measuredTb(pl), sp = pl.spectra || { catalogue: [], transmission: [], emission: [] };
+    const facts = [];
+    if (pl.rade != null) facts.push(...fact('Radius', `${fmt(pl.rade)} R⊕`, pl.transits ? 'measured' : 'calculated', pl.transits ? null : 'estimated by the archive; the planet does not transit'));
+    if (pl.mass_e != null) facts.push(...fact(pl.mass_prov && /sin/i.test(pl.mass_prov) ? 'Minimum mass' : 'Mass', `${fmt(pl.mass_e, pl.mass_e < 10 ? 2 : 0)} M⊕`, /estimat|calc/i.test(pl.mass_prov || '') ? 'calculated' : 'measured', pl.mass_prov && pl.mass_prov !== 'Mass' ? `archive: ${pl.mass_prov}` : null));
+    if (pl.P != null) facts.push(...fact('Orbit', `${pl.P < 100 ? fmt(pl.P, 3) : fmt(pl.P, 1)} d${pl.a != null ? ` · ${fmt(pl.a, 4)} AU` : ''}${pl.e ? ` · e ${fmt(pl.e)}` : ''}`, 'measured'));
+    if (pl.b != null) facts.push(...fact('Impact parameter', fmt(pl.b), 'measured'));
+    if (pl.teq != null) facts.push(...fact('Equilibrium temperature', `${Math.round(pl.teq)} K`, 'calculated', 'from stellar values and an assumed albedo'));
+    if (pl.insol != null) facts.push(...fact('Irradiation', `${pl.insol >= 100 ? Math.round(pl.insol) : fmt(pl.insol, 1)} × Earth's`, 'calculated'));
+    if (tb) facts.push(...fact('Dayside brightness temperature', tb.n > 1 ? `${Math.round(tb.min)}–${Math.round(tb.max)} K (median ${Math.round(tb.median)} K, ${tb.n} bands)` : `${Math.round(tb.median)} K`, 'measured', `eclipse photometry: ${tb.refs.join('; ')}`));
+    for (const tr of pl.traits || []) if (tr.key !== 'density' || pl.dens != null) facts.push(...fact(tr.label, tr.value, tr.basis, tr.rule));
+    const atm = [];
+    const nT = sp.catalogue.filter(x => /trans/i.test(x.type)).length, nE = sp.catalogue.filter(x => /eclip|emis/i.test(x.type)).length;
+    if (sp.catalogue.length) {
+      const inst = [...new Set(sp.catalogue.map(x => x.instrument))].slice(0, 6).join(', ');
+      atm.push(h('p', { class: 'atm' }, `${sp.catalogue.length} published spectra in the archive (${nT} transmission, ${nE} eclipse/emission), from ${inst}${sp.catalogue.length > 6 ? ' and others' : ''}.`));
+      if (sp.transmission.length) atm.push(spectrumPlot(sp.transmission, 'transmission', pl.name));
+      if (sp.emission.length) atm.push(spectrumPlot(sp.emission, 'emission', pl.name));
+      if (sp.skipped) atm.push(h('p', { class: 'cnote' }, `${sp.skipped} archive transmission values not plotted: the tabulated Rp/R★ is not a plausible radius ratio.`));
+      const tb2 = h('tbody');
+      for (const x of sp.catalogue) tb2.append(h('tr', {}, h('td', {}, x.type), h('td', {}, x.instrument), h('td', { class: 'num' }, x.wl[0] != null ? `${fmt(x.wl[0])}–${fmt(x.wl[1])} µm` : '—'),
+        h('td', {}, x.bibcode ? h('a', { href: `https://ui.adsabs.harvard.edu/abs/${encodeURIComponent(x.bibcode)}/abstract`, rel: 'noopener', target: '_blank' }, x.authors) : x.authors)));
+      atm.push(h('details', {}, h('summary', {}, 'All published spectra'), h('table', {}, h('thead', {}, h('tr', {}, h('th', {}, 'Type'), h('th', {}, 'Instrument'), h('th', {}, 'Range'), h('th', {}, 'Reference'))), tb2)));
+      atm.push(h('p', { class: 'cnote' }, 'Which molecules these spectra reveal is an interpretation made in each paper; the archive tables hold the measurements, not the species, so none are listed here. Follow a reference for its findings.'));
+    } else {
+      atm.push(h('p', { class: 'cnote' }, 'No atmospheric spectra of this planet in the NASA Exoplanet Archive tables on the fetch date.'));
+    }
+    const glow = tb ? `Dayside glow drawn from the measured brightness temperature (median ${Math.round(tb.median)} K).` : '';
+    return h('article', { class: 'planet' },
+      h('div', { class: 'pl-head' }, h('figure', { class: 'pl-portrait' }, planetPortrait(pl), h('figcaption', {}, `Illustration: ${sizeClass(pl) ? { rocky: 'rocky-size', subnep: 'sub-Neptune', neptune: 'Neptune-size', giant: 'giant' }[sizeClass(pl)] : 'size unknown'} palette keyed to ${pl.teq ? Math.round(pl.teq) + ' K' : 'unknown temperature'}. ${glow}`)),
+        h('div', {}, h('h4', {}, pl.name), h('p', { class: 'rkind' }, `${pl.method || ''}${pl.year ? ', ' + pl.year : ''}${pl.transits ? ' · transits' : ''}`))),
+      h('dl', { class: 'facts' }, ...facts),
+      h('div', { class: 'atmos' }, h('h5', {}, 'Atmosphere · published observations'), ...atm));
+  }
+  const REFCOL = ['#f0c27a', '#6ad1c8', '#b99cff', '#ff8fa3', '#b6e06a', '#9fd3ff', '#f2b25c', '#e3906f', '#c9a6ff', '#8fd6a3'];
+  function spectrumPlot(pts, kind, name) {
+    const NS = 'http://www.w3.org/2000/svg', W2 = 440, H2 = 210, ml = 48, mr = 10, mt = 10, mb = 34;
+    const el = (tg, at = {}) => { const e = document.createElementNS(NS, tg); for (const [k, v] of Object.entries(at)) e.setAttribute(k, v); return e; };
+    const ok = pts.filter(p => p.depth != null && !p.lim);
+    if (!ok.length) return h('p', { class: 'cnote' }, `No plottable ${kind} points (only limits).`);
+    const wls = ok.map(p => p.wl), lo = Math.log10(Math.min(...wls) * 0.85), hi = Math.log10(Math.max(...wls) * 1.15);
+    const ys = ok.flatMap(p => [p.depth + (p.e1 || 0), p.depth - Math.abs(p.e2 || 0)]).sort((a, b) => a - b);
+    const q = f => ys[Math.max(0, Math.min(ys.length - 1, Math.round(f * (ys.length - 1))))];
+    let y0 = q(0.02), y1 = q(0.98); const pad = (y1 - y0) * 0.12 || 0.01; y0 -= pad; y1 += pad;
+    const X = w => ml + (Math.log10(w) - lo) / (hi - lo) * (W2 - ml - mr), Y = v => mt + (1 - (v - y0) / (y1 - y0)) * (H2 - mt - mb);
+    const svg = el('svg', { viewBox: `0 0 ${W2} ${H2}`, class: 'plot', role: 'img', 'aria-label': `${name} published ${kind} spectrum, ${ok.length} points` });
+    svg.append(el('rect', { class: 'plot-frame', x: ml, y: mt, width: W2 - ml - mr, height: H2 - mt - mb }));
+    for (const w of [0.3, 0.5, 1, 2, 3, 5, 10, 20]) if (Math.log10(w) > lo && Math.log10(w) < hi) {
+      svg.append(el('line', { class: 'gridline', x1: X(w), x2: X(w), y1: mt, y2: H2 - mb }));
+      const t = el('text', { class: 'tick', x: X(w), y: H2 - mb + 14, 'text-anchor': 'middle' }); t.textContent = w; svg.append(t);
+    }
+    for (let k = 0; k <= 3; k++) { const v = y0 + (y1 - y0) * k / 3; const t = el('text', { class: 'tick', x: ml - 5, y: Y(v) + 4, 'text-anchor': 'end' }); t.textContent = v.toFixed(kind === 'emission' ? 3 : 2); svg.append(t); }
+    const xl = el('text', { class: 'axlab', x: ml + (W2 - ml - mr) / 2, y: H2 - 4, 'text-anchor': 'middle' }); xl.textContent = 'Wavelength (µm, log scale)'; svg.append(xl);
+    const yl = el('text', { class: 'axlab', transform: `translate(11 ${mt + (H2 - mt - mb) / 2}) rotate(-90)`, 'text-anchor': 'middle' }); yl.textContent = kind === 'emission' ? 'Eclipse depth (%)' : 'Transit depth (%)'; svg.append(yl);
+    const refs = [...new Set(ok.map(p => p.ref || 'unattributed'))], col = r => REFCOL[refs.indexOf(r) % REFCOL.length];
+    const clip = el('clipPath', { id: `cp-${kind}-${name.replace(/\W/g, '')}` }); clip.append(el('rect', { x: ml, y: mt, width: W2 - ml - mr, height: H2 - mt - mb })); svg.append(clip);
+    const gg = el('g', { 'clip-path': `url(#cp-${kind}-${name.replace(/\W/g, '')})` }); svg.append(gg);
+    for (const p of ok) {
+      const c2 = col(p.ref || 'unattributed'), x = X(p.wl), y = Y(p.depth);
+      if (p.e1 != null || p.e2 != null) gg.append(el('line', { x1: x, x2: x, y1: Y(p.depth + (p.e1 || 0)), y2: Y(p.depth - Math.abs(p.e2 || 0)), stroke: c2, 'stroke-opacity': 0.55, 'stroke-width': 1 }));
+      gg.append(el(p.from_ratror ? 'rect' : 'circle', p.from_ratror ? { x: x - 2, y: y - 2, width: 4, height: 4, fill: 'none', stroke: c2 } : { cx: x, cy: y, r: 2.4, fill: c2 }));
+    }
+    const legend = h('p', { class: 'legend' }, ...refs.map(r => { const pt = ok.find(p => (p.ref || 'unattributed') === r); const sw = h('i', {}); sw.style.background = col(r);
+      return h('span', {}, sw, pt && pt.url ? h('a', { href: pt.url, rel: 'noopener', target: '_blank' }, r) : r); }));
+    const nr = ok.filter(p => p.from_ratror).length;
+    return h('figure', { class: 'spec' }, svg, legend, h('figcaption', {}, `${ok.length} ${kind} points from the NASA Exoplanet Archive, coloured by paper; bars are the published uncertainties. ${nr ? `Open squares (${nr}) are (Rp/R★)² computed here from the tabulated radius ratio, shown without error bars. ` : ''}Different papers use different reductions, so offsets between them are expected.`));
+  }
+  function hostStarCard(t) {
+    const s0 = t.system.star, T = s0.st_teff || 5700;
+    const [c, g] = mkCanvas(140, 140); g.fillStyle = '#02030a'; g.fillRect(0, 0, 140, 140); limbDisc(g, 70, 70, 44, T, 1);
+    c.setAttribute('aria-label', `Colour rendition of ${t.system.host}`);
+    const f = [];
+    if (s0.spt) f.push(...fact('Spectral type', s0.spt, 'measured'));
+    if (s0.st_teff) f.push(...fact('Temperature', `${Math.round(s0.st_teff)} K`, 'measured'));
+    if (s0.st_rad) f.push(...fact('Radius · mass', `${fmt(s0.st_rad)} R☉ · ${fmt(s0.st_mass)} M☉`, 'measured'));
+    if (s0.st_lum != null) f.push(...fact('Luminosity', `${(Math.pow(10, s0.st_lum)).toPrecision(2)} L☉`, 'measured', 'archive log L'));
+    if (s0.st_met != null) f.push(...fact('Metallicity', `${s0.st_met >= 0 ? '+' : '−'}${fmt(Math.abs(s0.st_met))} ${s0.metratio || ''}`, 'measured', `${Math.pow(10, s0.st_met).toFixed(2)}× the Sun's heavy-element fraction`));
+    if (s0.st_logg != null) f.push(...fact('Surface gravity', `log g ${fmt(s0.st_logg)}`, 'measured'));
+    if (s0.st_age != null) f.push(...fact('Age', s0.st_age < 1 ? `${Math.round(s0.st_age * 1000)} Myr` : `${fmt(s0.st_age, 1)} Gyr`, 'measured', s0.st_age < 0.1 ? 'a young star: expect strong activity (spots, flares) — not drawn' : null));
+    if (s0.st_rotp != null) f.push(...fact('Rotation', `${fmt(s0.st_rotp, 1)} d`, 'measured'));
+    return h('article', { class: 'planet star' }, h('div', { class: 'pl-head' }, h('figure', { class: 'pl-portrait' }, c),
+      h('div', {}, h('h4', {}, `Host star · ${t.system.host}`), h('p', { class: 'rkind' }, 'Disc colour from its temperature (blackbody approximation), generic limb darkening; size not to scale.'))),
+      h('dl', { class: 'facts' }, ...f));
   }
 
   function starRendition(t) {
