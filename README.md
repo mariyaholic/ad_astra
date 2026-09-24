@@ -2,7 +2,7 @@
 
 An astronomical data-forensics worktree: tools and records for re-examining public archive data (TESS, Kepler, Gaia, WISE, ZTF, Legacy Surveys and others) for signals that standard pipelines may have missed, and for trying hard to explain them away before calling anything a lead.
 
-Nothing here is a discovery. As of 2026-09-24 the project has run one known-planet recovery test and one bounded residual screen (WASP-12, TESS Sectors 20 and 43; null result). There are no candidate dossiers. The monotransit campaign `tess-mono-01` is a draft.
+Nothing here is a discovery. As of 2026-09-24 the project has run one known-planet recovery test and one bounded residual screen (WASP-12, TESS Sectors 20 and 43; null result), and the first known-object test from the monotransit queue (TOI-2666.01: catalogued transit recovered; a probable second transit in Sector 99 is an **unverified lead**). There are no candidate dossiers.
 
 ## Start here
 
@@ -16,6 +16,7 @@ Nothing here is a discovery. As of 2026-09-24 the project has run one known-plan
 | [`docs/TEST_ARCHITECTURE_PLAN_DRAFT.md`](docs/TEST_ARCHITECTURE_PLAN_DRAFT.md) | Working-draft test plan and known gaps. |
 | [`docs/PUBLISHING.md`](docs/PUBLISHING.md) | The public repository site and its publication boundary. |
 | [`docs/AUTONOMY_STUDY.md`](docs/AUTONOMY_STUDY.md) | What runs by itself today, what is manual or only designed, and the next steps. |
+| [`docs/AGENT_RUNBOOK.md`](docs/AGENT_RUNBOOK.md) | **Running a target through the pipeline** (any agent, any machine): five commands and the review rules. |
 | [`docs/CAMPAIGNS.md`](docs/CAMPAIGNS.md) | Campaign specs and the runner: how analyses are run, ledgered and calibrated. |
 | [`docs/SKY_RECORDS.md`](docs/SKY_RECORDS.md) | The `sky_record.json` every analysis must leave (enforced by tests). |
 | [`design-system/mockups/README.md`](design-system/mockups/README.md) | The interactive sky explorer prototype: build, run, rules. |

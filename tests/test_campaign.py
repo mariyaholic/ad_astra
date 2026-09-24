@@ -206,3 +206,96 @@ def test_spec_validation_rejects_unknown_steps_and_incomplete_veto(tmp_path):
     with pytest.raises(SpecError) as e:
         load_spec(p)
     assert "not implemented" in str(e.value) and "veto.t0_bjd" in str(e.value)
+
+
+# ------------------------------------------------------------------ known-object loop: new → run → report → queue
+def test_known_object_loop_offline(tmp_path, monkeypatch):
+    """A generated known-object campaign recovers the planted 'catalogued' transit, finds the planted
+    repeat, lists period aliases, flags an unverified lead (never higher) and drafts its report."""
+    import hashlib
+
+    from cygnus import priorart, skyrecord
+    from cygnus.campaign import scaffold, steps
+    from cygnus.campaign.runner import load_spec, run
+
+    monkeypatch.setenv("CYGNUS_SCRATCH", str(tmp_path / "scratch"))
+    (tmp_path / "campaigns").mkdir()
+    t = {"name": "TOI-9.01", "tic": 1, "ra_deg": 10.0, "dec_deg": 20.0, "t0_bjd": 2458505.0, "period_days": None,
+         "depth_ppm": 30000.0, "duration_h": 2.88, "tmag": 9.0, "position_source": "fixture", "disposition": "PC"}
+    spec_path = scaffold.write_spec(tmp_path, t, parent="fixture-queue", origin="fixture", seed=5)
+    assert spec_path.name == "toi-9-01.yaml"
+    with pytest.raises(SystemExit, match="claimed"):
+        scaffold.write_spec(tmp_path, t, parent=None, origin="fixture", seed=5)
+    spec = load_spec(spec_path)
+    assert spec["targets"][0]["period_days"] is None and spec["veto"]["kind"] == "single_epoch"
+
+    pid = "tess-fixture-s0007-0000000000000001-s_lc.fits"
+    lcdir = tmp_path / "scratch" / "campaign_toi-9-01"
+    lcdir.mkdir(parents=True)
+    _fake_spoc(lcdir / pid, dip_at=1505.0)
+    # plant a repeat 6 days later in the same light curve
+    with fits.open(lcdir / pid, mode="update") as h:
+        tt = h[1].data["TIME"]
+        for col in ("SAP_FLUX", "PDCSAP_FLUX"):
+            h[1].data[col][np.abs(tt - 1511.0) < 0.06] *= 0.97
+    monkeypatch.setattr(steps, "_discover_spoc_lcs", lambda tic, n, t0=None: [
+        {"product_id": pid, "tic": tic, "sector": 7, "covers_known_epoch": True}])
+    monkeypatch.setattr(priorart, "catalogue_audit", lambda ra, dec, **kw: {
+        "TESS_TOI": {"state": "done", "result": "1 match", "query": "q", "retrieved_utc": "2026-01-01T00:00:00Z", "matches": ["TOI-9.01"]}})
+
+    led = Ledger(tmp_path / "ledger.sqlite")
+    out = run(spec_path, ledger=led, root=tmp_path, echo=lambda *_: None)
+    assert out["complete"] and all(r["status"] == "completed" for r in led.runs())
+    states = {c["name"]: c["state"] for c in json.loads((tmp_path / "campaigns/toi-9-01/sky_record.json").read_text())["checks"]}
+    assert states["Known-signal recovery (positive control)"] == "passed"
+    assert states["Period aliases (repeat events)"] == "inconclusive"
+    assert states["Difference-image centroids / blend audit"] == "not_tested"
+    rec = json.loads((tmp_path / "campaigns/toi-9-01/sky_record.json").read_text())
+    assert rec["outcome"] == "lead" and rec["evidence"] == "Unverified lead"
+    known = json.loads((tmp_path / "campaigns/toi-9-01/runner/known_signal_recovery.json").read_text())["result"]
+    ep = known["per_product"][pid]["epochs"][0]
+    assert ep["state"] == "recovered" and 20000 < ep["measured_depth_ppm"] < 40000
+    al = json.loads((tmp_path / "campaigns/toi-9-01/period_aliases.json").read_text())["candidates"]
+    assert len(al) == 1 and abs(al[0]["delta_t_days"] - 6.0) < 0.01
+    allowed = {a["n"] for a in al[0]["aliases"] if a["verdict"] == "allowed"}
+    assert 1 in allowed and 2 not in allowed          # P = 3 d predicts a transit at 1508 d on usable data: excluded
+
+    # report drafts, then the record validates and the queue board sees it
+    spec["_path"] = spec_path
+    written = scaffold.draft_report(spec, tmp_path)
+    assert [p.name for p in written] == ["REPORT.md", "SEARCH_LOG.md"]
+    text = written[0].read_text(encoding="utf-8")
+    assert scaffold.DRAFT_MARKER in text and "recovered the catalogued transit" in text and "Repeat candidate" in text
+    assert skyrecord.validate({**rec, "_path": "campaigns/toi-9-01/sky_record.json"}, tmp_path, {}) == []
+    written[0].write_text(text.replace(scaffold.DRAFT_MARKER + "\n", ""), encoding="utf-8")   # reviewed
+    again = scaffold.draft_report(spec, tmp_path)
+    assert again[0].name == "REPORT.draft.md"                                                 # reviewed text is never overwritten
+    q = tmp_path / "queue.csv"
+    q.write_text("name,tic,ra_deg,dec_deg,t0_bjd,rank\nTOI-9.01,1,10,20,2458505.0,1\nTOI-8.01,2,11,21,2458600.0,2\n", encoding="utf-8")
+    board = {s["name"]: s for s in scaffold.queue_status(tmp_path, q)}
+    assert board["TOI-9.01"]["state"] == "completed" and board["TOI-9.01"]["known_signal"] == "passed"
+    assert board["TOI-9.01"]["review"] == "reviewed" and board["TOI-8.01"]["state"] == "unclaimed"
+    assert scaffold.pick_from_queue(tmp_path, q, None)["name"] == "TOI-8.01"
+
+
+def test_threshold_falls_back_to_declared_k_when_calibration_finds_no_k_star():
+    from cygnus.campaign.steps import _threshold
+
+    class Ctx:
+        def optional_result(self, step, default):
+            return {"per_product": {"a": {"k_star": None}, "b": {"k_star": 4.0}}, "declared_k": 5.0}
+    k, src = _threshold(Ctx(), "a", "calibrated")
+    assert k == 5.0 and src.startswith("UNCALIBRATED")
+    assert _threshold(Ctx(), "b", "calibrated") == (4.0, "calibrated (calibrate_screen)")
+    assert _threshold(Ctx(), "b", 6) == (6.0, "declared in campaign spec")
+
+
+def test_group_entries_merges_overlaps_and_marks_persistence():
+    from cygnus.campaign.steps import group_entries
+
+    def e(a, b, flux, base, r=-0.01):
+        return {"start_time_stored": a, "end_time_stored": b, "flux_type": flux, "detrend_days": base, "n_cadences": 3,
+                "median_fractional_residual": r, "mid_time_BJD_like": (a + b) / 2}
+    g = group_entries([e(1.0, 1.1, "SAP", 1.0), e(1.05, 1.12, "PDCSAP", 2.0, -0.02), e(1.0, 1.1, "SAP", 2.0), e(5, 5.1, "SAP", 1.0)], 3)
+    assert len(g) == 2 and g[0]["persistent"] and not g[1]["persistent"]
+    assert g[0]["deepest_median_residual"] == -0.02 and g[0]["n_entries"] == 3

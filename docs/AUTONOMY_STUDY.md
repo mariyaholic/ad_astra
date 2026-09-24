@@ -12,6 +12,10 @@ Question: once started, which parts of the AGENTS.md research loop run without a
 > about **2.5 of 4**. Still missing: detrending families, centroid/blend and pointing audits,
 > single-transit period posteriors, ADS literature, and running `tess-mono-01` itself (awaiting a
 > go-ahead). The text below is the original study.
+>
+> **Update 2 (2026-09-24):** known-object tests are now generated, not written: `cygnus.campaign new/run/report/queue`
+> with a positive control, grouped events and period aliases, portable across machines (`docs/AGENT_RUNBOOK.md`).
+> Piloted on TOI-2666.01. Rough scale: about **3 of 4** for known-object work; discovery vetting still needs a reviewer.
 
 ## Short answer
 

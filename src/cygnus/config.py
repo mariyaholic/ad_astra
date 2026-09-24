@@ -4,7 +4,8 @@ See ``AGENTS.md`` ('Data, compute, and Google Drive policy'):
 
 * worktree root: holds code, docs, small reproducibility metadata only;
 * scratch root: bulky downloads/intermediates, nonsynced, safe to delete
-  (default ``D:/AO_Artifacts/cygnus_scratch``, override via ``CYGNUS_SCRATCH``);
+  ``CYGNUS_SCRATCH`` if set, else the original workstation's scratch folder when it exists, else
+  ``~/.cache/cygnus/scratch`` (works on any machine);
 * ledger: SQLite provenance DB under ``<worktree>/state``
   (override via ``CYGNUS_LEDGER``).
 
@@ -23,7 +24,9 @@ _STATE_DIR = WORKTREE / "state"
 
 def scratch_dir(subdir: str | None = None) -> Path:
     """Resolve (and create) a directory under the scratch root."""
-    root = Path(os.environ.get("CYGNUS_SCRATCH", "D:/AO_Artifacts/cygnus_scratch"))
+    env = os.environ.get("CYGNUS_SCRATCH")
+    legacy = Path("D:/AO_Artifacts/cygnus_scratch")
+    root = Path(env) if env else legacy if legacy.is_dir() else Path.home() / ".cache" / "cygnus" / "scratch"
     path = root / subdir if subdir else root
     path.mkdir(parents=True, exist_ok=True)
     return path

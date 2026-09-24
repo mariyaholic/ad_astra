@@ -92,6 +92,7 @@ class Context:
         self.notes: list[str] = []
         self.run_id: int | None = None
         self.step: str | None = None
+        self.outcome: tuple[str, str] | None = None   # (outcome, evidence) raised by a step
 
     # results
     def result(self, step: str) -> dict:
@@ -109,8 +110,20 @@ class Context:
     def ledger_has_product(self, archive: str, pid: str) -> bool:
         return self.ledger.db.execute("SELECT 1 FROM products WHERE archive=? AND product_id=?", (archive, pid)).fetchone() is not None
 
+    def spec_step_param(self, step: str, key: str, default=None):
+        for s in self.spec.get("steps", []):
+            if step in s:
+                return (s[step] or {}).get(key, default)
+        return default
+
     def check(self, name: str, state: str, note: str):
         self.checks[name] = {"state": state, "note": note, "step": self.step}
+
+    def flag_lead(self, why: str):
+        """Steps may raise a record to ``lead`` but never above *Unverified lead*: vetting beyond
+        the automated checks is a person's (or reviewing agent's) decision."""
+        self.outcome = ("lead", "Unverified lead")
+        self.note(why)
 
     def note(self, text: str):
         self.notes.append(text)
@@ -168,9 +181,11 @@ def run(spec_path: str | Path, *, ledger: Ledger, root: Path = WORKTREE, force: 
             ctx._results[name] = blob["result"]
             ctx.checks.update(blob.get("checks", {}))
             ctx.notes += blob.get("notes", [])
+            if blob.get("outcome"):
+                ctx.outcome = tuple(blob["outcome"])
             echo(f"[{name}] reused completed run #{prior['id']} (config {cfg})")
         else:
-            n_checks, n_notes = dict(ctx.checks), len(ctx.notes)
+            n_checks, n_notes, n_out = dict(ctx.checks), len(ctx.notes), ctx.outcome
             with ledger.recorded_run(script, config_hash=cfg, seed=ctx.seed) as run_:
                 ctx.run_id = run_.id
                 echo(f"[{name}] run #{run_.id} (config {cfg}) ...")
@@ -178,7 +193,8 @@ def run(spec_path: str | Path, *, ledger: Ledger, root: Path = WORKTREE, force: 
                 ctx._results[name] = result
                 new_checks = {k: v for k, v in ctx.checks.items() if n_checks.get(k) != v}
                 saved.write_text(json.dumps({"step": name, "run_id": run_.id, "config_hash": cfg, "finished_utc": now_utc(),
-                                             "result": result, "checks": new_checks, "notes": ctx.notes[n_notes:]},
+                                             "result": result, "checks": new_checks, "notes": ctx.notes[n_notes:],
+                                             "outcome": ctx.outcome if ctx.outcome != n_out else None},
                                             indent=2, default=str), encoding="utf-8")
                 run_.summary = "; ".join(ctx.notes[n_notes:]) or f"{name} completed"
             echo(f"[{name}] completed")
@@ -225,9 +241,13 @@ def write_record(ctx: Context, complete: bool) -> str | None:
     summary = rec_spec["summary"].strip()
     if ctx.notes and rec_spec.get("append_runner_notes", True):
         summary += " Runner: " + " ".join(ctx.notes)
+    outcome, evidence = rec_spec.get("outcome", "not_run"), rec_spec.get("evidence")
+    if ctx.outcome and outcome not in ("lead", "candidate"):
+        outcome, evidence = ctx.outcome
     rec = {"schema": RECORD_SCHEMA, "id": ctx.campaign_id, "title": rec_spec["title"], "kind": rec_spec["kind"],
-           "status": status, "outcome": rec_spec.get("outcome", "not_run") if status != "draft" else "not_run",
-           "evidence": rec_spec.get("evidence"), "date": rec_spec.get("date") if status != "draft" else None,
+           "status": status, "outcome": outcome if status != "draft" else "not_run",
+           "evidence": evidence if status != "draft" else None,
+           "date": (rec_spec.get("date") or now_utc()[:10]) if status != "draft" else None,
            "summary": summary, "spec": ctx.rel(ctx.spec["_path"]), "report": rec_spec.get("report"),
            "search_log": rec_spec.get("search_log"), "targets": targets, "products": products, "checks": checks,
            "generated_by": "cygnus.campaign runner", "generated_utc": now_utc()}

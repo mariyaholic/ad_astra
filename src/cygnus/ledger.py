@@ -127,7 +127,7 @@ class Ledger:
         if path is None:
             path = _default_ledger_path()
         self._path = str(path)
-        self.db = sqlite3.connect(self._path if self._path != ":memory:" else ":memory:")
+        self.db = sqlite3.connect(self._path if self._path != ":memory:" else ":memory:", timeout=60)
         self.db.row_factory = sqlite3.Row
         self.code_version = code_version or _pkg_version()
         self.db.executescript(_SCHEMA)

@@ -49,22 +49,32 @@ def _sha256(path: Path) -> str:
 
 
 # ------------------------------------------------------------------ products
-def _discover_spoc_lcs(tic: int, max_products: int) -> list[dict]:
-    """SPOC 120-s light curves for a TIC id, via the MAST Observations API (astroquery)."""
+def _discover_spoc_lcs(tic: int, max_products: int, t0_bjd: float | None = None) -> list[dict]:
+    """SPOC 120-s light curves for a TIC id, via the MAST Observations API (astroquery).
+
+    With ``t0_bjd`` (a catalogued transit), sectors whose observation window covers that epoch come
+    first, so a known-signal check has the light curve it needs. Coverage uses MAST's ``t_min``/
+    ``t_max`` (MJD); BJD - 2400000.5 differs from MJD by minutes, well inside a 27-d sector.
+    """
     from astroquery.mast import Observations
 
     obs = Observations.query_criteria(target_name=str(tic), obs_collection="TESS", provenance_name="SPOC",
                                       dataproduct_type="timeseries")
     if len(obs) == 0:
         return []
+    span = {str(o["obsid"]): (float(o["t_min"]), float(o["t_max"])) for o in obs}
     prods = Observations.filter_products(Observations.get_product_list(obs), productSubGroupDescription="LC")
-    out = []
+    out, seen = [], set()
     for r in prods:
         fn = str(r["productFilename"])
-        if fn.endswith("-s_lc.fits") and "fast" not in fn:
-            out.append({"product_id": fn, "tic": tic, "sector": int(fn.split("-s")[1][:4]) if "-s0" in fn else None,
-                        "data_uri": str(r["dataURI"])})
-    out.sort(key=lambda d: d["product_id"])
+        if not fn.endswith("-s_lc.fits") or "fast" in fn or fn in seen:
+            continue
+        seen.add(fn)
+        lo, hi = span.get(str(r["parent_obsid"]), span.get(str(r["obsID"]), (None, None)))
+        covers = None if t0_bjd is None or lo is None else bool(lo <= t0_bjd - 2400000.5 <= hi)
+        out.append({"product_id": fn, "tic": tic, "sector": int(fn.split("-s")[1][:4]) if "-s0" in fn else None,
+                    "data_uri": str(r["dataURI"]), "covers_known_epoch": covers})
+    out.sort(key=lambda d: (not d["covers_known_epoch"], d["product_id"]))
     return out[:max_products]
 
 
@@ -78,12 +88,19 @@ def step_fetch_products(ctx, params: dict) -> dict:
 
     wanted = [dict(p) for p in ctx.spec.get("input", {}).get("products", [])]
     q = params.get("from_queue")
+    pool = []
     if q:
-        queue = ctx.result("target_queue")["queue"][: int(q.get("top", 5))]
-        for t in queue:
-            for p in _discover_spoc_lcs(int(t["tic"]), int(q.get("max_products_per_target", 2))):
-                p["target"] = t["name"]
-                wanted.append(p)
+        pool += [(t, q) for t in ctx.result("target_queue")["queue"][: int(q.get("top", 5))]]
+    ft = params.get("from_targets")
+    if ft:
+        pool += [(t, ft) for t in ctx.spec.get("targets", []) if t.get("tic")]
+    for t, opts in pool:
+        found = _discover_spoc_lcs(int(t["tic"]), int(opts.get("max_products_per_target", 2)), t.get("t0_bjd"))
+        if not found:
+            ctx.note(f"{t['name']}: no SPOC 120-s light curve found at MAST for TIC {t['tic']}.")
+        for p in found:
+            p["target"] = t["name"]
+            wanted.append(p)
     from ..config import scratch_dir
 
     # "scratch:<subdir>" keeps machine-specific paths out of committed specs
@@ -108,7 +125,9 @@ def step_fetch_products(ctx, params: dict) -> dict:
                                                                   "sector": p.get("sector")})
         out[pid] = {"path": portable(path), "sha256": digest, "bytes": size, "fetched_now": fetched,
                     "pinned": bool(p.get("expected_sha256")), "target": p.get("target"), "tic": p.get("tic"),
-                    "sector": p.get("sector")}
+                    "sector": p.get("sector"), "covers_known_epoch": p.get("covers_known_epoch")}
+    if not out:
+        raise RuntimeError("no products to analyse (none pinned, none found at MAST)")
     ctx.check("Product integrity (SHA-256)", "passed",
               f"{len(out)} product(s) verified; pinned checksums matched" if any(v["pinned"] for v in out.values())
               else f"{len(out)} product(s) checksummed at first retrieval")
@@ -135,24 +154,61 @@ def _target_for(ctx, pid: str) -> dict | None:
     prod = ctx.result("fetch_products")["products"][pid]
     if not prod.get("target"):
         return None
-    for t in ctx.optional_result("target_queue", {}).get("queue", []):
+    for t in list(ctx.spec.get("targets", [])) + ctx.optional_result("target_queue", {}).get("queue", []):
         if t["name"] == prod["target"]:
             return t
     return None
 
 
+def group_entries(entries: list[dict], n_windows: int) -> list[dict]:
+    """Merge screen entries that overlap in time (entries repeat across baselines and flux types)
+    into distinct events. ``persistent`` = seen in SAP and PDCSAP at two or more baselines."""
+    out = []
+    for e in sorted(entries, key=lambda e: e["start_time_stored"]):
+        if out and e["start_time_stored"] <= out[-1]["_end"]:
+            g = out[-1]
+            g["_end"] = max(g["_end"], e["end_time_stored"])
+            g["entries"].append(e)
+        else:
+            out.append({"_start": e["start_time_stored"], "_end": e["end_time_stored"], "entries": [e]})
+    events = []
+    for g in out:
+        es = g["entries"]
+        deepest = min(es, key=lambda e: e["median_fractional_residual"])
+        fl, bl = sorted({e["flux_type"] for e in es}), sorted({e["detrend_days"] for e in es})
+        events.append({"mid_time_BJD_like": deepest["mid_time_BJD_like"], "deepest_median_residual": deepest["median_fractional_residual"],
+                       "max_cadences": max(e["n_cadences"] for e in es), "flux_types": fl, "baselines_days": bl,
+                       "n_entries": len(es), "persistent": fl == ["PDCSAP", "SAP"] and len(bl) >= min(2, n_windows)})
+    return events
+
+
 # ------------------------------------------------------------------ residual screen
+def _threshold(ctx, pid: str, k_param) -> tuple[float, str]:
+    """The screen threshold for one light curve and where it came from. ``calibrated`` uses
+    calibrate_screen's k*; when no grid value reached the null-event limit the declared k is used
+    and labelled uncalibrated, so the run continues but the record says so."""
+    if k_param != "calibrated":
+        return float(k_param), "declared in campaign spec"
+    cal = ctx.optional_result("calibrate_screen", {})
+    if not cal:
+        raise RuntimeError("k_mad 'calibrated' needs a calibrate_screen step before this one")
+    k = (cal["per_product"].get(pid) or {}).get("k_star")
+    if k is not None:
+        return float(k), "calibrated (calibrate_screen)"
+    decl = float(cal.get("declared_k", 5.0))
+    return decl, "UNCALIBRATED: no k on the calibration grid met the null-event limit; declared k used"
+
+
 def step_residual_screen(ctx, params: dict) -> dict:
     """Negative excursions ≥ k robust-MAD, ≥ min_cadences, SAP and PDCSAP, several baselines,
     outside the known-signal veto. Writes screen.json and normalized_series.csv per product."""
     veto = ctx.spec.get("veto")
     windows = tuple(params.get("windows_days", (1.0, 2.0, 3.0)))
     k_decl = params.get("k_mad", 5.0)
-    calib = ctx.optional_result("calibrate_screen", {}).get("per_product", {})
     summary = {}
     for pid, prod in ctx.result("fetch_products")["products"].items():
         lc = read_spoc(resolve(prod["path"]))
-        k = calib[pid]["k_star"] if k_decl == "calibrated" else float(k_decl)
+        k, k_src = _threshold(ctx, pid, k_decl)
         target = _target_for(ctx, pid)
         vmask, ph = _veto_mask(lc, veto, target)
         finite = lc.usable
@@ -181,7 +237,7 @@ def step_residual_screen(ctx, params: dict) -> dict:
                "time_max_stored": float(np.nanmax(lc.time[finite])), "bjdref": lc.bjdref,
                "time_scale": lc.table_header.get("TIMESYS"), "cadence_seconds_header": lc.cadence_s,
                "coordinate_convention": "header RA_OBJ/DEC_OBJ as supplied; frame not independently established",
-               "threshold": {"k_mad": k, "source": "calibrated (calibrate_screen)" if k_decl == "calibrated" else "declared in campaign spec"}}
+               "threshold": {"k_mad": k, "source": k_src}}
         if events:
             res["screened_excursions"] = events
         sw = float(params.get("series_window_days", 2.0))
@@ -196,21 +252,42 @@ def step_residual_screen(ctx, params: dict) -> dict:
                                "n": int(control.sum()), "sap_control_robust_sigma": robust_sigma(rs[control]),
                                "pdc_control_robust_sigma": robust_sigma(rp[control])}
         res["interpretation_limit"] = (f"-{k} robust-MAD threshold "
-                                       + ("from the campaign's sign-flip calibration" if k_decl == "calibrated"
+                                       + ("from the campaign's sign-flip calibration" if k_src.startswith("calibrated")
                                           else "is an uncalibrated screen unless calibrate_screen ran")
                                        + "; entries overlap across recipes and are not independent events.")
         (sub / "screen.json").write_text(json.dumps(res, indent=2, allow_nan=False), encoding="utf-8")
         outside = [e for e in events if not e["inside_veto"]]
-        summary[pid] = {"dir": ctx.rel(sub), "rows": res["rows"], "usable": res["usable"], "k_mad": k,
+        grouped = group_entries(outside, len(windows))
+        summary[pid] = {"distinct_events_outside_veto": grouped,
+                        "persistent_events_outside_veto": sum(g["persistent"] for g in grouped),"dir": ctx.rel(sub), "rows": res["rows"], "usable": res["usable"], "k_mad": k,
+                        **({} if k_src.startswith(("calibrated", "declared")) else {"threshold_note": k_src}),
                         "entries": len(events), "entries_outside_veto": len(outside),
                         "outside_veto": [{k2: e[k2] for k2 in ("detrend_days", "flux_type", "mid_time_BJD_like", "n_cadences",
                                                                "median_fractional_residual")} for e in outside]}
         ctx.measure("screen_entries", len(events), unit="count", method=f"-{k} MAD, windows {list(windows)} d, SAP+PDCSAP", products=[pid])
         ctx.measure("screen_entries_outside_veto", len(outside), unit="count", method="same, outside known-signal veto", products=[pid])
     n_out = sum(s["entries_outside_veto"] for s in summary.values())
+    n_ev = sum(len(s["distinct_events_outside_veto"]) for s in summary.values())
+    n_pers = sum(s["persistent_events_outside_veto"] for s in summary.values())
     ctx.note(f"Residual screen: {n_out} threshold entr{'y' if n_out == 1 else 'ies'} outside the known-signal veto across "
-             f"{len(summary)} light curve(s).")
-    return {"per_product": summary, "entries_outside_veto_total": n_out}
+             f"{len(summary)} light curve(s)" + (f", forming {n_ev} distinct event(s), {n_pers} persistent in SAP and PDCSAP at "
+                                                 f"two or more baselines." if n_out else "."))
+    if k_decl == "calibrated":
+        cal = ctx.result("calibrate_screen")["per_product"]
+        unc = [pid for pid in summary if cal.get(pid, {}).get("k_star") is None]
+        kf = lambda c: "none" if c["k_star"] is None else (f"≤{c['k_star']:g}" if c["k_star_at_grid_floor"] else f"{c['k_star']:g}")
+        ctx.check("Calibrated false-alarm threshold (sign-flip null)", "inconclusive" if unc else "passed",
+                  "screen run at each light curve's own k* (" + ", ".join(kf(cal[pid]) for pid in summary) + "; ≤ "
+                  f"{ctx.spec_step_param('calibrate_screen', 'max_null_events', 0)} persistent null events outside the veto)"
+                  + (f"; {len(unc)} light curve(s) reached no k* on the grid and used the declared k, uncalibrated" if unc else ""))
+        refs = [cal[pid]["reference"] for pid in summary if pid in cal]
+        vals = [r.get("calibrated") for r in refs]
+        if refs and all(v is not None for v in vals):
+            ctx.check("Synthetic signal injection–recovery", "passed" if min(vals) >= 0.9 else "inconclusive",
+                      f"completeness for the reference box ({refs[0]['cell']}) at each light curve's k*: "
+                      + ", ".join(f"{v:.0%}" for v in vals) + " (pass mark 90%); 90%-completeness depths are in calibration.json")
+    return {"per_product": summary, "entries_outside_veto_total": n_out, "distinct_events_outside_veto_total": n_ev,
+            "persistent_events_outside_veto_total": n_pers}
 
 
 # ------------------------------------------------------------------ BLS recovery
@@ -397,7 +474,207 @@ def step_calibrate_screen(ctx, params: dict) -> dict:
              + f"; at the declared k = {k_decl:g} the screen recovers ≥90% of {ref['duration_h']:g}-h dips only from depth "
              + ", ".join(d90) + f" (completeness for {ref['depth_ppm']} ppm: " + (", ".join(f"{r:.0%}" for r in refs) if refs else "n/a")
              + "). The null result excludes only dips deeper than that.")
-    return {"per_product": per}
+    return {"per_product": per, "declared_k": k_decl}
+
+
+# ------------------------------------------------------------------ positive control: the catalogued signal
+def _known_epochs(lc, veto: dict | None, target: dict | None) -> list[float]:
+    """Catalogued transit times (BJD) inside this light curve's time span."""
+    t = lc.time_bjd[np.isfinite(lc.time_bjd)]
+    if not t.size or not veto:
+        return []
+    lo, hi = float(t.min()), float(t.max())
+    if veto["kind"] == "single_epoch":
+        t0 = (target or {}).get("t0_bjd", veto.get("t0_bjd"))
+        return [float(t0)] if t0 is not None and lo <= float(t0) <= hi else []
+    if veto["kind"] == "ephemeris":
+        p, t0 = float(veto["period_days"]), float(veto["t0_bjd"])
+        n = np.arange(math.ceil((lo - t0) / p), math.floor((hi - t0) / p) + 1)
+        return [float(t0 + i * p) for i in n]
+    return []
+
+
+def step_known_signal_recovery(ctx, params: dict) -> dict:
+    """Positive control on a known object: does the screen find the catalogued transit where the
+    catalogue puts it, and how deep is it?
+
+    For every light curve that covers a catalogued epoch (the target's ``t0_bjd`` for a single-epoch
+    veto, every predicted transit for an ephemeris veto), run the residual screen *without* the veto
+    at the calibrated threshold (or ``k_mad``). The epoch counts as recovered when entries in both SAP
+    and PDCSAP overlap ±(duration/2 + ``epoch_tolerance_hours``). The in-transit depth is measured
+    from the PDCSAP residual. No light curve covering the epoch leaves the check ``not_tested``;
+    missing cadences at the epoch make it ``inconclusive``; covered, usable and not found makes it
+    ``failed``. The catalogue depth is quoted beside the measurement but is not a pass mark: it comes
+    from another reduction with its own dilution correction.
+    """
+    veto = ctx.spec.get("veto") or {}
+    windows = tuple(params.get("windows_days", (1.0, 2.0, 3.0)))
+    k_decl = params.get("k_mad", "calibrated")
+    tol_d = float(params.get("epoch_tolerance_hours", 2.0)) / 24
+    series_w = float(params.get("depth_window_days", 2.0))
+    per, epochs_all = {}, []
+    for pid, prod in ctx.result("fetch_products")["products"].items():
+        lc = read_spoc(resolve(prod["path"]))
+        target = _target_for(ctx, pid) or {}
+        k, k_src = _threshold(ctx, pid, k_decl)
+        dur_h = target.get("duration_h") or veto.get("duration_h")
+        dur_d = float(dur_h) / 24 if dur_h else 2 / 24
+        cat_depth = target.get("depth_ppm") or veto.get("depth_ppm")
+        epochs = _known_epochs(lc, veto, target)
+        entry = {"k_mad": k, "threshold_source": k_src, "target": target.get("name"),
+                 "catalogue": {"epoch_source": "target t0_bjd" if veto.get("kind") == "single_epoch" else veto.get("source"),
+                               "depth_ppm": cat_depth, "duration_h": dur_h},
+                 "time_span_bjd": [float(np.nanmin(lc.time_bjd)), float(np.nanmax(lc.time_bjd))], "epochs": []}
+        if epochs:
+            events = screen_events(lc, windows_days=windows, k_mad=k, min_cadences=int(params.get("min_cadences", 2)))
+            usable = lc.usable
+            resid = local_resid(lc.pdc, usable, lc.cadence_s, series_w)
+            for e in epochs:
+                inwin = np.abs(lc.time_bjd - e) <= dur_d / 2
+                n_in = int((inwin & usable).sum())
+                lo, hi = e - dur_d / 2 - tol_d, e + dur_d / 2 + tol_d
+                hits = [ev for ev in events if lc.time_bjd[ev["start_index"]] <= hi and lc.time_bjd[ev["stop_index"]] >= lo]
+                fluxes = sorted({ev["flux_type"] for ev in hits})
+                ep = {"epoch_bjd": e, "usable_in_transit_cadences": n_in, "screen_entries": len(hits), "flux_types": fluxes}
+                if n_in >= 2:
+                    near = (np.abs(lc.time_bjd - e) > dur_d) & (np.abs(lc.time_bjd - e) < dur_d + 1.0) & usable
+                    depth = -float(np.nanmedian(resid[inwin & usable])) * 1e6
+                    err = robust_sigma(resid[near]) * 1e6 / math.sqrt(n_in) if near.sum() > 10 else None
+                    ep.update({"measured_depth_ppm": depth, "depth_err_ppm": err,
+                               "depth_ratio_to_catalogue": depth / float(cat_depth) if cat_depth else None})
+                    if hits:
+                        mids = [float(np.nanmedian(lc.time_bjd[ev["start_index"]:ev["stop_index"] + 1])) for ev in hits]
+                        ep["entry_offset_hours"] = float(np.median(mids) - e) * 24
+                ep["state"] = ("gap" if n_in < 2 else "recovered" if fluxes == ["PDCSAP", "SAP"] else
+                               "partial" if hits else "not_recovered")
+                entry["epochs"].append(ep)
+                epochs_all.append((pid, ep))
+        per[pid] = entry
+        for ep in entry["epochs"]:
+            ctx.measure("known_epoch_state", ep["state"], method=f"-{k:g} MAD screen without veto, SAP and PDCSAP within "
+                        f"±(dur/2 + {tol_d * 24:g} h) of catalogued epoch {ep['epoch_bjd']:.5f}", products=[pid])
+            if "measured_depth_ppm" in ep:
+                ctx.measure("known_transit_depth", ep["measured_depth_ppm"], unit="ppm",
+                            method=f"median PDCSAP residual within ±dur/2 of the catalogued epoch ({series_w:g}-d running median)",
+                            products=[pid], notes=f"catalogue depth {cat_depth} ppm; statistical error {ep.get('depth_err_ppm')}")
+    states = [ep["state"] for _, ep in epochs_all]
+    name = "Known-signal recovery (positive control)"
+    if not states:
+        ctx.check(name, "not_tested", "no retrieved light curve covers a catalogued transit epoch")
+    else:
+        def fmt(pid, ep):
+            d, err, cat = ep.get("measured_depth_ppm"), ep.get("depth_err_ppm"), per[pid]["catalogue"]["depth_ppm"]
+            out = f"BJD {ep['epoch_bjd']:.4f}: {ep['state'].replace('_', ' ')}"
+            if d is not None:
+                out += f", depth {d:.0f}" + (f" ± {err:.0f}" if err else "") + " ppm"
+            if cat:
+                out += f" (catalogue {float(cat):.0f} ppm)"
+            return out
+        if "recovered" in states:
+            state = "passed"
+        elif "not_recovered" in states and "partial" not in states:
+            state = "failed"
+        else:
+            state = "inconclusive"
+        ctx.check(name, state, "; ".join(fmt(pid, ep) for pid, ep in epochs_all))
+        ctx.note(f"Positive control: catalogued transit {', '.join(s.replace('_', ' ') for s in sorted(set(states)))} "
+                 f"({len(states)} covered epoch{'s' if len(states) != 1 else ''}).")
+    return {"per_product": per, "states": states}
+
+
+# ------------------------------------------------------------------ repeat events and period aliases
+def step_period_aliases(ctx, params: dict) -> dict:
+    """For a single-transit target: find screen events that look like a repeat of the catalogued
+    transit, and for each list the periods ΔT/n still allowed by the retrieved light curves.
+
+    A *repeat candidate* is a persistent screen event whose depth is within ``depth_ratio`` of the
+    measured catalogued transit. For each, P_n = ΔT/n (``min_period_days`` ≤ P_n); an alias is
+    *excluded* when a predicted transit falls on usable data (≥ ``min_coverage`` of the transit
+    window) and the mean residual there is shallower than ``excluded_below`` × the catalogued depth.
+    Aliases whose predicted transits all fall in gaps stay allowed. This constrains the period only
+    within the retrieved sectors; it is not a posterior (no stellar density, no priors).
+    """
+    known = ctx.result("known_signal_recovery")["per_product"]
+    screen = ctx.result("residual_screen")["per_product"]
+    ref = [(pid, ep) for pid, v in known.items() for ep in v["epochs"] if ep["state"] == "recovered" and ep.get("measured_depth_ppm")]
+    if not ref:
+        ctx.check("Period aliases (repeat events)", "not_tested", "catalogued transit not recovered; no reference depth")
+        return {"candidates": []}
+    rpid, rep = ref[0]
+    t0 = rep["epoch_bjd"] + (rep.get("entry_offset_hours") or 0) / 24
+    ref_depth = rep["measured_depth_ppm"] * 1e-6
+    tgt = _target_for(ctx, rpid) or {}
+    dur_d = float(tgt.get("duration_h") or 2.0) / 24
+    lo_r, hi_r = params.get("depth_ratio", [0.5, 2.0])
+    pmin = float(params.get("min_period_days", 1.0))
+    cover = float(params.get("min_coverage", 0.5))
+    below = float(params.get("excluded_below", 0.3))
+    # light curves and residuals once
+    series = {}
+    for pid, prod in ctx.result("fetch_products")["products"].items():
+        lc = read_spoc(resolve(prod["path"]))
+        series[pid] = (lc.time_bjd, lc.usable, local_resid(lc.pdc, lc.usable, lc.cadence_s, 2.0))
+    cands = []
+    for pid, v in screen.items():
+        for ev in v.get("distinct_events_outside_veto", []):
+            if not ev["persistent"]:
+                continue
+            t, u, r = series[pid]
+            win = u & (np.abs(t - ev["mid_time_BJD_like"]) <= dur_d / 2)
+            if win.sum() < 2:
+                continue
+            depth = -float(np.nanmedian(r[win]))
+            if not (lo_r * rep["measured_depth_ppm"] * 1e-6 <= depth <= hi_r * rep["measured_depth_ppm"] * 1e-6):
+                continue
+            dT = abs(ev["mid_time_BJD_like"] - t0)
+            aliases = []
+            for n in range(1, int(dT / pmin) + 1):
+                P = dT / n
+                verdict, evidence = "allowed", []
+                for qid, (tq, uq, rq) in series.items():
+                    span = tq[np.isfinite(tq)]
+                    k0, k1 = math.ceil((span.min() - t0) / P), math.floor((span.max() - t0) / P)
+                    for k in range(k0, k1 + 1):
+                        tp = t0 + k * P
+                        if abs(tp - t0) < dur_d or abs(tp - ev["mid_time_BJD_like"]) < dur_d:
+                            continue   # the two observed transits themselves
+                        w = np.abs(tq - tp) <= dur_d / 2
+                        n_w, n_u = int(w.sum()), int((w & uq).sum())
+                        if n_w == 0 or n_u < cover * max(n_w, dur_d * 86400 / 120):
+                            continue
+                        d = -float(np.nanmedian(rq[w & uq]))
+                        evidence.append({"product": qid, "predicted_bjd": tp, "usable_cadences": n_u, "depth_ppm": d * 1e6})
+                        if d < below * ref_depth:
+                            verdict = "excluded"
+                a = {"n": n, "period_days": P, "verdict": verdict}
+                if verdict == "allowed":
+                    a["tested_epochs"] = evidence          # full evidence only where the alias survives
+                else:
+                    a["excluded_by"] = next(e for e in evidence if e["depth_ppm"] < below * ref_depth * 1e6)
+                aliases.append(a)
+            allowed = [a for a in aliases if a["verdict"] == "allowed"]
+            cands.append({"product": pid, "event_bjd": ev["mid_time_BJD_like"], "depth_ppm": depth * 1e6,
+                          "reference_depth_ppm": rep["measured_depth_ppm"], "delta_t_days": dT,
+                          "n_aliases": len(aliases), "n_allowed": len(allowed),
+                          "allowed_periods_days": [round(a["period_days"], 4) for a in allowed], "aliases": aliases})
+            ctx.measure("repeat_event_delta_t", dT, unit="d", method="catalogued transit to persistent screen event of matching depth",
+                        products=[rpid, pid])
+            ctx.measure("allowed_period_aliases", len(allowed), unit="count",
+                        method=f"P = ΔT/n ≥ {pmin:g} d not excluded by usable retrieved data", products=list(series))
+    (ctx.outdir / "period_aliases.json").write_text(json.dumps({"reference_epoch_bjd": t0, "candidates": cands}, separators=(",", ":")),
+                                                     encoding="utf-8")
+    if cands:
+        c = cands[0]
+        shown = ", ".join(f"{p:g}" for p in c["allowed_periods_days"][:12]) + (" …" if c["n_allowed"] > 12 else "")
+        ctx.check("Period aliases (repeat events)", "inconclusive",
+                  f"{len(cands)} repeat-candidate event(s); first at BJD {c['event_bjd']:.4f}, ΔT = {c['delta_t_days']:.3f} d, "
+                  f"{c['n_allowed']} of {c['n_aliases']} aliases P = ΔT/n ≥ {pmin:g} d allowed by the retrieved data ({shown} d)")
+        ctx.flag_lead(f"Repeat candidate: a persistent event matching the catalogued depth at BJD {c['event_bjd']:.4f} "
+                 f"(ΔT {c['delta_t_days']:.2f} d); {c['n_allowed']} period aliases remain. Unverified lead until vetted.")
+    else:
+        ctx.check("Period aliases (repeat events)", "not_tested", "no persistent screen event matches the catalogued depth")
+    return {"candidates": [{k: v for k, v in c.items() if k != "aliases"} for c in cands],
+            "file": ctx.rel(ctx.outdir / "period_aliases.json")}
 
 
 # ------------------------------------------------------------------ prior art
@@ -444,5 +721,7 @@ STEPS: dict[str, Callable[[Any, dict], dict]] = {
     "calibrate_screen": step_calibrate_screen,
     "residual_screen": step_residual_screen,
     "bls_recovery": step_bls_recovery,
+    "known_signal_recovery": step_known_signal_recovery,
+    "period_aliases": step_period_aliases,
     "prior_art": step_prior_art,
 }

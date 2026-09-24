@@ -2,6 +2,8 @@
 
 A campaign is a YAML spec in `campaigns/` (`schema: cygnus.campaign/1`). The runner executes it as ledgered, resumable steps and regenerates the campaign's sky record:
 
+Known-object tests are generated rather than written: `python -m cygnus.campaign new --next | --from-queue NAME | --planet NAME | --manual …`, then `run` and `report`, then `queue` shows the board. Procedure and review rules: `docs/AGENT_RUNBOOK.md`.
+
 ```bash
 pip install -e ".[campaign]"
 python -m cygnus.campaign check campaigns/<id>.yaml          # validate only
@@ -28,8 +30,12 @@ Code: `src/cygnus/campaign/` (runner, steps, light-curve primitives), `src/cygnu
 | `fetch_products` | Finds products in scratch (`search_dirs`, `scratch:<subdir>`) or downloads them from MAST; verifies; registers new products | — |
 | `residual_screen` | Negative excursions ≥ k robust-MAD, ≥ `min_cadences`, SAP and PDCSAP, several baselines; flags entries inside the known-signal `veto`. `k_mad: calibrated` uses `calibrate_screen`'s k* per light curve | `sectorNN/screen.json`, `normalized_series.csv` |
 | `calibrate_screen` | Sign-flip null (brightenings, SAP∧PDCSAP) → k*, the smallest grid k with ≤ `max_null_events`; injection–recovery of box dips → completeness at the declared k and at k*, and the 90 %-completeness depth per duration | `sectorNN/calibration.json` |
+| `known_signal_recovery` | Positive control: screen without veto at k*; the catalogued epoch(s) recovered if SAP and PDCSAP entries overlap ±(dur/2 + tolerance); in-transit depth measured | `runner/known_signal_recovery.json` |
+| `period_aliases` | Persistent events matching the catalogued depth (0.5–2×) → periods ΔT/n; an alias is excluded when a predicted transit on usable data is absent. Raises the record to `lead` / *Unverified lead*, never higher | `period_aliases.json` |
 | `bls_recovery` | Astropy BLS + permutation diagnostic on one light curve | `results.json` |
 | `prior_art` | Cone search of NASA Exoplanet Archive, TESS TOI, VSX and SIMBAD around each target; dated results into the ledger `prior_art` table | — |
+
+`k_mad: calibrated` falls back to the declared k, labelled UNCALIBRATED, for a light curve where no grid k meets the null limit. `residual_screen` groups overlapping entries into distinct events and marks those seen in SAP and PDCSAP at ≥ 2 baselines as persistent.
 
 Vetoes: `kind: ephemeris` (period, T0, ±phase) or `kind: single_epoch` (±hours around each queued target's known transit).
 
@@ -41,13 +47,14 @@ Not built yet (designed in `ANALYSIS_STACK.md`): alternative detrending families
 |---|---|
 | `tess-wasp12-residual-01.yaml` | completed; calibrated (ledger runs #31–#34) |
 | `wasp12-sector20-recovery.yaml` | completed (runs #35–#37) |
-| `tess-mono-01.yaml` | draft: queue built (20 of 73 single-transit PC/APC TOIs); analysis steps specified, not yet run |
+| `tess-mono-01.yaml` | draft: queue built (20 of 73 single-transit PC/APC TOIs); targets are run one by one as known-object tests |
+| `toi-2666-01.yaml` | completed (runs #73–#78; pilot of the known-object loop): catalogued transit recovered; repeat candidate in Sector 99, ΔT 1790.005 d, 52 aliases; **unverified lead**, reviewed |
 
 ## Verification record (2026-09-24)
 
 - Equivalence with the original scripts on the real WASP-12 products: `normalized_series.csv` byte-identical in both sectors; all 835 and 464 screen entries identical; recovery `results.json` identical apart from its run timestamp (same seed 20260925).
 - Ledger repair: ten `cygnus.ingest.tier1` runs left `open` by crashed processes were closed as `aborted` with an explanatory note (`python -m cygnus.cli close-stale-runs`); `tier1` now uses `recorded_run`.
-- `python -m pytest -q`: 156 passed, 2 deselected.
+- `python -m pytest -q`: 156 passed, 2 deselected (159 after the known-object loop was added).
 
 ## Automation
 
