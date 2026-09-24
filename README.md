@@ -43,4 +43,4 @@ Science extras: `mast`, `timing`, `imaging`, `moving`, `analysis` (see `pyprojec
 
 Bulk archive data, the SQLite provenance ledger (`state/`), scratch downloads and credentials are deliberately excluded (`.gitignore`). The Tier-1 data products live in private cloud storage; this repository holds their manifests and checksums, so each product can be re-fetched from its public archive. Build outputs (`build/`) are regenerated with `python -m cygnus.publish build`.
 
-No license has been chosen yet; all rights reserved until one is.
+Licensed under the Apache License 2.0 (see [`LICENSE`](LICENSE)). Third-party data keep their own terms: Gaia-derived files (ESA/Gaia/DPAC) are CC BY-SA 3.0 IGO; Pan-STARRS1, 2MASS, MAST/TESS and NASA Exoplanet Archive material require the acknowledgements recorded in `design-system/mockups/data/PROVENANCE.json` and in each report.
