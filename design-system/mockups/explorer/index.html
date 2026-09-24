@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cygnus Sky</title>
+<meta name="description" content="Interactive sky showing every position Project Cygnus has queried, the exact archive footprints, real survey images and generated renditions of the targets.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="explorer.css?v=3">
+<script src="explorer.js?v=6" defer></script>
+</head>
+<body>
+<p class="mock-note">Prototype for review · not the published site · every plotted position, footprint and image is from a recorded source (<a href="#sources" data-open="sources">sources</a>)</p>
+<header class="bar">
+  <a class="brand" href="./">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/></svg>
+    Cygnus
+  </a>
+  <nav aria-label="Site">
+    <a href="./" aria-current="page">Sky</a>
+    <a href="../target-wasp-12.html">Targets</a>
+    <a href="../log.html">Observing log</a>
+    <a href="#sources" data-open="sources">Sources</a>
+  </nav>
+  <label class="find"><span class="vh">Go to target</span>
+    <input id="find" list="target-names" placeholder="Go to target…" autocomplete="off">
+    <datalist id="target-names"></datalist>
+  </label>
+  <button class="mode" id="mode" type="button" aria-pressed="false" title="Red night-vision mode for use at the telescope">Night vision</button>
+</header>
+
+<div class="stage" id="stage">
+  <canvas id="sky" tabindex="0" aria-label="Interactive sky map. Arrow keys pan, plus and minus zoom, Enter opens the nearest target. The same targets are listed beside the map."></canvas>
+
+  <section class="intro" id="intro" aria-labelledby="intro-h">
+    <p class="kicker">Project Cygnus · sky map</p>
+    <h1 id="intro-h">Where Cygnus has looked</h1>
+    <p>Each marker is a position the project resolved and queried in an archive. Zoom in to see the <em>exact patch</em> each query covered, the survey image of the field and the Gaia stars in it. Pick a target for its rendition and results.</p>
+    <p class="counts" id="counts"></p>
+    <div class="intro-actions">
+      <button type="button" id="tour">Tour the targets</button>
+      <button type="button" class="ghost" id="intro-close">Explore freely</button>
+    </div>
+  </section>
+
+  <nav class="rail" id="rail" aria-label="Targets">
+    <button type="button" class="rail-toggle" id="rail-toggle" aria-expanded="true" aria-controls="rail-list">Targets</button>
+    <div id="rail-list"></div>
+  </nav>
+
+  <fieldset class="layers" id="layers">
+    <legend>Layers</legend>
+  </fieldset>
+
+  <div class="zoom" role="group" aria-label="Zoom">
+    <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+    <button type="button" data-zoom="out" aria-label="Zoom out">−</button>
+    <button type="button" data-zoom="home" aria-label="Whole sky">◯</button>
+  </div>
+
+  <div class="readout" aria-live="off">
+    <span id="ro-pos">—</span>
+    <span id="ro-fov"></span>
+    <span class="scalebar"><i id="sb"></i><b id="sb-l"></b></span>
+  </div>
+  <div class="tip" id="tip" hidden></div>
+  <aside class="panel" id="panel" hidden aria-labelledby="p-title">
+    <button type="button" class="close" id="p-close" aria-label="Close panel">×</button>
+    <div id="p-body"></div>
+  </aside>
+</div>
+
+</body>
+</html>

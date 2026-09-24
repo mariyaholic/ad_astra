@@ -1,0 +1,589 @@
+{
+ "bsc5.csv": {
+  "retrieved_utc": "2026-09-24T06:03:00Z",
+  "source": "Yale Bright Star Catalogue 5th rev. ed. (Hoffleit & Warren 1991), VizieR V/50",
+  "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync",
+  "query": "SELECT HR, Name, RAJ2000, DEJ2000, Vmag, \"B-V\" FROM \"V/50/catalog\" WHERE Vmag <= 6.5 AND RAJ2000 IS NOT NULL",
+  "rows": 8404,
+  "sha256": "d4737dba5580a80f63b700b949e95aa57a348e4ca63c2227ae18c4007ef0cee4",
+  "terms": "VizieR/CDS: free use with acknowledgement of CDS and the catalogue authors"
+ },
+ "planets_pscomppars.csv": {
+  "retrieved_utc": "2026-09-24T06:10:31Z",
+  "source": "NASA Exoplanet Archive, Planetary Systems Composite Parameters",
+  "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
+  "query": "SELECT hostname, pl_name, pl_letter, pl_orbper, pl_orbsmax, pl_rade, pl_radj, pl_bmasse, pl_orbeccen, pl_eqt, pl_orbper_reflink, pl_rade_reflink, st_teff, st_rad, st_mass, st_spectype, sy_dist, disc_year, discoverymethod, tran_flag FROM pscomppars WHERE hostname IN ('HD 39091', 'HD 209458', 'WASP-12', 'TRAPPIST-1', 'GJ 1214', '51 Peg', 'AU Mic', 'WASP-126', 'DS Tuc A', 'iot Hor', 'Proxima Cen') ORDER BY hostname, pl_orbper",
+  "rows": 22,
+  "sha256": "bdd585098e3cd1f879cf800e01be8aacd426273bbd2a79325520922d731beef4",
+  "note": "pscomppars mixes values from several references per planet; pl_orbper_reflink and pl_rade_reflink name the period and radius references",
+  "terms": "NASA Exoplanet Archive: public; acknowledge per archive policy"
+ },
+ "field_pi-mensae.csv": {
+  "retrieved_utc": "2026-09-24T06:03:45Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 84.29119519, -80.46912071, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 206,
+  "sha256": "cf9132d0bd2a2e3317d57219ea6bdb1f43752b2f5727aa5189d1556f1a566813",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_hd-209458.csv": {
+  "retrieved_utc": "2026-09-24T06:03:51Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 330.79488644, 18.88431928, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 268,
+  "sha256": "d05ae18bb84328837bc54391aacc585d2e8ec4675e4ad3b4f36915638156ee4f",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_wasp-12.csv": {
+  "retrieved_utc": "2026-09-24T06:03:58Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 97.63665254, 29.67229542, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 699,
+  "sha256": "4a0dfa6b9bb1fa69b3693456f7cd87170cb43273e0b3b3921cadf2b12b310596",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_trappist-1.csv": {
+  "retrieved_utc": "2026-09-24T06:04:02Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 346.62236873, -5.04139925, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 63,
+  "sha256": "074b610c18e3a989358a05a39fec9db8f4498a2a15e0f8ef8c75b4c2fec5e5c1",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_gj-1214.csv": {
+  "retrieved_utc": "2026-09-24T06:04:11Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 258.82889160, 4.96390739, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 362,
+  "sha256": "637763ca4eacd5e21dc20cccb4d996206560ed0eea9906c47f84e5d211a8db3e",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_51-peg.csv": {
+  "retrieved_utc": "2026-09-24T06:04:17Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 344.36658536, 20.76883251, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 155,
+  "sha256": "c6b4b92c9046293277f67ad141fd72255322c35527f018a1fd3d2a2fda5cbb2d",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_kic-8462852.csv": {
+  "retrieved_utc": "2026-09-24T06:04:24Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 301.56438605, 44.45688635, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 881,
+  "sha256": "ea8e035c474ce40bfdd869eab93a9cbf4e8e2181ddf936b77ac0133ac0de347e",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_t-tau.csv": {
+  "retrieved_utc": "2026-09-24T06:04:30Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 65.49763328, 19.53512011, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 113,
+  "sha256": "529088181a4c109c7c4641c94c162e24916ce380cde5f72b0dee6ee0f7bab729",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_au-mic.csv": {
+  "retrieved_utc": "2026-09-24T06:04:37Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 311.28971874, -31.34089941, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 228,
+  "sha256": "59ec08f5dba615cf0106306eb75c0ea205a718eea38e6df8b324cdabc2eecc69",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_wasp-126.csv": {
+  "retrieved_utc": "2026-09-24T06:04:43Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 63.37393811, -69.22682267, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 158,
+  "sha256": "38e94badd2f00dce534561c55f2f0e53c499bd6cd4d315f68eb734ee0552555b",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_ds-tuc.csv": {
+  "retrieved_utc": "2026-09-24T06:04:48Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 354.91450337, -69.19575215, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 131,
+  "sha256": "ea84f29d452867599a27496688657708c8efb55226cdcc2918e75ef98c562105",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_iota-horologii.csv": {
+  "retrieved_utc": "2026-09-24T06:04:53Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 40.63944445, -50.80029309, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 75,
+  "sha256": "5dbf0894cf0ad7965b119fe93efd5c6912200fc3d6b046af0db1488c62350a54",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_ngc-6819.csv": {
+  "retrieved_utc": "2026-09-24T06:05:01Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 295.32708333, 40.19000000, 0.25)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 3354,
+  "sha256": "6bb140663a3ae2322bf3e0f4780fb4822b0cc27703edb4046aad3f27eb2f055c",
+  "radius_deg": 0.25,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_pleiades.csv": {
+  "retrieved_utc": "2026-09-24T06:05:06Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 56.60083333, 24.11388889, 1.0)) AND phot_g_mean_mag < 14.0 ORDER BY phot_g_mean_mag",
+  "rows": 895,
+  "sha256": "92c92a319122822bd5d7adedd72accd713c02d457ef08585aa0c1877233e4ac7",
+  "radius_deg": 1.0,
+  "g_max": 14.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_m44.csv": {
+  "retrieved_utc": "2026-09-24T06:05:13Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 130.05416667, 19.62111111, 1.0)) AND phot_g_mean_mag < 15.0 ORDER BY phot_g_mean_mag",
+  "rows": 1441,
+  "sha256": "481b9e2fea0a3ae4004c938032efec730ff223449d0ecd1e66e7e861727abbc5",
+  "radius_deg": 1.0,
+  "g_max": 15.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_ngc-5139.csv": {
+  "retrieved_utc": "2026-09-24T06:05:20Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 201.69700000, -47.47947222, 0.5)) AND phot_g_mean_mag < 16.0 ORDER BY phot_g_mean_mag",
+  "rows": 6000,
+  "sha256": "52eab28dded035d8202e5034d32fd824152445414131983c38029865625ebd50",
+  "radius_deg": 0.5,
+  "g_max": 16.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_smacs-0723.csv": {
+  "retrieved_utc": "2026-09-24T06:05:29Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 110.80540000, -73.45700000, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 245,
+  "sha256": "714dd5355a3889011aa012397ed2ff2ccdb452c584233df297f8563d458b8d7b",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_m42.csv": {
+  "retrieved_utc": "2026-09-24T06:05:39Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 83.82010000, -5.38760000, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 722,
+  "sha256": "93b506e99cd48986f23b91c529de491df43e3bfeba06a091379bc286d8d686e9",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "fields/pi-mensae.jpg": {
+  "retrieved_utc": "2026-09-24T06:05:45Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "84.291195",
+   "dec": "-80.469121",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "7e926473c441735169ee3038677716f6038aeb3f4b06e6220ae17bb276bc5212",
+  "bytes": 79707,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/hd-209458.jpg": {
+  "retrieved_utc": "2026-09-24T06:05:55Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "330.794886",
+   "dec": "18.884319",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "9e601abc3d391ee6c6a58a9ab702750abf268d9e29152b04c0501bd73f90edad",
+  "bytes": 72901,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/wasp-12.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:01Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "97.636653",
+   "dec": "29.672295",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "f53091b3d0853885b6cbabac3b2882e9610ff16269245d133ddb82e8449502f1",
+  "bytes": 105116,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/trappist-1.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:06Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "346.622369",
+   "dec": "-5.041399",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "7e6d17db58dcd8afd2f8b1bb2fc9efee02b80a8160cdbf091b161ace5fce5b83",
+  "bytes": 56729,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/gj-1214.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:12Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "258.828892",
+   "dec": "4.963907",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "9d7472c45606790e3a5def74afa8c9e7a4324bf92599f24f41a35b2136a9d8e9",
+  "bytes": 96089,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/51-peg.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:17Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "344.366585",
+   "dec": "20.768833",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "2bc0a6e639aed45e15709e4a3d2efaee81748cc80df1aaed8351dec166d004f3",
+  "bytes": 65816,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/kic-8462852.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:23Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "301.564386",
+   "dec": "44.456886",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "d1ac7f224e8100f33ec2f3e01922553a941351dd1d6d9209e382049b628f99ab",
+  "bytes": 133810,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/t-tau.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:30Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "65.497633",
+   "dec": "19.535120",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "319c816fd985778366525e66adc56575f32757e2227938b02e8f8066f5028dff",
+  "bytes": 57967,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/au-mic.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:34Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "311.289719",
+   "dec": "-31.340899",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "df7f6386ce500512340808bb0909489a349aca985808ee609f88ba81bb044708",
+  "bytes": 76871,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/wasp-126.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:40Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "63.373938",
+   "dec": "-69.226823",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "a615ce75e7106d8d471be2b7d964bfa022eb8669b0ec0e25e6d39cb5f4fd666f",
+  "bytes": 75627,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/ds-tuc.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:45Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "354.914503",
+   "dec": "-69.195752",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "5f2901748d14bc1aa1eb62023c104d072c3c380da0dc8854dd6458842cdeae61",
+  "bytes": 72916,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/iota-horologii.jpg": {
+  "retrieved_utc": "2026-09-24T06:06:55Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "40.639444",
+   "dec": "-50.800293",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "f867f233080d2e9736ac453a1ee992f721d40724c1a5d049808e6e8eaac747e4",
+  "bytes": 78318,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/ngc-6819.jpg": {
+  "retrieved_utc": "2026-09-24T06:07:00Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "295.327083",
+   "dec": "40.190000",
+   "fov": "0.5000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "f8e80ebc1dd388279ee44b0995642406de714f92a002b2204f826bb426c08211",
+  "bytes": 175842,
+  "fov_deg": 0.5,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/pleiades.jpg": {
+  "retrieved_utc": "2026-09-24T06:07:05Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "56.600833",
+   "dec": "24.113889",
+   "fov": "2.0000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "a0ae0c214e91566d45f2c11e8df4bd48743fb6accd1762aca2b02da3a4c35988",
+  "bytes": 170957,
+  "fov_deg": 2.0,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/m44.jpg": {
+  "retrieved_utc": "2026-09-24T06:07:10Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "130.054167",
+   "dec": "19.621111",
+   "fov": "2.0000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "e6f2a5a9da36c3d450cf1561629312181d3077a42f2bf5216162e59d3a3cbf93",
+  "bytes": 156407,
+  "fov_deg": 2.0,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/ngc-5139.jpg": {
+  "retrieved_utc": "2026-09-24T06:07:18Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "201.697000",
+   "dec": "-47.479472",
+   "fov": "1.0000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "72f218ffbbd75ea1f5f35c2b56f5ab059060390a03627898ab12e806713552f7",
+  "bytes": 142341,
+  "fov_deg": 1.0,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/smacs-0723.jpg": {
+  "retrieved_utc": "2026-09-24T06:07:23Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "110.805400",
+   "dec": "-73.457000",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "ac098cf3a4ece9e33d25bd9fd577b26fd28ca9f1d6750783cceb1619c446019b",
+  "bytes": 82546,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/m42.jpg": {
+  "retrieved_utc": "2026-09-24T06:07:29Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "83.820100",
+   "dec": "-5.387600",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "46a167b13e1a569bd511ed87e4a81893034d79f94dc0b7238a9617482ad67085",
+  "bytes": 83030,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "gaia_density_hpx5_g11.csv": {
+  "retrieved_utc": "2026-09-24T06:08:30Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT hpx, COUNT(*) AS n, AVG(x) AS x, AVG(y) AS y, AVG(z) AS z FROM (SELECT GAIA_HEALPIX_INDEX(5, source_id) AS hpx, COS(RADIANS(dec))*COS(RADIANS(ra)) AS x, COS(RADIANS(dec))*SIN(RADIANS(ra)) AS y, SIN(RADIANS(dec)) AS z FROM gaiadr3.gaia_source WHERE phot_g_mean_mag < 11) AS t GROUP BY hpx",
+  "rows": 12288,
+  "sha256": "a1be18037ad592338ac01ec7012f86045689fd0e673c6334792ec7d3df8acfbb",
+  "note": "cell centre = mean unit vector of member sources",
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ }
+}

@@ -1,0 +1,71 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "wasp12-sector20-recovery",
+ "title": "Known-planet recovery: WASP-12 b in TESS Sector 20",
+ "kind": "known-planet recovery (pipeline smoke test)",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-24",
+ "summary": "BLS recovered the known WASP-12 b signal at P = 1.0914183 d (grid estimate), duration 2.448 h, depth 1.4228 % in PDCSAP flux, with a similar box in SAP. A pipeline check on a known planet, not a detection.",
+ "spec": null,
+ "report": "campaigns/wasp12_sector20/REPORT.md",
+ "search_log": "campaigns/wasp12_sector20/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "WASP-12",
+   "position_source": "NAME_RESOLUTIONS"
+  }
+ ],
+ "products": [
+  {
+   "id": "tess2019357164649-s0020-0000000086396382-0165-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "bf74a16f6e0c40b693a66de922e142d446cb44cee5bb7f26843062e436957f63"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity",
+   "state": "passed",
+   "note": "SHA-256 matches the existing manifest."
+  },
+  {
+   "name": "Cadence quality mask and finite-flux selection",
+   "state": "passed",
+   "note": "Quality flags were not individually decoded."
+  },
+  {
+   "name": "PDC versus SAP persistence",
+   "state": "inconclusive",
+   "reported_as": "partial diagnostic",
+   "note": "Comparable depth and power at the PDC ephemeris; not an independent reduction."
+  },
+  {
+   "name": "Alternative detrending / aperture",
+   "state": "not_tested"
+  },
+  {
+   "name": "Transit centroid / difference image / blend audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Pointing / centroid-jitter correlation",
+   "state": "not_tested"
+  },
+  {
+   "name": "Red-noise-aware null or calibrated FAP",
+   "state": "not_tested",
+   "note": "Permutation null labelled inadequate in the report."
+  },
+  {
+   "name": "Independent epoch / instrument",
+   "state": "not_tested"
+  },
+  {
+   "name": "Catalog / literature audit",
+   "state": "not_tested",
+   "reported_as": "not performed in this run"
+  }
+ ]
+}

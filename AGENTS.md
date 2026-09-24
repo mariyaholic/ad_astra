@@ -105,6 +105,7 @@ Produce **both** scientific code and a clear research narrative. For a campaign,
 2. A **search log**: archives/releases, query footprints, epochs, filters, selection thresholds, total screened, excluded, rejected, and retained; limitations and null results.
 3. **Reproducible code and configuration**: input identifiers, commands or entry points, pinned or recorded package versions, expected outputs, and a brief validation/test record.
 4. **Candidate dossiers** for substantive leads, plus concise rejection notes for important false positives.
+5. A **sky record** (`sky_record.json` beside the report; schema in `docs/SKY_RECORDS.md`) listing targets, products, outcome and every check with its passed/failed/inconclusive/not-tested state. The test suite fails without it.
 
 ### CYGNUS CANDIDATE DOSSIER
 

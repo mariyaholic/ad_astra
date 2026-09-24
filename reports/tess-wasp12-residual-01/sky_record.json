@@ -1,0 +1,111 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "tess-wasp12-residual-01",
+ "title": "Residual screen of WASP-12, TESS Sectors 20 and 43",
+ "kind": "residual screen",
+ "status": "completed",
+ "outcome": "bounded_null",
+ "evidence": null,
+ "date": "2026-09-24",
+ "summary": "No ≥5 robust-MAD, ≥2-cadence negative excursion outside ±0.08 phase of the known WASP-12 b transit in SAP or PDCSAP flux, for 1/2/3-day baselines, in either sector. Bounded null; no candidate. The threshold is uncalibrated.",
+ "spec": "campaigns/tess-wasp12-residual-01.yaml",
+ "report": "reports/tess-wasp12-residual-01/REPORT.md",
+ "search_log": "reports/tess-wasp12-residual-01/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "WASP-12",
+   "position_source": "NAME_RESOLUTIONS"
+  }
+ ],
+ "products": [
+  {
+   "id": "tess2019357164649-s0020-0000000086396382-0165-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "bf74a16f6e0c40b693a66de922e142d446cb44cee5bb7f26843062e436957f63"
+  },
+  {
+   "id": "tess2021258175143-s0043-0000000086396382-0214-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "e3d5c6f76884014ec1dec1eb60f04eaf734330a7abd8eef99141f49df03b2493"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256 against Tier-1 manifest)",
+   "state": "passed",
+   "note": "Both byte sizes and hashes match docs/tier1_pack/MASTER_MANIFEST.csv."
+  },
+  {
+   "name": "Synthetic signal injection–recovery",
+   "state": "not_tested",
+   "note": "No injection was run."
+  },
+  {
+   "name": "Centroid correlation with residuals",
+   "state": "not_tested",
+   "note": "Centroids exist in the light curves but were not correlated."
+  },
+  {
+   "name": "Pixel-level background / blend inspection",
+   "state": "not_tested"
+  },
+  {
+   "name": "Cosmic-ray / hot-pixel audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Independent reduction",
+   "state": "not_tested"
+  },
+  {
+   "name": "Independent instrument",
+   "state": "not_tested",
+   "note": "Sector 43 is a second epoch from the same instrument and pipeline."
+  },
+  {
+   "name": "Literature / ADS / ExoFOP audit",
+   "state": "not_tested",
+   "reported_as": "not completed",
+   "note": "Web search service returned HTTP 402; ADS and ExoFOP not queried."
+  }
+ ],
+ "plots": [
+  {
+   "type": "fold",
+   "file": "reports/tess-wasp12-residual-01/sector20/normalized_series.csv",
+   "time_col": "TIME_stored",
+   "time_offset_bjd": 2457000,
+   "flux_col": "PDCSAP_FLUX",
+   "quality_col": "QUALITY",
+   "period_days": 1.091418901,
+   "t0_bjd": 2457607.519305,
+   "window_hours": 4,
+   "veto_phase": 0.08,
+   "depth_window_hours": 0.5,
+   "label": "Sector 20 PDCSAP, folded on the NASA Exoplanet Archive ephemeris"
+  },
+  {
+   "type": "fold",
+   "file": "reports/tess-wasp12-residual-01/sector43/normalized_series.csv",
+   "time_col": "TIME_stored",
+   "time_offset_bjd": 2457000,
+   "flux_col": "PDCSAP_FLUX",
+   "quality_col": "QUALITY",
+   "period_days": 1.091418901,
+   "t0_bjd": 2457607.519305,
+   "window_hours": 4,
+   "veto_phase": 0.08,
+   "depth_window_hours": 0.5,
+   "label": "Sector 43 PDCSAP, same fold"
+  },
+  {
+   "type": "timeseries",
+   "file": "reports/tess-wasp12-residual-01/sector20/normalized_series.csv",
+   "time_col": "TIME_stored",
+   "time_offset_bjd": 2457000,
+   "flux_col": "PDCSAP_FLUX",
+   "quality_col": "QUALITY",
+   "label": "Sector 20 PDCSAP light curve, 30-min medians"
+  }
+ ]
+}
