@@ -19,7 +19,7 @@ Last updated: 2026-09-24 (UTC). Read this after `AGENTS.md` when picking the pro
 1. **Convert the published site to the explorer design?** The plan: the explorer as the home page, one page per target and an observing log. After that, update `design-system/project/` to match.
 2. **Publish the restricted source archive** in `publish/collections/cygnus-software-0-1-0.json`? It was withheld while no licence existed; the licence is now Apache-2.0, but nobody has decided to publish it.
 3. **Deployment target** for `build/site/` (GitHub Pages or another static host). Nothing is deployed.
-4. **Logo.** Direction chosen (2026-09-24): concept **D**, the Northern Cross badged with a transit chord at a seeded random angle (`design-system/brand/build_brand.py`, `transit_params`). Still to pick: the seed/angle (default 20260924 gives 2.7°; alternatives shown in `design-system/brand/index.html`). Then: final outlined SVGs, favicon set, explorer header, site and design system.
+4. **Logo.** Direction chosen (2026-09-24): concept **D**, the Northern Cross badged with a transit chord at a seeded random angle (`design-system/brand/build_brand.py`, `transit_params`). Revised the same day to rigid four-point spike stars and a heavy transit bar that breaks through the rim, angle drawn from hard diagonals (25–65° or 115–155°). Still to pick: the seed (alternatives in `design-system/brand/index.html`). Then: final outlined SVGs, favicon set, explorer header, site and design system.
 5. If the explorer's Gaia-derived files are published, Gaia's share-alike terms (CC BY-SA 3.0 IGO) apply to those files.
 
 ## Known problems (surface them; do not paper over)

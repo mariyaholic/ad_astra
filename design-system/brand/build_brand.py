@@ -149,13 +149,11 @@ DEFAULT_SEED = 20260924
 
 def transit_params(seed: int) -> dict:
     """The 'randomized' transit, reproducibly: chord angle, impact offset and planet position from a recorded seed.
-    Angles within 12 deg of vertical are redrawn, because the chord would lie along the cross's long axis."""
+    The angle is drawn uniformly from the two hard-diagonal bands (25-65 and 115-155 deg) so it always reads as a strike."""
     rnd = random.Random(seed)
-    while True:
-        ang = rnd.uniform(0.0, 180.0)
-        if abs(ang - 90.0) > 12.0:
-            break
-    return {"seed": seed, "angle": round(ang, 1), "b": round(rnd.uniform(-0.14, 0.14), 3), "t": round(rnd.uniform(0.3, 0.7), 3)}
+    band = rnd.choice(((25.0, 65.0), (115.0, 155.0)))
+    return {"seed": seed, "angle": round(rnd.uniform(*band), 1), "b": round(rnd.uniform(-0.1, 0.1), 3),
+            "t": round(rnd.choice((-1, 1)) * rnd.uniform(0.45, 0.7), 3)}
 
 
 def palette(ink: str, colour: bool) -> dict:
@@ -164,37 +162,75 @@ def palette(ink: str, colour: bool) -> dict:
     if ink == NIGHT:
         return {"bg": "#140908", "ink": NIGHT, "acc": NIGHT, "albireo": False}
     if colour:
-        return {"bg": "#f4f2ee", "ink": INK_LIGHT, "acc": "#a66f1e", "albireo": True}
+        return {"bg": "#f4f2ee", "ink": INK_LIGHT, "acc": "#b8741a", "albireo": True}
     return {"bg": INK_LIGHT, "ink": "#f4f2ee", "acc": "#f4f2ee", "albireo": False}  # one-colour: knocked out of a solid badge
 
 
+def spike_star(x, y, r, fill, rot=0.0, waist=0.2):
+    """A rigid four-point star: straight-edged diffraction spikes, the way a telescope renders a bright star."""
+    pts = []
+    for k in range(8):
+        a = rot + k * math.pi / 4
+        rr = r if k % 2 == 0 else r * waist
+        pts.append(f"{x + rr * math.sin(a):.2f},{y - rr * math.cos(a):.2f}")
+    return f'<polygon points="{" ".join(pts)}" fill="{fill}"/>'
+
+
+def rigid_cross(pts, stars, size, cx, cy, c, star_scale=1.0):
+    """The Northern Cross with spike stars and square-ended struts."""
+    P = {k: (cx + x * size, cy + y * size) for k, (x, y) in pts.items()}
+    R = lambda k: size * star_scale * (0.05 + 0.032 * max(0.0, 5.3 - stars[k]["V"]))
+    out, lw = [], size * 0.034
+    for a, b in LINES:
+        (x1, y1), (x2, y2) = P[a], P[b]
+        L = math.hypot(x2 - x1, y2 - y1)
+        ga, gb = R(a) * 0.55 + size * 0.03, R(b) * 0.55 + size * 0.03
+        x1, y1, x2, y2 = x1 + (x2 - x1) * ga / L, y1 + (y2 - y1) * ga / L, x2 - (x2 - x1) * gb / L, y2 - (y2 - y1) * gb / L
+        out.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{c["ink"]}" stroke-width="{lw:.2f}" stroke-linecap="butt" opacity=".8"/>')
+    for k, (x, y) in P.items():
+        if k == "Albireo B":
+            continue
+        fill = bv_rgb(stars[k]["bv"]) if (c["albireo"] and k == "Albireo A") else c["ink"]
+        out.append(spike_star(x, y, R(k), fill, waist=0.2 if stars[k]["V"] < 2.5 else 0.26))
+    xa, ya = P["Albireo A"]
+    rb = R("Albireo B") * 1.25
+    fillb = bv_rgb(stars["Albireo B"]["bv"]) if c["albireo"] else c["ink"]
+    out.append(spike_star(xa + R("Albireo A") * 0.7 + rb * 0.8, ya - rb * 0.25, rb, fillb, waist=0.3))
+    return out
+
+
 def concept_d(pts, stars, ink, colour=True, size=512, seed=DEFAULT_SEED):
-    """D · Badged transit: the Northern Cross in a round badge, struck through by a transit chord with a planet in front."""
+    """D · Badged transit: the Northern Cross in a badge, struck through by a heavy transit bar that breaks the rim."""
     c = palette(ink, colour)
     tp = transit_params(seed)
     cx = cy = size / 2
-    R = size * 0.47
-    w = size * 0.017
-    cid = f"badge-{seed}-{ink.lstrip("#")}"
-    body = [f'<defs><clipPath id="{cid}"><circle cx="{cx}" cy="{cy}" r="{R * 0.94:.2f}"/></clipPath></defs>',
-            f'<circle cx="{cx}" cy="{cy}" r="{R:.2f}" fill="{c["bg"]}"/>',
-            f'<circle cx="{cx}" cy="{cy}" r="{R - w * 0.5:.2f}" fill="none" stroke="{c["acc"]}" stroke-width="{w:.2f}"/>',
-            f'<circle cx="{cx}" cy="{cy}" r="{R * 0.9:.2f}" fill="none" stroke="{c["ink"]}" stroke-width="{w * 0.35:.2f}" opacity=".35"/>',
-            f'<g clip-path="url(#{cid})">']
-    body += asterism(pts, stars, size * 0.6, cx, cy, c["ink"], colour_albireo=c["albireo"], star_scale=1.15)
+    R = size * 0.4
+    rim = size * 0.032
+    body = [f'<circle cx="{cx}" cy="{cy}" r="{R:.2f}" fill="{c["bg"]}" stroke="{c["ink"]}" stroke-width="{rim:.2f}"/>']
+    body += rigid_cross(pts, stars, size * 0.5, cx, cy, c)
     a = math.radians(tp["angle"])
-    ux, uy = math.cos(a), -math.sin(a)                 # chord direction (SVG y down)
-    nx, ny = -uy, ux                                   # normal: offset = impact parameter
+    ux, uy = math.cos(a), -math.sin(a)
+    nx, ny = -uy, ux
     ox, oy = cx + nx * tp["b"] * R, cy + ny * tp["b"] * R
-    x1, y1, x2, y2 = ox - ux * R, oy - uy * R, ox + ux * R, oy + uy * R
-    px, py = ox + ux * R * (tp["t"] * 2 - 1) * 0.8, oy + uy * R * (tp["t"] * 2 - 1) * 0.8
-    pr = size * 0.058
-    body += [f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{c["bg"]}" stroke-width="{w * 3.4:.2f}"/>',
-             f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{c["acc"]}" stroke-width="{w:.2f}" stroke-linecap="round"/>',
-             f'<circle cx="{px:.2f}" cy="{py:.2f}" r="{pr + w * 1.8:.2f}" fill="{c["bg"]}"/>',
-             f'<circle cx="{px:.2f}" cy="{py:.2f}" r="{pr:.2f}" fill="{c["bg"]}" stroke="{c["acc"]}" stroke-width="{w * 1.1:.2f}"/>',
-             "</g>"]
-    title = f"Cygnus mark: the Northern Cross badged, with a transit chord at {tp['angle']} degrees (seed {seed})"
+    half, bw = size * 0.49, size * 0.078          # bar reaches past the rim almost to the canvas edge
+    # the bar is a parallelogram with ends cut square to the canvas axis, for a hard, "slashed" look
+    ex, ey = ux * half, uy * half
+    px_, py_ = nx * bw / 2, ny * bw / 2
+    cut = size * 0.03
+    poly = [(ox - ex + px_, oy - ey + py_), (ox + ex + px_ - ux * cut, oy + ey + py_ - uy * cut),
+            (ox + ex - px_, oy + ey - py_), (ox - ex - px_ + ux * cut, oy - ey - py_ + uy * cut)]
+    ptxt = " ".join(f"{x:.2f},{y:.2f}" for x, y in poly)
+    gap = size * 0.022
+    halo = [(x + (nx if i in (0, 1) else -nx) * gap, y + (ny if i in (0, 1) else -ny) * gap) for i, (x, y) in enumerate(poly)]
+    htxt = " ".join(f"{x:.2f},{y:.2f}" for x, y in halo)
+    body += [f'<polygon points="{htxt}" fill="{c["bg"]}"/>', f'<polygon points="{ptxt}" fill="{c["acc"]}"/>']
+    # the planet: a dark disc on the bar, in front of everything, with a hard rim
+    t = tp["t"]                                    # signed distance along the bar, kept clear of Sadr at the centre
+    qx, qy = ox + ux * R * t, oy + uy * R * t
+    pr = size * 0.082
+    body += [f'<circle cx="{qx:.2f}" cy="{qy:.2f}" r="{pr + gap:.2f}" fill="{c["bg"]}"/>',
+             f'<circle cx="{qx:.2f}" cy="{qy:.2f}" r="{pr:.2f}" fill="{c["bg"]}" stroke="{c["acc"]}" stroke-width="{size * 0.026:.2f}"/>']
+    title = f"Cygnus mark: the Northern Cross badged, struck by a transit at {tp['angle']} degrees (seed {seed})"
     return svg(size, size, body, title)
 
 
@@ -213,7 +249,7 @@ def main() -> None:
     stars = load()
     pts, rot = project(stars)
     concepts = [("d", "Northern Cross, badged, with a transit", concept_d,
-                 f"The Northern Cross in its true catalogue shape, inside a round badge, struck through by a transit chord with a planet silhouette in front of the stars. The chord's angle, its offset from centre (an impact parameter) and the planet's place along it are drawn at random from a recorded seed ({DEFAULT_SEED}: {transit_params(DEFAULT_SEED)['angle']}°), so the mark is reproducible. Other seeds are shown below."),
+                 f"The Northern Cross in its true catalogue shape, inside a round badge, struck through by a transit chord with a planet silhouette in front of the stars. The chord's angle, its offset from centre (an impact parameter) and the planet's place along it (kept clear of the central star) are drawn at random from a recorded seed ({DEFAULT_SEED}: {transit_params(DEFAULT_SEED)['angle']}°), so the mark is reproducible. Other seeds are shown below."),
                 ("a", "Northern Cross", concept_a,
                  "The five bright stars of the Northern Cross in their true relative positions from the Yale Bright Star Catalogue, sized by magnitude. Albireo, the swan's head, is drawn as its gold-and-blue double from the catalogue colours of its two stars."),
                 ("b", "Cross in a reticle", concept_b,
