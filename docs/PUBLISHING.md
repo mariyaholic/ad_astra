@@ -186,7 +186,8 @@ Serve `404.html` for missing paths. The pages load no third-party resources.
 The site's visual and verbal rules are documented as the **Ad Astra** design
 system: source files in `design-system/project/` (brand book `README.md`,
 `tokens.json`, one README + preview per component) and a browsable copy at
-https://claude.ai/artifact/KwjsvzHFkTnBphVwdY1mxz (private until shared).
+https://claude.ai/artifact/KwjsvzHFkTnBphVwdY1mxz (private; reachable only from Claude, so treat
+`design-system/project/` as the source of truth).
 `site.css` remains the implementation; token names match its custom
 properties. When a token or component changes in `site.css`, update the design
 system in the same change.
@@ -198,5 +199,6 @@ system in the same change.
 - Several `cygnus.ingest.tier1` runs are `open` (no close recorded).
 - The ledger is still being written by ingest jobs; home-page totals are as of
   each build.
-- No license has been chosen for the project's code or documents; the site says
-  "not specified" and withholds the source archive.
+- The project is licensed Apache-2.0 (set on every collection). The source
+  archive in `cygnus-software-0-1-0` is still restricted until the user decides
+  to publish it (see `docs/STATUS.md`).

@@ -120,3 +120,14 @@ Produce **both** scientific code and a clear research narrative. For a campaign,
 - **Follow-up:** the highest-value feasible archival or observational test, predicted results under competing hypotheses, and remaining blockers.
 
 Be detailed where evidence warrants detail; be concise and explicit where information is unavailable. Never fill a dossier template with fabricated values.
+
+## Working in this repository
+
+These instructions are tool-neutral; any agent (or person) picking up the work should follow them.
+
+1. **Orient first.** Read `docs/STATUS.md` for the current state, open decisions and known problems, then the document for the area you are touching (table in `README.md`).
+2. **After an analysis:** write the report and search log, then its `sky_record.json` (`docs/SKY_RECORDS.md`), and run `python -m pytest -q`. The suite fails if a campaign spec or report has no valid record.
+3. **Publishing:** content becomes public only through `publish/collections/*.json`; follow `docs/PUBLISHING.md` and run `python -m cygnus.publish check` before `build`. Never edit templates to add content.
+4. **Sky explorer (prototype):** `design-system/mockups/README.md`. Rebuild with `python design-system/mockups/build_explorer.py`; new catalogue fetches go through `fetch_sky_data.py` so provenance is recorded.
+5. **Decisions that belong to the user** are listed in `docs/STATUS.md`; ask rather than assume. Update that file when a decision is made or a known problem changes.
+6. **Before committing:** tests pass, no credentials or private storage paths in new files, no archive products (`*.fits`) or `state/`.

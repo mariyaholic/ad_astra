@@ -9,11 +9,14 @@ Nothing here is a discovery. As of 2026-09-24 the project has run one known-plan
 | Read | For |
 | --- | --- |
 | [`AGENTS.md`](AGENTS.md) | The governing specification: principles, investigation protocol, evidence levels, dossier schema. Agents must follow it. |
+| [`docs/STATUS.md`](docs/STATUS.md) | Current state, open decisions and known problems: the handoff note. Read second. |
 | [`ANALYSIS_STACK.md`](ANALYSIS_STACK.md) | Architecture and the module register (what is built vs. designed). |
 | [`DATA_SOURCES.md`](DATA_SOURCES.md) | Verified free archives and access tiers. |
 | [`docs/ANALYSIS_SUITE.md`](docs/ANALYSIS_SUITE.md) | Scope and limits of `src/cygnus/analysis/`. |
 | [`docs/TEST_ARCHITECTURE_PLAN_DRAFT.md`](docs/TEST_ARCHITECTURE_PLAN_DRAFT.md) | Working-draft test plan and known gaps. |
 | [`docs/PUBLISHING.md`](docs/PUBLISHING.md) | The public repository site and its publication boundary. |
+| [`docs/SKY_RECORDS.md`](docs/SKY_RECORDS.md) | The `sky_record.json` every analysis must leave (enforced by tests). |
+| [`design-system/mockups/README.md`](design-system/mockups/README.md) | The interactive sky explorer prototype: build, run, rules. |
 | [`design-system/project/README.md`](design-system/project/README.md) | The Ad Astra design system (site look and copy rules). |
 
 ## Layout
