@@ -13,6 +13,7 @@ from __future__ import annotations
 import csv
 import html
 import math
+import random
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -143,6 +144,60 @@ def concept_c(pts, stars, ink, colour=True, size=512):
     return svg(size, size, body, "Cygnus mark: a transit and its light curve")
 
 
+DEFAULT_SEED = 20260924
+
+
+def transit_params(seed: int) -> dict:
+    """The 'randomized' transit, reproducibly: chord angle, impact offset and planet position from a recorded seed.
+    Angles within 12 deg of vertical are redrawn, because the chord would lie along the cross's long axis."""
+    rnd = random.Random(seed)
+    while True:
+        ang = rnd.uniform(0.0, 180.0)
+        if abs(ang - 90.0) > 12.0:
+            break
+    return {"seed": seed, "angle": round(ang, 1), "b": round(rnd.uniform(-0.14, 0.14), 3), "t": round(rnd.uniform(0.3, 0.7), 3)}
+
+
+def palette(ink: str, colour: bool) -> dict:
+    if ink == INK_DARK:
+        return {"bg": "#0b0f17", "ink": INK_DARK, "acc": ACCENT, "albireo": colour}
+    if ink == NIGHT:
+        return {"bg": "#140908", "ink": NIGHT, "acc": NIGHT, "albireo": False}
+    if colour:
+        return {"bg": "#f4f2ee", "ink": INK_LIGHT, "acc": "#a66f1e", "albireo": True}
+    return {"bg": INK_LIGHT, "ink": "#f4f2ee", "acc": "#f4f2ee", "albireo": False}  # one-colour: knocked out of a solid badge
+
+
+def concept_d(pts, stars, ink, colour=True, size=512, seed=DEFAULT_SEED):
+    """D · Badged transit: the Northern Cross in a round badge, struck through by a transit chord with a planet in front."""
+    c = palette(ink, colour)
+    tp = transit_params(seed)
+    cx = cy = size / 2
+    R = size * 0.47
+    w = size * 0.017
+    cid = f"badge-{seed}-{ink.lstrip("#")}"
+    body = [f'<defs><clipPath id="{cid}"><circle cx="{cx}" cy="{cy}" r="{R * 0.94:.2f}"/></clipPath></defs>',
+            f'<circle cx="{cx}" cy="{cy}" r="{R:.2f}" fill="{c["bg"]}"/>',
+            f'<circle cx="{cx}" cy="{cy}" r="{R - w * 0.5:.2f}" fill="none" stroke="{c["acc"]}" stroke-width="{w:.2f}"/>',
+            f'<circle cx="{cx}" cy="{cy}" r="{R * 0.9:.2f}" fill="none" stroke="{c["ink"]}" stroke-width="{w * 0.35:.2f}" opacity=".35"/>',
+            f'<g clip-path="url(#{cid})">']
+    body += asterism(pts, stars, size * 0.6, cx, cy, c["ink"], colour_albireo=c["albireo"], star_scale=1.15)
+    a = math.radians(tp["angle"])
+    ux, uy = math.cos(a), -math.sin(a)                 # chord direction (SVG y down)
+    nx, ny = -uy, ux                                   # normal: offset = impact parameter
+    ox, oy = cx + nx * tp["b"] * R, cy + ny * tp["b"] * R
+    x1, y1, x2, y2 = ox - ux * R, oy - uy * R, ox + ux * R, oy + uy * R
+    px, py = ox + ux * R * (tp["t"] * 2 - 1) * 0.8, oy + uy * R * (tp["t"] * 2 - 1) * 0.8
+    pr = size * 0.058
+    body += [f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{c["bg"]}" stroke-width="{w * 3.4:.2f}"/>',
+             f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{c["acc"]}" stroke-width="{w:.2f}" stroke-linecap="round"/>',
+             f'<circle cx="{px:.2f}" cy="{py:.2f}" r="{pr + w * 1.8:.2f}" fill="{c["bg"]}"/>',
+             f'<circle cx="{px:.2f}" cy="{py:.2f}" r="{pr:.2f}" fill="{c["bg"]}" stroke="{c["acc"]}" stroke-width="{w * 1.1:.2f}"/>',
+             "</g>"]
+    title = f"Cygnus mark: the Northern Cross badged, with a transit chord at {tp['angle']} degrees (seed {seed})"
+    return svg(size, size, body, title)
+
+
 def lockup(mark_fn, pts, stars, ink, colour=True):
     """Mark plus wordmark, horizontal."""
     inner = mark_fn(pts, stars, ink, colour, size=160)
@@ -157,7 +212,9 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     stars = load()
     pts, rot = project(stars)
-    concepts = [("a", "Northern Cross", concept_a,
+    concepts = [("d", "Northern Cross, badged, with a transit", concept_d,
+                 f"The Northern Cross in its true catalogue shape, inside a round badge, struck through by a transit chord with a planet silhouette in front of the stars. The chord's angle, its offset from centre (an impact parameter) and the planet's place along it are drawn at random from a recorded seed ({DEFAULT_SEED}: {transit_params(DEFAULT_SEED)['angle']}°), so the mark is reproducible. Other seeds are shown below."),
+                ("a", "Northern Cross", concept_a,
                  "The five bright stars of the Northern Cross in their true relative positions from the Yale Bright Star Catalogue, sized by magnitude. Albireo, the swan's head, is drawn as its gold-and-blue double from the catalogue colours of its two stars."),
                 ("b", "Cross in a reticle", concept_b,
                  "The same asterism inside a measuring reticle: the sky, and the act of measuring it. Reads well as an app icon and favicon."),
@@ -172,6 +229,10 @@ def main() -> None:
         (OUT / f"lockup-{key}-dark.svg").write_text(lockup(fn, pts, stars, INK_DARK), encoding="utf-8")
         (OUT / f"lockup-{key}-light.svg").write_text(lockup(fn, pts, stars, INK_LIGHT), encoding="utf-8")
 
+    seeds = [DEFAULT_SEED + k for k in range(8)]
+    for sd in seeds:
+        (OUT / f"mark-d-seed{sd}.svg").write_text(concept_d(pts, stars, INK_DARK, True, seed=sd), encoding="utf-8")
+    seed_grid = "".join(f'<figure class="dark seed"><img src="concepts/mark-d-seed{sd}.svg" alt="Seed {sd}"><figcaption>seed {sd} · {transit_params(sd)["angle"]}°</figcaption></figure>' for sd in seeds)
     cards = []
     for key, name, fn, text in concepts:
         cards.append(f"""
@@ -191,6 +252,7 @@ def main() -> None:
   </div>
   <figure class="lock dark"><img src="concepts/lockup-{key}-dark.svg" alt="{html.escape(name)} lockup on dark"></figure>
   <figure class="lock light"><img src="concepts/lockup-{key}-light.svg" alt="{html.escape(name)} lockup on light"></figure>
+  {('<h3>Other seeds</h3><div class="seeds">' + seed_grid + '</div>') if key == 'd' else ''}
 </section>""")
     page = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -219,12 +281,17 @@ figure {{ margin:0; border-radius:8px; display:grid; place-items:center; }}
 .light figcaption {{ color:#5a554d; }}
 .lock {{ margin-top:12px; padding:18px 24px; justify-items:start; }}
 .lock img {{ width:100%; max-width:520px; height:auto; }}
+.seeds {{ display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }}
+.seed {{ padding:12px 8px 6px; }}
+.seed img {{ width:100%; max-width:150px; height:auto; }}
+.seed figcaption {{ font:11px {SANS}; color:var(--ink3); padding-top:4px; }}
+h3 {{ font:600 11px {SANS}; letter-spacing:.12em; text-transform:uppercase; color:var(--ink3); margin:24px 0 10px; }}
 .note {{ font-size:13px; color:var(--ink3); margin-top:36px; border-top:1px solid var(--line); padding-top:16px; }}
 @media (max-width:760px) {{ .row {{ grid-template-columns:1fr 1fr; }} .small {{ grid-column:1 / -1; grid-template-columns:repeat(5, 1fr); }} }}
 </style></head>
 <body><main>
 <h1>Cygnus logo concepts</h1>
-<p class="lead">Three directions for the project mark. A and B are built from the real positions and colours of the Northern Cross stars; C is built from the measurement the project makes. Each is shown on dark and light, at icon sizes (64, 32, 16 px), in one colour, in night-vision red, and as a lockup with the wordmark.</p>
+<p class="lead">D is the chosen direction (Northern Cross, badged, with a transit); A–C are the earlier concepts, kept for comparison. A and B are built from the real positions and colours of the Northern Cross stars; C is built from the measurement the project makes. Each is shown on dark and light, at icon sizes (64, 32, 16 px), in one colour, in night-vision red, and as a lockup with the wordmark.</p>
 {''.join(cards)}
 <p class="note">Geometry: Yale Bright Star Catalogue positions (VizieR V/50), gnomonic projection about Sadr, east to the left, rotated {rot:.1f}° so Deneb sits above Albireo. Star sizes scale with V magnitude. Albireo A (B−V 1.13) and B (B−V −0.10) take their catalogue colours; their true 35″ separation is far below this scale, so B is drawn touching A as a signature. Wordmark set in IBM Plex Sans for the concept; the final mark would be outlined paths.</p>
 </main></body></html>"""
