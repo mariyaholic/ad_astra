@@ -1,0 +1,50 @@
+{
+  "campaign_id": "toi-2423-01",
+  "steps_run": [
+    "fetch_products",
+    "calibrate_screen",
+    "known_signal_recovery",
+    "residual_screen",
+    "period_aliases",
+    "prior_art"
+  ],
+  "complete": true,
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "5 product(s) checksummed at first retrieval",
+      "step": "fetch_products"
+    },
+    "Calibrated false-alarm threshold (sign-flip null)": {
+      "state": "passed",
+      "note": "screen run at each light curve's own k* (3, \u22642.5, 4.5, \u22642.5, 3.5; \u2264 0 persistent null events outside the veto)",
+      "step": "residual_screen"
+    },
+    "Synthetic signal injection\u2013recovery": {
+      "state": "inconclusive",
+      "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 80%, 90%, 0%, 100%, 30% (pass mark 90%); 90%-completeness depths are in calibration.json",
+      "step": "residual_screen"
+    },
+    "Known-signal recovery (positive control)": {
+      "state": "not_tested",
+      "note": "no retrieved light curve covers a catalogued transit epoch",
+      "step": "known_signal_recovery"
+    },
+    "Period aliases (repeat events)": {
+      "state": "not_tested",
+      "note": "catalogued transit not recovered; no reference depth",
+      "step": "period_aliases"
+    },
+    "Catalogue cross-match": {
+      "state": "inconclusive",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 3 answered, 1 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [
+    "Calibration on each light curve (sign-flip null, injection\u2013recovery): k* 3, \u22642.5, 4.5, \u22642.5, 3.5; at the declared k = 5 the screen recovers \u226590% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that.",
+    "Residual screen: 190 threshold entries outside the known-signal veto across 5 light curve(s), forming 69 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines."
+  ],
+  "record": "campaigns/toi-2423-01/sky_record.json",
+  "finished_utc": "2026-09-24T13:52:43Z"
+}
