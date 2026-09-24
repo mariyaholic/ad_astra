@@ -180,13 +180,13 @@ def rigid_cross(pts, stars, size, cx, cy, c, star_scale=1.0):
     """The Northern Cross with spike stars and square-ended struts."""
     P = {k: (cx + x * size, cy + y * size) for k, (x, y) in pts.items()}
     R = lambda k: size * star_scale * (0.05 + 0.032 * max(0.0, 5.3 - stars[k]["V"]))
-    out, lw = [], size * 0.034
+    out, lw = [], size * 0.014
     for a, b in LINES:
         (x1, y1), (x2, y2) = P[a], P[b]
         L = math.hypot(x2 - x1, y2 - y1)
         ga, gb = R(a) * 0.55 + size * 0.03, R(b) * 0.55 + size * 0.03
         x1, y1, x2, y2 = x1 + (x2 - x1) * ga / L, y1 + (y2 - y1) * ga / L, x2 - (x2 - x1) * gb / L, y2 - (y2 - y1) * gb / L
-        out.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{c["ink"]}" stroke-width="{lw:.2f}" stroke-linecap="butt" opacity=".8"/>')
+        out.append(f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke="{c["ink"]}" stroke-width="{lw:.2f}" stroke-linecap="butt" opacity=".65"/>')
     for k, (x, y) in P.items():
         if k == "Albireo B":
             continue
