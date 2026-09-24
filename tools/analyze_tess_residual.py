@@ -1,4 +1,8 @@
-"""Checksum-gated one-product TESS excursion triage; outputs are not detections."""
+"""SUPERSEDED (2026-09-24): run `python -m cygnus.campaign run campaigns/tess-wasp12-residual-01.yaml` instead. The runner reproduces this
+script exactly (checked on the real products; see docs/CAMPAIGNS.md) and records every step in the ledger.
+Kept unchanged so the original record can still be reproduced as documented in its SEARCH_LOG.
+
+Checksum-gated one-product TESS excursion triage; outputs are not detections."""
 from __future__ import annotations
 import argparse, hashlib, json
 from pathlib import Path

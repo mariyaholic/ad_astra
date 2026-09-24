@@ -1,0 +1,24 @@
+{
+  "campaign_id": "wasp12-sector20-recovery",
+  "steps_run": [
+    "fetch_products",
+    "bls_recovery",
+    "prior_art"
+  ],
+  "complete": true,
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "1 product(s) verified; pinned checksums matched",
+      "step": "fetch_products"
+    },
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "record": "campaigns/wasp12_sector20/sky_record.json",
+  "finished_utc": "2026-09-24T08:03:58Z"
+}

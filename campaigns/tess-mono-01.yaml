@@ -1,29 +1,68 @@
-# CYGNUS campaign spec (declarative; executed as a resumable DAG in Sprint 1)
-campaign: tess-mono-01
+# CYGNUS campaign: TESS single-transit candidates, first pass.
+# Status: DRAFT. The queue step has been run; the analysis steps are specified and runnable but
+# have not been executed. Do not cite results from this file.
+schema: cygnus.campaign/1
+campaign_id: tess-mono-01
 domain: worlds.planetary.monotransit
-status: draft          # queued; not yet executed — do not cite results from this file
+status: draft          # queue built; analysis steps not yet run — do not cite results
+objective: >
+  For TESS planet candidates known from a single transit (TOI table: no period, disposition PC or
+  APC), screen their SPOC 120-s light curves for further isolated transit-like dips outside the
+  known transit, with the screen's threshold calibrated on each light curve (sign-flip null) and
+  its completeness measured by injection–recovery. A second dip would constrain the period; its
+  absence is recorded as a bounded null with the measured sensitivity.
+outputs: campaigns/tess-mono-01/
+random_seed: 20260926
 
-target_pool:
-  source: manual       # Sprint 1 will pull candidates from TOI/DV-derived pools
-  targets: []
+# The known transit of each TOI is excluded: ±12 h about the TOI table's pl_tranmid.
+veto:
+  kind: single_epoch
+  veto_hours: 12
 
 steps:
-  - ingest.mast        # SPOC light curves + Tesscut cutouts (ledgered)
-  - detrend_lab        # robustness score across detrending families
-  - singletransit      # depth/duration/density posteriors + coverage constraints
-  - blendmap           # difference-image centroids; BEB verdicts
-  - jitterwatch        # pointing/centroid correlation audit
-  - priorart           # Known-Object Gate (gates 1-5, watchlists pinned)
-  - dossier            # CYGNUS dossier emission (ledger-driven)
+  - target_queue:
+      source: nasa_exoplanet_archive.toi
+      where: "pl_orbper IS NULL AND tfopwg_disp IN ('PC','APC')"
+      top: 20
+  - fetch_products:
+      from_queue: {top: 5, max_products_per_target: 2}
+  - calibrate_screen:
+      declared_k: 5.0
+      window_days: 2.0
+      k_grid: [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0]
+      max_null_events: 0
+      depths_ppm: [500, 1000, 2000, 5000, 10000, 20000]
+      durations_h: [1.0, 2.0, 4.0, 8.0]
+      injections_per_cell: 10
+      reference_signal: {depth_ppm: 2000, duration_h: 4.0}
+  - residual_screen:
+      windows_days: [1.0, 2.0, 3.0]
+      k_mad: calibrated            # per light curve, from calibrate_screen; never typed in
+      min_cadences: 2
+      series_window_days: 2.0
+  - prior_art:
+      radius_arcsec: 30
 
-thresholds:
-  robustness_min: null   # pinned after injection_recovery calibration — not guessed
-  fa_alpha: null         # calibrated by nulllab; never assumed Gaussian
+# Designed modules not yet built (ANALYSIS_STACK.md): detrend_lab, singletransit (period posteriors),
+# blendmap (difference-image centroids), jitterwatch (pointing correlation). Until they exist, any
+# screen crossing stays an unverified lead with those audits not_tested.
 
-storage:
-  scratch: env CYGNUS_SCRATCH          # bulk FITS/intermediates (nonsynced)
-  persistent: cygnus:Cygnus/           # rclone Drive path for reports/manifests
-
-notes: >
-  Placeholder pinning is forbidden: thresholds stay null until
-  injection_recovery/nulllab supply calibrated values. See ANALYSIS_STACK.md.
+record:
+  path: campaigns/tess-mono-01/sky_record.json
+  title: TESS single-transit candidates, first pass (tess-mono-01)
+  kind: monotransit search
+  outcome: bounded_null            # used only once status becomes completed
+  queue_targets_in_record: 10
+  summary: >
+    Declared campaign: screen the light curves of TESS single-transit candidates for further dips,
+    with a threshold calibrated per light curve and measured completeness. Only the target queue
+    has been built; no light curve has been analysed.
+  checks:
+    - {name: "Product integrity (SHA-256)", state: not_tested}
+    - {name: "Calibrated false-alarm threshold (sign-flip null)", state: not_tested}
+    - {name: "Synthetic signal injection–recovery", state: not_tested}
+    - {name: "Catalogue cross-match", state: not_tested}
+    - {name: "Alternative detrending", state: not_tested}
+    - {name: "Difference-image centroids / blend audit", state: not_tested}
+    - {name: "Pointing / jitter correlation", state: not_tested}
+    - {name: "Literature (ADS) audit", state: not_tested}

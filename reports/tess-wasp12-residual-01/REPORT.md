@@ -46,3 +46,16 @@ The NASA Exoplanet Archive live `pscomppars` snapshot queried 2026-09-24 establi
 - Reproduction commands, manifest gates, package/test context: see `SEARCH_LOG.md`.
 
 The general Cygnus analysis suite is a triage utility collection validated on synthetic inputs; this run used a purpose-written, checksum-pinned screen rather than treating an uncalibrated utility score as a detection. The prior-art gate is incomplete. No data or report was sent externally.
+
+## Addendum (2026-09-24, later): calibration and ledgered re-run
+
+The campaign was re-run through the campaign runner (`python -m cygnus.campaign run campaigns/tess-wasp12-residual-01.yaml`; ledger runs #31–#34). The re-run reproduced the original outputs exactly: byte-identical `normalized_series.csv` in both sectors and identical screen entries (835 and 464, 0 outside the phase window). Two checks listed above as not tested were then run on these same light curves:
+
+- **Calibrated false-alarm threshold (sign-flip null).** The same screen was applied to brightenings instead of dips (which a transit cannot produce), requiring SAP and PDCSAP agreement at the 2-day baseline, outside the phase window. Sector 20: 9 null events at k = 2.5, 2 at 3.0, none from k = 3.5; Sector 43: none at any k on the grid (so its k* is ≤ 2.5, an upper bound). The declared k = 5 is therefore conservative: no noise-driven crossings are expected at it in these two light curves. **State: passed** (for the false-alarm question only).
+- **Injection–recovery.** Box dips of 0.1–2 % depth and 0.5–4 h duration, 10 per cell (seed 20260924), injected into SAP and PDCSAP outside the phase window. At the declared k = 5 the screen recovers ≥ 90 % of dips only from **1.5 % depth** in both sectors (1 % dips: 0–40 %; ≤ 0.75 % dips: 0 %). At the calibrated thresholds the 90 % depth falls to 1.0 % (Sector 20) and 0.5–0.75 % (Sector 43). **State: inconclusive** against the reference signal (0.5 %, 2 h: 0 % recovered at k = 5).
+
+**Consequence for the bottom line.** The bounded null stands, but it is weaker than the text above might suggest: it excludes isolated dips of roughly ≥ 1.5 % depth outside the WASP-12 b transit window in these two sectors, and says nothing about shallower ones. A screen meant to find shallower dips should use the calibrated threshold, with the persistence rule, and its completeness quoted.
+
+**Catalogue cross-match (new adapters; ledger `prior_art`).** Within 30″ of the Sesame position: NASA Exoplanet Archive — WASP-12 b; TESS TOI table — TOI-1725.01 (TIC 86396382, disposition KP); VSX — WASP-12 (type EP, P 1.091422 d); SIMBAD — WASP-12, WASP-12b, the WASP-12BC pair and two 2MASS field stars. All consistent with the known system; no ADS literature query was made.
+
+Details: `sector20/calibration.json`, `sector43/calibration.json`, `runner/*.json`, and the regenerated `sky_record.json`.

@@ -7,7 +7,7 @@
  "outcome": "bounded_null",
  "evidence": null,
  "date": "2026-09-24",
- "summary": "No ≥5 robust-MAD, ≥2-cadence negative excursion outside ±0.08 phase of the known WASP-12 b transit in SAP or PDCSAP flux, for 1/2/3-day baselines, in either sector. Bounded null; no candidate. The threshold is uncalibrated.",
+ "summary": "No ≥5 robust-MAD, ≥2-cadence negative excursion outside ±0.08 phase of the known WASP-12 b transit in SAP or PDCSAP flux, for 1/2/3-day baselines, in either sector. Bounded null; no candidate. Runner: Residual screen: 0 threshold entries outside the known-signal veto across 2 light curve(s). Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 2-h dips only from depth 1.5%, 1.5% (completeness for 5000 ppm: 0%, 0%). The null result excludes only dips deeper than that.",
  "spec": "campaigns/tess-wasp12-residual-01.yaml",
  "report": "reports/tess-wasp12-residual-01/REPORT.md",
  "search_log": "reports/tess-wasp12-residual-01/SEARCH_LOG.md",
@@ -31,14 +31,28 @@
  ],
  "checks": [
   {
-   "name": "Product integrity (SHA-256 against Tier-1 manifest)",
+   "name": "Product integrity (SHA-256)",
    "state": "passed",
-   "note": "Both byte sizes and hashes match docs/tier1_pack/MASTER_MANIFEST.csv."
+   "note": "2 product(s) verified; pinned checksums matched",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Calibrated false-alarm threshold (sign-flip null)",
+   "state": "passed",
+   "note": "k* = 3.5, ≤2.5 per light curve (≤0 persistent null events outside the veto); declared k = 5 is at or above it",
+   "source": "campaign runner, step calibrate_screen"
   },
   {
    "name": "Synthetic signal injection–recovery",
-   "state": "not_tested",
-   "note": "No injection was run."
+   "state": "inconclusive",
+   "note": "completeness for 5000 ppm, 2.0 h boxes at the declared threshold: 0%, 0% per light curve (pass mark 90%)",
+   "source": "campaign runner, step calibrate_screen"
+  },
+  {
+   "name": "Catalogue cross-match",
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
   },
   {
    "name": "Centroid correlation with residuals",
@@ -63,12 +77,14 @@
    "note": "Sector 43 is a second epoch from the same instrument and pipeline."
   },
   {
-   "name": "Literature / ADS / ExoFOP audit",
+   "name": "Literature (ADS) audit",
    "state": "not_tested",
    "reported_as": "not completed",
-   "note": "Web search service returned HTTP 402; ADS and ExoFOP not queried."
+   "note": "No ADS access; catalogue cross-match is separate."
   }
  ],
+ "generated_by": "cygnus.campaign runner",
+ "generated_utc": "2026-09-24T08:03:18Z",
  "plots": [
   {
    "type": "fold",

@@ -5,6 +5,7 @@ Usage (venv at ``D:/AO_Artifacts/cygnus_scratch/venv``):
     python -m cygnus.cli doctor
     python -m cygnus.cli doctor --full        # include optional-stack flags
     python -m cygnus.cli dossier <candidate_record.json>
+    python -m cygnus.cli close-stale-runs --older-than-hours 6 --note "..."
 
 ``doctor`` is the standing verification probe: scratch writability, ledger
 health, optional dependency availability — stdout JSON, exit code 0/1.
@@ -73,6 +74,26 @@ def _dossier(path: str) -> int:
     return 0
 
 
+def _close_stale(hours: float, note: str, dry_run: bool) -> int:
+    from datetime import datetime, timedelta, timezone
+
+    from .config import ledger_path
+    from .ledger import Ledger
+
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=hours)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    ledger = Ledger(ledger_path())
+    try:
+        stale = [r for r in ledger.runs() if r["status"] == "open" and r["started_utc"] < cutoff]
+        if dry_run:
+            print(json.dumps({"cutoff_utc": cutoff, "would_close": [r["id"] for r in stale]}, indent=2))
+            return 0
+        ids = ledger.close_stale_runs(started_before_utc=cutoff, note=note)
+        print(json.dumps({"cutoff_utc": cutoff, "closed_as_aborted": ids}, indent=2))
+        return 0
+    finally:
+        ledger.close()
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="cygnus", description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -80,11 +101,17 @@ def main(argv: Sequence[str] | None = None) -> int:
     p_doctor.add_argument("--full", action="store_true", help="include optional-stack flags")
     p_dossier = sub.add_parser("dossier", help="render dossier from a candidate record JSON")
     p_dossier.add_argument("record_json")
+    p_stale = sub.add_parser("close-stale-runs", help="mark long-open runs as aborted (process died without closing)")
+    p_stale.add_argument("--older-than-hours", type=float, default=6.0)
+    p_stale.add_argument("--note", required=True, help="why these runs are being closed (stored in each run's summary)")
+    p_stale.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
     if args.cmd == "doctor":
         return _doctor(full=args.full)
     if args.cmd == "dossier":
         return _dossier(args.record_json)
+    if args.cmd == "close-stale-runs":
+        return _close_stale(args.older_than_hours, args.note, args.dry_run)
     parser.error(f"unknown command {args.cmd!r}")
     return 2
 

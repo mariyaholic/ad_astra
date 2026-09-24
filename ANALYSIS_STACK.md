@@ -52,7 +52,9 @@ discipline of `AGENTS.md`. Layers:
 | `config.py` | paths (worktree/scratch/state), env overrides | **implemented (scaffold)** |
 | `ingest/scratch.py` | scratch resolve + safe cleanup inside scratch root | **implemented (scaffold)** |
 | `ingest/mast.py` | MAST SPOC LC search+download, TESScut cutouts | **implemented; live-verified 2026-09-23** (astroquery 0.4.11; TESScut pi Men: sector 12, 5×5×1289 cadences, ledgered) |
-| `priorart.py` | Known-Object Gate; service adapters w/ not_tested defaults | **implemented (scaffold; adapters stub)** |
+| `priorart.py` | Known-Object Gate; service adapters w/ not_tested defaults | **implemented**: SkyBoT plus cone-search adapters for NASA Exoplanet Archive, TESS TOI, VSX, SIMBAD (2026-09-24); ExoFOP, ADS and others still `not_tested` |
+| `campaign/` | spec-driven, ledgered, resumable campaign runner; steps: target_queue, fetch_products, residual_screen, calibrate_screen, bls_recovery, prior_art (`docs/CAMPAIGNS.md`) | **implemented 2026-09-24** |
+| `targets.py` | ranked target queue from a declared TOI pool, rationale per target | **implemented 2026-09-24** |
 | `reporting/dossier.py` | dossier markdown emission (never invents) | **implemented (scaffold)** |
 | `reporting/leads_board.py` | evidence-level ranked table | **implemented (scaffold)** |
 | `cli.py` | `doctor`, `dossier` commands | **implemented (scaffold)** |
@@ -69,8 +71,8 @@ discipline of `AGENTS.md`. Layers:
 | `domains/moving/mover.py` | parallax-aware multi-epoch linking | designed — Sprint 3 |
 | `domains/moving/orbitfit.py` | multi-epoch LSQ orbit + error propagation | designed — Sprint 3 |
 | `domains/modeling/massfunction.py` | dark-companion M2 posteriors vs alternatives | designed — Sprint 3 |
-| `domains/validate/injection_recovery.py` | detection-efficiency curves per method | minimal version — Sprint 1 |
-| `domains/validate/nulllab.py` | empirical nulls → calibrated FAPs | Sprint 1–3 |
+| `domains/validate/injection_recovery.py` | detection-efficiency curves per method | **minimal version implemented** for the residual screen (`campaign` step `calibrate_screen`); other detectors — Sprint 1 |
+| `domains/validate/nulllab.py` | empirical nulls → calibrated FAPs | **sign-flip null implemented** for the residual screen (`calibrate_screen`); others Sprint 1–3 |
 
 Sprint order: **S0** substrate (this scaffold) → **S1** monotransit campaign
 minimum (detrend/singletransit/blendmap/jitterwatch, minimal injection
@@ -93,8 +95,9 @@ these pilots. A Colab mount or verified pack file alone is not a vetting step.
 
 ## Execution pattern
 
-Campaigns are declarative YAML in `campaigns/` (see `campaigns/tess-mono-01.yaml`);
-a runner executes them as a resumable DAG keyed by config hash (Sprint 1).
+Campaigns are declarative YAML in `campaigns/` (schema `cygnus.campaign/1`); the runner
+(`python -m cygnus.campaign run <spec>`, implemented 2026-09-24, `docs/CAMPAIGNS.md`) executes
+their steps in order, each as a ledgered run keyed by config hash.
 Every step is idempotent; interrupt/resume recomputes nothing already ledgered.
 Bulk data stays in scratch; curated outputs and reports go to Drive
 `cygnus:Cygnus/` via rclone (see `DATA_SOURCES.md`).

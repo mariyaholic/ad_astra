@@ -1,0 +1,38 @@
+{
+  "campaign_id": "tess-wasp12-residual-01",
+  "steps_run": [
+    "fetch_products",
+    "residual_screen",
+    "calibrate_screen",
+    "prior_art"
+  ],
+  "complete": true,
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "2 product(s) verified; pinned checksums matched",
+      "step": "fetch_products"
+    },
+    "Calibrated false-alarm threshold (sign-flip null)": {
+      "state": "passed",
+      "note": "k* = 3.5, \u22642.5 per light curve (\u22640 persistent null events outside the veto); declared k = 5 is at or above it",
+      "step": "calibrate_screen"
+    },
+    "Synthetic signal injection\u2013recovery": {
+      "state": "inconclusive",
+      "note": "completeness for 5000 ppm, 2.0 h boxes at the declared threshold: 0%, 0% per light curve (pass mark 90%)",
+      "step": "calibrate_screen"
+    },
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [
+    "Residual screen: 0 threshold entries outside the known-signal veto across 2 light curve(s).",
+    "Calibration on each light curve (sign-flip null, injection\u2013recovery): k* 3.5, \u22642.5; at the declared k = 5 the screen recovers \u226590% of 2-h dips only from depth 1.5%, 1.5% (completeness for 5000 ppm: 0%, 0%). The null result excludes only dips deeper than that."
+  ],
+  "record": "reports/tess-wasp12-residual-01/sky_record.json",
+  "finished_utc": "2026-09-24T08:03:18Z"
+}

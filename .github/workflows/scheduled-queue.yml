@@ -1,0 +1,52 @@
+# Weekly public-archive job: rebuild the tess-mono-01 target queue and cross-match its top targets
+# against the known-object catalogues. Public anonymous services only (NASA Exoplanet Archive,
+# CDS VizieR, SIMBAD); no Drive credentials, no downloads of light curves, no commits.
+# Results are uploaded as a workflow artifact for review; nothing is published automatically.
+name: scheduled-queue
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"     # Mondays 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  queue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[campaign]"
+      - name: Rebuild the target queue (throwaway ledger)
+        env:
+          CYGNUS_SCRATCH: ${{ runner.temp }}/scratch
+        run: python -m cygnus.campaign run campaigns/tess-mono-01.yaml --until target_queue --ledger "$RUNNER_TEMP/ledger.sqlite"
+      - name: Cross-match the queued targets
+        run: |
+          python - <<'EOF'
+          import csv, json
+          from cygnus.priorart import catalogue_audit
+          rows = list(csv.DictReader(open("campaigns/tess-mono-01/target_queue.csv", encoding="utf-8")))[:10]
+          out = {r["name"]: catalogue_audit(float(r["ra_deg"]), float(r["dec_deg"]), radius_arcsec=30) for r in rows}
+          json.dump(out, open("campaigns/tess-mono-01/queue_crossmatch.json", "w"), indent=1)
+          for name, res in out.items():
+              print(name, {k: v["state"] for k, v in res.items()})
+          EOF
+      - name: Show what changed against the committed queue
+        run: git --no-pager diff --stat -- campaigns/tess-mono-01 || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tess-mono-01-queue
+          path: |
+            campaigns/tess-mono-01/target_queue.csv
+            campaigns/tess-mono-01/queue_crossmatch.json
+            campaigns/tess-mono-01/sky_record.json
+            campaigns/tess-mono-01/runner/
+          retention-days: 30

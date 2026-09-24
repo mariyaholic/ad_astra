@@ -67,3 +67,7 @@ The script reuses the cached scratch FITS file if present, otherwise fetches the
 2. Run a calibrated local injection/recovery grid in this light curve, including transit-like signals across periods/durations and realistic correlated noise; report completeness rather than relying on this single successful recovery.
 3. Inspect pixel-level products and difference-image centroids, and compare SAP/PDC and at least one alternate detrending recipe before using this workflow on unknown targets.
 4. For an actual discovery campaign, freeze a target pool and selection before viewing results, pin known-object watchlists, establish a null population, and record all exclusions/rejections.
+
+## Addendum (2026-09-24, later): ledgered re-run
+
+Re-run through the campaign runner (`python -m cygnus.campaign run campaigns/wasp12-sector20-recovery.yaml`; ledger runs #35–#37) with the same seed (20260925) and environment. `results.json` is identical to the original except its run timestamp. The catalogue cross-match found WASP-12 b (NASA Exoplanet Archive), TOI-1725.01 (disposition KP), the VSX entry and the SIMBAD system, as expected for a known-planet test; results are in the ledger `prior_art` table.

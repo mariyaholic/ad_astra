@@ -8,7 +8,7 @@
  "evidence": null,
  "date": "2026-09-24",
  "summary": "BLS recovered the known WASP-12 b signal at P = 1.0914183 d (grid estimate), duration 2.448 h, depth 1.4228 % in PDCSAP flux, with a similar box in SAP. A pipeline check on a known planet, not a detection.",
- "spec": null,
+ "spec": "campaigns/wasp12-sector20-recovery.yaml",
  "report": "campaigns/wasp12_sector20/REPORT.md",
  "search_log": "campaigns/wasp12_sector20/SEARCH_LOG.md",
  "targets": [
@@ -26,9 +26,10 @@
  ],
  "checks": [
   {
-   "name": "Product integrity",
+   "name": "Product integrity (SHA-256)",
    "state": "passed",
-   "note": "SHA-256 matches the existing manifest."
+   "note": "1 product(s) verified; pinned checksums matched",
+   "source": "campaign runner, step fetch_products"
   },
   {
    "name": "Cadence quality mask and finite-flux selection",
@@ -63,9 +64,17 @@
    "state": "not_tested"
   },
   {
-   "name": "Catalog / literature audit",
+   "name": "Catalogue cross-match",
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
+  },
+  {
+   "name": "Literature (ADS) audit",
    "state": "not_tested",
    "reported_as": "not performed in this run"
   }
- ]
+ ],
+ "generated_by": "cygnus.campaign runner",
+ "generated_utc": "2026-09-24T08:03:58Z"
 }

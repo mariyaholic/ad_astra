@@ -1,0 +1,60 @@
+{
+  "step": "prior_art",
+  "run_id": 43,
+  "config_hash": "1f36fa126ca4dd2d",
+  "finished_utc": "2026-09-24T08:03:18Z",
+  "result": {
+    "targets": {
+      "WASP-12": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "1 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-24T08:02:54Z: WASP-12 b (host WASP-12)",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 97.6366525, 29.6722954, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-24T08:02:54Z",
+          "matches": [
+            "WASP-12 b (host WASP-12)"
+          ]
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-24T08:02:57Z: TOI-1725.01 (TIC 86396382, disposition KP)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 97.6270615 AND 97.6462435 AND dec BETWEEN 29.6639621 AND 29.6806288",
+          "retrieved_utc": "2026-09-24T08:02:57Z",
+          "matches": [
+            "TOI-1725.01 (TIC 86396382, disposition KP)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-24T08:03:00Z: WASP-12 (type EP, P 1.091422 d)",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 97.6366525, 29.6722954, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-24T08:03:00Z",
+          "matches": [
+            "WASP-12 (type EP, P 1.091422 d)"
+          ]
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "5 match(es) in SIMBAD within 30\" as of 2026-09-24T08:03:02Z: 2MASS J06303343+2940255 (*); NAME WASP-12BC (LM*); WASP-12 (*); 2MASS J06303255+2940301 (*); WASP-12b (Pl)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 97.6366525, 29.6722954, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-24T08:03:02Z",
+          "matches": [
+            "2MASS J06303343+2940255 (*)",
+            "NAME WASP-12BC (LM*)",
+            "WASP-12 (*)",
+            "2MASS J06303255+2940301 (*)",
+            "WASP-12b (Pl)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": []
+}

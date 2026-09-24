@@ -20,6 +20,8 @@ from __future__ import annotations
 import hashlib
 import json
 import sqlite3
+from contextlib import contextmanager
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
@@ -107,6 +109,15 @@ def _pkg_version() -> str:
         return "cygnus-" + version("cygnus")
     except Exception:
         return "cygnus-0.1.0+source"
+
+
+@dataclass
+class RunHandle:
+    """Mutable handle for a run opened by :meth:`Ledger.recorded_run`."""
+
+    id: int
+    status: str = "completed"
+    summary: str | None = None
 
 
 class Ledger:
@@ -245,6 +256,46 @@ class Ledger:
         if row is None:
             raise KeyError(f"no run id={run_id}")
         return dict(row)
+
+    @contextmanager
+    def recorded_run(self, script: str, *, config_hash: str | None = None, seed: int | None = None):
+        """Open a run and guarantee it is closed: ``completed`` on success, ``failed`` on an
+        exception, ``aborted`` on interrupt. Yields a :class:`RunHandle`; set ``handle.summary``
+        (and optionally ``handle.status``) inside the block.
+
+        This is what keeps the ledger from accumulating runs stuck at ``open``.
+        """
+        handle = RunHandle(self.log_run(script, config_hash=config_hash, seed=seed))
+        try:
+            yield handle
+        except KeyboardInterrupt:
+            self.close_run(handle.id, "aborted", handle.summary or "interrupted (KeyboardInterrupt)")
+            raise
+        except BaseException as exc:
+            self.close_run(handle.id, "failed", f"{type(exc).__name__}: {str(exc)[:500]}")
+            raise
+        else:
+            self.close_run(handle.id, handle.status, handle.summary)
+
+    def completed_run(self, script: str, config_hash: str) -> dict[str, Any] | None:
+        """Most recent completed run of ``script`` with this config hash (for idempotent steps)."""
+        row = self.db.execute(
+            "SELECT * FROM runs WHERE script=? AND config_hash=? AND status='completed' ORDER BY id DESC LIMIT 1",
+            (script, config_hash),
+        ).fetchone()
+        return dict(row) if row else None
+
+    def close_stale_runs(self, *, started_before_utc: str, note: str) -> list[int]:
+        """Mark runs still ``open`` that started before a cutoff as ``aborted``, with an explanatory note.
+
+        For repairing runs whose process died without closing them; it records that the outcome is
+        unknown rather than guessing completed or failed. Returns the affected run ids.
+        """
+        ids = [int(r["id"]) for r in self.db.execute(
+            "SELECT id FROM runs WHERE status='open' AND started_utc < ? ORDER BY id", (started_before_utc,))]
+        for i in ids:
+            self.close_run(i, "aborted", f"closed retrospectively {now_utc()}: {note}")
+        return ids
 
     # ------------------------------------------------------------- measurements
     def add_measurement(

@@ -1379,30 +1379,33 @@ def main(argv: list[str] | None = None) -> int:
     ledger = Ledger(args.ledger or ledger_path())
     builder = PackBuilder(ledger, budgets=budgets, dirmap=PACK_DIRS,
                           pack_root=Path(args.pack_root) if args.pack_root else None)
-    run_id = ledger.log_run("cygnus.ingest.tier1", config_hash=builder.run_config_sha(payload))
-    cfg_path = builder.root / "RUN_CONFIG.json"
-    cfg_path.write_text(json.dumps({"run_id": run_id, **payload}, indent=1), encoding="utf-8")
-    builder.log("run", f"run_id={run_id} config_hash={builder.run_config_sha(payload)}")
+    # recorded_run closes the run as failed/aborted if anything below raises or is interrupted,
+    # so a crashed ingest can no longer leave a run stuck at 'open'
+    with ledger.recorded_run("cygnus.ingest.tier1", config_hash=builder.run_config_sha(payload)) as run:
+        run_id = run.id
+        cfg_path = builder.root / "RUN_CONFIG.json"
+        cfg_path.write_text(json.dumps({"run_id": run_id, **payload}, indent=1), encoding="utf-8")
+        builder.log("run", f"run_id={run_id} config_hash={builder.run_config_sha(payload)}")
 
-    for key in services:
-        run_service(builder, key, COLLECTORS[key])
-        builder.write_manifest(key)
+        for key in services:
+            run_service(builder, key, COLLECTORS[key])
+            builder.write_manifest(key)
 
-    master = builder.write_master()
-    search_log = builder.write_search_log()
-    name_cache = write_name_cache(builder.root)
-    prov = ledger_products_csv(ledger, builder.root / "PROVENANCE_ledger_products.csv")
+        master = builder.write_master()
+        search_log = builder.write_search_log()
+        name_cache = write_name_cache(builder.root)
+        prov = ledger_products_csv(ledger, builder.root / "PROVENANCE_ledger_products.csv")
 
-    counts: dict[str, int] = {}
-    for r in builder.all_rows():
-        counts[r["state"]] = counts.get(r["state"], 0) + 1
-    summary = "; ".join(f"{k}={v}" for k, v in sorted(counts.items()))
-    # Ledger run statuses: completed|failed|aborted. Exclusions (budget/zero
-    # results) are normal completed-run outcomes; they live in the manifest.
-    n_failed_rows = counts.get("failed", 0)
-    n_full = counts.get("local", 0) + counts.get("drive_only", 0)
-    run_status = "failed" if n_failed_rows > n_full else "completed"
-    ledger.close_run(run_id, run_status, summary)
+        counts: dict[str, int] = {}
+        for r in builder.all_rows():
+            counts[r["state"]] = counts.get(r["state"], 0) + 1
+        summary = "; ".join(f"{k}={v}" for k, v in sorted(counts.items()))
+        # Ledger run statuses: completed|failed|aborted. Exclusions (budget/zero
+        # results) are normal completed-run outcomes; they live in the manifest.
+        n_failed_rows = counts.get("failed", 0)
+        n_full = counts.get("local", 0) + counts.get("drive_only", 0)
+        run.status = "failed" if n_failed_rows > n_full else "completed"
+        run.summary = summary
     print(f"DONE states: {summary}")
     print(f"master manifest: {master}")
     print(f"search log: {search_log}")

@@ -10,6 +10,8 @@ The test suite enforces this. `tests/test_skyrecord.py` fails when:
 
 Code: `src/cygnus/skyrecord.py` (stdlib only). Explorer build: `design-system/mockups/build_explorer.py`.
 
+Campaigns run through the runner (`docs/CAMPAIGNS.md`) get their record regenerated automatically from the spec's `record` block; hand-written records are only for analyses outside the runner.
+
 ## Where to put it
 
 `campaigns/<id>/sky_record.json` or `reports/<id>/sky_record.json`. A draft campaign that only has a spec gets its own directory, `campaigns/<id>/sky_record.json`, with `status: "draft"`.

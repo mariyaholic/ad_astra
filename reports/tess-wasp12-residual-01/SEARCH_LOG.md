@@ -54,3 +54,11 @@ D:\AO_Artifacts\cygnus_scratch\venv\Scripts\python.exe tools\analyze_tess_residu
 ```
 
 The script enforces exact product basenames, byte lengths, and SHA-256 before reading FITS. Both selected products were successfully processed, producing `screen.json` and `normalized_series.csv` in each derived-output directory. Offline project regression test run from the worktree: `python -m pytest -q -m 'not network'` → **132 passed, 2 deselected** (these are general project tests, not a calibration validation of this real-product screen). Source data remain only in scratch and may be deleted; downloaded source products are not checked into the repository.
+
+## Addendum (2026-09-24, later): runner re-run, calibration, catalogue cross-match
+
+- Re-run: `python -m cygnus.campaign run campaigns/tess-wasp12-residual-01.yaml` with the project venv (Python 3.13.3, NumPy 2.5.3, SciPy 1.18.1, Astropy 8.0.1). The spec now carries the exact ephemeris used (P = 1.09141890100 d, T0 = 2457607.51930500 BJD_TDB; the earlier spec's rounded 1.0914 d was never used by the code). Ledger runs #31 (fetch, checksums re-verified), #32 (screen), #33 (calibration), #34 (catalogue cross-match), all `completed`.
+- Screen outputs reproduced exactly (byte-identical normalized series; identical 835/464 entries, 0 outside the window).
+- Calibration (sign-flip null and injection–recovery; parameters in the spec; seed 20260924): results in `sector*/calibration.json` and the report addendum.
+- Catalogue cross-match queries (ADQL, verbatim) and dated results are in the ledger `prior_art` table under `target:WASP-12` and in `runner/prior_art.json`.
+- Still not tested: centroid correlation, pixel-level background/blend, cosmic-ray/hot-pixel, independent reduction or instrument, ADS literature.

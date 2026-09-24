@@ -1,4 +1,8 @@
-"""Small validation campaign: recover WASP-12b in TESS Sector 20.
+"""SUPERSEDED (2026-09-24): run `python -m cygnus.campaign run campaigns/wasp12-sector20-recovery.yaml` instead. The runner reproduces this
+script exactly (checked on the real products; see docs/CAMPAIGNS.md) and records every step in the ledger.
+Kept unchanged so the original record can still be reproduced as documented in its SEARCH_LOG.
+
+Small validation campaign: recover WASP-12b in TESS Sector 20.
 
 Downloads one public MAST SPOC product to CYGNUS scratch, verifies SHA-256,
 then runs a bounded BLS search and permutation null. Not a discovery search.

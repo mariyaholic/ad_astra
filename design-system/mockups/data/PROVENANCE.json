@@ -615,5 +615,231 @@
   "sha256": "e5b7cdab2e0a8260a6de6ccc1795f84425bb8abd34dcb7135b5a2c0fb8ec640b",
   "note": "Published measurements with their references; species identifications are not part of these tables",
   "terms": "NASA Exoplanet Archive: public; acknowledge per archive policy and cite the listed references"
+ },
+ "field_toi-2666-01.csv": {
+  "retrieved_utc": "2026-09-24T07:55:08Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 139.48086500, -3.38752500, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 133,
+  "sha256": "3eb40281845c34340fc87e1f7de9e48439b25b2edd1c2eb1df6d887d6eb68fcb",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "field_toi-2423-01.csv": {
+  "retrieved_utc": "2026-09-24T07:55:15Z",
+  "source": "Gaia DR3 gaia_source (ESA/Gaia/DPAC)",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "query": "SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 53.46724500, -57.62129500, 0.2)) AND phot_g_mean_mag < 17.0 ORDER BY phot_g_mean_mag",
+  "rows": 112,
+  "sha256": "a03510a1087e5527f86c6fb2dff9031d457585cf5d888efd7b5486184d4d95a7",
+  "radius_deg": 0.2,
+  "g_max": 17.0,
+  "terms": "ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC"
+ },
+ "FAILED:fields": {
+  "when": "2026-09-24T07:55:32Z",
+  "error": "ConnectionError(ProtocolError('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)))"
+ },
+ "fields/toi-2666-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:55:37Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "139.480865",
+   "dec": "-3.387525",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "aef42ca411b764db58e8d0ab9e306900493e1ee096c9f6bc340bd0b4ac5bbe4c",
+  "bytes": 61030,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/toi-2423-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:55:42Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "53.467245",
+   "dec": "-57.621295",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "e223b9dd74f1be501284280d1f39bc25886497ad156097e1bbebd93b700ea0ef",
+  "bytes": 79543,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/toi-7176-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:55:46Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "345.349833",
+   "dec": "32.949691",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "fa8b5941d3f88909df6e4723f84c8bed318717a88d19dd0217abac641c021983",
+  "bytes": 71914,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/toi-429-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:55:50Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "72.977308",
+   "dec": "-53.829626",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "1e1060403d2edbd450e16410acb4133afa9af0bb994d7beafdc86fbdfcfa6409",
+  "bytes": 68865,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/toi-6670-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:55:54Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "137.046678",
+   "dec": "-50.613758",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "dadd59a8f692e85db2f534f74765076bc1b77308cb056a4a0eed4c5e35bfa981",
+  "bytes": 125953,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/toi-1896-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:55:59Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "352.178610",
+   "dec": "47.349521",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "a5dbbcb8ae21abd2842df248fc30b87a511b639419dd32dff4c93f9d3cc70f0d",
+  "bytes": 98966,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/toi-5523-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:56:04Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "169.117028",
+   "dec": "-3.975441",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "c420a5e38f9db5f6a12101edf7bf3fcae5490df430fd3c5fbbeca40f2bb9f1aa",
+  "bytes": 57023,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/toi-6664-01.jpg": {
+  "retrieved_utc": "2026-09-24T07:56:09Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "143.137378",
+   "dec": "69.729484",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "9252de7e0d0b518957bdfee1fe1b67288c206e8783384ef6e1460baab29548d5",
+  "bytes": 55175,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
+ },
+ "fields/toi-3500-02.jpg": {
+  "retrieved_utc": "2026-09-24T07:56:13Z",
+  "source": "2MASS (J, H, Ks colour composite) via CDS hips2fits, HiPS CDS/P/2MASS/color",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/2MASS/color",
+   "ra": "186.816884",
+   "dec": "-29.832996",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "5e4cf34a0ce55c03120ef1cd8e317bafaed33a2b6686e660ea9317a1781d03ef",
+  "bytes": 79241,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "2MASS: public (acknowledge UMass and IPAC/Caltech, NASA and NSF); HiPS rendering by CDS"
+ },
+ "fields/toi-2300-03.jpg": {
+  "retrieved_utc": "2026-09-24T07:56:18Z",
+  "source": "Pan-STARRS1 DR1 (g, zg, z colour composite) via CDS hips2fits, HiPS CDS/P/PanSTARRS/DR1/color-z-zg-g",
+  "endpoint": "https://alasky.cds.unistra.fr/hips-image-services/hips2fits",
+  "query": {
+   "hips": "CDS/P/PanSTARRS/DR1/color-z-zg-g",
+   "ra": "297.416187",
+   "dec": "68.883354",
+   "fov": "0.4000",
+   "width": 768,
+   "height": 768,
+   "projection": "TAN",
+   "format": "jpg"
+  },
+  "sha256": "cd4027c6a1fccd38a01b0c40b83da619ab08f1ddc03c1d1d517910a46cf525d4",
+  "bytes": 70887,
+  "fov_deg": 0.4,
+  "orientation": "north up, east left (TAN)",
+  "terms": "Pan-STARRS1: public (acknowledge PS1 and STScI/MAST); HiPS rendering by CDS"
  }
 }

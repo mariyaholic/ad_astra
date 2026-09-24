@@ -1,17 +1,133 @@
 {
  "schema": "cygnus.sky_record/1",
  "id": "tess-mono-01",
- "title": "TESS monotransit search (draft)",
+ "title": "TESS single-transit candidates, first pass (tess-mono-01)",
  "kind": "monotransit search",
  "status": "draft",
  "outcome": "not_run",
  "evidence": null,
  "date": null,
- "summary": "Declared campaign for single-transit events in TESS light curves. Not executed; no targets chosen and thresholds deliberately unset until calibrated.",
+ "summary": "Declared campaign: screen the light curves of TESS single-transit candidates for further dips, with a threshold calibrated per light curve and measured completeness. Only the target queue has been built; no light curve has been analysed. Runner: Target queue: 20 of 77 pool members ranked by depth_ppm * sqrt(duration_h) * 10**(-0.2*(tmag-10)).",
  "spec": "campaigns/tess-mono-01.yaml",
  "report": null,
  "search_log": null,
- "targets": [],
+ "targets": [
+  {
+   "name": "TOI-2666.01",
+   "ra_deg": 139.480865,
+   "dec_deg": -3.387525,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-2423.01",
+   "ra_deg": 53.467245,
+   "dec_deg": -57.621295,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-7176.01",
+   "ra_deg": 345.349833,
+   "dec_deg": 32.949691,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-429.01",
+   "ra_deg": 72.977308,
+   "dec_deg": -53.829626,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-6670.01",
+   "ra_deg": 137.046678,
+   "dec_deg": -50.613758,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-1896.01",
+   "ra_deg": 352.17861,
+   "dec_deg": 47.349521,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-5523.01",
+   "ra_deg": 169.117028,
+   "dec_deg": -3.975441,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-6664.01",
+   "ra_deg": 143.137378,
+   "dec_deg": 69.729484,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-3500.02",
+   "ra_deg": 186.816884,
+   "dec_deg": -29.832996,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  },
+  {
+   "name": "TOI-2300.03",
+   "ra_deg": 297.416187,
+   "dec_deg": 68.883354,
+   "frame": "ICRS",
+   "epoch": "J2000.0 (TIC)",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  }
+ ],
  "products": [],
- "checks": []
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "not_tested"
+  },
+  {
+   "name": "Calibrated false-alarm threshold (sign-flip null)",
+   "state": "not_tested"
+  },
+  {
+   "name": "Synthetic signal injection–recovery",
+   "state": "not_tested"
+  },
+  {
+   "name": "Catalogue cross-match",
+   "state": "not_tested"
+  },
+  {
+   "name": "Alternative detrending",
+   "state": "not_tested"
+  },
+  {
+   "name": "Difference-image centroids / blend audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Pointing / jitter correlation",
+   "state": "not_tested"
+  },
+  {
+   "name": "Literature (ADS) audit",
+   "state": "not_tested"
+  }
+ ],
+ "generated_by": "cygnus.campaign runner",
+ "generated_utc": "2026-09-24T08:04:01Z"
 }

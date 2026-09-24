@@ -1,0 +1,41 @@
+# Offline checks on every push and pull request: tests, the public-site build (with its leak scan)
+# and the sky-explorer build. Needs no credentials and touches no private storage; the ledger
+# (state/) is not in git, so ledger-backed site pages build as "unavailable".
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[test,site,campaign]"
+      - name: Tests (offline; network tests are deselected by default)
+        run: python -m pytest -q
+      - name: Campaign specs are valid
+        run: for f in campaigns/*.yaml; do python -m cygnus.campaign check "$f"; done
+      - name: Public site build (fails on any leak-scan hit)
+        run: python -m cygnus.publish build
+      - name: Sky explorer build
+        run: python design-system/mockups/build_explorer.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-and-explorer
+          path: |
+            build/site
+            design-system/mockups/explorer
+          retention-days: 14

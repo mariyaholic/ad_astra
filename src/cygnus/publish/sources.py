@@ -142,16 +142,20 @@ def load_campaign(path: Path, status_override: str | None = None) -> dict[str, A
         for k, v in (spec.get("thresholds") or {}).items()
     ]
     pool = spec.get("target_pool") or {}
+    # cygnus.campaign/1 specs: steps are one-key mappings, targets a list of {name, ...}
+    steps = [next(iter(x)) if isinstance(x, dict) else str(x) for x in spec.get("steps") or []]
+    queue = next((next(iter(x.values())) for x in spec.get("steps") or [] if isinstance(x, dict) and "target_queue" in x), None)
+    targets = [t.get("name") if isinstance(t, dict) else t for t in (spec.get("targets") or pool.get("targets") or [])]
     return {
         "id": str(spec.get("campaign") or spec.get("campaign_id") or path.stem),
         "objective": redact(str(spec.get("objective") or "")).strip() or None,
         "domain": spec.get("domain"),
         "status": str(spec.get("status") or status_override or "unknown"),
         "status_note": field_notes.get("status"),
-        "target_source": pool.get("source"),
+        "target_source": pool.get("source") or ((queue or {}).get("source") if queue else None),
         "target_source_note": field_notes.get("source"),
-        "targets": list(pool.get("targets") or []),
-        "steps": [{"name": s, "note": step_notes.get(s)} for s in spec.get("steps") or []],
+        "targets": targets,
+        "steps": [{"name": s, "note": step_notes.get(s)} for s in steps],
         "thresholds": thresholds,
         "notes": redact(str(spec.get("notes") or "")).strip() or None,
         "text": public_text,

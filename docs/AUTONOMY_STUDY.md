@@ -2,6 +2,17 @@
 
 Question: once started, which parts of the AGENTS.md research loop run without a person or agent steering each step, and which are still hand-driven or only designed? Evidence is the code, the ledger and the records as of commit `e25dbcb`.
 
+> **Update, later on 2026-09-24:** problems 1–4 and steps 1–6 below were acted on the same day.
+> Campaigns now run from YAML specs through a ledgered, resumable runner (`docs/CAMPAIGNS.md`); the
+> WASP-12 analyses were re-run through it with identical results and are in the ledger; open runs
+> were closed and can no longer be left open; the residual screen is calibrated (sign-flip null,
+> injection–recovery), which showed it only excludes dips ≳ 1.5 % deep at k = 5; four catalogue
+> adapters (NASA Exoplanet Archive, TOI, VSX, SIMBAD) replace `not_tested` stubs; `tess-mono-01`
+> has a ranked 73-member target pool; CI and a weekly public-archive queue job exist. Rough scale:
+> about **2.5 of 4**. Still missing: detrending families, centroid/blend and pointing audits,
+> single-transit period posteriors, ADS literature, and running `tess-mono-01` itself (awaiting a
+> go-ahead). The text below is the original study.
+
 ## Short answer
 
 **Data acquisition is automated; science is not.** A single command fetches, checksums, budgets and ledgers archive products from eight services, and failures become visible records rather than silent gaps. Everything after that — choosing targets, running an analysis, vetting, prior-art checks, writing the report — is done by an agent writing a one-off script per campaign. The campaign runner, the vetting modules and the prior-art adapters exist only as designs. Nothing runs between sessions.

@@ -1,9 +1,16 @@
+schema: cygnus.campaign/1
 campaign_id: tess-wasp12-residual-01
 objective: >
-  In one verified SPOC 120-s light curve for TIC 86396382/WASP-12,
-  test whether any isolated negative excursion survives robust local-baseline
-  subtraction, appears in both SAP and PDCSAP flux, and is inconsistent with
-  the known periodic transit phase. This is a finite anomaly triage, not novelty.
+  In two verified SPOC 120-s light curves of TIC 86396382 / WASP-12 (Sectors 20 and 43), test
+  whether any isolated negative excursion survives robust local-baseline subtraction, appears in
+  SAP and PDCSAP flux, and lies outside the known WASP-12 b transit phase. A finite anomaly
+  triage, not a novelty search.
+outputs: reports/tess-wasp12-residual-01/
+random_seed: 20260924
+
+targets:
+  - name: WASP-12            # position from docs/tier1_pack/NAME_RESOLUTIONS.json (CDS Sesame)
+
 input:
   archive: MAST
   release_pipeline: TESS SPOC
@@ -12,21 +19,68 @@ input:
       sector: 20
       expected_sha256: bf74a16f6e0c40b693a66de922e142d446cb44cee5bb7f26843062e436957f63
       expected_bytes: 1926720
-      scratch_path: D:/AO_Artifacts/cygnus_scratch/campaign_wasp12/tess2019357164649-s0020-0000000086396382-0165-s_lc.fits
     - product_id: tess2021258175143-s0043-0000000086396382-0214-s_lc.fits
       sector: 43
       expected_sha256: e3d5c6f76884014ec1dec1eb60f04eaf734330a7abd8eef99141f49df03b2493
       expected_bytes: 1811520
-      scratch_path: D:/AO_Artifacts/cygnus_scratch/campaign_wasp12/tess2021258175143-s0043-0000000086396382-0214-s_lc.fits
-selection:
-  target_set: [TIC 86396382]
-  epochs: [2019 sector 20; exact TIME span read from FITS headers]
-  cadence: 120 s
-  quality: exclude nonzero QUALITY; require finite TIME, SAP_FLUX, PDCSAP_FLUX
-  detrending: 2.0-day centered running median; sensitivity checks 1.0 and 3.0 days
-  excursion_screen: residual below -5 robust local MAD sigma; at least 2 cadences
-  transit_period_days: 1.0914 # rounded literature value, only a provisional phase veto
-  controls: same time series outside nominal transit phase; cadence circular shifts
-outputs: reports/tess-wasp12-residual-01/
-random_seed: 20260924
-notes: Any screen crossing is uncalibrated and does not imply an object.
+
+# Known-signal veto: the WASP-12 b transit. These exact values were used by the 2026-09-24 run
+# (previously hard-coded in tools/analyze_tess_residual.py; the old spec's rounded 1.0914 d was a drift).
+veto:
+  kind: ephemeris
+  period_days: 1.09141890100
+  t0_bjd: 2457607.51930500
+  veto_phase: 0.08
+  source: NASA Exoplanet Archive pscomppars, queried 2026-09-24 (see SEARCH_LOG.md)
+
+steps:
+  - fetch_products:
+      search_dirs: ["scratch:campaign_wasp12"]    # where the 2026-09-24 run staged the files
+  - residual_screen:
+      windows_days: [1.0, 2.0, 3.0]
+      k_mad: 5.0                   # the declared 2026-09-24 threshold; calibrate_screen tests it
+      min_cadences: 2
+      series_window_days: 2.0
+  - calibrate_screen:
+      declared_k: 5.0
+      window_days: 2.0
+      k_grid: [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0]
+      max_null_events: 0
+      depths_ppm: [1000, 2000, 5000, 7500, 10000, 15000, 20000]
+      durations_h: [0.5, 1.0, 2.0, 4.0]
+      injections_per_cell: 10
+      reference_signal: {depth_ppm: 5000, duration_h: 2.0}
+  - prior_art:
+      radius_arcsec: 30
+
+record:
+  path: reports/tess-wasp12-residual-01/sky_record.json
+  title: Residual screen of WASP-12, TESS Sectors 20 and 43
+  kind: residual screen
+  outcome: bounded_null
+  date: "2026-09-24"
+  report: reports/tess-wasp12-residual-01/REPORT.md
+  search_log: reports/tess-wasp12-residual-01/SEARCH_LOG.md
+  summary: >
+    No ≥5 robust-MAD, ≥2-cadence negative excursion outside ±0.08 phase of the known WASP-12 b
+    transit in SAP or PDCSAP flux, for 1/2/3-day baselines, in either sector. Bounded null; no candidate.
+  checks:
+    - {name: "Product integrity (SHA-256)", state: not_tested}
+    - {name: "Calibrated false-alarm threshold (sign-flip null)", state: not_tested}
+    - {name: "Synthetic signal injection–recovery", state: not_tested}
+    - {name: "Catalogue cross-match", state: not_tested}
+    - {name: "Centroid correlation with residuals", state: not_tested, note: "Centroids exist in the light curves but were not correlated."}
+    - {name: "Pixel-level background / blend inspection", state: not_tested}
+    - {name: "Cosmic-ray / hot-pixel audit", state: not_tested}
+    - {name: "Independent reduction", state: not_tested}
+    - {name: "Independent instrument", state: not_tested, note: "Sector 43 is a second epoch from the same instrument and pipeline."}
+    - {name: "Literature (ADS) audit", state: not_tested, reported_as: "not completed", note: "No ADS access; catalogue cross-match is separate."}
+  plots:
+    - {type: fold, file: reports/tess-wasp12-residual-01/sector20/normalized_series.csv, time_col: TIME_stored, time_offset_bjd: 2457000,
+       flux_col: PDCSAP_FLUX, quality_col: QUALITY, period_days: 1.091418901, t0_bjd: 2457607.519305, window_hours: 4, veto_phase: 0.08,
+       depth_window_hours: 0.5, label: "Sector 20 PDCSAP, folded on the NASA Exoplanet Archive ephemeris"}
+    - {type: fold, file: reports/tess-wasp12-residual-01/sector43/normalized_series.csv, time_col: TIME_stored, time_offset_bjd: 2457000,
+       flux_col: PDCSAP_FLUX, quality_col: QUALITY, period_days: 1.091418901, t0_bjd: 2457607.519305, window_hours: 4, veto_phase: 0.08,
+       depth_window_hours: 0.5, label: "Sector 43 PDCSAP, same fold"}
+    - {type: timeseries, file: reports/tess-wasp12-residual-01/sector20/normalized_series.csv, time_col: TIME_stored, time_offset_bjd: 2457000,
+       flux_col: PDCSAP_FLUX, quality_col: QUALITY, label: "Sector 20 PDCSAP light curve, 30-min medians"}
