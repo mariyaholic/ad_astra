@@ -12,6 +12,7 @@ Last updated: 2026-09-24 (UTC). Read this after `AGENTS.md` when picking the pro
 | Site redesign | User found v1 too plain. An interactive **sky explorer prototype** is built and the direction approved; **converting the real site is not yet approved.** | `design-system/mockups/README.md` |
 | Sky records | Every analysis must leave `sky_record.json`; tests fail otherwise. | `docs/SKY_RECORDS.md` |
 | Design system "Ad Astra" | Source in `design-system/project/`. A browsable copy exists as a private claude.ai artifact (only reachable from Claude). It still describes the **v1** look, not the explorer. | `design-system/project/README.md` |
+| Pipeline autonomy | Ingest, publishing and explorer builds are one-command automated; analyses are agent-written one-off scripts; campaign runner, vetting modules and prior-art adapters are designed only; nothing is scheduled. | `docs/AUTONOMY_STUDY.md` |
 | Repository | GitHub `mariyaholic/ad_astra`, branch `main`. Licence Apache-2.0; third-party data keep their own terms (see README). | `README.md` |
 
 ## Open decisions (ask the user; do not assume)
@@ -19,7 +20,7 @@ Last updated: 2026-09-24 (UTC). Read this after `AGENTS.md` when picking the pro
 1. **Convert the published site to the explorer design?** The plan: the explorer as the home page, one page per target and an observing log. After that, update `design-system/project/` to match.
 2. **Publish the restricted source archive** in `publish/collections/cygnus-software-0-1-0.json`? It was withheld while no licence existed; the licence is now Apache-2.0, but nobody has decided to publish it.
 3. **Deployment target** for `build/site/` (GitHub Pages or another static host). Nothing is deployed.
-4. **Logo.** Direction chosen (2026-09-24): concept **D**, the Northern Cross badged with a transit chord at a seeded random angle (`design-system/brand/build_brand.py`, `transit_params`). Revised the same day to rigid four-point spike stars and a heavy transit bar that breaks through the rim, angle drawn from hard diagonals (25–65° or 115–155°). Still to pick: the seed (alternatives in `design-system/brand/index.html`). Then: final outlined SVGs, favicon set, explorer header, site and design system.
+4. **Logo.** Direction chosen and approved (2026-09-24): concept **D**, the Northern Cross badged with a transit chord at a seeded random angle (`design-system/brand/build_brand.py`, `transit_params`). Revised the same day to rigid four-point spike stars and a transit chord drawn as a double-ended blade that breaks through the rim, angle drawn from hard diagonals (25–65° or 115–155°). Still to pick: the seed (alternatives in `design-system/brand/index.html`). Then: final outlined SVGs, favicon set, explorer header, site and design system.
 5. If the explorer's Gaia-derived files are published, Gaia's share-alike terms (CC BY-SA 3.0 IGO) apply to those files.
 
 ## Known problems (surface them; do not paper over)

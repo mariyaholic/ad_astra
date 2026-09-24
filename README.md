@@ -15,6 +15,7 @@ Nothing here is a discovery. As of 2026-09-24 the project has run one known-plan
 | [`docs/ANALYSIS_SUITE.md`](docs/ANALYSIS_SUITE.md) | Scope and limits of `src/cygnus/analysis/`. |
 | [`docs/TEST_ARCHITECTURE_PLAN_DRAFT.md`](docs/TEST_ARCHITECTURE_PLAN_DRAFT.md) | Working-draft test plan and known gaps. |
 | [`docs/PUBLISHING.md`](docs/PUBLISHING.md) | The public repository site and its publication boundary. |
+| [`docs/AUTONOMY_STUDY.md`](docs/AUTONOMY_STUDY.md) | What runs by itself today, what is manual or only designed, and the next steps. |
 | [`docs/SKY_RECORDS.md`](docs/SKY_RECORDS.md) | The `sky_record.json` every analysis must leave (enforced by tests). |
 | [`design-system/mockups/README.md`](design-system/mockups/README.md) | The interactive sky explorer prototype: build, run, rules. |
 | [`design-system/project/README.md`](design-system/project/README.md) | The Ad Astra design system (site look and copy rules). |
