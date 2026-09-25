@@ -1,0 +1,56 @@
+{
+  "step": "prior_art",
+  "run_id": 247,
+  "config_hash": "fc7b5b7f28bd036a",
+  "finished_utc": "2026-09-25T04:00:52Z",
+  "result": {
+    "targets": {
+      "TOI-6692.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "1 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T04:00:45Z: TOI-6692 b (host TOI-6692)",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 312.6940440, -81.2723980, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:00:45Z",
+          "matches": [
+            "TOI-6692 b (host TOI-6692)"
+          ]
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T04:00:47Z: TOI-6692.01 (TIC 324609409, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 312.6391244 AND 312.7489636 AND dec BETWEEN -81.2807313 AND -81.2640647",
+          "retrieved_utc": "2026-09-25T04:00:47Z",
+          "matches": [
+            "TOI-6692.01 (TIC 324609409, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T04:00:49Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 312.6940440, -81.2723980, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:00:49Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-25T04:00:51Z: TOI-6692b (Pl); TYC 9473-833-1 (*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 312.6940440, -81.2723980, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:00:51Z",
+          "matches": [
+            "TOI-6692b (Pl)",
+            "TYC 9473-833-1 (*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
