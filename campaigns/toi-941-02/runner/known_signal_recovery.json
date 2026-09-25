@@ -1,0 +1,69 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 214,
+  "config_hash": "e6fdb971764ad9db",
+  "finished_utc": "2026-09-25T03:52:11Z",
+  "result": {
+    "per_product": {
+      "tess2025312202959-s0098-0000000408137826-0298-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-941.02",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 4243.6393708,
+          "duration_h": 7.5
+        },
+        "time_span_bjd": [
+          2460988.498720398,
+          2461045.903038709
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2461037.455335,
+            "usable_in_transit_cadences": 221,
+            "screen_entries": 110,
+            "flux_types": [
+              "PDCSAP",
+              "SAP"
+            ],
+            "measured_depth_ppm": 7510.510694549776,
+            "depth_err_ppm": 144.92669679141835,
+            "depth_ratio_to_catalogue": 1.7698277441360233,
+            "entry_offset_hours": 2.5104324147105217,
+            "state": "recovered"
+          }
+        ]
+      },
+      "tess2020324010417-s0032-0000000408137826-0200-s_lc.fits": {
+        "k_mad": 3.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-941.02",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 4243.6393708,
+          "duration_h": 7.5
+        },
+        "time_span_bjd": [
+          2459174.224162791,
+          2459200.236888101
+        ],
+        "epochs": []
+      }
+    },
+    "states": [
+      "recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2461037.4553: recovered, depth 7511 \u00b1 145 ppm (catalogue 4244 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit recovered (1 covered epoch)."
+  ],
+  "outcome": null
+}

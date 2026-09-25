@@ -1,0 +1,57 @@
+{
+  "step": "prior_art",
+  "run_id": 217,
+  "config_hash": "bdc2965533dd174e",
+  "finished_utc": "2026-09-25T03:52:26Z",
+  "result": {
+    "targets": {
+      "TOI-941.02": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "1 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T03:52:16Z: TOI-941 b (host TOI-941)",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 78.3005250, 6.5459150, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T03:52:16Z",
+          "matches": [
+            "TOI-941 b (host TOI-941)"
+          ]
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T03:52:19Z: TOI-941.01 (TIC 408137826, disposition PC); TOI-941.02 (TIC 408137826, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 78.2921370 AND 78.3089130 AND dec BETWEEN 6.5375817 AND 6.5542483",
+          "retrieved_utc": "2026-09-25T03:52:19Z",
+          "matches": [
+            "TOI-941.01 (TIC 408137826, disposition PC)",
+            "TOI-941.02 (TIC 408137826, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T03:52:21Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 78.3005250, 6.5459150, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T03:52:21Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-25T03:52:22Z: TOI-941.01 (Pl?); TOI-941 (*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 78.3005250, 6.5459150, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T03:52:22Z",
+          "matches": [
+            "TOI-941.01 (Pl?)",
+            "TOI-941 (*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
