@@ -1,0 +1,54 @@
+{
+  "step": "prior_art",
+  "run_id": 126,
+  "config_hash": "565e98c49c7465a1",
+  "finished_utc": "2026-09-25T00:49:04Z",
+  "result": {
+    "targets": {
+      "TOI-3500.02": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T00:48:51Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 186.8168840, -29.8329960, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:48:51Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T00:48:57Z: TOI-3500.01 (TIC 443666343, disposition PC); TOI-3500.02 (TIC 443666343, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 186.8072776 AND 186.8264904 AND dec BETWEEN -29.8413293 AND -29.8246627",
+          "retrieved_utc": "2026-09-25T00:48:57Z",
+          "matches": [
+            "TOI-3500.01 (TIC 443666343, disposition PC)",
+            "TOI-3500.02 (TIC 443666343, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T00:49:01Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 186.8168840, -29.8329960, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:49:01Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "1 match(es) in SIMBAD within 30\" as of 2026-09-25T00:49:02Z: UCAC2  19403154 (PM*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 186.8168840, -29.8329960, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:49:02Z",
+          "matches": [
+            "UCAC2  19403154 (PM*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
