@@ -1,0 +1,46 @@
+{
+  "step": "astrometric_vetting",
+  "run_id": 635,
+  "config_hash": "cf8222fc704f8df4",
+  "finished_utc": "2026-09-25T13:28:35Z",
+  "result": {
+    "targets": {
+      "TOI-6666.01": {
+        "target_match": {
+          "source_id": "2223770483452673408",
+          "ra_deg": 325.0032473931132,
+          "dec_deg": 69.08661730300648,
+          "sep_arcsec": 0.01894685119314915,
+          "phot_g_mean_mag": 8.779094,
+          "parallax": 7.865778771312494,
+          "n_sources_in_radius": 1,
+          "min_delta_g_to_others": null,
+          "identification": "unique",
+          "matching": "nearest Gaia DR3 source (epoch 2016.0) to the target position as given, no proper-motion propagation; unique when within 1\" and >= 2 mag brighter in G than any other source in the radius"
+        },
+        "solutions": [],
+        "nss_solutions": 0,
+        "significant_solutions": 0,
+        "significance_min": 5.0,
+        "top_mass_function_msun": null,
+        "state": "inconclusive",
+        "note": "no Gaia DR3 NSS two-body solution for source 2223770483452673408 (0.02\" away); Gaia sensitivity is incomplete, so this is not proof of a single star"
+      }
+    },
+    "file": "campaigns/toi-6666-01-nss/nss.json"
+  },
+  "checks": {
+    "Target-to-Gaia source identification": {
+      "state": "passed",
+      "note": "TOI-6666.01: Gaia DR3 2223770483452673408 at 0.02\", G 8.779094; 1 source(s) within 5\"",
+      "step": "astrometric_vetting"
+    },
+    "Gaia NSS astrometric vetting": {
+      "state": "inconclusive",
+      "note": "TOI-6666.01: no Gaia DR3 NSS two-body solution for source 2223770483452673408 (0.02\" away); Gaia sensitivity is incomplete, so this is not proof of a single star",
+      "step": "astrometric_vetting"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

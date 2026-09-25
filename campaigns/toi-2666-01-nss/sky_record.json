@@ -1,0 +1,87 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "toi-2666-01-nss",
+ "title": "Gaia NSS vetting, TOI-2666.01",
+ "kind": "astrometric vetting",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-25",
+ "summary": "Gaia DR3 cone, SIMBAD cone and Gaia DR3 NSS two-body cross-match of the TOI-2666.01 host, as a discriminating test for the TOI-2666.01 sector-99 repeat-event lead (V-shaped events; ExoFOP note \"v-shaped; possible EB\"; campaigns/tess-mono-01/LEAD_VETTING_LOG.md). Runner: No light-curve product was retrieved; only image/table/text products are available to screen.",
+ "spec": "campaigns/toi-2666-01-nss.yaml",
+ "report": "campaigns/toi-2666-01-nss/REPORT.md",
+ "search_log": "campaigns/toi-2666-01-nss/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "TOI-2666.01",
+   "ra_deg": 139.480865,
+   "dec_deg": -3.387525,
+   "frame": "ICRS",
+   "epoch": "J2000.0",
+   "position_source": "NASA Exoplanet Archive TOI table (via campaigns/toi-2666-01.yaml)"
+  }
+ ],
+ "products": [
+  {
+   "id": "gaia_cone_TOI-2666.01_r30as.csv",
+   "archive": "gaia",
+   "sha256": "e74fc63f7b4154d53d61d7d04b036a02fae13e6a361dbbcc784564bce4185af4",
+   "format": "csv"
+  },
+  {
+   "id": "simbad_TOI-2666.01.csv",
+   "archive": "simbad",
+   "sha256": "19935a08665e0d7db2fe47d06d0930a7bb44803195aa7a051c863e26c0f4fe15",
+   "format": "csv"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "passed",
+   "note": "2 product(s) from gaia, simbad checksummed at first retrieval",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia source identification",
+   "state": "passed",
+   "note": "TOI-2666.01: Gaia DR3 3837451574150437120 at 0.03\", G 7.5441976; 2 source(s) within 5\", nearest other ΔG 6.16",
+   "source": "campaign runner, step astrometric_vetting"
+  },
+  {
+   "name": "Gaia NSS astrometric vetting",
+   "state": "inconclusive",
+   "note": "TOI-2666.01: no Gaia DR3 NSS two-body solution for source 3837451574150437120 (0.03\" away); Gaia sensitivity is incomplete, so this is not proof of a single star",
+   "source": "campaign runner, step astrometric_vetting"
+  },
+  {
+   "name": "Proper-motion propagation to the Gaia epoch",
+   "state": "not_tested",
+   "note": "positions are matched as given (J2000.0 TOI-table coordinates vs Gaia epoch 2016.0); not propagated"
+  },
+  {
+   "name": "Radial-velocity / literature companion search (ADS)",
+   "state": "not_tested"
+  },
+  {
+   "name": "Context products read",
+   "state": "passed",
+   "note": "2 non-light-curve product(s) (table) recorded in context.json",
+   "source": "campaign runner, step context_products"
+  },
+  {
+   "name": "Source checks (gaia)",
+   "state": "inconclusive",
+   "note": "4/5 passed; non-passing: gaia_cone_TOI-2666.01_r30as.csv:Gaia RUWE",
+   "source": "campaign runner, step source_checks"
+  },
+  {
+   "name": "Source checks (simbad)",
+   "state": "passed",
+   "note": "2/2 passed",
+   "source": "campaign runner, step source_checks"
+  }
+ ],
+ "generated_by": "cygnus_multi campaign runner",
+ "generated_utc": "2026-09-25T13:28:58Z"
+}

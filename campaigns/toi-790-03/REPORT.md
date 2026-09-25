@@ -10,8 +10,8 @@
 
 - Campaign spec: `campaigns/toi-790-03.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #164, fetch_products #163, known_signal_recovery #165, period_aliases #167, prior_art #168, residual_screen #166
-- Runner finished (UTC): 2026-09-25T02:49:45Z
+- Ledger runs: calibrate_screen #597, fetch_products #596, known_signal_recovery #598, period_aliases #600, prior_art #601, residual_screen #599
+- Runner finished (UTC): 2026-09-25T11:10:11Z
 
 ## Bottom line
 
@@ -73,12 +73,12 @@ depth window set from the *event* duration rather than the catalogued one.
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2023237165326-s0069-0000000308994098-0264-s_lc.fits` | 69 | True | `24c770869eb7cd29` | True |
-| `tess2018206045859-s0001-0000000308994098-0120-s_lc.fits` | 1 | False | `5aebc6d52b55575e` | True |
-| `tess2018292075959-s0004-0000000308994098-0124-s_lc.fits` | 4 | False | `100cbf98a015bbae` | True |
-| `tess2019032160000-s0008-0000000308994098-0136-s_lc.fits` | 8 | False | `aa702ec1ec187688` | True |
-| `tess2019058134432-s0009-0000000308994098-0139-s_lc.fits` | 9 | False | `870a35460122e57d` | True |
-| `tess2019085135100-s0010-0000000308994098-0140-s_lc.fits` | 10 | False | `6c0ab7221be273b7` | True |
+| `tess2023237165326-s0069-0000000308994098-0264-s_lc.fits` | 69 | True | `24c770869eb7cd29` | False |
+| `tess2018206045859-s0001-0000000308994098-0120-s_lc.fits` | 1 | False | `5aebc6d52b55575e` | False |
+| `tess2018292075959-s0004-0000000308994098-0124-s_lc.fits` | 4 | False | `100cbf98a015bbae` | False |
+| `tess2019032160000-s0008-0000000308994098-0136-s_lc.fits` | 8 | False | `aa702ec1ec187688` | False |
+| `tess2019058134432-s0009-0000000308994098-0139-s_lc.fits` | 9 | False | `870a35460122e57d` | False |
+| `tess2019085135100-s0010-0000000308994098-0140-s_lc.fits` | 10 | False | `6c0ab7221be273b7` | False |
 
 ## Positive control (catalogued transit)
 
@@ -202,10 +202,10 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 
 **TOI-790.03**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:49:24Z
-- TESS_TOI (done, 2026-09-25): 3 match(es) in TESS_TOI within 30" as of 2026-09-25T02:49:29Z: TOI-790.01 (TIC 308994098, disposition PC); TOI-790.02 (TIC 308994098, disposition PC); TOI-790.03 (TIC 308994098, disposition PC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:49:33Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:49:34Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:10:04Z
+- TESS_TOI (done, 2026-09-25): 3 match(es) in TESS_TOI within 30" as of 2026-09-25T11:10:06Z: TOI-790.01 (TIC 308994098, disposition PC); TOI-790.02 (TIC 308994098, disposition PC); TOI-790.03 (TIC 308994098, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:10:08Z
+- SIMBAD (done, 2026-09-25): 4 match(es) in SIMBAD within 30" as of 2026-09-25T11:10:09Z: TOI-790.03 (Pl?); CD-63   391 (PM*); TOI-790.01 (Pl?); TOI-790.02 (Pl?)
 
 ## Checks
 
@@ -215,7 +215,7 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 | Known-signal recovery (positive control) | passed | BJD 2460203.6215: recovered, depth 1998 ± 26 ppm (catalogue 1628 ppm) |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3, 4, 3, 3, ≤2.5, 3; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 100%, 10%, 80%, 100%, 100%, 100% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | not_tested | no persistent screen event matches the catalogued depth |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

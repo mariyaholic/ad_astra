@@ -5,8 +5,8 @@
 
 - Campaign spec: `campaigns/toi-5893-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #182, fetch_products #181, known_signal_recovery #183, period_aliases #185, prior_art #186, residual_screen #184
-- Runner finished (UTC): 2026-09-25T02:58:16Z
+- Ledger runs: calibrate_screen #585, fetch_products #584, known_signal_recovery #586, period_aliases #588, prior_art #589, residual_screen #587
+- Runner finished (UTC): 2026-09-25T11:08:56Z
 
 ## Bottom line
 
@@ -49,7 +49,7 @@ none proposed; the target is not informative until a light curve covering the ca
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2024223182411-s0082-0000000321790238-0278-s_lc.fits` | 82 | False | `04270c33ff960ac1` | True |
+| `tess2024223182411-s0082-0000000321790238-0278-s_lc.fits` | 82 | False | `04270c33ff960ac1` | False |
 
 ## Positive control (catalogued transit)
 
@@ -90,10 +90,10 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 
 **TOI-5893.01**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:57:58Z
-- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T02:58:01Z: TOI-5893.01 (TIC 321790238, disposition PC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:58:04Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:58:05Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:08:42Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:08:47Z: TOI-5893.01 (TIC 321790238, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:08:53Z
+- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T11:08:54Z: UCAC4 495-138480 (*)
 
 ## Checks
 
@@ -103,7 +103,7 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 | Known-signal recovery (positive control) | not_tested | no retrieved light curve covers a catalogued transit epoch |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (≤2.5; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 20% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | not_tested | catalogued transit not recovered; no reference depth |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

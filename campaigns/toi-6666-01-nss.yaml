@@ -1,0 +1,57 @@
+# Gaia DR3 astrometric vetting of the TOI-6666.01 host (TIC 256429408), run by the multi-archive runner.
+#   python -m cygnus.campaign run campaigns/toi-6666-01-nss.yaml      (hands over to python -m cygnus.multi)
+#   python -m cygnus.campaign report campaigns/toi-6666-01-nss.yaml
+schema: cygnus.campaign/1
+runner: cygnus.multi
+campaign_id: toi-6666-01-nss
+parent: toi-6666-01
+domain: worlds.planetary.monotransit
+objective: >
+  Gaia DR3 vetting of the TOI-6666.01 host (TIC 256429408) for the TOI-6666.01 repeat-event lead (one ~5.3 h feature at the start of sector 18, ΔT 171.5 d from the catalogued transit). Question: does Gaia DR3 publish a
+  non-single-star two-body solution for the host, or astrometric-quality and neighbour evidence,
+  that bears on the eclipsing-binary / companion alternative? No light curve is analysed here.
+outputs: campaigns/toi-6666-01-nss/
+random_seed: 20260925
+
+targets:
+  - name: TOI-6666.01
+    tic: 256429408
+    ra_deg: 325.003248
+    dec_deg: 69.086612
+    frame: ICRS
+    epoch: J2000.0
+    position_source: NASA Exoplanet Archive TOI table (via campaigns/toi-6666-01.yaml)
+
+steps:
+  - fetch_products:
+      from_targets:
+        archives: [gaia, simbad]
+        options:
+          gaia: {radius_arcsec: 30.0}
+          simbad: {radius_arcsec: 30.0}
+  - context_products: {}
+  - source_checks: {}
+  - astrometric_vetting:
+      radius_arcsec: 5.0
+      significance_min: 5.0
+      max_solutions: 10
+
+record:
+  path: campaigns/toi-6666-01-nss/sky_record.json
+  title: Gaia NSS vetting, TOI-6666.01
+  kind: astrometric vetting
+  outcome: pipeline_check
+  report: campaigns/toi-6666-01-nss/REPORT.md
+  search_log: campaigns/toi-6666-01-nss/SEARCH_LOG.md
+  summary: >
+    Gaia DR3 cone, SIMBAD cone and Gaia DR3 NSS two-body cross-match of the TOI-6666.01 host, as a
+    discriminating test for the TOI-6666.01 repeat-event lead (one ~5.3 h feature at the start of sector 18, ΔT 171.5 d from the catalogued transit).
+    An earlier ad-hoc SB2 attribution (P 4.8124683 d, e 0.053, K1 85.77 km/s, f(M) 0.31 Msun) was traced to
+    Gaia source 4513527912472807936, 57.276 deg away, and is withdrawn; this campaign depends on it in no way.
+  checks:
+    - {name: "Product integrity (SHA-256)", state: not_tested}
+    - {name: "Target-to-Gaia source identification", state: not_tested}
+    - {name: "Gaia NSS astrometric vetting", state: not_tested}
+    - {name: "Proper-motion propagation to the Gaia epoch", state: not_tested, note: "positions are matched as given (J2000.0 TOI-table coordinates vs Gaia epoch 2016.0); not propagated"}
+    - {name: "Radial-velocity / literature companion search (ADS)", state: not_tested}
+    - {name: "Earlier ad-hoc SB2 attribution", state: failed, note: "cited source 4513527912472807936 (ICRS 287.16737, +16.85086) is 57.276 deg from the target; attribution withdrawn"}

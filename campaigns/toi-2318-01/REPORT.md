@@ -15,8 +15,8 @@ is pursued.
 
 - Campaign spec: `campaigns/toi-2318-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #158, fetch_products #157, known_signal_recovery #159, period_aliases #161, prior_art #162, residual_screen #160
-- Runner finished (UTC): 2026-09-25T02:46:02Z
+- Ledger runs: calibrate_screen #555, fetch_products #554, known_signal_recovery #556, period_aliases #558, prior_art #559, residual_screen #557
+- Runner finished (UTC): 2026-09-25T11:05:28Z
 
 ## Bottom line
 
@@ -41,7 +41,7 @@ persistent events sit in sector 52 or sector 80, each 2 cadences long.
 | Flux-weighted centroid (MOM_CENTR1/2) | event residuals within the excursion scatter (+0.0026/+0.0007 and +0.0012/−0.0011 px vs sd 0.0031/0.0054 px) | inconclusive (no help) |
 | Period aliases | 0 of 716 aliases P = ΔT/n ≥ 1 d survive: every predicted transit falls on usable data and is absent | failed |
 | Difference-image centroids / blend audit | not done | not tested |
-| TOI table / literature | TOI table (row updated 2022-07-19) lists no period; SIMBAD query errored (proxy); ADS and ExoFOP not searched | inconclusive |
+| TOI table / literature | TOI table (row updated 2022-07-19) lists no period; SIMBAD (re-run 2026-09-25T11:05Z) returns BD+40 3154 and TOI-2318.01 only; ADS and ExoFOP not searched | inconclusive |
 
 Persistent events checked, one line each:
 
@@ -72,12 +72,12 @@ forward as a lead.
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 26 | True | `429fb73d1e22b38a` | True |
-| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | 25 | False | `86e225c1128bc030` | True |
-| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 52 | False | `6fbb649337e23267` | True |
-| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 53 | False | `ecfeb8042396c7af` | True |
-| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 79 | False | `c15923a84fb65612` | True |
-| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 80 | False | `c3cdc35c6a2c5428` | True |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 26 | True | `429fb73d1e22b38a` | False |
+| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | 25 | False | `86e225c1128bc030` | False |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 52 | False | `6fbb649337e23267` | False |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 53 | False | `ecfeb8042396c7af` | False |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 79 | False | `c15923a84fb65612` | False |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 80 | False | `c3cdc35c6a2c5428` | False |
 
 ## Positive control (catalogued transit)
 
@@ -218,10 +218,10 @@ To advance: compare the two transit shapes, check difference-image centroids and
 
 **TOI-2318.01**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:45:29Z
-- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T02:45:34Z: TOI-2318.01 (TIC 88840705, disposition APC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:45:39Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:45:42Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:05:17Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:05:19Z: TOI-2318.01 (TIC 88840705, disposition APC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:05:22Z
+- SIMBAD (done, 2026-09-25): 2 match(es) in SIMBAD within 30" as of 2026-09-25T11:05:25Z: BD+40  3154 (PM*); TOI-2318.01 (Pl?)
 
 ## Checks
 
@@ -231,7 +231,7 @@ To advance: compare the two transit shapes, check difference-image centroids and
 | Known-signal recovery (positive control) | passed | BJD 2459026.6476: recovered, depth 2358 ± 44 ppm (catalogue 2749 ppm) |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3, 4, 3, ≤2.5, 3, ≤2.5; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 100%, 22%, 80%, 100%, 100%, 100% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | inconclusive | 2 repeat-candidate event(s); first at BJD 2459743.0693, ΔT = 716.452 d, 0 of 716 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data ( d) |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

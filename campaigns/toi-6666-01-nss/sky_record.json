@@ -1,0 +1,92 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "toi-6666-01-nss",
+ "title": "Gaia NSS vetting, TOI-6666.01",
+ "kind": "astrometric vetting",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-25",
+ "summary": "Gaia DR3 cone, SIMBAD cone and Gaia DR3 NSS two-body cross-match of the TOI-6666.01 host, as a discriminating test for the TOI-6666.01 repeat-event lead (one ~5.3 h feature at the start of sector 18, ΔT 171.5 d from the catalogued transit). An earlier ad-hoc SB2 attribution (P 4.8124683 d, e 0.053, K1 85.77 km/s, f(M) 0.31 Msun) was traced to Gaia source 4513527912472807936, 57.276 deg away, and is withdrawn; this campaign depends on it in no way. Runner: No light-curve product was retrieved; only image/table/text products are available to screen.",
+ "spec": "campaigns/toi-6666-01-nss.yaml",
+ "report": "campaigns/toi-6666-01-nss/REPORT.md",
+ "search_log": "campaigns/toi-6666-01-nss/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "TOI-6666.01",
+   "ra_deg": 325.003248,
+   "dec_deg": 69.086612,
+   "frame": "ICRS",
+   "epoch": "J2000.0",
+   "position_source": "NASA Exoplanet Archive TOI table (via campaigns/toi-6666-01.yaml)"
+  }
+ ],
+ "products": [
+  {
+   "id": "gaia_cone_TOI-6666.01_r30as.csv",
+   "archive": "gaia",
+   "sha256": "a0006c4ca461fbfef331f6e2f0d0fc3c18e81d4c07baf8a75f6d832267af31d9",
+   "format": "csv"
+  },
+  {
+   "id": "simbad_TOI-6666.01.csv",
+   "archive": "simbad",
+   "sha256": "b442c5a8d6fa2804d7746b81d891dbe6f97d044f469e3de6afd427eb5d1a096c",
+   "format": "csv"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "passed",
+   "note": "2 product(s) from gaia, simbad checksummed at first retrieval",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia source identification",
+   "state": "passed",
+   "note": "TOI-6666.01: Gaia DR3 2223770483452673408 at 0.02\", G 8.779094; 1 source(s) within 5\"",
+   "source": "campaign runner, step astrometric_vetting"
+  },
+  {
+   "name": "Gaia NSS astrometric vetting",
+   "state": "inconclusive",
+   "note": "TOI-6666.01: no Gaia DR3 NSS two-body solution for source 2223770483452673408 (0.02\" away); Gaia sensitivity is incomplete, so this is not proof of a single star",
+   "source": "campaign runner, step astrometric_vetting"
+  },
+  {
+   "name": "Proper-motion propagation to the Gaia epoch",
+   "state": "not_tested",
+   "note": "positions are matched as given (J2000.0 TOI-table coordinates vs Gaia epoch 2016.0); not propagated"
+  },
+  {
+   "name": "Radial-velocity / literature companion search (ADS)",
+   "state": "not_tested"
+  },
+  {
+   "name": "Earlier ad-hoc SB2 attribution",
+   "state": "failed",
+   "note": "cited source 4513527912472807936 (ICRS 287.16737, +16.85086) is 57.276 deg from the target; attribution withdrawn"
+  },
+  {
+   "name": "Context products read",
+   "state": "passed",
+   "note": "2 non-light-curve product(s) (table) recorded in context.json",
+   "source": "campaign runner, step context_products"
+  },
+  {
+   "name": "Source checks (gaia)",
+   "state": "passed",
+   "note": "5/5 passed",
+   "source": "campaign runner, step source_checks"
+  },
+  {
+   "name": "Source checks (simbad)",
+   "state": "passed",
+   "note": "2/2 passed",
+   "source": "campaign runner, step source_checks"
+  }
+ ],
+ "generated_by": "cygnus_multi campaign runner",
+ "generated_utc": "2026-09-25T13:28:35Z"
+}

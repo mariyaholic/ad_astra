@@ -13,11 +13,10 @@ remain allowed. `docs/AGENT_RUNBOOK.md` makes a repeat candidate an escalation: 
 *Reviewer notes*; difference-image centroids, an eclipsing-binary check and the TOI/ExoFOP record are
 still open.
 
-A second reason for review: the **catalogue cross-match is `inconclusive`** — NASA_Exoplanet_Archive and
-TESS_TOI both failed with a proxy/tunnel `ProxyError` during this run, so the TOI disposition and any
-catalogue period were not retrieved. Before this lead is advanced, re-run the cross-match once the
-archive proxy is reachable, because the target's own TOI record (and any known period) is the first
-thing a repeat candidate should be checked against.
+The catalogue cross-match was first `inconclusive` (NASA_Exoplanet_Archive and TESS_TOI failed with a
+proxy/tunnel `ProxyError`). It was re-run at 2026-09-25T11:18Z with all four services answering and is now
+`passed`: TESS_TOI returns TOI-6667.01 (TIC 161169240, disposition APC), with no Exoplanet Archive or VSX
+match. The TOI record should still be read for a catalogue period before the lead is advanced.
 
 Points to weigh: the cluster's six mid-times span only ≈ 0.13 d, so it is one contiguous feature rather
 than six transits; the recovered depth is ≈ 0.9–1.0× the catalogue's; and with 29 aliases surviving the
@@ -26,8 +25,8 @@ period is not constrained by this data.
 
 - Campaign spec: `campaigns/toi-6667-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #291, fetch_products #290, known_signal_recovery #292, period_aliases #294, prior_art #295, residual_screen #293
-- Runner finished (UTC): 2026-09-25T04:23:47Z
+- Ledger runs: calibrate_screen #603, fetch_products #602, known_signal_recovery #604, period_aliases #606, prior_art #607, residual_screen #605
+- Runner finished (UTC): 2026-09-25T11:19:05Z
 
 ## Bottom line
 
@@ -51,11 +50,10 @@ Hand checks:
   MOM_CENTR1 (−0.0015 px vs sd 0.0018) and ≈ 1.2σ in MOM_CENTR2 (−0.0027 px vs sd 0.0023).
 - **2459075.21439 (sector 28)** — a separate persistent event ≈ 8 d before the catalogued epoch;
   centroid residual ≤ 0.5σ.
-- **Catalogue cross-match is `inconclusive`** for this target: NASA_Exoplanet_Archive and TESS_TOI both
-  failed with `ProxyError: Tunnel connection failed` at 2026-09-25T04:23Z, while VSX (no match) and
-  SIMBAD (UCAC4 184-215750, a high-proper-motion star) answered. This is the recurring proxy/tunnel
-  failure seen elsewhere in this session, not a statement about the target; the two failed services were
-  left `inconclusive` and no result was invented.
+- **Catalogue cross-match** first ran at 2026-09-25T04:23Z with NASA_Exoplanet_Archive and TESS_TOI
+  failing (`ProxyError: Tunnel connection failed`); VSX (no match) and SIMBAD (UCAC4 184-215750, a
+  high-proper-motion star) answered. The re-run at 2026-09-25T11:18Z answered on all four services
+  (see *Catalogue cross-match* below), so the check is now `passed`.
 
 Not decided here; the record's `lead`/`Unverified lead` is left unchanged.
 
@@ -77,12 +75,12 @@ Not decided here; the record's `lead`/`Unverified lead` is left unchanged.
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2020212050318-s0028-0000000161169240-0190-s_lc.fits` | 28 | True | `73a4057aae2d7bee` | True |
-| `tess2023209231226-s0068-0000000161169240-0262-s_lc.fits` | 68 | False | `ebc654c917f89114` | True |
-| `tess2025206162959-s0095-0000000161169240-0292-s_lc.fits` | 95 | False | `6f0b908a1b441a0f` | True |
-| `tess2026086090000-s0102-0000000161169240-0304-s_lc.fits` | 102 | False | `8335cdfacd48b2d9` | True |
-| `tess2026111101500-s0103-0000000161169240-0305-s_lc.fits` | 103 | False | `b430989f7c3a97d7` | True |
-| `tess2026137223500-s0104-0000000161169240-0306-s_lc.fits` | 104 | False | `3e6fde9208e9141d` | True |
+| `tess2020212050318-s0028-0000000161169240-0190-s_lc.fits` | 28 | True | `73a4057aae2d7bee` | False |
+| `tess2023209231226-s0068-0000000161169240-0262-s_lc.fits` | 68 | False | `ebc654c917f89114` | False |
+| `tess2025206162959-s0095-0000000161169240-0292-s_lc.fits` | 95 | False | `6f0b908a1b441a0f` | False |
+| `tess2026086090000-s0102-0000000161169240-0304-s_lc.fits` | 102 | False | `8335cdfacd48b2d9` | False |
+| `tess2026111101500-s0103-0000000161169240-0305-s_lc.fits` | 103 | False | `b430989f7c3a97d7` | False |
+| `tess2026137223500-s0104-0000000161169240-0306-s_lc.fits` | 104 | False | `3e6fde9208e9141d` | False |
 
 ## Positive control (catalogued transit)
 
@@ -170,10 +168,10 @@ To advance: compare the two transit shapes, check difference-image centroids and
 
 **TOI-6667.01**
 
-- NASA_Exoplanet_Archive (error, 2026-09-25): inconclusive (NASA_Exoplanet_Archive query failed as of 2026-09-25T04:23:32Z: ProxyError: HTTPSConnectionPool(host='exoplanetarchive.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed:)
-- TESS_TOI (error, 2026-09-25): inconclusive (TESS_TOI query failed as of 2026-09-25T04:23:43Z: ProxyError: HTTPSConnectionPool(host='exoplanetarchive.ipac.caltech.edu', port=443): Max retries exceeded with url: /TAP/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed:)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T04:23:43Z
-- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T04:23:45Z: UCAC4 184-215750 (PM*)
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:18:51Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:18:55Z: TOI-6667.01 (TIC 161169240, disposition APC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:18:57Z
+- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T11:18:59Z: UCAC4 184-215750 (PM*)
 
 ## Checks
 
@@ -183,7 +181,7 @@ To advance: compare the two transit shapes, check difference-image centroids and
 | Known-signal recovery (positive control) | passed | BJD 2459083.3107: recovered, depth 7982 ± 239 ppm (catalogue 5127 ppm) |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (≤2.5, ≤2.5, 3, 3, 3.5, 3; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 10%, 0%, 0%, 0%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 2 answered, 2 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | inconclusive | 7 repeat-candidate event(s); first at BJD 2461197.3537, ΔT = 2114.028 d, 29 of 2114 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data (2114.03, 1057.01, 704.676, 528.507, 422.806, 352.338, 302.004, 264.253, 234.892, 211.403, 192.184, 176.169 … d) |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

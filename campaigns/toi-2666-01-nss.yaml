@@ -1,0 +1,54 @@
+# Gaia DR3 astrometric vetting of the TOI-2666.01 host (TIC 170889511), run by the multi-archive runner.
+#   python -m cygnus.campaign run campaigns/toi-2666-01-nss.yaml      (hands over to python -m cygnus.multi)
+#   python -m cygnus.campaign report campaigns/toi-2666-01-nss.yaml
+schema: cygnus.campaign/1
+runner: cygnus.multi
+campaign_id: toi-2666-01-nss
+parent: toi-2666-01
+domain: worlds.planetary.monotransit
+objective: >
+  Gaia DR3 vetting of the TOI-2666.01 host (TIC 170889511) for the TOI-2666.01 sector-99 repeat-event lead (V-shaped events; ExoFOP note "v-shaped; possible EB"; campaigns/tess-mono-01/LEAD_VETTING_LOG.md). Question: does Gaia DR3 publish a
+  non-single-star two-body solution for the host, or astrometric-quality and neighbour evidence,
+  that bears on the eclipsing-binary / companion alternative? No light curve is analysed here.
+outputs: campaigns/toi-2666-01-nss/
+random_seed: 20260925
+
+targets:
+  - name: TOI-2666.01
+    tic: 170889511
+    ra_deg: 139.480865
+    dec_deg: -3.387525
+    frame: ICRS
+    epoch: J2000.0
+    position_source: NASA Exoplanet Archive TOI table (via campaigns/toi-2666-01.yaml)
+
+steps:
+  - fetch_products:
+      from_targets:
+        archives: [gaia, simbad]
+        options:
+          gaia: {radius_arcsec: 30.0}
+          simbad: {radius_arcsec: 30.0}
+  - context_products: {}
+  - source_checks: {}
+  - astrometric_vetting:
+      radius_arcsec: 5.0
+      significance_min: 5.0
+      max_solutions: 10
+
+record:
+  path: campaigns/toi-2666-01-nss/sky_record.json
+  title: Gaia NSS vetting, TOI-2666.01
+  kind: astrometric vetting
+  outcome: pipeline_check
+  report: campaigns/toi-2666-01-nss/REPORT.md
+  search_log: campaigns/toi-2666-01-nss/SEARCH_LOG.md
+  summary: >
+    Gaia DR3 cone, SIMBAD cone and Gaia DR3 NSS two-body cross-match of the TOI-2666.01 host, as a
+    discriminating test for the TOI-2666.01 sector-99 repeat-event lead (V-shaped events; ExoFOP note "v-shaped; possible EB"; campaigns/tess-mono-01/LEAD_VETTING_LOG.md).
+  checks:
+    - {name: "Product integrity (SHA-256)", state: not_tested}
+    - {name: "Target-to-Gaia source identification", state: not_tested}
+    - {name: "Gaia NSS astrometric vetting", state: not_tested}
+    - {name: "Proper-motion propagation to the Gaia epoch", state: not_tested, note: "positions are matched as given (J2000.0 TOI-table coordinates vs Gaia epoch 2016.0); not propagated"}
+    - {name: "Radial-velocity / literature companion search (ADS)", state: not_tested}

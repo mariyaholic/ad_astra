@@ -6,8 +6,8 @@
 
 - Campaign spec: `campaigns/toi-2423-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #80, fetch_products #79, known_signal_recovery #81, period_aliases #83, prior_art #84, residual_screen #82
-- Runner finished (UTC): 2026-09-24T13:52:43Z
+- Ledger runs: calibrate_screen #561, fetch_products #560, known_signal_recovery #562, period_aliases #564, prior_art #565, residual_screen #563
+- Runner finished (UTC): 2026-09-25T11:06:19Z
 
 ## Bottom line
 
@@ -53,11 +53,11 @@ Two further deep excursions in sector 4 (-0.0827/-0.0799 at BJD 2458421.24/27, 8
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2018234235059-s0002-0000000197807043-0121-s_lc.fits` | 2 | False | `6ff0e9a181e5e9b1` | True |
-| `tess2018292075959-s0004-0000000197807043-0124-s_lc.fits` | 4 | False | `b06db5e90cb33a67` | True |
-| `tess2023237165326-s0069-0000000197807043-0264-s_lc.fits` | 69 | False | `0e64dfa86913905b` | True |
-| `tess2025232030459-s0096-0000000197807043-0293-s_lc.fits` | 96 | False | `b14510542814c6f6` | True |
-| `tess2025258001959-s0097-0000000197807043-0294-s_lc.fits` | 97 | False | `7d741c591899f2f5` | True |
+| `tess2018234235059-s0002-0000000197807043-0121-s_lc.fits` | 2 | False | `6ff0e9a181e5e9b1` | False |
+| `tess2018292075959-s0004-0000000197807043-0124-s_lc.fits` | 4 | False | `b06db5e90cb33a67` | False |
+| `tess2023237165326-s0069-0000000197807043-0264-s_lc.fits` | 69 | False | `0e64dfa86913905b` | False |
+| `tess2025232030459-s0096-0000000197807043-0293-s_lc.fits` | 96 | False | `b14510542814c6f6` | False |
+| `tess2025258001959-s0097-0000000197807043-0294-s_lc.fits` | 97 | False | `7d741c591899f2f5` | False |
 
 ## Positive control (catalogued transit)
 
@@ -165,10 +165,10 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 
 **TOI-2423.01**
 
-- NASA_Exoplanet_Archive (done, 2026-09-24): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-24T13:52:34Z
-- TESS_TOI (done, 2026-09-24): 1 match(es) in TESS_TOI within 30" as of 2026-09-24T13:52:36Z: TOI-2423.01 (TIC 197807043, disposition PC)
-- VSX (error, 2026-09-24): inconclusive (VSX query failed as of 2026-09-24T13:52:39Z: SSLError: HTTPSConnectionPool(host='tapvizier.cds.unistra.fr', port=443): Max retries exceeded with url: /TAPVizieR/tap/sync (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] cer)
-- SIMBAD (done, 2026-09-24): 1 match(es) in SIMBAD within 30" as of 2026-09-24T13:52:40Z: CD-58   719 (*)
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:06:04Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:06:06Z: TOI-2423.01 (TIC 197807043, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:06:08Z
+- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T11:06:10Z: CD-58   719 (*)
 
 ## Checks
 
@@ -178,7 +178,7 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 | Known-signal recovery (positive control) | not_tested | no retrieved light curve covers a catalogued transit epoch |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3, ≤2.5, 4.5, ≤2.5, 3.5; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 80%, 90%, 0%, 100%, 30% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | not_tested | catalogued transit not recovered; no reference depth |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

@@ -14,8 +14,8 @@ evidence level and outcome are left as the runner set them; a reviewer should co
 
 - Campaign spec: `campaigns/toi-6674-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #194, fetch_products #193, known_signal_recovery #195, period_aliases #197, prior_art #198, residual_screen #196
-- Runner finished (UTC): 2026-09-25T03:02:47Z
+- Ledger runs: calibrate_screen #591, fetch_products #590, known_signal_recovery #592, period_aliases #594, prior_art #595, residual_screen #593
+- Runner finished (UTC): 2026-09-25T11:09:44Z
 
 ## Bottom line
 
@@ -71,10 +71,10 @@ test: none proposed for the episode; it should not be carried forward as a lead.
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2019306063752-s0018-0000000452920657-0162-s_lc.fits` | 18 | True | `a29cc966b9e0f885` | True |
-| `tess2020106103520-s0024-0000000452920657-0180-s_lc.fits` | 24 | False | `c00225d6aacf3c2c` | True |
-| `tess2022302161335-s0058-0000000452920657-0247-s_lc.fits` | 58 | False | `b9c8d96330be3bfb` | True |
-| `tess2024300212641-s0085-0000000452920657-0282-s_lc.fits` | 85 | False | `795935a83b921a1e` | True |
+| `tess2019306063752-s0018-0000000452920657-0162-s_lc.fits` | 18 | True | `a29cc966b9e0f885` | False |
+| `tess2020106103520-s0024-0000000452920657-0180-s_lc.fits` | 24 | False | `c00225d6aacf3c2c` | False |
+| `tess2022302161335-s0058-0000000452920657-0247-s_lc.fits` | 58 | False | `b9c8d96330be3bfb` | False |
+| `tess2024300212641-s0085-0000000452920657-0282-s_lc.fits` | 85 | False | `795935a83b921a1e` | False |
 
 ## Positive control (catalogued transit)
 
@@ -155,10 +155,10 @@ To advance: compare the two transit shapes, check difference-image centroids and
 
 **TOI-6674.01**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T03:02:26Z
-- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T03:02:29Z: TOI-6674.01 (TIC 452920657, disposition PC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T03:02:33Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T03:02:34Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:09:28Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:09:32Z: TOI-6674.01 (TIC 452920657, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:09:36Z
+- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T11:09:42Z: UCAC4 746-005030 (*)
 
 ## Checks
 
@@ -168,7 +168,7 @@ To advance: compare the two transit shapes, check difference-image centroids and
 | Known-signal recovery (positive control) | passed | BJD 2458810.5771: recovered, depth 9926 ± 565 ppm (catalogue 12885 ppm) |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (≤2.5, 3, ≤2.5, 3.5; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 10%, 0%, 10%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | inconclusive | 9 repeat-candidate event(s); first at BJD 2458800.8513, ΔT = 9.712 d, 0 of 9 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data ( d) |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

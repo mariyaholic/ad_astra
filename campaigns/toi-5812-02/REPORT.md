@@ -14,8 +14,8 @@ still open.
 
 - Campaign spec: `campaigns/toi-5812-02.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #152, fetch_products #151, known_signal_recovery #153, period_aliases #155, prior_art #156, residual_screen #154
-- Runner finished (UTC): 2026-09-25T02:35:35Z
+- Ledger runs: calibrate_screen #579, fetch_products #578, known_signal_recovery #580, period_aliases #582, prior_art #583, residual_screen #581
+- Runner finished (UTC): 2026-09-25T11:08:29Z
 
 ## Bottom line
 
@@ -38,7 +38,7 @@ sector 82 event, using the same SPOC PDCSAP/SAP light curve and 2-d running-medi
 | Flux-weighted centroid (MOM_CENTR1/2) | after removing the slow sector drift, event residual +0.0022 / −0.0036 px against excursion scatter 0.0090 / 0.0040 px | passed (no anomaly at this precision) |
 | Difference-image centroids / nearby-star blend | not done | not tested |
 | Eclipsing-binary tests (odd/even, secondary eclipse, V vs U shape) | not done; only two events | not tested |
-| TOI table / literature | TOI table (row updated 2026-07-17) lists no period; SIMBAD query errored (proxy); ADS and ExoFOP not searched | inconclusive |
+| TOI table / literature | TOI table (row updated 2026-07-17) lists no period; SIMBAD (re-run 2026-09-25T11:08Z) identifies the host as **WASP-134** (WASP-134b); the published WASP-134 system must be checked against the repeat candidate; ADS and ExoFOP not searched | inconclusive |
 
 Persistent events checked, one line each (details in `screen.json`, `normalized_series.csv`):
 
@@ -73,7 +73,7 @@ record and SPOC DV for a period; a search for the surviving alias's predicted tr
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2024223182411-s0082-0000000388909695-0278-s_lc.fits` | 82 | True | `86cbf7461e6e564b` | True |
+| `tess2024223182411-s0082-0000000388909695-0278-s_lc.fits` | 82 | True | `86cbf7461e6e564b` | False |
 
 ## Positive control (catalogued transit)
 
@@ -126,10 +126,10 @@ To advance: compare the two transit shapes, check difference-image centroids and
 
 **TOI-5812.02**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:35:18Z
-- TESS_TOI (done, 2026-09-25): 2 match(es) in TESS_TOI within 30" as of 2026-09-25T02:35:20Z: TOI-5812.01 (TIC 388909695, disposition KP); TOI-5812.02 (TIC 388909695, disposition PC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:35:22Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:35:23Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:08:19Z
+- TESS_TOI (done, 2026-09-25): 2 match(es) in TESS_TOI within 30" as of 2026-09-25T11:08:21Z: TOI-5812.01 (TIC 388909695, disposition KP); TOI-5812.02 (TIC 388909695, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:08:23Z
+- SIMBAD (done, 2026-09-25): 2 match(es) in SIMBAD within 30" as of 2026-09-25T11:08:25Z: WASP-134b (Pl); WASP-134 (*)
 
 ## Checks
 
@@ -139,7 +139,7 @@ To advance: compare the two transit shapes, check difference-image centroids and
 | Known-signal recovery (positive control) | passed | BJD 2460536.0834: recovered, depth 4669 ± 97 ppm (catalogue 5553 ppm) |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (≤2.5; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 70% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | inconclusive | 2 repeat-candidate event(s); first at BJD 2460549.4561, ΔT = 13.358 d, 1 of 13 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data (13.3577 d) |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

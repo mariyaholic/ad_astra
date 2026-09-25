@@ -5,8 +5,8 @@
 
 - Campaign spec: `campaigns/toi-2003-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #188, fetch_products #187, known_signal_recovery #189, period_aliases #191, prior_art #192, residual_screen #190
-- Runner finished (UTC): 2026-09-25T02:59:44Z
+- Ledger runs: calibrate_screen #549, fetch_products #548, known_signal_recovery #550, period_aliases #552, prior_art #553, residual_screen #551
+- Runner finished (UTC): 2026-09-25T11:03:41Z
 
 ## Bottom line
 
@@ -48,7 +48,7 @@ target is not informative until a light curve covering the catalogue epoch exist
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2021091135823-s0037-0000000058463434-0208-s_lc.fits` | 37 | False | `da353e633255c6a3` | True |
+| `tess2021091135823-s0037-0000000058463434-0208-s_lc.fits` | 37 | False | `da353e633255c6a3` | False |
 
 ## Positive control (catalogued transit)
 
@@ -80,10 +80,10 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 
 **TOI-2003.01**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:59:25Z
-- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T02:59:27Z: TOI-2003.01 (TIC 58463434, disposition PC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:59:32Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:59:33Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:03:30Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:03:34Z: TOI-2003.01 (TIC 58463434, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:03:37Z
+- SIMBAD (done, 2026-09-25): 2 match(es) in SIMBAD within 30" as of 2026-09-25T11:03:39Z: TOI-2003.01 (Pl?); HD 116759 (*)
 
 ## Checks
 
@@ -93,7 +93,7 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 | Known-signal recovery (positive control) | not_tested | no retrieved light curve covers a catalogued transit epoch |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 50% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | not_tested | catalogued transit not recovered; no reference depth |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

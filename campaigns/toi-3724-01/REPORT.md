@@ -11,8 +11,8 @@
 
 - Campaign spec: `campaigns/toi-3724-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #176, fetch_products #175, known_signal_recovery #177, period_aliases #179, prior_art #180, residual_screen #178
-- Runner finished (UTC): 2026-09-25T02:55:52Z
+- Ledger runs: calibrate_screen #573, fetch_products #572, known_signal_recovery #574, period_aliases #576, prior_art #577, residual_screen #575
+- Runner finished (UTC): 2026-09-25T11:08:04Z
 
 ## Bottom line
 
@@ -77,9 +77,9 @@ the surviving aliases in sectors 86 and earlier/later sectors.
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2022330142927-s0059-0000000143642240-0248-s_lc.fits` | 59 | False | `46b2939e408df2ea` | True |
-| `tess2023341045131-s0073-0000000143642240-0268-s_lc.fits` | 73 | False | `3ef68133339e8fab` | True |
-| `tess2024326142117-s0086-0000000143642240-0283-s_lc.fits` | 86 | False | `e5d4f43604ee2ed4` | True |
+| `tess2022330142927-s0059-0000000143642240-0248-s_lc.fits` | 59 | False | `46b2939e408df2ea` | False |
+| `tess2023341045131-s0073-0000000143642240-0268-s_lc.fits` | 73 | False | `3ef68133339e8fab` | False |
+| `tess2024326142117-s0086-0000000143642240-0283-s_lc.fits` | 86 | False | `e5d4f43604ee2ed4` | False |
 
 ## Positive control (catalogued transit)
 
@@ -156,10 +156,10 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 
 **TOI-3724.01**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:55:34Z
-- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T02:55:36Z: TOI-3724.01 (TIC 143642240, disposition PC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:55:39Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:55:41Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:07:53Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:07:57Z: TOI-3724.01 (TIC 143642240, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:07:59Z
+- SIMBAD (done, 2026-09-25): 2 match(es) in SIMBAD within 30" as of 2026-09-25T11:08:00Z: TOI-3724 (*); TOI-3724.01 (Pl?)
 
 ## Checks
 
@@ -169,7 +169,7 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 | Known-signal recovery (positive control) | not_tested | no retrieved light curve covers a catalogued transit epoch |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (≤2.5, 3, 3.5; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 10%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | not_tested | catalogued transit not recovered; no reference depth |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |

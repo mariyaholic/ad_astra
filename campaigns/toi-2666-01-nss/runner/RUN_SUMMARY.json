@@ -1,0 +1,47 @@
+{
+  "campaign_id": "toi-2666-01-nss",
+  "steps_run": [
+    "fetch_products",
+    "context_products",
+    "source_checks",
+    "astrometric_vetting"
+  ],
+  "complete": true,
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "2 product(s) from gaia, simbad checksummed at first retrieval",
+      "step": "fetch_products"
+    },
+    "Context products read": {
+      "state": "passed",
+      "note": "2 non-light-curve product(s) (table) recorded in context.json",
+      "step": "context_products"
+    },
+    "Source checks (gaia)": {
+      "state": "inconclusive",
+      "note": "4/5 passed; non-passing: gaia_cone_TOI-2666.01_r30as.csv:Gaia RUWE",
+      "step": "source_checks"
+    },
+    "Source checks (simbad)": {
+      "state": "passed",
+      "note": "2/2 passed",
+      "step": "source_checks"
+    },
+    "Target-to-Gaia source identification": {
+      "state": "passed",
+      "note": "TOI-2666.01: Gaia DR3 3837451574150437120 at 0.03\", G 7.5441976; 2 source(s) within 5\", nearest other \u0394G 6.16",
+      "step": "astrometric_vetting"
+    },
+    "Gaia NSS astrometric vetting": {
+      "state": "inconclusive",
+      "note": "TOI-2666.01: no Gaia DR3 NSS two-body solution for source 3837451574150437120 (0.03\" away); Gaia sensitivity is incomplete, so this is not proof of a single star",
+      "step": "astrometric_vetting"
+    }
+  },
+  "notes": [
+    "No light-curve product was retrieved; only image/table/text products are available to screen."
+  ],
+  "record": "campaigns/toi-2666-01-nss/sky_record.json",
+  "finished_utc": "2026-09-25T13:28:58Z"
+}

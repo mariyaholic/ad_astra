@@ -11,8 +11,8 @@
 
 - Campaign spec: `campaigns/toi-2534-01.yaml`
 - Parent queue: `tess-mono-01`
-- Ledger runs: calibrate_screen #170, fetch_products #169, known_signal_recovery #171, period_aliases #173, prior_art #174, residual_screen #172
-- Runner finished (UTC): 2026-09-25T02:52:29Z
+- Ledger runs: calibrate_screen #567, fetch_products #566, known_signal_recovery #568, period_aliases #570, prior_art #571, residual_screen #569
+- Runner finished (UTC): 2026-09-25T11:07:29Z
 
 ## Bottom line
 
@@ -79,12 +79,12 @@ difference-image check for the sector 103 dip.
 
 | Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
 |---|---|---|---|---|
-| `tess2020212050318-s0028-0000000219332978-0190-s_lc.fits` | 28 | False | `2aaf76777b884e92` | True |
-| `tess2023209231226-s0068-0000000219332978-0262-s_lc.fits` | 68 | False | `ee78545d39cfd6ae` | True |
-| `tess2025206162959-s0095-0000000219332978-0292-s_lc.fits` | 95 | False | `294fe7a8d94bb5d6` | True |
-| `tess2026086090000-s0102-0000000219332978-0304-s_lc.fits` | 102 | False | `8d1f21a88b612f2d` | True |
-| `tess2026111101500-s0103-0000000219332978-0305-s_lc.fits` | 103 | False | `a224c50c46d15a2f` | True |
-| `tess2026137223500-s0104-0000000219332978-0306-s_lc.fits` | 104 | False | `dcd2e7e429c4ef9a` | True |
+| `tess2020212050318-s0028-0000000219332978-0190-s_lc.fits` | 28 | False | `2aaf76777b884e92` | False |
+| `tess2023209231226-s0068-0000000219332978-0262-s_lc.fits` | 68 | False | `ee78545d39cfd6ae` | False |
+| `tess2025206162959-s0095-0000000219332978-0292-s_lc.fits` | 95 | False | `294fe7a8d94bb5d6` | False |
+| `tess2026086090000-s0102-0000000219332978-0304-s_lc.fits` | 102 | False | `8d1f21a88b612f2d` | False |
+| `tess2026111101500-s0103-0000000219332978-0305-s_lc.fits` | 103 | False | `a224c50c46d15a2f` | False |
+| `tess2026137223500-s0104-0000000219332978-0306-s_lc.fits` | 104 | False | `dcd2e7e429c4ef9a` | False |
 
 ## Positive control (catalogued transit)
 
@@ -196,10 +196,10 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 
 **TOI-2534.01**
 
-- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:52:10Z
-- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T02:52:12Z: TOI-2534.01 (TIC 219332978, disposition PC)
-- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:52:16Z
-- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:52:17Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T11:07:19Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T11:07:22Z: TOI-2534.01 (TIC 219332978, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T11:07:25Z
+- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T11:07:26Z: TYC 8829-3-1 (*)
 
 ## Checks
 
@@ -209,7 +209,7 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 | Known-signal recovery (positive control) | not_tested | no retrieved light curve covers a catalogued transit epoch |
 | Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3.5, 3, 3, ≤2.5, ≤2.5, 3; ≤ 0 persistent null events outside the veto) |
 | Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 0%, 0%, 40%, 20%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json |
-| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
 | Period aliases (repeat events) | not_tested | catalogued transit not recovered; no reference depth |
 | Alternative detrending | not_tested |  |
 | Difference-image centroids / blend audit | not_tested |  |
