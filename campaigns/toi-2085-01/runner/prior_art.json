@@ -1,0 +1,56 @@
+{
+  "step": "prior_art",
+  "run_id": 277,
+  "config_hash": "f847ce9d572f8d13",
+  "finished_utc": "2026-09-25T04:16:13Z",
+  "result": {
+    "targets": {
+      "TOI-2085.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T04:16:06Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 152.2234730, 70.3945570, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:16:06Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T04:16:08Z: TOI-2085.01 (TIC 103633672, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 152.1986375 AND 152.2483085 AND dec BETWEEN 70.3862237 AND 70.4028903",
+          "retrieved_utc": "2026-09-25T04:16:08Z",
+          "matches": [
+            "TOI-2085.01 (TIC 103633672, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T04:16:10Z: Gaia DR3 1070704702302592512 (type ROT, P \u2014 d)",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 152.2234730, 70.3945570, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:16:10Z",
+          "matches": [
+            "Gaia DR3 1070704702302592512 (type ROT, P \u2014 d)"
+          ]
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-25T04:16:12Z: TOI-2085.01 (Pl?); TOI-2085 (PM*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 152.2234730, 70.3945570, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:16:12Z",
+          "matches": [
+            "TOI-2085.01 (Pl?)",
+            "TOI-2085 (PM*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
