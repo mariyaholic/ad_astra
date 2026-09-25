@@ -1,0 +1,139 @@
+# Known-object test, TOI-5696.03
+
+> Drafted by `python -m cygnus.campaign report` from the runner's outputs; reviewed 2026-09-25.
+> The escalation and reviewer notes below were added by hand; every other number is the runner's.
+
+## Escalation (2026-09-25)
+
+**Positive control failed on data that covers the epoch.** Sector 72 (`tess2023315124025-s0072-...`)
+contains the catalogued epoch (BJD 2460284.7141) with 242 usable in-transit cadences, yet the screen
+recovered only 820 ± 48 ppm against a catalogue depth of 1204 ppm — `not_recovered`. `docs/AGENT_RUNBOOK.md`
+makes a positive-control failure on covered data an escalation. Per that rule, no threshold was tuned
+and no state was changed; the failure is reported as-is.
+
+Most likely cause, from the runner's own calibration: at sector 72's k* = 3 the 90 %-completeness depth
+is 5000 ppm for an 8 h signal, and the catalogued transit is 1204 ppm over 8.09 h — about four times
+below the detection floor. A shallow-transit-below-sensitivity failure is therefore the first
+hypothesis, ahead of a wrong epoch or a wrong TIC. It cannot be distinguished further without an
+independent reduction or a deeper light curve, neither of which is built here.
+
+Two further notes for a reviewer: the TIC is a multi-signal host (TESS_TOI lists TOI-5696.01 PC,
+.02 CP and .03 PC on the same TIC), so a blend with a neighbouring signal is a live alternative; and the
+three persistent events all lie in sector 46, which does not cover the epoch.
+
+
+- Campaign spec: `campaigns/toi-5696-03.yaml`
+- Parent queue: `tess-mono-01`
+- Ledger runs: calibrate_screen #285, fetch_products #284, known_signal_recovery #286, period_aliases #288, prior_art #289, residual_screen #287
+- Runner finished (UTC): 2026-09-25T04:18:11Z
+
+## Bottom line
+
+Positive control **failed**: BJD 2460284.7141: not recovered, depth 820 ± 48 ppm (catalogue 1204 ppm).
+Outside the catalogued epoch the screen left 14 threshold entries forming **5 distinct event(s)**, **3 persistent** (SAP and PDCSAP, two or more baselines). None is vetted; see *Screen events*.
+
+This is a pipeline check on a known object, not a discovery claim. No period is implied by a single transit.
+
+## Reviewer notes (2026-09-25)
+
+Positive control **failed** on data that covers the epoch, so this is escalated above. Sector 72
+contains the catalogued epoch (BJD 2460284.7141) with 242 usable in-transit cadences, but the screen
+found only 820 ± 48 ppm where the catalogue gives 1204 ppm — `not_recovered`. The other two retrieved
+light curves (sectors 45, 46) do not cover the epoch.
+
+The sensitivity table gives the most likely explanation: at sector 72's calibrated threshold (k* = 3) the
+90 %-completeness depth is 5000 ppm for an 8 h signal, and the catalogued transit is 1204 ppm over
+8.09 h — roughly four times shallower than the detection floor. So the failure is consistent with the
+signal being below sensitivity rather than with a wrong epoch; it is recorded, not tuned around.
+
+The three persistent screen events (2459563.12910 / .16521 / .21800, sector 46) span ≈ 0.09 d, i.e. one
+contiguous ~0.25–0.27 % feature, not three transits. Sector 46 does not cover the catalogued epoch.
+Catalogue cross-match answered by all four services: TESS_TOI lists TOI-5696.01 (PC), .02 (CP) and .03
+(PC) on this TIC — a multi-signal TIC where the other dispositions matter for any interpretation.
+
+## Target
+
+| Field | Value | Source |
+|---|---|---|
+| name | TOI-5696.03 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tic | 393546540 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| ra_deg | 161.156925 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| dec_deg | 6.333475 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| t0_bjd | 2460284.714061 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| depth_ppm | 1204.4442717 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| duration_h | 8.0912058 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tmag | 9.1352 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| catalogue_row_updated | 2024-11-23 12:03:04 | NASA Exoplanet Archive TOI table (copied in the spec) |
+
+## Products
+
+| Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
+|---|---|---|---|---|
+| `tess2023315124025-s0072-0000000393546540-0267-s_lc.fits` | 72 | True | `4a77c6806b7c1057` | True |
+| `tess2021310001228-s0045-0000000393546540-0216-s_lc.fits` | 45 | False | `82aeabf2edcb94f7` | True |
+| `tess2021336043614-s0046-0000000393546540-0217-s_lc.fits` | 46 | False | `60b33114b9c3d990` | True |
+
+## Positive control (catalogued transit)
+
+| Product | Epoch (BJD) | State | Usable in-transit cadences | Measured depth (ppm) | Catalogue depth (ppm) | Entry offset (h) |
+|---|---|---|---|---|---|---|
+| `tess2023315124025-s0072-0000000393546540-0267-s_lc.fits` | 2460284.71406 | not_recovered | 242 | 820 ± 48 | 1204 | — |
+| `tess2021310001228-s0045-0000000393546540-0216-s_lc.fits` | — | epoch not in this light curve | — | — | 1204 | — |
+| `tess2021336043614-s0046-0000000393546540-0217-s_lc.fits` | — | epoch not in this light curve | — | — | 1204 | — |
+
+Depth: median PDCSAP residual inside ±duration/2 about the catalogued epoch, against a 2-d running median; the error is statistical only. A depth unlike the catalogue's may reflect dilution, detrending or an epoch/duration error; it is reported, not used as a pass mark.
+
+## Calibration and sensitivity
+
+| Product | k* (sign-flip null) | At grid floor | 90 % completeness depth at k = 5, by duration | at k* |
+|---|---|---|---|---|
+| `tess2023315124025-s0072-0000000393546540-0267-s_lc.fits` | 3 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 5000, 2h: 2000, 4h: 2000, 8h: 5000 |
+| `tess2021310001228-s0045-0000000393546540-0216-s_lc.fits` | 3 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 5000, 2h: 5000, 4h: 2000, 8h: 5000 |
+| `tess2021336043614-s0046-0000000393546540-0217-s_lc.fits` | 3 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 5000, 2h: 5000, 4h: 2000, 8h: 5000 |
+
+The null result (if any) excludes only dips deeper than the 90 %-completeness depth for their duration.
+
+## Screen events outside the catalogued epoch
+
+Entries merged where they overlap in time. *Persistent* = SAP and PDCSAP at two or more baselines.
+
+| Product | Mid time (BJD) | Deepest median residual | Max cadences | Flux | Baselines (d) | Persistent |
+|---|---|---|---|---|---|---|
+| `tess2021336043614-s0046-0000000393546540-0217-s_lc.fits` | 2459563.12910 | -0.00269 | 2 | PDCSAP+SAP | 1, 2, 3 | yes |
+| `tess2021336043614-s0046-0000000393546540-0217-s_lc.fits` | 2459563.16521 | -0.00259 | 2 | PDCSAP+SAP | 2, 3 | yes |
+| `tess2021336043614-s0046-0000000393546540-0217-s_lc.fits` | 2459563.21800 | -0.00250 | 2 | PDCSAP+SAP | 2, 3 | yes |
+| `tess2021336043614-s0046-0000000393546540-0217-s_lc.fits` | 2459563.04298 | -0.00236 | 2 | SAP | 3 | no |
+| `tess2023315124025-s0072-0000000393546540-0267-s_lc.fits` | 2460272.20995 | -0.00230 | 2 | PDCSAP | 3 | no |
+
+None has been vetted: centroids, pointing, background, momentum dumps and other reductions are **not tested**. Most screen events in TESS light curves are systematics; each is at most an unverified lead.
+
+## Catalogue cross-match
+
+**TOI-5696.03**
+
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T04:18:04Z
+- TESS_TOI (done, 2026-09-25): 3 match(es) in TESS_TOI within 30" as of 2026-09-25T04:18:06Z: TOI-5696.01 (TIC 393546540, disposition PC); TOI-5696.02 (TIC 393546540, disposition CP); TOI-5696.03 (TIC 393546540, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T04:18:08Z
+- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T04:18:09Z: BD+07  2351 (PM*)
+
+## Checks
+
+| Check | State | Note |
+|---|---|---|
+| Product integrity (SHA-256) | passed | 3 product(s) checksummed at first retrieval |
+| Known-signal recovery (positive control) | failed | BJD 2460284.7141: not recovered, depth 820 ± 48 ppm (catalogue 1204 ppm) |
+| Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3, 3, 3; ≤ 0 persistent null events outside the veto) |
+| Synthetic signal injection–recovery | passed | completeness for the reference box (2000ppm_4h) at each light curve's k*: 90%, 90%, 90% (pass mark 90%); 90%-completeness depths are in calibration.json |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
+| Period aliases (repeat events) | not_tested | catalogued transit not recovered; no reference depth |
+| Alternative detrending | not_tested |  |
+| Difference-image centroids / blend audit | not_tested |  |
+| Pointing / jitter correlation | not_tested |  |
+| Literature (ADS) audit | not_tested |  |
+
+## Reproduction
+
+```bash
+python -m cygnus.campaign run campaigns/toi-5696-03.yaml
+python -m cygnus.campaign report campaigns/toi-5696-03.yaml
+```

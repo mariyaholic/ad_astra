@@ -1,0 +1,80 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 286,
+  "config_hash": "bbf6c511d39b1645",
+  "finished_utc": "2026-09-25T04:18:01Z",
+  "result": {
+    "per_product": {
+      "tess2023315124025-s0072-0000000393546540-0267-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-5696.03",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 1204.4442717,
+          "duration_h": 8.0912058
+        },
+        "time_span_bjd": [
+          2460260.1761474013,
+          2460285.5828143526
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2460284.714061,
+            "usable_in_transit_cadences": 242,
+            "screen_entries": 0,
+            "flux_types": [],
+            "measured_depth_ppm": 819.5582197818019,
+            "depth_err_ppm": 47.58765123130316,
+            "depth_ratio_to_catalogue": 0.680445114015151,
+            "state": "not_recovered"
+          }
+        ]
+      },
+      "tess2021310001228-s0045-0000000393546540-0216-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-5696.03",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 1204.4442717,
+          "duration_h": 8.0912058
+        },
+        "time_span_bjd": [
+          2459525.4997194693,
+          2459550.624384403
+        ],
+        "epochs": []
+      },
+      "tess2021336043614-s0046-0000000393546540-0217-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-5696.03",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 1204.4442717,
+          "duration_h": 8.0912058
+        },
+        "time_span_bjd": [
+          2459551.5605767253,
+          2459578.7034691162
+        ],
+        "epochs": []
+      }
+    },
+    "states": [
+      "not_recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "failed",
+      "note": "BJD 2460284.7141: not recovered, depth 820 \u00b1 48 ppm (catalogue 1204 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit not recovered (1 covered epoch)."
+  ],
+  "outcome": null
+}

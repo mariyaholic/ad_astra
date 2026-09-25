@@ -1,0 +1,55 @@
+{
+  "step": "prior_art",
+  "run_id": 289,
+  "config_hash": "156a505ff7a25ab7",
+  "finished_utc": "2026-09-25T04:18:10Z",
+  "result": {
+    "targets": {
+      "TOI-5696.03": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T04:18:04Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 161.1569250, 6.3334750, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:18:04Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "3 match(es) in TESS_TOI within 30\" as of 2026-09-25T04:18:06Z: TOI-5696.01 (TIC 393546540, disposition PC); TOI-5696.02 (TIC 393546540, disposition CP); TOI-5696.03 (TIC 393546540, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 161.1485405 AND 161.1653095 AND dec BETWEEN 6.3251417 AND 6.3418083",
+          "retrieved_utc": "2026-09-25T04:18:06Z",
+          "matches": [
+            "TOI-5696.01 (TIC 393546540, disposition PC)",
+            "TOI-5696.02 (TIC 393546540, disposition CP)",
+            "TOI-5696.03 (TIC 393546540, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T04:18:08Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 161.1569250, 6.3334750, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:18:08Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "1 match(es) in SIMBAD within 30\" as of 2026-09-25T04:18:09Z: BD+07  2351 (PM*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 161.1569250, 6.3334750, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:18:09Z",
+          "matches": [
+            "BD+07  2351 (PM*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
