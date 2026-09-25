@@ -1,0 +1,246 @@
+# Known-object test, TOI-2318.01
+
+> Drafted by `python -m cygnus.campaign report` from the runner's outputs; reviewed 2026-09-25.
+> The escalation and reviewer notes below were added by hand; every other number is the runner's.
+
+## Escalation (2026-09-25)
+
+**Repeat candidate flagged — reviewer assessment: probably not astrophysical.** `period_aliases`
+flagged two persistent events (BJD 2459743.0693 / 2459743.0762, ΔT = 716.452 d) whose depth matches the
+catalogued transit, so the record is set to *Unverified lead*. The hand tests in *Reviewer notes*, however,
+find both events at the **sector edge** with a gradual, non-transit-shaped trend, a SAP/PDCSAP
+disagreement, and **0 of 716 period aliases surviving**. The evidence points to a sector-edge systematic.
+The evidence level and outcome are left as the runner set them; a reviewer should confirm before anything
+is pursued.
+
+- Campaign spec: `campaigns/toi-2318-01.yaml`
+- Parent queue: `tess-mono-01`
+- Ledger runs: calibrate_screen #158, fetch_products #157, known_signal_recovery #159, period_aliases #161, prior_art #162, residual_screen #160
+- Runner finished (UTC): 2026-09-25T02:46:02Z
+
+## Bottom line
+
+The calibrated screen **recovered the catalogued transit** of TOI-2318.01 (BJD 2459026.6476: recovered, depth 2358 ± 44 ppm (catalogue 2749 ppm)).
+Outside the catalogued epoch the screen left 213 threshold entries forming **89 distinct event(s)**, **5 persistent** (SAP and PDCSAP, two or more baselines). None is vetted; see *Screen events*.
+**Repeat candidate (unverified lead):** a persistent event at BJD 2459743.0693 matches the catalogued transit's depth (1187 vs 2358 ppm), 716.452 d later; 0 of 716 period aliases remain. See *Repeat candidates*.
+
+This is a pipeline check on a known object, not a discovery claim. Two transits allow only the listed period aliases; they do not fix the period.
+
+## Reviewer notes (2026-09-25)
+
+The positive control passed (catalogued transit recovered in sector 26, depth 2358 ± 44 ppm vs 2749 ppm
+catalogue). The two flagged repeat candidates are examined here. Six sectors were retrieved; all four
+persistent events sit in sector 52 or sector 80, each 2 cadences long.
+
+| Test | Result | State |
+|---|---|---|
+| Quality flags and gaps | all cadences within ±0.15 d have QUALITY = 0; largest gap 2.0 min | passed |
+| SAP vs PDCSAP | at the 2459743 event SAP is much shallower than PDCSAP (≈ −1.4 vs −1.6 ppt at the deepest bin, and near zero for hours before); the two disagree | failed |
+| Shape vs the catalogued transit | catalogued transit is flat-bottomed (≈ −3.6 ppt, width below −1 ppt ≈ 3.3 h); both flagged events are a *gradual monotonic decline* over the last ~10 h of the sector, not a transit profile | failed |
+| Position in the sector | both flagged events fall within ~2 min of the sector's last cadence (sector 52 ends 2459743.078; sector 80 ends 2460506.338) | failed (edge effect) |
+| Flux-weighted centroid (MOM_CENTR1/2) | event residuals within the excursion scatter (+0.0026/+0.0007 and +0.0012/−0.0011 px vs sd 0.0031/0.0054 px) | inconclusive (no help) |
+| Period aliases | 0 of 716 aliases P = ΔT/n ≥ 1 d survive: every predicted transit falls on usable data and is absent | failed |
+| Difference-image centroids / blend audit | not done | not tested |
+| TOI table / literature | TOI table (row updated 2022-07-19) lists no period; SIMBAD query errored (proxy); ADS and ExoFOP not searched | inconclusive |
+
+Persistent events checked, one line each:
+
+- **2459743.06926 / 2459743.07620** — one 2-cadence event (10 min apart) at the last cadences of sector 52; gradual non-transit decline, SAP/PDCSAP disagree, 0/716 aliases. Attributed to a sector-edge systematic.
+- **2460506.05271 / 2460506.31382 / 2460506.33326** — three 2-cadence events in the last hours of sector 80, same pattern (broad shallow negative trend deepening toward the sector end). Attributed to a sector-edge systematic.
+
+What this supports: the catalogued transit of TOI-2318.01 is recovered where the catalogue puts it. What it
+does not: any second transit. The flagged events are not transit-shaped, sit at sector edges, disagree
+between SAP and PDCSAP, and leave no allowed period — consistent with systematics, not a repeat. Next test:
+none proposed for this target unless a sector-edge trend model is added; the flags should not be carried
+forward as a lead.
+
+## Target
+
+| Field | Value | Source |
+|---|---|---|
+| name | TOI-2318.01 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tic | 88840705 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| ra_deg | 262.589332 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| dec_deg | 40.369465 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| t0_bjd | 2459026.647613 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| depth_ppm | 2749.2099367 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| duration_h | 4.6833042 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tmag | 8.6512 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| catalogue_row_updated | 2022-07-19 12:02:35 | NASA Exoplanet Archive TOI table (copied in the spec) |
+
+## Products
+
+| Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
+|---|---|---|---|---|
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 26 | True | `429fb73d1e22b38a` | True |
+| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | 25 | False | `86e225c1128bc030` | True |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 52 | False | `6fbb649337e23267` | True |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 53 | False | `ecfeb8042396c7af` | True |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 79 | False | `c15923a84fb65612` | True |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 80 | False | `c3cdc35c6a2c5428` | True |
+
+## Positive control (catalogued transit)
+
+| Product | Epoch (BJD) | State | Usable in-transit cadences | Measured depth (ppm) | Catalogue depth (ppm) | Entry offset (h) |
+|---|---|---|---|---|---|---|
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459026.64761 | recovered | 138 | 2358 ± 44 | 2749 | -0.73 |
+| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | — | epoch not in this light curve | — | — | 2749 | — |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | — | epoch not in this light curve | — | — | 2749 | — |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | — | epoch not in this light curve | — | — | 2749 | — |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | — | epoch not in this light curve | — | — | 2749 | — |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | — | epoch not in this light curve | — | — | 2749 | — |
+
+Depth: median PDCSAP residual inside ±duration/2 about the catalogued epoch, against a 2-d running median; the error is statistical only. A depth unlike the catalogue's may reflect dilution, detrending or an epoch/duration error; it is reported, not used as a pass mark.
+
+## Calibration and sensitivity
+
+| Product | k* (sign-flip null) | At grid floor | 90 % completeness depth at k = 5, by duration | at k* |
+|---|---|---|---|---|
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 3 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 2000, 2h: 2000, 4h: 2000, 8h: 5000 |
+| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | 4 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 3 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 2000, 2h: 2000, 4h: 5000, 8h: 2000 |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2 | True | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 2000, 2h: 2000, 4h: 2000, 8h: 2000 |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 3 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 2000, 2h: 2000, 4h: 2000, 8h: 2000 |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2 | True | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 | 1h: 2000, 2h: 2000, 4h: 2000, 8h: 2000 |
+
+The null result (if any) excludes only dips deeper than the 90 %-completeness depth for their duration.
+
+## Screen events outside the catalogued epoch
+
+Entries merged where they overlap in time. *Persistent* = SAP and PDCSAP at two or more baselines.
+
+| Product | Mid time (BJD) | Deepest median residual | Max cadences | Flux | Baselines (d) | Persistent |
+|---|---|---|---|---|---|---|
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459743.06926 | -0.00229 | 2 | PDCSAP+SAP | 1, 2, 3 | yes |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459743.07620 | -0.00200 | 2 | PDCSAP+SAP | 1, 2, 3 | yes |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460506.31382 | -0.00195 | 2 | PDCSAP+SAP | 1, 2, 3 | yes |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460506.05271 | -0.00191 | 2 | PDCSAP+SAP | 1, 2, 3 | yes |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460506.33326 | -0.00179 | 2 | PDCSAP+SAP | 1, 2, 3 | yes |
+| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | 2458991.26668 | -0.00434 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | 2458995.56535 | -0.00421 | 2 | SAP | 2, 3 | no |
+| `tess2020133194932-s0025-0000000088840705-0182-s_lc.fits` | 2458986.30967 | -0.00330 | 2 | SAP | 1, 2, 3 | no |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459724.40112 | -0.00323 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459012.07512 | -0.00302 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459016.00982 | -0.00296 | 2 | SAP | 1, 2, 3 | no |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 2460473.38097 | -0.00294 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459016.10982 | -0.00284 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459013.28900 | -0.00278 | 3 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459015.07927 | -0.00271 | 2 | SAP | 1, 2, 3 | no |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 2460473.38583 | -0.00270 | 3 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459016.16399 | -0.00270 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459022.12923 | -0.00261 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459016.24037 | -0.00244 | 2 | SAP | 1, 2, 3 | no |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 2460473.36014 | -0.00242 | 2 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459033.89156 | -0.00239 | 2 | SAP | 1, 2, 3 | no |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 2460473.36917 | -0.00237 | 3 | SAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459014.55011 | -0.00234 | 2 | SAP | 1, 2, 3 | no |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459736.76786 | -0.00232 | 2 | SAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459749.47477 | -0.00228 | 2 | SAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.08314 | -0.00225 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.10537 | -0.00223 | 16 | PDCSAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459015.80010 | -0.00222 | 2 | SAP | 3 | no |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 2460473.39347 | -0.00222 | 2 | SAP | 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459016.12093 | -0.00222 | 2 | SAP | 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459010.42513 | -0.00219 | 2 | SAP | 1, 2 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460506.12771 | -0.00217 | 2 | PDCSAP | 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459024.43614 | -0.00216 | 2 | SAP | 1, 2, 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460493.07522 | -0.00214 | 2 | SAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.07412 | -0.00212 | 9 | PDCSAP | 1, 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459020.13757 | -0.00210 | 2 | SAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.16648 | -0.00204 | 4 | PDCSAP | 2, 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460492.82730 | -0.00204 | 3 | SAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.05537 | -0.00202 | 16 | PDCSAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.03315 | -0.00202 | 2 | PDCSAP | 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459023.27505 | -0.00200 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.27481 | -0.00197 | 4 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.02898 | -0.00196 | 2 | PDCSAP | 2, 3 | no |
+| `tess2024142205832-s0079-0000000088840705-0274-s_lc.fits` | 2460465.01709 | -0.00196 | 2 | SAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.16231 | -0.00195 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.14842 | -0.00193 | 2 | PDCSAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.38592 | -0.00193 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459749.81504 | -0.00193 | 2 | SAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.13037 | -0.00188 | 8 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.24009 | -0.00187 | 2 | PDCSAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.22273 | -0.00187 | 3 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.56092 | -0.00186 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459742.82898 | -0.00185 | 2 | PDCSAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.11301 | -0.00185 | 5 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.18523 | -0.00184 | 5 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.28870 | -0.00184 | 2 | PDCSAP | 2, 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460493.15855 | -0.00182 | 2 | SAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.21092 | -0.00182 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.14148 | -0.00181 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459743.05884 | -0.00181 | 3 | PDCSAP | 1, 2 | no |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459743.03176 | -0.00180 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.55675 | -0.00179 | 2 | PDCSAP | 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459023.49032 | -0.00178 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.25953 | -0.00177 | 2 | PDCSAP | 2, 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460493.22035 | -0.00174 | 3 | SAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.20675 | -0.00174 | 2 | PDCSAP | 2, 3 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459023.25838 | -0.00174 | 2 | PDCSAP | 2 | no |
+| `tess2020160202036-s0026-0000000088840705-0188-s_lc.fits` | 2459023.30005 | -0.00173 | 2 | PDCSAP | 2 | no |
+| `tess2022138205153-s0052-0000000088840705-0224-s_lc.fits` | 2459743.04912 | -0.00171 | 3 | PDCSAP | 2 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.52064 | -0.00170 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459761.19962 | -0.00168 | 2 | PDCSAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.23523 | -0.00165 | 3 | PDCSAP | 2, 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460506.02980 | -0.00165 | 3 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.17550 | -0.00164 | 5 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.35814 | -0.00163 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.19842 | -0.00161 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.37620 | -0.00159 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.12134 | -0.00157 | 3 | PDCSAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.31092 | -0.00156 | 2 | PDCSAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.33314 | -0.00155 | 2 | PDCSAP | 2, 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460506.18465 | -0.00153 | 2 | PDCSAP | 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459750.14143 | -0.00152 | 2 | PDCSAP | 2 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459768.87033 | -0.00148 | 2 | PDCSAP | 1, 2, 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459744.59564 | -0.00145 | 2 | PDCSAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459749.80254 | -0.00143 | 2 | SAP | 3 | no |
+| `tess2022164095748-s0053-0000000088840705-0226-s_lc.fits` | 2459755.84694 | -0.00142 | 2 | SAP | 1 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460481.34551 | -0.00142 | 3 | SAP | 2, 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460506.14715 | -0.00134 | 2 | PDCSAP | 3 | no |
+| `tess2024170053053-s0080-0000000088840705-0275-s_lc.fits` | 2460490.56969 | -0.00132 | 2 | PDCSAP | 1, 2, 3 | no |
+
+None has been vetted: centroids, pointing, background, momentum dumps and other reductions are **not tested**. Most screen events in TESS light curves are systematics; each is at most an unverified lead.
+
+## Repeat candidates
+
+Persistent screen events whose depth matches the catalogued transit (0.5–2×). Periods P = ΔT/n are excluded only where a predicted transit falls on usable retrieved data and is absent; all others remain allowed. Full per-alias evidence: `period_aliases.json`.
+
+| Event (BJD) | Depth (ppm) | Reference depth (ppm) | ΔT (d) | Aliases allowed | Allowed periods (d), first 20 |
+|---|---|---|---|---|---|
+| 2459743.06926 | 1187 | 2358 | 716.4519 | 0 / 716 |  |
+| 2459743.07620 | 1191 | 2358 | 716.4588 | 0 / 716 |  |
+
+To advance: compare the two transit shapes, check difference-image centroids and the TOI/ExoFOP record for a period, and escalate to a reviewer (docs/AGENT_RUNBOOK.md). Do not raise the evidence level yourself.
+
+## Catalogue cross-match
+
+**TOI-2318.01**
+
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:45:29Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T02:45:34Z: TOI-2318.01 (TIC 88840705, disposition APC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:45:39Z
+- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:45:42Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+
+## Checks
+
+| Check | State | Note |
+|---|---|---|
+| Product integrity (SHA-256) | passed | 6 product(s) checksummed at first retrieval |
+| Known-signal recovery (positive control) | passed | BJD 2459026.6476: recovered, depth 2358 ± 44 ppm (catalogue 2749 ppm) |
+| Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3, 4, 3, ≤2.5, 3, ≤2.5; ≤ 0 persistent null events outside the veto) |
+| Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 100%, 22%, 80%, 100%, 100%, 100% (pass mark 90%); 90%-completeness depths are in calibration.json |
+| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Period aliases (repeat events) | inconclusive | 2 repeat-candidate event(s); first at BJD 2459743.0693, ΔT = 716.452 d, 0 of 716 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data ( d) |
+| Alternative detrending | not_tested |  |
+| Difference-image centroids / blend audit | not_tested |  |
+| Pointing / jitter correlation | not_tested |  |
+| Literature (ADS) audit | not_tested |  |
+
+## Reproduction
+
+```bash
+python -m cygnus.campaign run campaigns/toi-2318-01.yaml
+python -m cygnus.campaign report campaigns/toi-2318-01.yaml
+```
