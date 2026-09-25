@@ -1,0 +1,107 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "toi-4187-02",
+ "title": "Known-object test, TOI-4187.02",
+ "kind": "known-object test",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-25",
+ "summary": "Known-object test on TOI-4187.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 4, 3, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 50%, 20%, 10%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 185 threshold entries outside the known-signal veto across 5 light curve(s), forming 82 distinct event(s), 2 persistent in SAP and PDCSAP at two or more baselines.",
+ "spec": "campaigns/toi-4187-02.yaml",
+ "report": "campaigns/toi-4187-02/REPORT.md",
+ "search_log": "campaigns/toi-4187-02/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "TOI-4187.02",
+   "ra_deg": 48.283944,
+   "dec_deg": -34.375416,
+   "frame": "ICRS",
+   "epoch": "J2000.0",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  }
+ ],
+ "products": [
+  {
+   "id": "tess2025258001959-s0097-0000000176780257-0294-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "d83912fb0e28515bb1287be2c52f20ba36f6aee03eff36cd0fb3388719c041c5"
+  },
+  {
+   "id": "tess2018292075959-s0004-0000000176780257-0124-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "f4e89ff85983cbd894db54a4e9aea9ac3b2035175658a08dd134fc6991b5379e"
+  },
+  {
+   "id": "tess2020266004630-s0030-0000000176780257-0195-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "a4b8d0df425ff5cdaadab15bd835ca9663cc423444256ab35753ce8cdd5e08d3"
+  },
+  {
+   "id": "tess2020294194027-s0031-0000000176780257-0198-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "9b05642a752ca73a3da97ef395d430e102c32554a2fbe161cd11184f6073ca81"
+  },
+  {
+   "id": "tess2026164183000-s0105-0000000176780257-0307-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "702db0fe13f27a913facbcec7b86f4e9cccc2453f257048aa81a398e0cc11c71"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "passed",
+   "note": "5 product(s) checksummed at first retrieval",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Known-signal recovery (positive control)",
+   "state": "failed",
+   "note": "BJD 2460939.1181: not recovered, depth 591 ± 23 ppm (catalogue 534 ppm)",
+   "source": "campaign runner, step known_signal_recovery"
+  },
+  {
+   "name": "Calibrated false-alarm threshold (sign-flip null)",
+   "state": "passed",
+   "note": "screen run at each light curve's own k* (3.5, 4, 3, ≤2.5, ≤2.5; ≤ 0 persistent null events outside the veto)",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Synthetic signal injection–recovery",
+   "state": "passed",
+   "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 100%, 90%, 100%, 100%, 100% (pass mark 90%); 90%-completeness depths are in calibration.json",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Catalogue cross-match",
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
+  },
+  {
+   "name": "Period aliases (repeat events)",
+   "state": "not_tested",
+   "note": "catalogued transit not recovered; no reference depth",
+   "source": "campaign runner, step period_aliases"
+  },
+  {
+   "name": "Alternative detrending",
+   "state": "not_tested"
+  },
+  {
+   "name": "Difference-image centroids / blend audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Pointing / jitter correlation",
+   "state": "not_tested"
+  },
+  {
+   "name": "Literature (ADS) audit",
+   "state": "not_tested"
+  }
+ ],
+ "generated_by": "cygnus.campaign runner",
+ "generated_utc": "2026-09-25T04:35:33Z"
+}
