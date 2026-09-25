@@ -1,0 +1,195 @@
+# Known-object test, TOI-6890.01
+
+> Drafted by `python -m cygnus.campaign report` from the runner's outputs; reviewed 2026-09-25.
+> The escalation and reviewer notes below were added by hand; every other number is the runner's.
+
+- Campaign spec: `campaigns/toi-6890-01.yaml`
+- Parent queue: `tess-mono-01`
+- Ledger runs: calibrate_screen #352, fetch_products #351, known_signal_recovery #353, period_aliases #355, prior_art #356, residual_screen #354
+- Runner finished (UTC): 2026-09-25T05:06:54Z
+
+## Bottom line
+
+The calibrated screen **recovered the catalogued transit** of TOI-6890.01 (BJD 2459256.5429: recovered, depth 2109 ± 113 ppm (catalogue 1970 ppm)).
+Outside the catalogued epoch the screen left 165 threshold entries forming **89 distinct event(s)**, **1 persistent** (SAP and PDCSAP, two or more baselines). None is vetted; see *Screen events*.
+
+This is a pipeline check on a known object, not a discovery claim. No period is implied by a single transit.
+
+## Reviewer notes (2026-09-25)
+
+Positive control passed: sector 35 recovers 2109 ± 113 ppm vs catalogue 1970 ppm (264 usable cadences; entry offset −0.21 h).
+
+The one persistent screen event is at BJD 2459272.28128 in sector 35 (2 cadences, deepest −0.67%). Its ±0.15-d binned SAP/PDCSAP profiles show no coherent localized dip; quality is 0 throughout and the maximum gap is 2 min. The event centroid residual is +0.076/+0.164 px against scatter 0.026/0.055 px (about 3σ on both axes), which is a stronger warning for a pointing/blend/cadence artifact than support for an eclipse. Do not treat as a repeat.
+
+For context, the largest non-persistent excursion is a 148-cadence SAP-only depression at BJD 2459266.47994 (−1.41%); PDCSAP does not show it, a direct SAP/PDC disagreement and a likely reduction/systematics feature. No repeat candidate is set by the runner. Prior-art cross-match returned only the TOI entry plus a SIMBAD stellar match; the other audits (pixel centroids, pointing, alternate reduction) remain untested.
+
+## Target
+
+| Field | Value | Source |
+|---|---|---|
+| name | TOI-6890.01 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tic | 5364106 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| ra_deg | 139.231123 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| dec_deg | -20.676234 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| t0_bjd | 2459256.542863 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| depth_ppm | 1970.1779923 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| duration_h | 8.8064896 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tmag | 11.0866 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| catalogue_row_updated | 2026-07-17 12:03:25 | NASA Exoplanet Archive TOI table (copied in the spec) |
+
+## Products
+
+| Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
+|---|---|---|---|---|
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 35 | True | `485b3dbdf0577bda` | True |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 62 | False | `0486b1c092b90efd` | True |
+| `tess2026005125623-s0099-0000000005364106-0300-s_lc.fits` | 99 | False | `8384b36f35a27bcf` | True |
+
+## Positive control (catalogued transit)
+
+| Product | Epoch (BJD) | State | Usable in-transit cadences | Measured depth (ppm) | Catalogue depth (ppm) | Entry offset (h) |
+|---|---|---|---|---|---|---|
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459256.54286 | recovered | 264 | 2109 ± 113 | 1970 | -0.21 |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | — | epoch not in this light curve | — | — | 1970 | — |
+| `tess2026005125623-s0099-0000000005364106-0300-s_lc.fits` | — | epoch not in this light curve | — | — | 1970 | — |
+
+Depth: median PDCSAP residual inside ±duration/2 about the catalogued epoch, against a 2-d running median; the error is statistical only. A depth unlike the catalogue's may reflect dilution, detrending or an epoch/duration error; it is reported, not used as a pass mark.
+
+## Calibration and sensitivity
+
+| Product | k* (sign-flip null) | At grid floor | 90 % completeness depth at k = 5, by duration | at k* |
+|---|---|---|---|---|
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2 | True | 1h: 10000, 2h: 10000, 4h: 10000, 8h: 20000 | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 3 | False | 1h: 10000, 2h: 10000, 4h: 10000, 8h: 20000 | 1h: 5000, 2h: 5000, 4h: 10000, 8h: 10000 |
+| `tess2026005125623-s0099-0000000005364106-0300-s_lc.fits` | 6 | False | 1h: 10000, 2h: 10000, 4h: 10000, 8h: 20000 | 1h: 10000, 2h: 10000, 4h: 20000, 8h: 20000 |
+
+The null result (if any) excludes only dips deeper than the 90 %-completeness depth for their duration.
+
+## Screen events outside the catalogued epoch
+
+Entries merged where they overlap in time. *Persistent* = SAP and PDCSAP at two or more baselines.
+
+| Product | Mid time (BJD) | Deepest median residual | Max cadences | Flux | Baselines (d) | Persistent |
+|---|---|---|---|---|---|---|
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459272.28128 | -0.00666 | 2 | PDCSAP+SAP | 1, 2, 3 | yes |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.47994 | -0.01412 | 148 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.87255 | -0.01161 | 2 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.01143 | -0.01049 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.19477 | -0.01036 | 2 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.31074 | -0.01018 | 7 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.02949 | -0.00999 | 4 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.30032 | -0.00977 | 2 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.06699 | -0.00934 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.35101 | -0.00932 | 3 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.34198 | -0.00884 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.19893 | -0.00880 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.21143 | -0.00870 | 6 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.26837 | -0.00865 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.23574 | -0.00864 | 3 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.99963 | -0.00860 | 3 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.83088 | -0.00856 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.87169 | -0.00850 | 3 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.91127 | -0.00848 | 2 | SAP | 1, 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.15171 | -0.00845 | 3 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.89616 | -0.00839 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.55712 | -0.00835 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.60633 | -0.00834 | 20 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.07463 | -0.00831 | 5 | SAP | 2, 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.58966 | -0.00831 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.13782 | -0.00825 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.61684 | -0.00825 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.96544 | -0.00822 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.20379 | -0.00816 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.04893 | -0.00816 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.00449 | -0.00807 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.16004 | -0.00806 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.94044 | -0.00805 | 4 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.29337 | -0.00797 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.86683 | -0.00796 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.96127 | -0.00796 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.02116 | -0.00791 | 4 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.25865 | -0.00789 | 6 | SAP | 2, 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.63688 | -0.00782 | 4 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.08643 | -0.00781 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.94877 | -0.00775 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.25101 | -0.00757 | 3 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.91822 | -0.00752 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.86005 | -0.00752 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.97046 | -0.00749 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.92239 | -0.00742 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.09060 | -0.00733 | 2 | SAP | 2, 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.58549 | -0.00730 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.11491 | -0.00728 | 7 | SAP | 1, 2, 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.62855 | -0.00727 | 6 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.92810 | -0.00726 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.71813 | -0.00723 | 3 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.10727 | -0.00721 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.82031 | -0.00719 | 3 | SAP | 2, 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.64383 | -0.00702 | 8 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.45018 | -0.00701 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.80494 | -0.00700 | 2 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.82864 | -0.00699 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.92864 | -0.00695 | 3 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.87655 | -0.00695 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.88628 | -0.00692 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.85711 | -0.00686 | 4 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.67438 | -0.00684 | 4 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.47795 | -0.00682 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.94824 | -0.00681 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.78767 | -0.00676 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.86267 | -0.00667 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.32393 | -0.00662 | 4 | SAP | 2, 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.90935 | -0.00662 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460006.85241 | -0.00658 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460013.84669 | -0.00657 | 3 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.68480 | -0.00650 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.24060 | -0.00648 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.05657 | -0.00644 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.28851 | -0.00643 | 3 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.22393 | -0.00642 | 2 | SAP | 3 | no |
+| `tess2023043185947-s0062-0000000005364106-0254-s_lc.fits` | 2460007.28226 | -0.00621 | 4 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.67994 | -0.00618 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.97021 | -0.00612 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.72577 | -0.00606 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.65563 | -0.00602 | 3 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.90355 | -0.00596 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.66466 | -0.00580 | 8 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.69799 | -0.00561 | 8 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.70633 | -0.00559 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.85771 | -0.00551 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.73688 | -0.00543 | 4 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.75216 | -0.00492 | 2 | SAP | 3 | no |
+| `tess2021039152502-s0035-0000000005364106-0205-s_lc.fits` | 2459266.03828 | -0.00456 | 2 | PDCSAP | 1 | no |
+
+None has been vetted: centroids, pointing, background, momentum dumps and other reductions are **not tested**. Most screen events in TESS light curves are systematics; each is at most an unverified lead.
+
+## Catalogue cross-match
+
+**TOI-6890.01**
+
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T05:06:44Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T05:06:47Z: TOI-6890.01 (TIC 5364106, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T05:06:50Z
+- SIMBAD (done, 2026-09-25): 1 match(es) in SIMBAD within 30" as of 2026-09-25T05:06:51Z: TYC 6040-575-1 (*)
+
+## Checks
+
+| Check | State | Note |
+|---|---|---|
+| Product integrity (SHA-256) | passed | 3 product(s) checksummed at first retrieval |
+| Known-signal recovery (positive control) | passed | BJD 2459256.5429: recovered, depth 2109 ± 113 ppm (catalogue 1970 ppm) |
+| Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (≤2.5, 3, 5.5; ≤ 0 persistent null events outside the veto) |
+| Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
+| Period aliases (repeat events) | not_tested | no persistent screen event matches the catalogued depth |
+| Alternative detrending | not_tested |  |
+| Difference-image centroids / blend audit | not_tested |  |
+| Pointing / jitter correlation | not_tested |  |
+| Literature (ADS) audit | not_tested |  |
+
+## Reproduction
+
+```bash
+python -m cygnus.campaign run campaigns/toi-6890-01.yaml
+python -m cygnus.campaign report campaigns/toi-6890-01.yaml
+```
