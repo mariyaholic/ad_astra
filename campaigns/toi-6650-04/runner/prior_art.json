@@ -1,0 +1,58 @@
+{
+  "step": "prior_art",
+  "run_id": 350,
+  "config_hash": "74ad760dfef0b40f",
+  "finished_utc": "2026-09-25T05:06:11Z",
+  "result": {
+    "targets": {
+      "TOI-6650.04": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T05:05:49Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 338.8053320, 54.7735570, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:05:49Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "4 match(es) in TESS_TOI within 30\" as of 2026-09-25T05:05:51Z: TOI-6650.01 (TIC 64837857, disposition PC); TOI-6650.02 (TIC 64837857, disposition PC); TOI-6650.03 (TIC 64837857, disposition FP); TOI-6650.04 (TIC 64837857, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 338.7908847 AND 338.8197793 AND dec BETWEEN 54.7652237 AND 54.7818903",
+          "retrieved_utc": "2026-09-25T05:05:51Z",
+          "matches": [
+            "TOI-6650.01 (TIC 64837857, disposition PC)",
+            "TOI-6650.02 (TIC 64837857, disposition PC)",
+            "TOI-6650.03 (TIC 64837857, disposition FP)",
+            "TOI-6650.04 (TIC 64837857, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T05:05:53Z: Gaia DR3 2003378084962524032 (type DSCT|GDOR|SXPHE, P \u2014 d)",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 338.8053320, 54.7735570, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:05:53Z",
+          "matches": [
+            "Gaia DR3 2003378084962524032 (type DSCT|GDOR|SXPHE, P \u2014 d)"
+          ]
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "1 match(es) in SIMBAD within 30\" as of 2026-09-25T05:05:54Z: BD+54  2812 (*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 338.8053320, 54.7735570, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:05:54Z",
+          "matches": [
+            "BD+54  2812 (*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
