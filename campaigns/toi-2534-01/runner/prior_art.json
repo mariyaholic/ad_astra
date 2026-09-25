@@ -1,0 +1,51 @@
+{
+  "step": "prior_art",
+  "run_id": 174,
+  "config_hash": "27e08850d401bd30",
+  "finished_utc": "2026-09-25T02:52:29Z",
+  "result": {
+    "targets": {
+      "TOI-2534.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T02:52:10Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 338.6446130, -57.5704250, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T02:52:10Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T02:52:12Z: TOI-2534.01 (TIC 219332978, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 338.6290733 AND 338.6601527 AND dec BETWEEN -57.5787583 AND -57.5620917",
+          "retrieved_utc": "2026-09-25T02:52:12Z",
+          "matches": [
+            "TOI-2534.01 (TIC 219332978, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T02:52:16Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 338.6446130, -57.5704250, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T02:52:16Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "error",
+          "result": "inconclusive (SIMBAD query failed as of 2026-09-25T02:52:17Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 338.6446130, -57.5704250, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T02:52:17Z",
+          "matches": []
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "inconclusive",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 3 answered, 1 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
