@@ -47,7 +47,7 @@ Not built yet (designed in `ANALYSIS_STACK.md`): alternative detrending families
 |---|---|
 | `tess-wasp12-residual-01.yaml` | completed; calibrated (ledger runs #31–#34) |
 | `wasp12-sector20-recovery.yaml` | completed (runs #35–#37) |
-| `tess-mono-01.yaml` | draft: queue built (20 of 73 single-transit PC/APC TOIs); targets are run one by one as known-object tests |
+| `tess-mono-01.yaml` | draft parent spec; full declared 76-target queue built and all 76 targets completed/reviewed through the known-object loop on 2026-09-25 (see per-target campaigns and queue ledger) |
 | `toi-2666-01.yaml` | completed (runs #73–#78; pilot of the known-object loop): catalogued transit recovered; repeat candidate in Sector 99, ΔT 1790.005 d, 52 aliases; **unverified lead**, reviewed |
 
 ## Verification record (2026-09-24)

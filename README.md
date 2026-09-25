@@ -19,7 +19,7 @@ Nothing here is a discovery. As of 2026-09-24 the project has run one known-plan
 | [`docs/AGENT_RUNBOOK.md`](docs/AGENT_RUNBOOK.md) | **Running a target through the pipeline** (any agent, any machine): five commands and the review rules. |
 | [`docs/CAMPAIGNS.md`](docs/CAMPAIGNS.md) | Campaign specs and the runner: how analyses are run, ledgered and calibrated. |
 | [`docs/SKY_RECORDS.md`](docs/SKY_RECORDS.md) | The `sky_record.json` every analysis must leave (enforced by tests). |
-| [`design-system/mockups/README.md`](design-system/mockups/README.md) | The interactive sky explorer prototype: build, run, rules. |
+| [`design-system/mockups/README.md`](design-system/mockups/README.md) | The interactive sky explorer, the public site's home page: build, run, rules. |
 | [`design-system/project/README.md`](design-system/project/README.md) | The Ad Astra design system (site look and copy rules). |
 
 ## Layout

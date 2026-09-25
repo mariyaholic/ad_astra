@@ -410,8 +410,9 @@ class SiteBuilder:
             type_counts[e["type"]] = type_counts.get(e["type"], 0) + 1
         common = {"overview": overview}
 
-        self.write_page("index.html", "home.html.j2", views=views, campaigns=campaigns,
-                        candidates=candidates, manifests=manifests, type_counts=type_counts, **common)
+        for rel in ("index.html", "about/index.html"):   # the deploy bundle puts the sky explorer at the root
+            self.write_page(rel, "home.html.j2", views=views, campaigns=campaigns,
+                            candidates=candidates, manifests=manifests, type_counts=type_counts, **common)
         entries = sorted(self.entries, key=lambda e: (e["date"] or "", e["title"] or ""), reverse=True)
         self.write_page("repository/index.html", "repository.html.j2", entries=entries,
                         type_counts=type_counts, **common)

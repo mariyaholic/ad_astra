@@ -16,6 +16,8 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 {% set nav = [
+  ('', 'Sky map'),
+  ('about/', 'About'),
   ('repository/', 'Repository'),
   ('campaigns/', 'Campaigns'),
   ('candidates/', 'Candidates'),
@@ -42,7 +44,7 @@
     <nav class="nav" aria-label="Primary">
       <ul>
       {% for href, label in nav %}
-        <li><a href="{{ url(href) }}"{% if page_path.startswith(href) %} aria-current="page"{% endif %}>{{ label }}</a></li>
+        <li><a href="{{ url(href) }}"{% if (href and page_path.startswith(href)) or (not href and page_path == 'index.html') %} aria-current="page"{% endif %}>{{ label }}</a></li>
       {% endfor %}
       </ul>
     </nav>

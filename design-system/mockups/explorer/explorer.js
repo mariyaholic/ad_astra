@@ -684,6 +684,7 @@
     if (t.system) rend.append(...systemRendition(t));
     else if (t.cat === 'field' || /^(NGC|M)\s?\d/.test(t.name)) rend.append(clusterRendition(t));
     else if (t.central) rend.append(starRendition(t));
+    else if (t.status === 'analysed') rend.append(h('h3', {}, 'Rendition'), h('p', { class: 'note' }, 'No rendition: this target was analysed from its archive light curves, and no catalogued system parameters are available to draw it from. The survey image below shows the field.'));
     else rend.append(h('h3', {}, 'Rendition'), h('p', { class: 'note' }, 'No rendition: this position is an engineering sample for archive access, not a studied object. The survey image below shows the field.'));
   }
 
@@ -1211,7 +1212,8 @@
       t.v = vec(t.ra * D, t.dec * D);
       for (const p of t.patches) p.path = patchPath(p);
       if (t.image) t.image.short = /PanSTARRS|Pan-STARRS/.test(t.image.source) ? 'Pan-STARRS1 DR1 colour' : '2MASS J H Ks colour';
-      const nOk = t.counts.drive_only || 0, nBad = (t.counts.failed || 0) + (t.counts.excluded || 0);
+      const recProducts = new Set((t.records || []).flatMap(r => (r.products || []).map(p => p.id)));
+      const nOk = t.counts.drive_only || recProducts.size, nBad = (t.counts.failed || 0) + (t.counts.excluded || 0);
       const recs = t.records || [], done = recs.filter(r => r.status === 'completed');
       const outcomes = [...new Set(done.map(r => (OUTCOME[r.outcome] || r.outcome).toLowerCase()))].join(', ');
       t.statusShort = t.status === 'analysed' ? `analysed · ${outcomes}` : t.status === 'planned' ? 'analysis planned' : t.status === 'retrieved' ? `${nOk} products retrieved` : 'probe only';

@@ -71,6 +71,8 @@ Stop and write an `## Escalation` section at the top of the report, then tell th
 - the run fails twice with the same error. Paste the error and do not patch the code.
 - a catalogue service errors for every target. A service may be down; record it and leave the check `inconclusive`.
 
+A stronger agent or a person then runs `python -m cygnus.campaign vet campaigns/<slug>.yaml` (add `--events BJD,…` for events the runner did not flag). It writes `campaigns/<slug>/vetting/`: sibling-TOI ephemerides, shape against the reference transit, detrending alternatives, red-noise significance, background/centroid/pointing, quality flags, a difference image, Gaia neighbours, same-CCD common mode, and alias limits. Record the reading in *Reviewer notes*. The log is `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`.
+
 Do not change code in `src/`, thresholds in a generated spec, or anyone else's campaign. Code changes go through a stronger agent or a person, with tests.
 
 ## What each step does

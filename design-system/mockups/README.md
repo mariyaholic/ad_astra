@@ -1,6 +1,6 @@
 # Redesign mockups and the sky explorer (prototype)
 
-Status (2026-09-24): **prototype for review, not the published site.** The user has approved the direction (an interactive night-sky explorer) but not yet the conversion of the real site in `src/cygnus/publish/`. Do not replace the published templates with this code without that approval. See `docs/STATUS.md`.
+Status (2026-09-25): **the explorer is the published site's home page.** The user approved the conversion on 2026-09-25. `tools/build_pages_bundle.py` puts `explorer/` at the site root; the repository pages from `src/cygnus/publish/` keep their paths (their home page moves to `/about/`), and the explorer's nav links to them. The static mockups (`index.html`, `target-wasp-12.html`, `log.html`) are no longer deployed. Deployment steps: `docs/PUBLISHING.md`.
 
 Everything here follows AGENTS.md "verifiable telemetry only": every position, footprint, star and image comes from a recorded file or a fetch logged in `data/PROVENANCE.json`. Renditions are labelled as generated from catalogue values and say which parts are illustrative.
 

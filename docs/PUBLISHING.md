@@ -164,6 +164,19 @@ Content-Disposition: attachment   (for /files/*)
 
 Serve `404.html` for missing paths. The pages load no third-party resources.
 
+**The published site (since 2026-09-25)** is the bundle from `tools/build_pages_bundle.py`: the sky
+explorer (`design-system/mockups/explorer/`) is the home page at `/`, and every other path is this
+generator's output, whose own home page is also written to `/about/`. Old `/preview/…` links
+redirect to `/` (`_redirects`). Build and deploy by hand (not connected to git):
+
+```bash
+python design-system/mockups/fetch_sky_data.py --missing   # Gaia field + survey image for new targets (network)
+python design-system/mockups/build_explorer.py
+python -m cygnus.publish check && python -m cygnus.publish build
+python tools/build_pages_bundle.py                          # leak-scans the whole bundle
+npx wrangler@4 pages deploy build/pages --project-name cygnus-sky --branch main
+```
+
 ## Storage, backup, retention
 
 - Build output is small (≈ 1 MB today) and fully reproducible; do not back it up.

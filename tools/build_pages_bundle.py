@@ -2,8 +2,9 @@
 
     python tools/build_pages_bundle.py        -> build/pages/
 
-Layout: the public repository site (``python -m cygnus.publish build`` output) at the root, and the
-sky-explorer prototype with its mockup pages under ``/preview/``. A ``_headers`` file applies the
+Layout: the sky explorer is the home page (``/``, with its ``data/`` and ``img/`` bundle); the public
+repository site (``python -m cygnus.publish build`` output) keeps every other path, its own home page
+moving to ``/about/``. Old ``/preview/`` links redirect to ``/``. A ``_headers`` file applies the
 response headers from docs/PUBLISHING.md. The whole bundle must pass the publication leak scan
 (private paths, remote names, credential words, e-mail addresses) or nothing is written.
 """
@@ -32,8 +33,11 @@ HEADERS = """/*
 /files/*
   Content-Disposition: attachment
 
-/preview/*
-  X-Robots-Tag: noindex
+"""
+
+REDIRECTS = """/preview/explorer/ / 301
+/preview/explorer/index.html / 301
+/preview/* / 301
 """
 
 
@@ -47,12 +51,16 @@ def main() -> int:
     tmp = OUT.with_name("pages.tmp")
     shutil.rmtree(tmp, ignore_errors=True)
     shutil.copytree(SITE, tmp)
-    prev = tmp / "preview"
-    prev.mkdir()
-    for name in ("index.html", "target-wasp-12.html", "log.html", "mockup.css"):
-        shutil.copy2(MOCK / name, prev / name)
-    shutil.copytree(MOCK / "explorer", prev / "explorer")
+    exp = MOCK / "explorer"
+    clash = [p.relative_to(exp).as_posix() for p in exp.rglob("*") if p.is_file() and (tmp / p.relative_to(exp)).exists()
+             and p.name != "index.html"]
+    if clash:
+        shutil.rmtree(tmp)
+        print("explorer files would overwrite site files: " + ", ".join(clash), file=sys.stderr)
+        return 1
+    shutil.copytree(exp, tmp, dirs_exist_ok=True)   # explorer index.html replaces the repository home (kept at /about/)
     (tmp / "_headers").write_text(HEADERS, encoding="utf-8")
+    (tmp / "_redirects").write_text(REDIRECTS, encoding="utf-8")
     leaks = scan_for_leaks(tmp)
     if leaks:
         shutil.rmtree(tmp)

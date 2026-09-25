@@ -1,4 +1,4 @@
-"""``python -m cygnus.campaign {new,run,report,queue,check}``
+"""``python -m cygnus.campaign {new,run,report,vet,queue,check}``
 
 The repeatable loop for any target, on any machine (docs/AGENT_RUNBOOK.md):
 
@@ -47,6 +47,12 @@ def main(argv=None) -> int:
     n.add_argument("--source", default="given by hand", help="where --manual values came from (recorded in the spec)")
     rp = sub.add_parser("report", help="draft REPORT.md and SEARCH_LOG.md from a finished run")
     rp.add_argument("spec")
+    v = sub.add_parser("vet", help="vet repeat events of a finished run (writes <outputs>/vetting/)")
+    v.add_argument("spec")
+    v.add_argument("--no-neighbours", action="store_true", help="skip the same-CCD neighbour light curves")
+    v.add_argument("--no-pixels", action="store_true", help="skip the target-pixel-file difference image")
+    v.add_argument("--events", help="comma-separated BJD mid-times to vet besides the runner's repeat candidates")
+    v.add_argument("--ledger", help="ledger path (default: CYGNUS_LEDGER or state/ledger.sqlite)")
     q = sub.add_parser("queue", help="which queued targets are free, claimed, run or reviewed")
     q.add_argument("--queue", default=DEFAULT_QUEUE)
     q.add_argument("--json", action="store_true")
@@ -99,6 +105,19 @@ def main(argv=None) -> int:
         spec["_path"] = Path(a.spec).resolve()
         for p in scaffold.draft_report(spec, root):
             print(p.relative_to(root).as_posix())
+        return 0
+    if a.cmd == "vet":
+        from .vet import vet
+
+        ledger = Ledger(a.ledger or ledger_path())
+        try:
+            with ledger.recorded_run(f"cygnus.campaign:{spec['campaign_id']}:lead_vetting", seed=spec.get("random_seed")) as r_:
+                rep = vet(spec, root, neighbours=not a.no_neighbours, pixels=not a.no_pixels,
+                          extra_events=[float(x) for x in (a.events or '').split(',') if x.strip()])
+                r_.summary = f"lead vetting: {len(rep['events'])} event(s)"
+        finally:
+            ledger.close()
+        print((Path(spec.get("outputs", f"campaigns/{spec['campaign_id']}/")) / "vetting" / "VETTING.md").as_posix())
         return 0
     ledger = Ledger(a.ledger or ledger_path())
     try:
