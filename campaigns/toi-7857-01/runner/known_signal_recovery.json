@@ -1,0 +1,69 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 371,
+  "config_hash": "017e75aa178fc9bc",
+  "finished_utc": "2026-09-25T05:09:47Z",
+  "result": {
+    "per_product": {
+      "tess2024223182411-s0082-0000000408313280-0278-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-7857.01",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 3118.5413545,
+          "duration_h": 3.6197227
+        },
+        "time_span_bjd": [
+          2460533.392877121,
+          2460559.2507121284
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2460543.209681,
+            "usable_in_transit_cadences": 109,
+            "screen_entries": 7,
+            "flux_types": [
+              "PDCSAP",
+              "SAP"
+            ],
+            "measured_depth_ppm": 3929.646566047329,
+            "depth_err_ppm": 253.33203734392592,
+            "depth_ratio_to_catalogue": 1.2600912155219357,
+            "entry_offset_hours": -0.254953321069479,
+            "state": "recovered"
+          }
+        ]
+      },
+      "tess2022217014003-s0055-0000000408313280-0242-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-7857.01",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 3118.5413545,
+          "duration_h": 3.6197227
+        },
+        "time_span_bjd": [
+          2459797.1005554595,
+          2459824.268301399
+        ],
+        "epochs": []
+      }
+    },
+    "states": [
+      "recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2460543.2097: recovered, depth 3930 \u00b1 253 ppm (catalogue 3119 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit recovered (1 covered epoch)."
+  ],
+  "outcome": null
+}

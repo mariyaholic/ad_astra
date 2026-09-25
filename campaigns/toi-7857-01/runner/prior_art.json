@@ -1,0 +1,53 @@
+{
+  "step": "prior_art",
+  "run_id": 374,
+  "config_hash": "398aa3f623017c88",
+  "finished_utc": "2026-09-25T05:10:18Z",
+  "result": {
+    "targets": {
+      "TOI-7857.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T05:09:53Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 316.5329000, 2.5764080, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:09:53Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T05:09:55Z: TOI-7857.01 (TIC 408313280, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 316.5245582 AND 316.5412418 AND dec BETWEEN 2.5680747 AND 2.5847413",
+          "retrieved_utc": "2026-09-25T05:09:55Z",
+          "matches": [
+            "TOI-7857.01 (TIC 408313280, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T05:10:00Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 316.5329000, 2.5764080, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:10:00Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "1 match(es) in SIMBAD within 30\" as of 2026-09-25T05:10:01Z: TYC  530-1018-1 (SB*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 316.5329000, 2.5764080, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:10:01Z",
+          "matches": [
+            "TYC  530-1018-1 (SB*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
