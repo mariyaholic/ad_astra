@@ -1,12 +1,12 @@
 {
   "step": "target_queue",
-  "run_id": 47,
-  "config_hash": "2042827d6aab30de",
-  "finished_utc": "2026-09-24T08:04:01Z",
+  "run_id": 2,
+  "config_hash": "a0f9d6c42c218235",
+  "finished_utc": "2026-09-25T00:28:37Z",
   "result": {
-    "query": "SELECT toi, tid, tfopwg_disp, ra, dec, st_tmag, pl_trandep, pl_trandurh, pl_tranmid, pl_orbper, sectors, toi_created, rowupdate FROM toi WHERE pl_orbper IS NULL AND tfopwg_disp IN ('PC','APC')",
+    "query": "SELECT toi, tid, tfopwg_disp, ra, dec, st_tmag, pl_trandep, pl_trandurh, pl_tranmid, pl_orbper, sectors, toi_created, rowupdate FROM toi WHERE pl_orbper IS NULL AND tfopwg_disp IN ('PC','APC') AND tid <> 44161614",
     "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
-    "pool_size": 77,
+    "pool_size": 76,
     "unranked": [],
     "ranking": {
       "formula": "depth_ppm * sqrt(duration_h) * 10**(-0.2*(tmag-10))",
@@ -44,21 +44,6 @@
         "rank": 2
       },
       {
-        "name": "TOI-7176.01",
-        "tic": 44161614,
-        "ra_deg": 345.349833,
-        "dec_deg": 32.949691,
-        "tmag": 10.4361,
-        "depth_ppm": 15884.0,
-        "duration_h": 4.281,
-        "t0_bjd": 2459835.668518,
-        "disposition": "PC",
-        "toi_rowupdate": "2025-07-26 12:03:59",
-        "score": 26885.151760280223,
-        "rationale": "depth 15884 ppm, duration 4.28 h, Tmag 10.44 \u2192 score 26885",
-        "rank": 3
-      },
-      {
         "name": "TOI-429.01",
         "tic": 259592689,
         "ra_deg": 72.977308,
@@ -71,7 +56,7 @@
         "toi_rowupdate": "2024-04-23 10:09:23",
         "score": 21508.297990793395,
         "rationale": "depth 7526 ppm, duration 9.53 h, Tmag 10.17 \u2192 score 21508",
-        "rank": 4
+        "rank": 3
       },
       {
         "name": "TOI-6670.01",
@@ -86,7 +71,7 @@
         "toi_rowupdate": "2023-09-24 12:03:22",
         "score": 19105.275030977806,
         "rationale": "depth 2390 ppm, duration 22.90 h, Tmag 8.89 \u2192 score 19105",
-        "rank": 5
+        "rank": 4
       },
       {
         "name": "TOI-1896.01",
@@ -101,7 +86,7 @@
         "toi_rowupdate": "2021-10-29 12:59:15",
         "score": 18899.075668916168,
         "rationale": "depth 2817 ppm, duration 16.10 h, Tmag 8.88 \u2192 score 18899",
-        "rank": 6
+        "rank": 5
       },
       {
         "name": "TOI-5523.01",
@@ -116,7 +101,7 @@
         "toi_rowupdate": "2022-04-21 12:03:43",
         "score": 18292.78912890373,
         "rationale": "depth 28182 ppm, duration 13.57 h, Tmag 13.77 \u2192 score 18293",
-        "rank": 7
+        "rank": 6
       },
       {
         "name": "TOI-6664.01",
@@ -131,7 +116,7 @@
         "toi_rowupdate": "2026-07-18 12:04:55",
         "score": 16892.43440661265,
         "rationale": "depth 1602 ppm, duration 18.15 h, Tmag 8.03 \u2192 score 16892",
-        "rank": 8
+        "rank": 7
       },
       {
         "name": "TOI-3500.02",
@@ -146,7 +131,7 @@
         "toi_rowupdate": "2025-07-22 12:04:25",
         "score": 15534.164449809883,
         "rationale": "depth 8095 ppm, duration 7.91 h, Tmag 10.83 \u2192 score 15534",
-        "rank": 9
+        "rank": 8
       },
       {
         "name": "TOI-2300.03",
@@ -161,7 +146,7 @@
         "toi_rowupdate": "2023-03-03 12:03:04",
         "score": 14649.185110670156,
         "rationale": "depth 8209 ppm, duration 17.07 h, Tmag 11.82 \u2192 score 14649",
-        "rank": 10
+        "rank": 9
       },
       {
         "name": "TOI-2530.01",
@@ -176,7 +161,7 @@
         "toi_rowupdate": "2021-10-29 12:59:15",
         "score": 13260.369792388277,
         "rationale": "depth 21624 ppm, duration 4.65 h, Tmag 12.73 \u2192 score 13260",
-        "rank": 11
+        "rank": 10
       },
       {
         "name": "TOI-4319.01",
@@ -191,7 +176,7 @@
         "toi_rowupdate": "2021-10-29 12:59:15",
         "score": 12849.702849636758,
         "rationale": "depth 6743 ppm, duration 7.73 h, Tmag 10.82 \u2192 score 12850",
-        "rank": 12
+        "rank": 11
       },
       {
         "name": "TOI-1812.01",
@@ -206,7 +191,7 @@
         "toi_rowupdate": "2022-05-31 12:02:16",
         "score": 11673.726791485613,
         "rationale": "depth 9220 ppm, duration 7.30 h, Tmag 11.65 \u2192 score 11674",
-        "rank": 13
+        "rank": 12
       },
       {
         "name": "TOI-5812.02",
@@ -221,7 +206,7 @@
         "toi_rowupdate": "2026-07-17 12:03:25",
         "score": 11197.42172251834,
         "rationale": "depth 5553 ppm, duration 5.93 h, Tmag 10.41 \u2192 score 11197",
-        "rank": 14
+        "rank": 13
       },
       {
         "name": "TOI-2318.01",
@@ -236,7 +221,7 @@
         "toi_rowupdate": "2022-07-19 12:02:35",
         "score": 11072.4592062438,
         "rationale": "depth 2749 ppm, duration 4.68 h, Tmag 8.65 \u2192 score 11072",
-        "rank": 15
+        "rank": 14
       },
       {
         "name": "TOI-790.03",
@@ -251,7 +236,7 @@
         "toi_rowupdate": "2024-03-15 12:03:14",
         "score": 10793.29368735084,
         "rationale": "depth 1628 ppm, duration 17.36 h, Tmag 8.99 \u2192 score 10793",
-        "rank": 16
+        "rank": 15
       },
       {
         "name": "TOI-2534.01",
@@ -266,7 +251,7 @@
         "toi_rowupdate": "2021-10-29 12:59:15",
         "score": 10332.837825919194,
         "rationale": "depth 5180 ppm, duration 8.47 h, Tmag 10.82 \u2192 score 10333",
-        "rank": 17
+        "rank": 16
       },
       {
         "name": "TOI-3724.01",
@@ -281,7 +266,7 @@
         "toi_rowupdate": "2025-08-27 12:03:56",
         "score": 9899.983328242219,
         "rationale": "depth 8780 ppm, duration 6.09 h, Tmag 11.70 \u2192 score 9900",
-        "rank": 18
+        "rank": 17
       },
       {
         "name": "TOI-5893.01",
@@ -296,7 +281,7 @@
         "toi_rowupdate": "2024-08-22 10:08:01",
         "score": 9637.606084759846,
         "rationale": "depth 7997 ppm, duration 5.72 h, Tmag 11.49 \u2192 score 9638",
-        "rank": 19
+        "rank": 18
       },
       {
         "name": "TOI-2003.01",
@@ -311,6 +296,21 @@
         "toi_rowupdate": "2025-07-22 12:04:25",
         "score": 8492.45264469476,
         "rationale": "depth 3860 ppm, duration 3.53 h, Tmag 9.66 \u2192 score 8492",
+        "rank": 19
+      },
+      {
+        "name": "TOI-6674.01",
+        "tic": 452920657,
+        "ra_deg": 8.334322,
+        "dec_deg": 59.109923,
+        "tmag": 12.6973,
+        "depth_ppm": 12885.3671957,
+        "duration_h": 5.1715272,
+        "t0_bjd": 2458810.577102,
+        "disposition": "PC",
+        "toi_rowupdate": "2024-01-26 12:02:43",
+        "score": 8461.477536394239,
+        "rationale": "depth 12885 ppm, duration 5.17 h, Tmag 12.70 \u2192 score 8461",
         "rank": 20
       }
     ],
@@ -318,6 +318,7 @@
   },
   "checks": {},
   "notes": [
-    "Target queue: 20 of 77 pool members ranked by depth_ppm * sqrt(duration_h) * 10**(-0.2*(tmag-10))."
-  ]
+    "Target queue: 20 of 76 pool members ranked by depth_ppm * sqrt(duration_h) * 10**(-0.2*(tmag-10))."
+  ],
+  "outcome": null
 }
