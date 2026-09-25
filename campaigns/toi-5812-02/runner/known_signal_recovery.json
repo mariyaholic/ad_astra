@@ -1,0 +1,54 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 153,
+  "config_hash": "7c27e368fc1a2715",
+  "finished_utc": "2026-09-25T02:35:16Z",
+  "result": {
+    "per_product": {
+      "tess2024223182411-s0082-0000000388909695-0278-s_lc.fits": {
+        "k_mad": 2.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-5812.02",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 5553.0,
+          "duration_h": 5.935
+        },
+        "time_span_bjd": [
+          2460533.3927918775,
+          2460559.251101922
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2460536.083418,
+            "usable_in_transit_cadences": 178,
+            "screen_entries": 103,
+            "flux_types": [
+              "PDCSAP",
+              "SAP"
+            ],
+            "measured_depth_ppm": 4669.161595573734,
+            "depth_err_ppm": 96.73717572529542,
+            "depth_ratio_to_catalogue": 0.8408358717042561,
+            "entry_offset_hours": 0.3596053496003151,
+            "state": "recovered"
+          }
+        ]
+      }
+    },
+    "states": [
+      "recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2460536.0834: recovered, depth 4669 \u00b1 97 ppm (catalogue 5553 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit recovered (1 covered epoch)."
+  ],
+  "outcome": null
+}
