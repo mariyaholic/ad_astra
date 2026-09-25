@@ -5,7 +5,7 @@
   "status": "published",
   "published": "2026-09-24",
   "summary": "Provenance record of a bounded test retrieval from eight anonymous-access archives (MAST, Gaia, SkyView, CDS, NED, ESO, IRSA, Legacy Surveys) around benchmark fields and well-known targets. Engineering baseline for access and provenance tooling; no scientific analysis has been run on it.",
-  "description_md": "The pack exercised each archive client and the provenance ledger: every product was checksummed and logged, and uploaded products were verified against their manifest before the local staging copy was removed.\n\nWhat is published here is the **manifest record**: product IDs, checksums, retrieval times, endpoints, queries verbatim, recorded terms, and the outcome of every attempt, including exclusions and failures. The archive products themselves are **not** redistributed; follow the archive links to obtain them under each archive's terms.\n\nManifests were copied from the staging area into the worktree at the snapshot time shown for each pack; later changes to the staging area are not reflected until the next snapshot. The `mast` pack is an earlier staging run (TESScut cutouts, plus SPOC name probes that returned zero rows); `01_mast` repeated the SPOC search with cone queries.",
+  "description_md": "The pack exercised each archive client and the provenance ledger: every product was checksummed and logged, and uploaded products were verified against their manifest before the local staging copy was removed.\n\nWhat is published here is the **manifest record**: product IDs, checksums, retrieval times, endpoints, queries verbatim, recorded terms, and the outcome of every attempt, including exclusions and failures. The archive products themselves are **not** redistributed; follow the archive links to obtain them under each archive's terms.\n\nManifests were copied from the staging area into the worktree at the snapshot time shown for each pack; later changes to the staging area are not reflected until the next snapshot. The `mast` pack is an earlier staging run (TESScut cutouts, plus SPOC name probes that returned zero rows); `01_mast` repeated the SPOC search with cone queries.\n\nThe earlier `mast` staging run's zero-row SPOC probes (2026-09-23) were transient and are **superseded**: the corrected `01_mast` run found those targets, and the earlier manifest is listed as restricted rather than re-published.",
   "research_status": "Engineering baseline · not a scientific result",
   "license": "Apache-2.0",
   "citation": "Project Cygnus / Astraea, Tier-1 archive baseline pack manifests (2026).",
@@ -103,7 +103,8 @@
       "source": "publish/data/tier1-pack/mast.json",
       "title": "MAST: earlier staging run (TESScut cutouts, SPOC name probes)",
       "origin": "derived",
-      "download": true
+      "access": "restricted",
+      "access_note": "Superseded: the 2026-09-23 SPOC name probes in this early staging run returned zero during a transient MAST condition; the corrected 01_mast cone run (2026-09-24) found these targets, and a live re-check on 2026-09-25 returned 11 SPOC rows for WASP-12. Kept for provenance only."
     },
     {
       "id": "ingest-runs",

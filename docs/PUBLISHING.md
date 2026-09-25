@@ -187,7 +187,7 @@ npx wrangler@4 pages deploy build/pages --project-name cygnus-sky --branch main
 
 ## Verification record (2026-09-24)
 
-- `pytest`: 95 passed (42 existing + 53 publication tests), 2 network tests deselected.
+- `pytest`: 95 passed (42 existing + 53 publication tests), 2 network tests deselected (2026-09-24 record; the current gate is 188 passed, 2 deselected as of 2026-09-25).
 - Built 16 pages and 24 public files; leak scan clean; checked in a browser at
   `http://localhost:8765/` in light and dark themes at desktop and 375 px width
   (no horizontal page overflow), keyboard order (skip link → nav → filters),

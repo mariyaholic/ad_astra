@@ -1,6 +1,10 @@
 # Offline checks on every push and pull request: tests, the public-site build (with its leak scan)
 # and the sky-explorer build. Needs no credentials and touches no private storage; the ledger
 # (state/) is not in git, so ledger-backed site pages build as "unavailable".
+#
+# The test step writes a JUnit report that is uploaded even when tests fail, so a red run names
+# the failing test in its artifact instead of only "exit code 1". The build steps run `if: always()`
+# so the leak scan and both site builds are exercised and reported on every run.
 name: ci
 
 on:
@@ -16,6 +20,10 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Fail, not skip, if the [site] extra is missing: the publication suite must not
+      # silently all-skip (docs/TEST_ARCHITECTURE_PLAN_DRAFT.md, S0).
+      CYGNUS_REQUIRE_SITE: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,14 +33,25 @@ jobs:
       - name: Install
         run: python -m pip install -e ".[test,site,campaign]"
       - name: Tests (offline; network tests are deselected by default)
-        run: python -m pytest -q
+        run: python -m pytest -q -rf --tb=line --junitxml=report.xml
       - name: Campaign specs are valid
+        if: always()
         run: for f in campaigns/*.yaml; do python -m cygnus.campaign check "$f"; done
       - name: Public site build (fails on any leak-scan hit)
+        if: always()
         run: python -m cygnus.publish build
       - name: Sky explorer build
+        if: always()
         run: python design-system/mockups/build_explorer.py
+      - name: Test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-report
+          path: report.xml
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: site-and-explorer
           path: |

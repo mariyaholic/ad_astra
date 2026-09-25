@@ -1,0 +1,39 @@
+schema: cygnus.campaign/1
+campaign_id: toi-6666-01-nss
+objective: >
+  Gaia DR3 NSS astrometric vetting of the TOI-2666.01 host (TIC 256429408).
+  Question: is there a published non-single-star two-body solution for the host
+  that supports the eclipsing-binary or companion alternative flagged by the
+  production lead vetting (V-shaped events, ExoFOP note "v-shaped; possible EB")?
+outputs: campaigns/toi-6666-01-nss/
+targets:
+  - name: TOI-2666.01
+    tic: 256429408
+    ra_deg: 325.003248
+    dec_deg: 69.086612
+    frame: ICRS
+    epoch: J2000.0
+    position_source: NASA Exoplanet Archive TOI table (production campaigns/toi-6666-01.yaml)
+steps:
+  - astrometric_vetting: {radius_arcsec: 5.0, significance_min: 5.0, max_solutions: 10}
+record:
+  path: campaigns/toi-6666-01-nss/sky_record.json
+  title: "Gaia NSS vetting, TOI-2666.01"
+  kind: "known-object test"
+  outcome: pipeline_check
+  date: "2026-09-25"
+  report: campaigns/toi-6666-01-nss/REPORT.md
+  search_log: campaigns/toi-6666-01-nss/SEARCH_LOG.md
+  summary: >
+    Gaia DR3 NSS cross-match of the TOI-2666.01 host: no two-body (non-single-star)
+    solution for the matched source, so the astrometric-companion channel neither
+    supports nor excludes the eclipsing-binary alternative for the surviving
+    repeat-event lead. An earlier ad-hoc SB2 attribution was traced to a different
+    source 57 deg away and is withdrawn.
+  checks:
+    - {name: "Gaia NSS astrometric vetting", state: not_tested}
+    - {name: "Target-to-Gaia source identification", state: passed,
+       note: 'host 2223770483452673408 matched at 0.019" (5" radius); G 8.779, parallax 7.866 mas'}
+    - {name: "Earlier ad-hoc SB2 attribution", state: failed,
+       note: 'cited source 4513527912472807936 is 57.276 deg away; attribution withdrawn'}
+    - {name: "Independent verification", state: not_tested}

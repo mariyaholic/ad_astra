@@ -14,6 +14,18 @@ python -m cygnus.campaign run campaigns/<id>.yaml --force    # recompute every s
 
 Code: `src/cygnus/campaign/` (runner, steps, light-curve primitives), `src/cygnus/targets.py` (queue), `src/cygnus/priorart.py` (catalogue adapters). Tests: `tests/test_campaign.py`.
 
+## Multi-archive campaigns (`cygnus.multi`)
+
+A spec may declare `runner: cygnus.multi`; `python -m cygnus.campaign run|check|report|vet` hands such specs over whole (`python -m cygnus.multi …`), and `load_spec` rejects a `runner:` spec anywhere else, so the two runners cannot be confused. The same ledgered, resumable loop runs them, with three generalisations:
+
+- **Any archive.** `fetch_products` discovers products through 24 registered archive adapters (the free services of `DATA_SOURCES.md` sections 1–3, 5 plus the NASA Exoplanet Archive); `python -m cygnus.multi archives` lists them, `archives --check <name>` live-probes one discovery path.
+- **Product kinds.** Products carry `kind` (`lightcurve`/`image`/`table`/`text`); only time series are screened. A single-channel product is screened once (`channel_mode: single`) against a red-noise systematics model (`cygnus.multi.systematics.py`) instead of the false SAP-vs-PDCSAP independence claim.
+- **Catalogue-only steps.** `context_products` (what was fetched), `source_checks` (per-product integrity; Gaia RUWE and `non_single_star` flags; MAST quality census; MPC observations via `data.minorplanetcenter.net`) and `astrometric_vetting` (Gaia DR3 NSS two-body cross-match of the target, mass function where a significant solution exists) answer questions without light curves; a campaign with no light-curve product is a recorded null, not a red run.
+
+Runs go to the production ledger under the `cygnus_multi:` script namespace. Setting `CYGNUS_MULTI_ROOT` confines specs, outputs **and ledger** to a sandbox root instead (the `experimental/` copy is such a sandbox, with its own tests); `python -m cygnus.multi.promote` copies a vetted sandbox campaign into `campaigns/` with provenance and a **draft** collection — it never deploys.
+
+Code: `src/cygnus/multi/` (runner, steps, scaffold, `archives/`, readers, systematics, `nss.py`). Tests: `tests/test_multi_archive_runner.py`, `tests/test_multi_cli.py`, `tests/test_multi_promote.py`, `tests/test_multi_verification.py`, `tests/test_archives.py`, `tests/test_tap.py`, `tests/test_systematics_nss.py`.
+
 ## Guarantees
 
 - **The spec is the only source of parameters.** Steps read products, ephemerides, thresholds and grids from the spec; nothing campaign-specific is hard-coded.
@@ -49,13 +61,15 @@ Not built yet (designed in `ANALYSIS_STACK.md`): alternative detrending families
 | `wasp12-sector20-recovery.yaml` | completed (runs #35–#37) |
 | `tess-mono-01.yaml` | draft parent spec; full declared 76-target queue built and all 76 targets completed/reviewed through the known-object loop on 2026-09-25 (see per-target campaigns and queue ledger) |
 | `toi-2666-01.yaml` | completed (runs #73–#78; pilot of the known-object loop): catalogued transit recovered; repeat candidate in Sector 99, ΔT 1790.005 d, 52 aliases; **unverified lead**, reviewed |
+| `toi-6666-01-nss.yaml` (`runner: cygnus.multi`) | completed 2026-09-25; Gaia DR3 NSS cross-match of the TOI-6666.01 host: no two-body solution (inconclusive); records the withdrawn ad-hoc SB2 attribution; reviewed |
+| `toi-2666-01-nss.yaml` (`runner: cygnus.multi`) | completed 2026-09-25; Gaia DR3 NSS cross-match of the TOI-2666.01 host (HD 80133): no two-body solution, host RUWE 1.464 (inconclusive); reviewed |
 
 ## Verification record (2026-09-24)
 
 - Equivalence with the original scripts on the real WASP-12 products: `normalized_series.csv` byte-identical in both sectors; all 835 and 464 screen entries identical; recovery `results.json` identical apart from its run timestamp (same seed 20260925).
 - Ledger repair: ten `cygnus.ingest.tier1` runs left `open` by crashed processes were closed as `aborted` with an explanatory note (`python -m cygnus.cli close-stale-runs`); `tier1` now uses `recorded_run`.
-- `python -m pytest -q`: 156 passed, 2 deselected (159 after the known-object loop was added).
+- `python -m pytest -q`: 156 passed, 2 deselected at the time of this record; 188 after the 2026-09-25 audit fixes; **241 passed, 2 deselected** after the multi-archive runner merged into production (`src/cygnus/multi/`), plus 36 offline tests in the `experimental/` sandbox suite (run explicitly).
 
 ## Automation
 
-`.github/workflows/ci.yml` runs the tests, validates every spec and builds the public site and the explorer on each push. `.github/workflows/scheduled-queue.yml` rebuilds the `tess-mono-01` queue weekly and cross-matches its top targets, using public services only, and uploads the result as an artifact; it never commits or publishes.
+`.github/workflows/ci.yml` runs the tests, validates every spec and builds the public site and the explorer on each push. `.github/workflows/scheduled-queue.yml` rebuilds the `tess-mono-01` queue weekly and cross-matches its top targets, using public services only, and uploads the result as an artifact; it never commits or publishes. `.github/workflows/network.yml` runs the `network`-marked tests weekly (and on demand) against the live public archives from a throwaway scratch root — an outage there is reported as inconclusive, never folded into the offline gate.

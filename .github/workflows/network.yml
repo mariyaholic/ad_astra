@@ -1,0 +1,38 @@
+# Live-network smoke lane: runs only the tests marked `network` (the default gate deselects them).
+# Weekly and on demand. Uses public anonymous services, a throwaway scratch root and per-test
+# temporary ledgers; nothing is committed or published. A live-service outage is reported as
+# unrun/inconclusive, not folded into the offline gate (docs/TEST_ARCHITECTURE_PLAN_DRAFT.md).
+name: network-smoke
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 4 * * 0"     # Sundays 04:23 UTC
+
+permissions:
+  contents: read
+
+jobs:
+  network:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[test,mast]"
+      - name: Live archive smoke (explicit network marker)
+        env:
+          CYGNUS_SCRATCH: ${{ runner.temp }}/scratch
+        run: |
+          mkdir -p "$CYGNUS_SCRATCH"
+          python -m pytest -o addopts= -m network -ra -rf --tb=short --junitxml=network.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: network-report
+          path: network.xml
+          if-no-files-found: warn
