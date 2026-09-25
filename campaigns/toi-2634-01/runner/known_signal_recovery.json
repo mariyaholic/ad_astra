@@ -1,0 +1,84 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 341,
+  "config_hash": "a154133cb56236f7",
+  "finished_utc": "2026-09-25T04:50:14Z",
+  "result": {
+    "per_product": {
+      "tess2020294194027-s0031-0000000318812447-0198-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-2634.01",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 2801.2247588,
+          "duration_h": 4.8897805
+        },
+        "time_span_bjd": [
+          2459144.514785202,
+          2459169.9493836104
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2459147.133574,
+            "usable_in_transit_cadences": 146,
+            "screen_entries": 42,
+            "flux_types": [
+              "PDCSAP",
+              "SAP"
+            ],
+            "measured_depth_ppm": 3953.824406196127,
+            "depth_err_ppm": 141.80774140953673,
+            "depth_ratio_to_catalogue": 1.4114627517036091,
+            "entry_offset_hours": 0.566847525537014,
+            "state": "recovered"
+          }
+        ]
+      },
+      "tess2023263165758-s0070-0000000318812447-0265-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-2634.01",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 2801.2247588,
+          "duration_h": 4.8897805
+        },
+        "time_span_bjd": [
+          2460208.353197171,
+          2460233.8238252383
+        ],
+        "epochs": []
+      },
+      "tess2023289093419-s0071-0000000318812447-0266-s_lc.fits": {
+        "k_mad": 2.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-2634.01",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 2801.2247588,
+          "duration_h": 4.8897805
+        },
+        "time_span_bjd": [
+          2460234.0349367997,
+          2460259.973966765
+        ],
+        "epochs": []
+      }
+    },
+    "states": [
+      "recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2459147.1336: recovered, depth 3954 \u00b1 142 ppm (catalogue 2801 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit recovered (1 covered epoch)."
+  ],
+  "outcome": null
+}
