@@ -25,8 +25,10 @@ steps:
       # tid 44161614 (TOI-7176.01) excluded: no SPOC 120-s light curve exists at MAST for this TIC
       # (only SPOC FFI observations at 0.02 deg; verified with the filter ladder on 2026-09-25,
       # evidence in DATA_SOURCES.md). The fetch step cannot retrieve its data.
+      # 2026-09-25: top raised from 20 to 100 so the whole declared pool is queued (the first pass
+      # ran the top 20; the rest are worked through the same known-object loop, docs/AGENT_RUNBOOK.md).
       where: "pl_orbper IS NULL AND tfopwg_disp IN ('PC','APC') AND tid <> 44161614"
-      top: 20
+      top: 100
   - fetch_products:
       from_queue: {top: 5, max_products_per_target: 2}
   - calibrate_screen:
