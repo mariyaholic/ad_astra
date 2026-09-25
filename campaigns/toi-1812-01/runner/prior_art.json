@@ -1,0 +1,58 @@
+{
+  "step": "prior_art",
+  "run_id": 150,
+  "config_hash": "ad9d9dd308dddf12",
+  "finished_utc": "2026-09-25T01:54:47Z",
+  "result": {
+    "targets": {
+      "TOI-1812.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T01:54:41Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 242.7478850, 58.2945530, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T01:54:41Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "3 match(es) in TESS_TOI within 30\" as of 2026-09-25T01:54:42Z: TOI-1812.01 (TIC 207425167, disposition PC); TOI-1812.02 (TIC 207425167, disposition PC); TOI-1812.03 (TIC 207425167, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 242.7320287 AND 242.7637413 AND dec BETWEEN 58.2862197 AND 58.3028863",
+          "retrieved_utc": "2026-09-25T01:54:42Z",
+          "matches": [
+            "TOI-1812.01 (TIC 207425167, disposition PC)",
+            "TOI-1812.02 (TIC 207425167, disposition PC)",
+            "TOI-1812.03 (TIC 207425167, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T01:54:45Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 242.7478850, 58.2945530, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T01:54:45Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "4 match(es) in SIMBAD within 30\" as of 2026-09-25T01:54:46Z: TOI-1812 (Em*); TOI-1812.03 (Pl?); TOI-1812.01 (Pl?); TOI-1812.02 (Pl?)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 242.7478850, 58.2945530, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T01:54:46Z",
+          "matches": [
+            "TOI-1812 (Em*)",
+            "TOI-1812.03 (Pl?)",
+            "TOI-1812.01 (Pl?)",
+            "TOI-1812.02 (Pl?)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
