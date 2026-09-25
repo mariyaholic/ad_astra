@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import threading
 import urllib.error
@@ -17,8 +18,14 @@ from pathlib import Path
 
 import pytest
 
-jinja2 = pytest.importorskip("jinja2")
-pytest.importorskip("yaml")
+try:
+    import jinja2  # noqa: F401  (imported for its absence check)
+    import yaml  # noqa: F401
+except ImportError as exc:  # pragma: no cover
+    if os.environ.get("CYGNUS_REQUIRE_SITE"):
+        raise
+    pytest.skip(f"site extra not installed ({exc}); set CYGNUS_REQUIRE_SITE=1 to fail instead",
+                allow_module_level=True)
 
 from cygnus.candidate_record import CandidateRecord  # noqa: E402
 from cygnus.ledger import Ledger  # noqa: E402
@@ -83,6 +90,12 @@ def worktree(tmp_path: Path) -> Path:
         "# Methods\n\n## Publication boundary\n\nSee [catalog](/data/catalog.json).\n", encoding="utf-8")
     (wt / "publish" / "files" / "table.csv").write_bytes(b"a,b\n1,2\n")
     (wt / "publish" / "files" / "secret.csv").write_text("x\n", encoding="utf-8")
+    (wt / "publish" / "data" / "tier1-pack").mkdir(parents=True)
+    (wt / "publish" / "data" / "tier1-pack" / "early.json").write_text(json.dumps({
+        "service": "MAST", "pack_dir": "early", "source_manifest": "early/MANIFEST.json",
+        "source_sha256": "0" * 64, "source_modified_utc": "2026-01-01T00:00:00Z",
+        "snapshot_utc": "2026-01-02T00:00:00Z", "rows": [], "counts": {}, "held_bytes": 0,
+    }), encoding="utf-8")
     (wt / "publish" / "site.json").write_text(json.dumps({
         "title": "Fixture Site", "short_title": "Fx", "subtitle": "test", "headline": "Fixture",
         "tagline": "Fixture tagline", "footer_note": "Fixture footer", "base_path": "/"}), encoding="utf-8")
@@ -120,6 +133,8 @@ def worktree(tmp_path: Path) -> Path:
             {"id": "tbl", "kind": "file", "source": "publish/files/table.csv", "download": True},
             {"id": "sec", "kind": "file", "source": "publish/files/secret.csv", "access": "restricted",
              "access_note": "license pending"},
+            {"id": "early", "kind": "archive_manifest", "source": "publish/data/tier1-pack/early.json",
+             "access": "restricted", "access_note": "superseded by the later run"},
         ]),
         coll("runs", type="measurements", items=[{"id": "r1", "kind": "ledger_run", "params": {"run_id": 1}, "download": True}]),
         coll("cands", type="candidates", items=[{"id": "c1", "kind": "candidate",
@@ -363,6 +378,40 @@ def test_campaign_draft_and_step_status(built):
     assert "queued; not yet executed" in html            # comment preserved from YAML
     assert "state--verified" in html and "state--planned" in html   # from module register
     assert "not set" in html                             # null threshold not invented
+
+
+def test_restricted_archive_manifest_builds_without_a_manifest_bar(built):
+    """A restricted manifest is listed with its note but must not crash or render as retrieved."""
+    _, out, _ = built
+    home = (out / "index.html").read_text(encoding="utf-8")
+    assert ">early</a>" not in home
+    soft = (out / "collections" / "soft" / "index.html").read_text(encoding="utf-8")
+    assert "superseded by the later run" in soft
+
+
+def test_every_published_campaign_step_resolves_to_a_register_row():
+    """Executed steps must not render as "status unknown" on the public campaign pages."""
+    from cygnus.publish import safety, sources
+
+    wt = Path(__file__).resolve().parents[1]
+    register = sources.load_module_register(wt / "ANALYSIS_STACK.md", "Layer-2 module register")
+    unresolved = []
+    checked = 0
+    for coll in sorted((wt / "publish" / "collections").glob("*.json")):
+        manifest = json.loads(coll.read_text(encoding="utf-8"))
+        if manifest.get("status") != "published":
+            continue                                     # drafts are not built into pages
+        for item in manifest.get("items", []):
+            if item.get("kind") != "campaign":
+                continue
+            path = safety.resolve_source(wt, "campaign", item["source"])
+            camp = sources.load_campaign(path)
+            for step in camp["steps"]:
+                checked += 1
+                if sources.module_for_step(step["name"], register) is None:
+                    unresolved.append(f"{coll.name}: {item['id']}: {step['name']}")
+    assert checked > 0
+    assert unresolved == [], "campaign steps with no register row:\n" + "\n".join(unresolved)
 
 
 def test_run_measurements_and_unresolved_products(built):

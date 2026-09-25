@@ -245,6 +245,11 @@ class Ledger:
     def close_run(self, run_id: int, status: str, summary: str | None = None) -> None:
         if status not in ("completed", "failed", "aborted"):
             raise ValueError(f"run status must be completed|failed|aborted, got {status!r}")
+        row = self.db.execute("SELECT status FROM runs WHERE id=?", (run_id,)).fetchone()
+        if row is None:
+            raise KeyError(f"no run id={run_id}")
+        if row["status"] != "open":
+            raise ValueError(f"run id={run_id} is already {row['status']!r}; refusing to overwrite its outcome")
         self.db.execute(
             "UPDATE runs SET status=?, finished_utc=?, summary=COALESCE(?, summary) WHERE id=?",
             (status, now_utc(), summary, run_id),
@@ -311,8 +316,16 @@ class Ledger:
         candidate_id: str | None = None,
         product_ids: Iterable[str] = (),
     ) -> int:
+        """Insert a measurement for an existing run.
+
+        ``product_ids`` are free-form references, deliberately not enforced against the
+        products table: the publication layer surfaces an unresolved reference as
+        "unresolved" rather than hiding it. The run must exist.
+        """
         if isinstance(value, (dict, list)):
             value = json.dumps(value, sort_keys=True)
+        if self.db.execute("SELECT 1 FROM runs WHERE id=?", (int(run_id),)).fetchone() is None:
+            raise KeyError(f"no run id={run_id}; log the run before its measurements")
         cur = self.db.execute(
             "INSERT INTO measurements"
             " (run_id, candidate_id, product_ids_json, name, value, unit,"

@@ -18,7 +18,7 @@ from pathlib import Path
 
 from ..config import WORKTREE, ledger_path
 from ..ledger import Ledger
-from .runner import SpecError, load_spec, run
+from .runner import MULTI_RUNNER, SpecError, load_spec, run, spec_runner
 
 DEFAULT_QUEUE = "campaigns/tess-mono-01/target_queue.csv"
 
@@ -93,6 +93,11 @@ def main(argv=None) -> int:
             for s in rows:
                 print(f"{s['rank'] or '':>4}  {s['name']:<14} {s['state'] or '':<10} {s['known_signal'] or '':<13} {s['review'] or ''}")
         return 0
+    if a.cmd in ("run", "check", "report", "vet") and spec_runner(a.spec) == MULTI_RUNNER:
+        # multi-archive specs (``runner: cygnus.multi``) live in campaigns/ too; hand them over whole
+        from ..multi.__main__ import main as multi_main
+
+        return multi_main(argv if argv is not None else sys.argv[1:])
     try:
         spec = load_spec(a.spec)
     except SpecError as exc:

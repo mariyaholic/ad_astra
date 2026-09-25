@@ -380,14 +380,15 @@ class PackBuilder:
         """Remove staged files for a service that is Drive-hosted.
 
         Callers must have verified the Drive copy (e.g. ``rclone check``) —
-        ``require_verified`` insists that every ``local`` row already says
-        ``verified_remote`` in its note. The ledger rows are marked
-        ``state=drive_only`` so a later pack run does not re-download them.
+        ``require_verified`` insists that every ``local`` row already carries the
+        verifier's ``verified_md5`` marker (the one ``verify_remote_upload``
+        writes). The ledger rows are marked ``state=drive_only`` so a later pack
+        run does not re-download them.
         """
         rows = self.rows(service)
         unverified = [
             r for r in rows
-            if r["state"] == "local" and "verified_remote" not in (r["note"] or "")
+            if r["state"] == "local" and "verified_md5" not in (r["note"] or "")
         ]
         if unverified and require_verified:
             raise RuntimeError(
@@ -528,7 +529,8 @@ def verify_remote_upload(
                 result["verified"] += 1
                 r["note"] = ((r["note"] or "") + f"; verified_md5@{remote_dir}").lstrip(" ;")
                 result["details"].append(r["product_id"])
-    result["ok"] = (result["checked"] == result["verified"]) and proc.returncode == 0
+    result["ok"] = (proc.returncode == 0 and result["checked"] > 0
+                    and result["checked"] == result["verified"])
     _write_manifest_files(rows, pack_root, pack_dir_name)
     if ledger is not None and result["ok"]:
         for r in rows:
@@ -552,18 +554,22 @@ def retire_local_copies(pack_root: str | Path, pack_dir_name: str, *, ledger: Le
     """
     jpath, _ = _manifest_paths(pack_root, pack_dir_name)
     rows = json.loads(jpath.read_text(encoding="utf-8"))
+    # Fail closed: every local row must carry the verifier's marker, including rows with no
+    # md5 (which md5sum cannot verify). A hashless local row is never silently deleted.
     need = [r for r in rows
-            if r.get("state") == "local" and r.get("md5") and "verified_md5" not in (r["note"] or "")]
+            if r.get("state") == "local" and "verified_md5" not in (r["note"] or "")]
     if need:
         raise RuntimeError(
             f"retire refused for {pack_dir_name}: {len(need)} rows not yet verified "
             f"(e.g. {need[0]['product_id']})"
         )
-    base = Path(pack_root) / pack_dir_name
+    base = (Path(pack_root) / pack_dir_name).resolve()
     n = 0
     for r in rows:
         rel = (r["dest_rel"] or "").replace("\\", "/")
-        p = base / rel
+        p = (base / rel).resolve()
+        if not p.is_relative_to(base):
+            raise RuntimeError(f"retire refused for {pack_dir_name}: unsafe dest_rel {r['dest_rel']!r}")
         if r.get("state") == "local" and p.is_file():
             p.unlink()
             n += 1

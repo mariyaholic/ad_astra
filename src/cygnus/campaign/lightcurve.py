@@ -95,16 +95,20 @@ def read_spoc(path: str | Path) -> SpocLightCurve:
 
 
 def screen_events(lc: SpocLightCurve, *, sap=None, pdc=None, windows_days=(1.0, 2.0, 3.0),
-                  k_mad: float = 5.0, min_cadences: int = 2, sign: int = -1) -> list[dict]:
+                  k_mad: float = 5.0, min_cadences: int = 2, sign: int = -1,
+                  channels=None) -> list[dict]:
     """Excursions beyond ``k_mad`` robust sigmas (``sign=-1`` dips, ``+1`` brightenings) lasting
     ``min_cadences``, for SAP and PDCSAP at each baseline window. ``sap``/``pdc`` override the
-    stored fluxes (used for injection–recovery)."""
+    stored fluxes (used for injection–recovery). ``channels`` — ``(label, flux)`` pairs — replaces
+    the SAP/PDCSAP pair, so a single-channel product (``cygnus.multi``) is screened once, not
+    twice against itself."""
     sap = lc.sap if sap is None else sap
     pdc = lc.pdc if pdc is None else pdc
+    pairs = channels if channels is not None else (("SAP", sap), ("PDCSAP", pdc))
     finite = lc.usable
     out = []
     for days in windows_days:
-        for label, flux in (("SAP", sap), ("PDCSAP", pdc)):
+        for label, flux in pairs:
             rr = local_resid(flux, finite, lc.cadence_s, days)
             sig = robust_sigma(rr[finite])
             hit = finite & np.isfinite(rr) & ((rr < -k_mad * sig) if sign < 0 else (rr > k_mad * sig))

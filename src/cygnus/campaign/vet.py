@@ -461,6 +461,12 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
     tgt = spec["targets"][0]
     dur_cat_h = float(tgt.get("duration_h") or 3.0)
     prods = json.loads((rdir / "fetch_products.json").read_text(encoding="utf-8"))["result"]["products"]
+    unsupported = {pid: p for pid, p in prods.items()
+                   if (p.get("archive") or "MAST") != "MAST" or (p.get("format") or "spoc_lc") not in ("spoc_lc", "tess_lc")}
+    if unsupported:
+        detail = ", ".join(f"{pid} ({p.get('archive')}/{p.get('format')})" for pid, p in list(unsupported.items())[:4])
+        raise SystemExit(f"vet supports MAST SPOC light curves only; {len(unsupported)} product(s) are from another "
+                         f"archive or format: {detail}. Screen them with the multi-archive steps instead.")
     known = json.loads((rdir / "known_signal_recovery.json").read_text(encoding="utf-8"))["result"]["per_product"]
     pa = json.loads((out_dir / "period_aliases.json").read_text(encoding="utf-8")) if (out_dir / "period_aliases.json").is_file() else {"candidates": []}
     scratch = scratch_dir() / f"campaign_{cid}"

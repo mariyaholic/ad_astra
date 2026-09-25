@@ -169,6 +169,15 @@ def write_name_cache(pack_root: Path) -> Path:
 # --------------------------------------------------------------------------- helpers
 
 
+def hashable_config(payload: dict[str, Any]) -> dict[str, Any]:
+    """The run config without wall-clock fields, so equal configurations hash equally.
+
+    ``generated_utc`` is recorded in RUN_CONFIG.json but must not enter the config hash:
+    otherwise every rerun of the same configuration looks like a different run.
+    """
+    return {k: v for k, v in payload.items() if k != "generated_utc"}
+
+
 def slug(text: str) -> str:
     return "".join(ch if ch.isalnum() or ch in "._-" else "_" for ch in text).strip("_")[:80]
 
@@ -1381,11 +1390,11 @@ def main(argv: list[str] | None = None) -> int:
                           pack_root=Path(args.pack_root) if args.pack_root else None)
     # recorded_run closes the run as failed/aborted if anything below raises or is interrupted,
     # so a crashed ingest can no longer leave a run stuck at 'open'
-    with ledger.recorded_run("cygnus.ingest.tier1", config_hash=builder.run_config_sha(payload)) as run:
+    with ledger.recorded_run("cygnus.ingest.tier1", config_hash=builder.run_config_sha(hashable_config(payload))) as run:
         run_id = run.id
         cfg_path = builder.root / "RUN_CONFIG.json"
         cfg_path.write_text(json.dumps({"run_id": run_id, **payload}, indent=1), encoding="utf-8")
-        builder.log("run", f"run_id={run_id} config_hash={builder.run_config_sha(payload)}")
+        builder.log("run", f"run_id={run_id} config_hash={builder.run_config_sha(hashable_config(payload))}")
 
         for key in services:
             run_service(builder, key, COLLECTORS[key])

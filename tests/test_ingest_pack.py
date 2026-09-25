@@ -20,6 +20,7 @@ from cygnus.ingest.netio import md5_file
 from cygnus.ingest.pack import (MANIFEST_FIELDS, PackBuilder,
                                 _write_manifest_files, ledger_products_csv,
                                 retire_local_copies, verify_remote_upload)
+from cygnus.ledger import Ledger
 
 
 @pytest.fixture
@@ -167,3 +168,111 @@ def test_retire_refuses_unverified(tmp_scratch, ledger_factory):
     with pytest.raises(RuntimeError):
         retire_local_copies(b.root, "gaia", ledger=led)
     assert f.exists()
+
+
+# ------------------------------------------------------- fail-closed verification (S0-B)
+def _fake_rclone(stdout: str, returncode: int = 0):
+    class _R:
+        pass
+
+    r = _R()
+    r.stdout, r.stderr, r.returncode = stdout, "", returncode
+    return lambda *a, **k: r
+
+
+def test_verify_refuses_when_nothing_was_checked(tmp_scratch, ledger_factory, monkeypatch):
+    """A manifest with no md5 rows must not verify as "ok" just because rclone exited 0."""
+    led = ledger_factory()
+    b = PackBuilder(led, pack_root=tmp_scratch / "tier1_pack")
+    b.quiet = True
+    f = b.pack_dir("mast") / "f.bin"
+    f.write_bytes(b"payload")
+    b.register("mast", "h", path=f, url="u", endpoint="e")
+    b.write_manifest("mast")
+    mp = b.pack_dir("mast") / "MANIFEST.json"
+    rows = json.loads(mp.read_text(encoding="utf-8"))
+    rows[0]["md5"] = ""                        # an older/hashless row
+    mp.write_text(json.dumps(rows), encoding="utf-8")
+    monkeypatch.setattr("subprocess.run", _fake_rclone(""))
+    res = verify_remote_upload(b.root, "mast", "remote:x")
+    assert res["checked"] == 0 and res["ok"] is False
+
+
+def test_verify_ok_requires_every_checked_row_to_match(tmp_scratch, ledger_factory, monkeypatch):
+    led = ledger_factory()
+    b = PackBuilder(led, pack_root=tmp_scratch / "tier1_pack")
+    b.quiet = True
+    f = b.pack_dir("mast") / "f.bin"
+    f.write_bytes(b"payload")
+    b.register("mast", "g", path=f, url="u", endpoint="e")
+    b.write_manifest("mast")
+    monkeypatch.setattr("subprocess.run", _fake_rclone(f"{md5_file(f)}  f.bin\n"))
+    assert verify_remote_upload(b.root, "mast", "remote:x")["ok"] is True
+    monkeypatch.setattr("subprocess.run", _fake_rclone("0" * 32 + "  f.bin\n"))
+    res = verify_remote_upload(b.root, "mast", "remote:x")
+    assert res["ok"] is False and res["mismatched"] == ["g"]
+
+
+def test_retire_refuses_hashless_local_row(tmp_scratch, ledger_factory):
+    """A local row with no md5 cannot be md5-verified; retirement must refuse, not delete."""
+    led = ledger_factory()
+    b = PackBuilder(led, pack_root=tmp_scratch / "tier1_pack")
+    b.quiet = True
+    f = b.pack_dir("mast") / "f.bin"
+    f.write_bytes(b"payload")
+    b.register("mast", "g", path=f, url="u", endpoint="e")
+    b.write_manifest("mast")
+    mp = b.pack_dir("mast") / "MANIFEST.json"
+    rows = json.loads(mp.read_text(encoding="utf-8"))
+    rows[0]["md5"] = ""
+    mp.write_text(json.dumps(rows), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="not yet verified"):
+        retire_local_copies(b.root, "mast", ledger=led)
+    assert f.exists()
+
+
+def test_retire_refuses_unsafe_dest_rel(tmp_scratch, ledger_factory):
+    """A verified-looking row pointing outside the pack must not delete an outside file."""
+    outside = tmp_scratch / "tier1_pack" / "outside.bin"
+    outside.parent.mkdir(parents=True, exist_ok=True)
+    outside.write_bytes(b"keep")
+    led = ledger_factory()
+    b = PackBuilder(led, pack_root=tmp_scratch / "tier1_pack")
+    b.quiet = True
+    f = b.pack_dir("mast") / "safe.bin"
+    f.write_bytes(b"payload")
+    b.register("mast", "g", path=f, url="u", endpoint="e")
+    b.write_manifest("mast")
+    mp = b.pack_dir("mast") / "MANIFEST.json"
+    rows = json.loads(mp.read_text(encoding="utf-8"))
+    rows[0]["dest_rel"] = "../outside.bin"
+    rows[0]["note"] = "verified_md5@remote"
+    mp.write_text(json.dumps(rows), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="unsafe dest_rel"):
+        retire_local_copies(b.root, "mast", ledger=led)
+    assert outside.read_bytes() == b"keep"
+
+
+# --------------------------------------------------- Tier-1 manifest exactness (S1-C)
+def test_run_config_hash_ignores_generation_time():
+    from cygnus.ingest.tier1 import hashable_config
+
+    b = PackBuilder(Ledger(":memory:"))
+    a = {"services": ["mast"], "generated_utc": "2026-01-01T00:00:00Z"}
+    c = {"services": ["mast"], "generated_utc": "2026-09-25T00:00:00Z"}
+    assert b.run_config_sha(hashable_config(a)) == b.run_config_sha(hashable_config(c))
+    changed = {"services": ["gaia"], "generated_utc": a["generated_utc"]}
+    assert b.run_config_sha(hashable_config(a)) != b.run_config_sha(hashable_config(changed))
+
+
+def test_manifest_rows_have_exact_keys_and_documented_states(builder):
+    f = builder.pack_dir("mast") / "t" / "alpha.fits"
+    f.parent.mkdir(parents=True, exist_ok=True)
+    f.write_bytes(b"0123456789abcdef")
+    builder.register("mast", "alpha", path=f, url="u", endpoint="e", license_="L")
+    builder.write_manifest("mast")
+    rows = json.loads((builder.pack_dir("mast") / "MANIFEST.json").read_text(encoding="utf-8"))
+    assert rows
+    for row in rows:
+        assert set(row) == set(MANIFEST_FIELDS)
+        assert row["state"] in {"local", "drive_only", "excluded", "failed"}

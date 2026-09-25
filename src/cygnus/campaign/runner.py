@@ -33,6 +33,20 @@ class SpecError(ValueError):
     pass
 
 
+MULTI_RUNNER = "cygnus.multi"
+
+
+def spec_runner(path: str | Path) -> str | None:
+    """The spec's declared ``runner`` (``cygnus.multi`` for multi-archive specs), or None."""
+    import yaml
+
+    try:
+        spec = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError):
+        return None
+    return spec.get("runner") if isinstance(spec, dict) else None
+
+
 def load_spec(path: str | Path) -> dict:
     import yaml
 
@@ -41,6 +55,9 @@ def load_spec(path: str | Path) -> dict:
     problems = []
     if not isinstance(spec, dict) or spec.get("schema") != SPEC_SCHEMA:
         raise SpecError(f"{path}: schema must be {SPEC_SCHEMA!r}")
+    if spec.get("runner") not in (None, "cygnus.campaign"):
+        raise SpecError(f"{path}: runner is {spec['runner']!r}; run it with `python -m {spec['runner']}` "
+                        "(`python -m cygnus.campaign` hands such specs over automatically)")
     if not SLUG.match(str(spec.get("campaign_id", ""))):
         problems.append("campaign_id must be a slug")
     steps = spec.get("steps") or []
@@ -51,6 +68,28 @@ def load_spec(path: str | Path) -> dict:
         name = next(iter(s))
         if name not in STEPS:
             problems.append(f"step {name!r} is not implemented (known: {', '.join(STEPS)})")
+    order = [next(iter(s)) for s in steps if isinstance(s, dict) and len(s) == 1]
+    for dep in ("calibrate_screen", "residual_screen", "known_signal_recovery", "bls_recovery", "period_aliases"):
+        if dep in order and "fetch_products" not in order:
+            problems.append(f"{dep} needs a fetch_products step before it")
+        elif dep in order and "fetch_products" in order and order.index(dep) < order.index("fetch_products"):
+            problems.append(f"{dep} must come after fetch_products")
+    for s in steps:
+        if not (isinstance(s, dict) and len(s) == 1):
+            continue
+        name = next(iter(s))
+        params = next(iter(s.values())) or {}
+        if not isinstance(params, dict):
+            continue
+        if name in ("residual_screen", "known_signal_recovery"):
+            k = params.get("k_mad", "calibrated" if name == "known_signal_recovery" else None)
+            if str(k).lower() == "calibrated":
+                if "calibrate_screen" not in order:
+                    problems.append(f"{name}: k_mad 'calibrated' requires a calibrate_screen step")
+                elif order.index("calibrate_screen") > order.index(name):
+                    problems.append(f"{name}: calibrate_screen must come before it to provide k*")
+    if "fetch_products" in order and "target_queue" in order and order.index("target_queue") > order.index("fetch_products"):
+        problems.append("target_queue must come before fetch_products")
     if "outputs" not in spec:
         problems.append("outputs directory required")
     veto = spec.get("veto")

@@ -404,7 +404,8 @@ class SiteBuilder:
         campaigns = [v for _, _, v in self._pending_campaigns]
         candidates = sorted((v for _, _, v in self._pending_candidates),
                             key=lambda v: (-EVIDENCE_ORDER.get(v["data"]["evidence_level"], -1), v["data"]["id"]))
-        manifests = [(view, it) for view in views for it in view["items"] if it["kind"] == "archive_manifest"]
+        manifests = [(view, it) for view in views for it in view["items"]
+                     if it["kind"] == "archive_manifest" and it.get("data")]
         type_counts: dict[str, int] = {}
         for e in self.entries:
             type_counts[e["type"]] = type_counts.get(e["type"], 0) + 1

@@ -9,6 +9,7 @@ docs/CAMPAIGNS.md.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -299,3 +300,61 @@ def test_group_entries_merges_overlaps_and_marks_persistence():
     g = group_entries([e(1.0, 1.1, "SAP", 1.0), e(1.05, 1.12, "PDCSAP", 2.0, -0.02), e(1.0, 1.1, "SAP", 2.0), e(5, 5.1, "SAP", 1.0)], 3)
     assert len(g) == 2 and g[0]["persistent"] and not g[1]["persistent"]
     assert g[0]["deepest_median_residual"] == -0.02 and g[0]["n_entries"] == 3
+
+
+def test_no_products_is_a_documented_exclusion_not_a_red_run(world, monkeypatch):
+    """A target with no available products is recorded as a null with not_tested checks."""
+    from cygnus.campaign import steps as campaign_steps
+    from cygnus.campaign.runner import run
+
+    monkeypatch.setattr(campaign_steps, "_discover_spoc_lcs", lambda *a, **k: [])
+    (world / "reports" / "no-data").mkdir()
+    (world / "reports" / "no-data" / "REPORT.md").write_text("# no-data fixture\n", encoding="utf-8")
+    spec = """schema: cygnus.campaign/1
+campaign_id: no-data
+objective: synthetic no-data
+outputs: reports/no-data/
+targets: [{name: Fixture, tic: 1}]
+steps:
+  - fetch_products: {from_targets: {max_products_per_target: 1}}
+  - residual_screen: {k_mad: 5.0}
+record:
+  path: reports/no-data/sky_record.json
+  title: No-data fixture
+  kind: known-object test
+  outcome: bounded_null
+  date: "2026-01-02"
+  report: reports/no-data/REPORT.md
+  summary: Synthetic no-data.
+  checks:
+    - {name: "Product integrity (SHA-256)", state: not_tested}
+"""
+    (world / "campaigns" / "no-data.yaml").write_text(spec, encoding="utf-8")
+    led = Ledger(world / "ledger.sqlite")
+    out = run(world / "campaigns" / "no-data.yaml", ledger=led, root=world, echo=lambda *_: None)
+    assert out["complete"]
+    assert all(r["status"] == "completed" for r in led.runs())
+    rec = json.loads((world / "reports/no-data/sky_record.json").read_text(encoding="utf-8"))
+    checks = {c["name"]: c for c in rec["checks"]}
+    assert checks["Product integrity (SHA-256)"]["state"] == "not_tested"
+    assert "no products" in checks["Product integrity (SHA-256)"]["note"]
+    assert checks["Calibrated false-alarm threshold (sign-flip null)"]["state"] == "not_tested"
+    assert rec["outcome"] == "pipeline_check"   # not a scientific bound: no data was analysed
+
+
+@pytest.mark.parametrize("steps, message", [
+    ("  - known_signal_recovery: {}\n  - fetch_products: {}\n  - calibrate_screen: {}\n",
+     "known_signal_recovery must come after fetch_products"),
+    ("  - fetch_products: {}\n  - residual_screen: {k_mad: calibrated}\n",
+     "k_mad 'calibrated' requires a calibrate_screen step"),
+    ("  - fetch_products: {}\n  - known_signal_recovery: {}\n  - calibrate_screen: {}\n",
+     "calibrate_screen must come before it"),
+])
+def test_step_order_is_validated(tmp_path, steps, message):
+    from cygnus.campaign.runner import SpecError, load_spec
+
+    spec = tmp_path / "bad.yaml"
+    spec.write_text("schema: cygnus.campaign/1\ncampaign_id: bad\noutputs: campaigns/bad/\nsteps:\n" + steps,
+                    encoding="utf-8")
+    with pytest.raises(SpecError, match=re.escape(message)):
+        load_spec(spec)

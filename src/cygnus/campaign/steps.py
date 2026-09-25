@@ -48,6 +48,16 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def _excluded(ctx) -> dict | None:
+    """The ``fetch_products`` result when it found nothing (a documented exclusion), else None.
+
+    A target with no available products is a recorded null, not a red run: steps that need
+    products leave their checks ``not_tested`` with the exclusion note instead of raising.
+    """
+    res = ctx.optional_result("fetch_products", {}) or {}
+    return res if res.get("excluded") else None
+
+
 # ------------------------------------------------------------------ products
 def _discover_spoc_lcs(tic: int, max_products: int, t0_bjd: float | None = None) -> list[dict]:
     """SPOC 120-s light curves for a TIC id, via the MAST Observations API (astroquery).
@@ -127,7 +137,11 @@ def step_fetch_products(ctx, params: dict) -> dict:
                     "pinned": bool(p.get("expected_sha256")), "target": p.get("target"), "tic": p.get("tic"),
                     "sector": p.get("sector"), "covers_known_epoch": p.get("covers_known_epoch")}
     if not out:
-        raise RuntimeError("no products to analyse (none pinned, none found at MAST)")
+        note = "no products to analyse: none pinned and none found at MAST for the requested targets"
+        ctx.note(note)
+        ctx.check("Product integrity (SHA-256)", "not_tested", note)
+        ctx.outcome = ("pipeline_check", None)   # a no-data target is a pipeline outcome, not a bound
+        return {"products": {}, "excluded": True, "exclusion": note}
     ctx.check("Product integrity (SHA-256)", "passed",
               f"{len(out)} product(s) verified; pinned checksums matched" if any(v["pinned"] for v in out.values())
               else f"{len(out)} product(s) checksummed at first retrieval")
@@ -202,6 +216,11 @@ def _threshold(ctx, pid: str, k_param) -> tuple[float, str]:
 def step_residual_screen(ctx, params: dict) -> dict:
     """Negative excursions ≥ k robust-MAD, ≥ min_cadences, SAP and PDCSAP, several baselines,
     outside the known-signal veto. Writes screen.json and normalized_series.csv per product."""
+    if (ex := _excluded(ctx)):
+        ctx.check("Calibrated false-alarm threshold (sign-flip null)", "not_tested", ex["exclusion"])
+        ctx.check("Synthetic signal injection–recovery", "not_tested", ex["exclusion"])
+        return {"per_product": {}, "entries_outside_veto_total": 0, "distinct_events_outside_veto_total": 0,
+                "persistent_events_outside_veto_total": 0, "excluded": True}
     veto = ctx.spec.get("veto")
     windows = tuple(params.get("windows_days", (1.0, 2.0, 3.0)))
     k_decl = params.get("k_mad", 5.0)
@@ -300,6 +319,9 @@ def step_bls_recovery(ctx, params: dict) -> dict:
     import astropy
     from astropy.timeseries import BoxLeastSquares
 
+    if (ex := _excluded(ctx)):
+        ctx.note(ex["exclusion"])
+        return {"excluded": True, "exclusion": ex["exclusion"]}
     pid = params["product"]
     prod = ctx.result("fetch_products")["products"][pid]
     lc = read_spoc(resolve(prod["path"]))
@@ -375,6 +397,10 @@ def step_calibrate_screen(ctx, params: dict) -> dict:
       PDCSAP at random usable times outside the veto (seeded), recovered if a persistent dip interval
       overlaps the box. Completeness is reported at the declared threshold and at k*.
     """
+    if (ex := _excluded(ctx)):
+        ctx.check("Calibrated false-alarm threshold (sign-flip null)", "not_tested", ex["exclusion"])
+        ctx.check("Synthetic signal injection–recovery", "not_tested", ex["exclusion"])
+        return {"per_product": {}, "declared_k": float(params.get("declared_k", 5.0)), "excluded": True}
     veto = ctx.spec.get("veto")
     window = float(params.get("window_days", 2.0))
     grid = [float(x) for x in params.get("k_grid", [4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 8.0])]

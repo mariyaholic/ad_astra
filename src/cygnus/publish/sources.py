@@ -106,8 +106,36 @@ def load_module_register(path: Path, heading: str) -> list[dict[str, str]]:
     return rows
 
 
+# Campaign steps implemented by a register row whose module path does not contain the step
+# name (e.g. the four screen steps all live in ``campaign/``). Explicit so the campaign pages
+# never render an executed step as "status unknown"; a step absent from this map and the
+# register resolves to None, which the pages must show honestly.
+STEP_MODULE_ALIASES: dict[str, str] = {
+    "target_queue": "targets.py",
+    "fetch_products": "campaign/",
+    "calibrate_screen": "campaign/",
+    "residual_screen": "campaign/",
+    "bls_recovery": "campaign/",
+    "known_signal_recovery": "campaign/",
+    "period_aliases": "campaign/",
+    "prior_art": "priorart.py",
+    "dossier": "reporting/dossier.py",
+}
+
+
+def _module_token_match(module: str, token: str) -> bool:
+    if token.endswith("/"):
+        return module.endswith(token)
+    return module == token or module.endswith("/" + token) or module.rsplit("/", 1)[-1].removesuffix(".py") == token
+
+
 def module_for_step(step: str, register: list[dict[str, str]]) -> dict[str, str] | None:
     """Match a campaign step (e.g. ``ingest.mast``, ``detrend_lab``) to a register row."""
+    token = STEP_MODULE_ALIASES.get(step)
+    if token:
+        for row in register:
+            if _module_token_match(row["module"], token):
+                return row
     key = step.replace(".", "/")
     for row in register:
         mod = row["module"]

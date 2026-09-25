@@ -26,7 +26,7 @@ def test_dependency_error_is_explained(tmp_path):
 
 
 @pytest.mark.network
-def test_tesscut_live_roundtrip(tmp_path):
+def test_tesscut_live_roundtrip(tmp_path, tmp_scratch):
     try:
         mast._astroquery_mast()
     except mast.DependencyError as exc:
@@ -58,7 +58,7 @@ def test_tesscut_live_roundtrip(tmp_path):
 
 
 @pytest.mark.network
-def test_tesscut_wrong_sector_raises_loudly(tmp_path):
+def test_tesscut_wrong_sector_raises_loudly(tmp_path, tmp_scratch):
     try:
         mast._astroquery_mast()
     except mast.DependencyError as exc:
