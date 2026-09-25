@@ -1,8 +1,8 @@
 {
   "step": "fetch_products",
-  "run_id": 560,
-  "config_hash": "67c9a486ccf2d8cb",
-  "finished_utc": "2026-09-25T11:05:36Z",
+  "run_id": 1429,
+  "config_hash": "36a0d009978c6508",
+  "finished_utc": "2026-09-25T15:40:11Z",
   "result": {
     "products": {
       "tess2018234235059-s0002-0000000197807043-0121-s_lc.fits": {
@@ -14,7 +14,17 @@
         "target": "TOI-2423.01",
         "tic": 197807043,
         "sector": 2,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 18298,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2018292075959-s0004-0000000197807043-0124-s_lc.fits": {
         "path": "scratch:campaign_toi-2423-01/tess2018292075959-s0004-0000000197807043-0124-s_lc.fits",
@@ -25,7 +35,17 @@
         "target": "TOI-2423.01",
         "tic": 197807043,
         "sector": 4,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 14788,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2023237165326-s0069-0000000197807043-0264-s_lc.fits": {
         "path": "scratch:campaign_toi-2423-01/tess2023237165326-s0069-0000000197807043-0264-s_lc.fits",
@@ -36,7 +56,17 @@
         "target": "TOI-2423.01",
         "tic": 197807043,
         "sector": 69,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 14463,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2025232030459-s0096-0000000197807043-0293-s_lc.fits": {
         "path": "scratch:campaign_toi-2423-01/tess2025232030459-s0096-0000000197807043-0293-s_lc.fits",
@@ -47,7 +77,17 @@
         "target": "TOI-2423.01",
         "tic": 197807043,
         "sector": 96,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 15420,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2025258001959-s0097-0000000197807043-0294-s_lc.fits": {
         "path": "scratch:campaign_toi-2423-01/tess2025258001959-s0097-0000000197807043-0294-s_lc.fits",
@@ -58,14 +98,36 @@
         "target": "TOI-2423.01",
         "tic": 197807043,
         "sector": 97,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 28994,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       }
-    }
+    },
+    "lightcurve_products": [
+      "tess2018234235059-s0002-0000000197807043-0121-s_lc.fits",
+      "tess2018292075959-s0004-0000000197807043-0124-s_lc.fits",
+      "tess2023237165326-s0069-0000000197807043-0264-s_lc.fits",
+      "tess2025232030459-s0096-0000000197807043-0293-s_lc.fits",
+      "tess2025258001959-s0097-0000000197807043-0294-s_lc.fits"
+    ]
   },
   "checks": {
+    "Light-curve suitability for the residual screen": {
+      "state": "passed",
+      "note": "5 light curve(s) screenable",
+      "step": "fetch_products"
+    },
     "Product integrity (SHA-256)": {
       "state": "passed",
-      "note": "5 product(s) checksummed at first retrieval",
+      "note": "5 product(s) from MAST checksummed at first retrieval",
       "step": "fetch_products"
     }
   },

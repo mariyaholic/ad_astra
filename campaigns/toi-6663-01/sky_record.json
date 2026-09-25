@@ -25,19 +25,21 @@
   {
    "id": "tess2021364111932-s0047-0000000415732733-0218-s_lc.fits",
    "archive": "MAST",
-   "sha256": "c87b322693e3f33036b4a970641793b4e6c75759dcb32c6f69d67fa06d2f84b4"
+   "sha256": "c87b322693e3f33036b4a970641793b4e6c75759dcb32c6f69d67fa06d2f84b4",
+   "format": "spoc_lc"
   },
   {
    "id": "tess2022357055054-s0060-0000000415732733-0249-s_lc.fits",
    "archive": "MAST",
-   "sha256": "6e06cd7b067ed96deefcb8259f8cba40a76b1db42a52ed7af418b75531cfede5"
+   "sha256": "6e06cd7b067ed96deefcb8259f8cba40a76b1db42a52ed7af418b75531cfede5",
+   "format": "spoc_lc"
   }
  ],
  "checks": [
   {
    "name": "Product integrity (SHA-256)",
    "state": "passed",
-   "note": "2 product(s) checksummed at first retrieval",
+   "note": "2 product(s) from MAST checksummed at first retrieval",
    "source": "campaign runner, step fetch_products"
   },
   {
@@ -85,8 +87,14 @@
   {
    "name": "Literature (ADS) audit",
    "state": "not_tested"
+  },
+  {
+   "name": "Light-curve suitability for the residual screen",
+   "state": "passed",
+   "note": "2 light curve(s) screenable",
+   "source": "campaign runner, step fetch_products"
   }
  ],
- "generated_by": "cygnus.campaign runner",
- "generated_utc": "2026-09-25T04:05:10Z"
+ "generated_by": "cygnus_multi campaign runner",
+ "generated_utc": "2026-09-25T16:02:37Z"
 }

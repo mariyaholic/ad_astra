@@ -1,8 +1,8 @@
 {
   "step": "fetch_products",
-  "run_id": 73,
-  "config_hash": "6d44a1bc3400373f",
-  "finished_utc": "2026-09-24T12:14:19Z",
+  "run_id": 1495,
+  "config_hash": "98f2c1f88b5b403e",
+  "finished_utc": "2026-09-25T15:44:28Z",
   "result": {
     "products": {
       "tess2021039152502-s0035-0000000170889511-0205-s_lc.fits": {
@@ -14,7 +14,17 @@
         "target": "TOI-2666.01",
         "tic": 170889511,
         "sector": 35,
-        "covers_known_epoch": true
+        "covers_known_epoch": true,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 13613,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2023018032328-s0061-0000000170889511-0250-s_lc.fits": {
         "path": "scratch:campaign_toi-2666-01/tess2023018032328-s0061-0000000170889511-0250-s_lc.fits",
@@ -25,7 +35,17 @@
         "target": "TOI-2666.01",
         "tic": 170889511,
         "sector": 61,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 15424,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2026005125623-s0099-0000000170889511-0300-s_lc.fits": {
         "path": "scratch:campaign_toi-2666-01/tess2026005125623-s0099-0000000170889511-0300-s_lc.fits",
@@ -36,14 +56,34 @@
         "target": "TOI-2666.01",
         "tic": 170889511,
         "sector": 99,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 11992,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       }
-    }
+    },
+    "lightcurve_products": [
+      "tess2021039152502-s0035-0000000170889511-0205-s_lc.fits",
+      "tess2023018032328-s0061-0000000170889511-0250-s_lc.fits",
+      "tess2026005125623-s0099-0000000170889511-0300-s_lc.fits"
+    ]
   },
   "checks": {
+    "Light-curve suitability for the residual screen": {
+      "state": "passed",
+      "note": "3 light curve(s) screenable",
+      "step": "fetch_products"
+    },
     "Product integrity (SHA-256)": {
       "state": "passed",
-      "note": "3 product(s) checksummed at first retrieval",
+      "note": "3 product(s) from MAST checksummed at first retrieval",
       "step": "fetch_products"
     }
   },

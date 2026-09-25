@@ -1,8 +1,8 @@
 {
   "step": "residual_screen",
-  "run_id": 551,
-  "config_hash": "89817f98d7137f53",
-  "finished_utc": "2026-09-25T11:03:30Z",
+  "run_id": 1348,
+  "config_hash": "051561137b91f650",
+  "finished_utc": "2026-09-25T15:31:56Z",
   "result": {
     "per_product": {
       "tess2021091135823-s0037-0000000058463434-0208-s_lc.fits": {
@@ -11,6 +11,7 @@
             "mid_time_BJD_like": 2459325.8279340016,
             "deepest_median_residual": -0.0029682513589164294,
             "max_cadences": 2,
+            "span_days": 0.0013888901312384405,
             "flux_types": [
               "SAP"
             ],
@@ -18,7 +19,8 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           }
         ],
         "persistent_events_outside_veto": 0,
@@ -26,6 +28,15 @@
         "rows": 18249,
         "usable": 15603,
         "k_mad": 3.0,
+        "channel_mode": "SAP+PDCSAP",
+        "systematics_model": {
+          "method": "residual autocorrelation integral to first zero crossing",
+          "tau_days": 0.020665161472812634,
+          "n_events": 1,
+          "events": [],
+          "strongest": null,
+          "caveat": "A correlated systematic repeating on the event timescale can mimic a dip; this model constrains noise, it does not prove astrophysical origin."
+        },
         "entries": 1,
         "entries_outside_veto": 1,
         "outside_veto": [

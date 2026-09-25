@@ -1,38 +1,67 @@
 {
   "step": "fetch_products",
-  "run_id": 212,
-  "config_hash": "8fb994aa17612f18",
-  "finished_utc": "2026-09-25T03:51:56Z",
+  "run_id": 1748,
+  "config_hash": "a0d94724636536e1",
+  "finished_utc": "2026-09-25T16:20:44Z",
   "result": {
     "products": {
       "tess2025312202959-s0098-0000000408137826-0298-s_lc.fits": {
         "path": "scratch:campaign_toi-941-02/tess2025312202959-s0098-0000000408137826-0298-s_lc.fits",
         "sha256": "b0000f45bb36d578b5488b96ba77d8749e119d2ae13598931988b5a85810b5f3",
         "bytes": 4164480,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-941.02",
         "tic": 408137826,
         "sector": 98,
-        "covers_known_epoch": true
+        "covers_known_epoch": true,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 27260,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2020324010417-s0032-0000000408137826-0200-s_lc.fits": {
         "path": "scratch:campaign_toi-941-02/tess2020324010417-s0032-0000000408137826-0200-s_lc.fits",
         "sha256": "fa6b8e05c84f2315d47fe4baae99132b8aa9c2c05ba918317b4c42aab41c35d2",
         "bytes": 1903680,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-941.02",
         "tic": 408137826,
         "sector": 32,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 17048,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       }
-    }
+    },
+    "lightcurve_products": [
+      "tess2025312202959-s0098-0000000408137826-0298-s_lc.fits",
+      "tess2020324010417-s0032-0000000408137826-0200-s_lc.fits"
+    ]
   },
   "checks": {
+    "Light-curve suitability for the residual screen": {
+      "state": "passed",
+      "note": "2 light curve(s) screenable",
+      "step": "fetch_products"
+    },
     "Product integrity (SHA-256)": {
       "state": "passed",
-      "note": "2 product(s) checksummed at first retrieval",
+      "note": "2 product(s) from MAST checksummed at first retrieval",
       "step": "fetch_products"
     }
   },

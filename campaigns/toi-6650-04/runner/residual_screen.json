@@ -1,8 +1,8 @@
 {
   "step": "residual_screen",
-  "run_id": 348,
-  "config_hash": "2cd7f84b43cc9d5a",
-  "finished_utc": "2026-09-25T05:05:49Z",
+  "run_id": 1630,
+  "config_hash": "8f2da39eff8f61bd",
+  "finished_utc": "2026-09-25T16:01:34Z",
   "result": {
     "per_product": {
       "tess2022273165103-s0057-0000000064837857-0245-s_lc.fits": {
@@ -11,6 +11,7 @@
             "mid_time_BJD_like": 2459871.058566161,
             "deepest_median_residual": -0.0072827386293357055,
             "max_cadences": 2,
+            "span_days": 0.0013888719604437938,
             "flux_types": [
               "PDCSAP"
             ],
@@ -20,12 +21,14 @@
               3.0
             ],
             "n_entries": 3,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2459871.062732777,
             "deepest_median_residual": -0.009385423510619828,
             "max_cadences": 2,
+            "span_days": 0.0013888719613532885,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -36,12 +39,14 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2459871.070371573,
             "deepest_median_residual": -0.008108864028602336,
             "max_cadences": 7,
+            "span_days": 0.008333231760843773,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -52,12 +57,14 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2459871.1002323194,
             "deepest_median_residual": -0.009699659474681155,
             "max_cadences": 18,
+            "span_days": 0.02361082285960947,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -68,12 +75,14 @@
               3.0
             ],
             "n_entries": 11,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2459871.16342599,
             "deepest_median_residual": -0.009282030302768085,
             "max_cadences": 87,
+            "span_days": 0.11944297787431424,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -84,12 +93,14 @@
               3.0
             ],
             "n_entries": 7,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2459871.24120281,
             "deepest_median_residual": -0.009502036596564234,
             "max_cadences": 29,
+            "span_days": 0.038888408369530225,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -100,12 +111,14 @@
               3.0
             ],
             "n_entries": 9,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2459871.26967468,
             "deepest_median_residual": -0.007427900680094801,
             "max_cadences": 7,
+            "span_days": 0.0083332303656789,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -116,7 +129,8 @@
               3.0
             ],
             "n_entries": 5,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           }
         ],
         "persistent_events_outside_veto": 6,
@@ -124,6 +138,123 @@
         "rows": 20712,
         "usable": 17990,
         "k_mad": 6.0,
+        "channel_mode": "SAP+PDCSAP",
+        "systematics_model": {
+          "method": "residual autocorrelation integral to first zero crossing",
+          "tau_days": 0.05189513953882617,
+          "n_events": 7,
+          "events": [
+            {
+              "duration_label": "",
+              "box_statistic": -78.6327617161834,
+              "robust_z": -11.323704245831712,
+              "parametric_z_rednoise_inflated": -11.323704245831712,
+              "rednoise_inflation": 6.112650854412907,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.009722120649732663,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.8290929542628496,
+              "n_random": 300,
+              "n_effective_trials": 530.9,
+              "tau_days": 0.05189513953882617,
+              "parametric_p": 5.0074403425290794e-30,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2459871.070371573
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -90.41040648580929,
+              "robust_z": -19.121950409765837,
+              "parametric_z_rednoise_inflated": -19.121950409765837,
+              "rednoise_inflation": 6.112650854412907,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.024999711748498358,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.8289254380469103,
+              "n_random": 300,
+              "n_effective_trials": 530.6,
+              "tau_days": 0.05189513953882617,
+              "parametric_p": 8.289519716226504e-82,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2459871.1002323194
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -118.87535413959219,
+              "robust_z": -34.80709647270735,
+              "parametric_z_rednoise_inflated": -34.80709647270735,
+              "rednoise_inflation": 6.112650854412907,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.12083186676320312,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.5303081796845879,
+              "n_random": 300,
+              "n_effective_trials": 227.1,
+              "tau_days": 0.05189513953882617,
+              "parametric_p": 9.497881576961399e-266,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2459871.16342599
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -92.01755041350984,
+              "robust_z": -21.84128941262557,
+              "parametric_z_rednoise_inflated": -21.84128941262557,
+              "rednoise_inflation": 6.112650854412907,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.040277297258419116,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.8287577577098979,
+              "n_random": 300,
+              "n_effective_trials": 530.3,
+              "tau_days": 0.05189513953882617,
+              "parametric_p": 4.703148390995969e-106,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2459871.24120281
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -69.65552852620385,
+              "robust_z": -10.04020702456815,
+              "parametric_z_rednoise_inflated": -10.04020702456815,
+              "rednoise_inflation": 6.112650854412907,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.00972211925456779,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.8290929542730564,
+              "n_random": 300,
+              "n_effective_trials": 530.9,
+              "tau_days": 0.05189513953882617,
+              "parametric_p": 5.0730494773206926e-24,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2459871.26967468
+            }
+          ],
+          "strongest": {
+            "duration_label": "",
+            "box_statistic": -78.6327617161834,
+            "robust_z": -11.323704245831712,
+            "parametric_z_rednoise_inflated": -11.323704245831712,
+            "rednoise_inflation": 6.112650854412907,
+            "rednoise_inflation_applied": false,
+            "duration_days": 0.009722120649732663,
+            "empirical_p": 0.0033222591362126247,
+            "empirical_trial_corrected_fap": 0.8290929542628496,
+            "n_random": 300,
+            "n_effective_trials": 530.9,
+            "tau_days": 0.05189513953882617,
+            "parametric_p": 5.0074403425290794e-30,
+            "trial_corrected_fap": 0.0,
+            "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+            "event_bjd": 2459871.070371573
+          },
+          "caveat": "A correlated systematic repeating on the event timescale can mimic a dip; this model constrains noise, it does not prove astrophysical origin."
+        },
         "entries": 47,
         "entries_outside_veto": 47,
         "outside_veto": [
@@ -464,6 +595,7 @@
             "mid_time_BJD_like": 2460399.625621389,
             "deepest_median_residual": -0.006315567002667055,
             "max_cadences": 2,
+            "span_days": 0.0013888812372897519,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -474,12 +606,14 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460399.742287416,
             "deepest_median_residual": -0.00883864756217101,
             "max_cadences": 164,
+            "span_days": 0.22638766333875537,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -490,12 +624,14 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460420.0710868808,
             "deepest_median_residual": -0.008282975281715621,
             "max_cadences": 164,
+            "span_days": 0.2263920883387982,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -506,12 +642,14 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460420.187755202,
             "deepest_median_residual": -0.006108304530279551,
             "max_cadences": 2,
+            "span_days": 0.0013889084548281971,
             "flux_types": [
               "PDCSAP"
             ],
@@ -521,7 +659,8 @@
               3.0
             ],
             "n_entries": 3,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           }
         ],
         "persistent_events_outside_veto": 3,
@@ -529,6 +668,69 @@
         "rows": 20209,
         "usable": 12874,
         "k_mad": 3.5,
+        "channel_mode": "SAP+PDCSAP",
+        "systematics_model": {
+          "method": "residual autocorrelation integral to first zero crossing",
+          "tau_days": 0.07290357860493978,
+          "n_events": 4,
+          "events": [
+            {
+              "duration_label": "",
+              "box_statistic": -136.70771936027757,
+              "robust_z": -34.49808982795306,
+              "parametric_z_rednoise_inflated": -34.49808982795306,
+              "rednoise_inflation": 7.245038067226192,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.22777655222764426,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.3223506087302763,
+              "n_random": 300,
+              "n_effective_trials": 116.9,
+              "tau_days": 0.07290357860493978,
+              "parametric_p": 4.284172420818469e-261,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460399.742287416
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -132.45859277470475,
+              "robust_z": -33.425523903557405,
+              "parametric_z_rednoise_inflated": -33.425523903557405,
+              "rednoise_inflation": 7.245038067226192,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.2277809772276871,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.3223454422976979,
+              "n_random": 300,
+              "n_effective_trials": 116.9,
+              "tau_days": 0.07290357860493978,
+              "parametric_p": 2.9193829968470345e-245,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460420.0710868808
+            }
+          ],
+          "strongest": {
+            "duration_label": "",
+            "box_statistic": -136.70771936027757,
+            "robust_z": -34.49808982795306,
+            "parametric_z_rednoise_inflated": -34.49808982795306,
+            "rednoise_inflation": 7.245038067226192,
+            "rednoise_inflation_applied": false,
+            "duration_days": 0.22777655222764426,
+            "empirical_p": 0.0033222591362126247,
+            "empirical_trial_corrected_fap": 0.3223506087302763,
+            "n_random": 300,
+            "n_effective_trials": 116.9,
+            "tau_days": 0.07290357860493978,
+            "parametric_p": 4.284172420818469e-261,
+            "trial_corrected_fap": 0.0,
+            "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+            "event_bjd": 2460399.742287416
+          },
+          "caveat": "A correlated systematic repeating on the event timescale can mimic a dip; this model constrains noise, it does not prove astrophysical origin."
+        },
         "entries": 21,
         "entries_outside_veto": 21,
         "outside_veto": [
@@ -687,6 +889,7 @@
             "mid_time_BJD_like": 2460562.386685804,
             "deepest_median_residual": -0.009059818560887722,
             "max_cadences": 174,
+            "span_days": 0.24028352136201647,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -697,12 +900,14 @@
               3.0
             ],
             "n_entries": 12,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460564.532569257,
             "deepest_median_residual": -0.003235856904766743,
             "max_cadences": 2,
+            "span_days": 0.0013889203783037374,
             "flux_types": [
               "SAP"
             ],
@@ -711,12 +916,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460564.614515563,
             "deepest_median_residual": -0.0036878034775789104,
             "max_cadences": 2,
+            "span_days": 0.0013889203787584847,
             "flux_types": [
               "SAP"
             ],
@@ -725,12 +932,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460564.7325737933,
             "deepest_median_residual": -0.0034105294565616173,
             "max_cadences": 2,
+            "span_days": 0.0013889201454730937,
             "flux_types": [
               "SAP"
             ],
@@ -739,12 +948,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460564.746462996,
             "deepest_median_residual": -0.00352243047393741,
             "max_cadences": 2,
+            "span_days": 0.00138892037784899,
             "flux_types": [
               "SAP"
             ],
@@ -753,12 +964,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460568.6173786195,
             "deepest_median_residual": -0.0033132007403984254,
             "max_cadences": 2,
+            "span_days": 0.0013889161959923513,
             "flux_types": [
               "PDCSAP"
             ],
@@ -766,12 +979,14 @@
               2.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460570.4389406573,
             "deepest_median_residual": -0.003919648614829296,
             "max_cadences": 3,
+            "span_days": 0.002777826804049255,
             "flux_types": [
               "SAP"
             ],
@@ -781,12 +996,14 @@
               3.0
             ],
             "n_entries": 3,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460572.081327699,
             "deepest_median_residual": -0.0032245530917164866,
             "max_cadences": 2,
+            "span_days": 0.0013889080300941714,
             "flux_types": [
               "SAP"
             ],
@@ -794,12 +1011,14 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460572.1056335894,
             "deepest_median_residual": -0.00365596308950189,
             "max_cadences": 3,
+            "span_days": 0.002777816059278848,
             "flux_types": [
               "SAP"
             ],
@@ -807,12 +1026,14 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460572.131328387,
             "deepest_median_residual": -0.003118083642363545,
             "max_cadences": 2,
+            "span_days": 0.0013889080300941714,
             "flux_types": [
               "SAP"
             ],
@@ -820,12 +1041,14 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460572.1507730987,
             "deepest_median_residual": -0.004367747857163651,
             "max_cadences": 2,
+            "span_days": 0.001388907797718275,
             "flux_types": [
               "SAP"
             ],
@@ -834,12 +1057,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460572.154939822,
             "deepest_median_residual": -0.003894146649965846,
             "max_cadences": 2,
+            "span_days": 0.0013889080291846767,
             "flux_types": [
               "SAP"
             ],
@@ -848,12 +1073,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460572.1986904205,
             "deepest_median_residual": -0.004526648877273942,
             "max_cadences": 3,
+            "span_days": 0.002777815592708066,
             "flux_types": [
               "SAP"
             ],
@@ -862,12 +1089,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460578.4702961124,
             "deepest_median_residual": -0.0034844004031548415,
             "max_cadences": 2,
+            "span_days": 0.0013889035940337635,
             "flux_types": [
               "PDCSAP"
             ],
@@ -876,12 +1105,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460582.715472733,
             "deepest_median_residual": -0.009710591650640477,
             "max_cadences": 175,
+            "span_days": 0.24166832385162706,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -892,12 +1123,14 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460582.839779131,
             "deepest_median_residual": -0.0030887728446367113,
             "max_cadences": 2,
+            "span_days": 0.0013888980065530632,
             "flux_types": [
               "PDCSAP"
             ],
@@ -906,12 +1139,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460584.234231239,
             "deepest_median_residual": -0.0035401034362110284,
             "max_cadences": 2,
+            "span_days": 0.0013888942808080174,
             "flux_types": [
               "SAP"
             ],
@@ -921,7 +1156,8 @@
               3.0
             ],
             "n_entries": 3,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           }
         ],
         "persistent_events_outside_veto": 2,
@@ -929,6 +1165,123 @@
         "rows": 17967,
         "usable": 17329,
         "k_mad": 2.5,
+        "channel_mode": "SAP+PDCSAP",
+        "systematics_model": {
+          "method": "residual autocorrelation integral to first zero crossing",
+          "tau_days": 0.06686340393856835,
+          "n_events": 17,
+          "events": [
+            {
+              "duration_label": "",
+              "box_statistic": -137.78948569139902,
+              "robust_z": -51.62017369479242,
+              "parametric_z_rednoise_inflated": -51.62017369479242,
+              "rednoise_inflation": 6.938418467905292,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.24167241025090536,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.27623647993208944,
+              "n_random": 300,
+              "n_effective_trials": 97.1,
+              "tau_days": 0.06686340393856835,
+              "parametric_p": 0.0,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460562.386685804
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -32.671896083918305,
+              "robust_z": -3.000172816264408,
+              "parametric_z_rednoise_inflated": -3.000172816264408,
+              "rednoise_inflation": 6.938418467905292,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.004166715692938144,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.6928221813308908,
+              "n_random": 300,
+              "n_effective_trials": 354.7,
+              "tau_days": 0.06686340393856835,
+              "parametric_p": 0.0013491323346514217,
+              "trial_corrected_fap": 0.38050128402555183,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460570.4389406573
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -25.167871983031848,
+              "robust_z": -2.315479690543867,
+              "parametric_z_rednoise_inflated": -2.315479690543867,
+              "rednoise_inflation": 6.938418467905292,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.004166704948167737,
+              "empirical_p": 0.013289036544850499,
+              "empirical_trial_corrected_fap": 0.9913055105848154,
+              "n_random": 300,
+              "n_effective_trials": 354.7,
+              "tau_days": 0.06686340393856835,
+              "parametric_p": 0.010293347384044962,
+              "trial_corrected_fap": 0.9745197294649987,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460572.1056335894
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -36.311397845243846,
+              "robust_z": -3.332253551019083,
+              "parametric_z_rednoise_inflated": -3.332253551019083,
+              "rednoise_inflation": 6.938418467905292,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.004166704481596955,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.6928221815017502,
+              "n_random": 300,
+              "n_effective_trials": 354.7,
+              "tau_days": 0.06686340393856835,
+              "parametric_p": 0.0004307286590369356,
+              "trial_corrected_fap": 0.14170495477081346,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460572.1986904205
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -138.88288484047885,
+              "robust_z": -51.247199065400196,
+              "parametric_z_rednoise_inflated": -51.247199065400196,
+              "rednoise_inflation": 6.938418467905292,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.24305721274051595,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.2748883841298183,
+              "n_random": 300,
+              "n_effective_trials": 96.6,
+              "tau_days": 0.06686340393856835,
+              "parametric_p": 0.0,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460582.715472733
+            }
+          ],
+          "strongest": {
+            "duration_label": "",
+            "box_statistic": -137.78948569139902,
+            "robust_z": -51.62017369479242,
+            "parametric_z_rednoise_inflated": -51.62017369479242,
+            "rednoise_inflation": 6.938418467905292,
+            "rednoise_inflation_applied": false,
+            "duration_days": 0.24167241025090536,
+            "empirical_p": 0.0033222591362126247,
+            "empirical_trial_corrected_fap": 0.27623647993208944,
+            "n_random": 300,
+            "n_effective_trials": 97.1,
+            "tau_days": 0.06686340393856835,
+            "parametric_p": 0.0,
+            "trial_corrected_fap": 0.0,
+            "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+            "event_bjd": 2460562.386685804
+          },
+          "caveat": "A correlated systematic repeating on the event timescale can mimic a dip; this model constrains noise, it does not prove astrophysical origin."
+        },
         "entries": 46,
         "entries_outside_veto": 46,
         "outside_veto": [
@@ -1262,6 +1615,7 @@
             "mid_time_BJD_like": 2460590.037015049,
             "deepest_median_residual": -0.0030118991758521507,
             "max_cadences": 2,
+            "span_days": 0.0013888882485844078,
             "flux_types": [
               "SAP"
             ],
@@ -1269,12 +1623,14 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460590.100903906,
             "deepest_median_residual": -0.0037488312790820433,
             "max_cadences": 2,
+            "span_days": 0.0013888882490391552,
             "flux_types": [
               "SAP"
             ],
@@ -1284,12 +1640,14 @@
               3.0
             ],
             "n_entries": 3,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460590.136320554,
             "deepest_median_residual": -0.003480333934979929,
             "max_cadences": 3,
+            "span_days": 0.0027777762652476667,
             "flux_types": [
               "SAP"
             ],
@@ -1299,12 +1657,14 @@
               3.0
             ],
             "n_entries": 3,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460590.5786813577,
             "deepest_median_residual": -0.002984438681466861,
             "max_cadences": 2,
+            "span_days": 0.0013888877838326152,
             "flux_types": [
               "SAP"
             ],
@@ -1312,12 +1672,14 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460590.659236842,
             "deepest_median_residual": -0.0038983755521451724,
             "max_cadences": 2,
+            "span_days": 0.0013888877838326152,
             "flux_types": [
               "SAP"
             ],
@@ -1326,12 +1688,14 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460590.695347919,
             "deepest_median_residual": -0.0029184929435331908,
             "max_cadences": 2,
+            "span_days": 0.0013888875510019716,
             "flux_types": [
               "SAP"
             ],
@@ -1339,12 +1703,14 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460600.867505314,
             "deepest_median_residual": -0.0030631808028003804,
             "max_cadences": 2,
+            "span_days": 0.0013888728690290009,
             "flux_types": [
               "PDCSAP"
             ],
@@ -1352,12 +1718,14 @@
               2.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460603.048034598,
             "deepest_median_residual": -0.009644371381982098,
             "max_cadences": 172,
+            "span_days": 0.2374969801021507,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -1368,12 +1736,14 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460609.0257222983,
             "deepest_median_residual": -0.0037027931251603086,
             "max_cadences": 4,
+            "span_days": 0.004166591111243179,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -1383,12 +1753,14 @@
               3.0
             ],
             "n_entries": 3,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460609.0882211616,
             "deepest_median_residual": -0.0028072023512122346,
             "max_cadences": 2,
+            "span_days": 0.0013888635480725497,
             "flux_types": [
               "SAP"
             ],
@@ -1396,12 +1768,14 @@
               3.0
             ],
             "n_entries": 1,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460609.1090541147,
             "deepest_median_residual": -0.004252286734979294,
             "max_cadences": 2,
+            "span_days": 0.001388863548527297,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -1412,7 +1786,8 @@
               3.0
             ],
             "n_entries": 6,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           }
         ],
         "persistent_events_outside_veto": 3,
@@ -1420,6 +1795,87 @@
         "rows": 18545,
         "usable": 16718,
         "k_mad": 2.5,
+        "channel_mode": "SAP+PDCSAP",
+        "systematics_model": {
+          "method": "residual autocorrelation integral to first zero crossing",
+          "tau_days": 0.05762506818325843,
+          "n_events": 11,
+          "events": [
+            {
+              "duration_label": "",
+              "box_statistic": -33.77953999216819,
+              "robust_z": -2.9919045972285105,
+              "parametric_z_rednoise_inflated": -2.9919045972285105,
+              "rednoise_inflation": 6.441276976807166,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.004166665154136556,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.7576774649814761,
+              "n_random": 300,
+              "n_effective_trials": 426.0,
+              "tau_days": 0.05762506818325843,
+              "parametric_p": 0.0013862144442803,
+              "trial_corrected_fap": 0.4461565885468811,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460590.136320554
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -138.87837367078933,
+              "robust_z": -46.7953658022457,
+              "parametric_z_rednoise_inflated": -46.7953658022457,
+              "rednoise_inflation": 6.441276976807166,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.23888586899103958,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.28727682502563867,
+              "n_random": 300,
+              "n_effective_trials": 101.8,
+              "tau_days": 0.05762506818325843,
+              "parametric_p": 0.0,
+              "trial_corrected_fap": 0.0,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460603.048034598
+            },
+            {
+              "duration_label": "",
+              "box_statistic": -45.201781997741364,
+              "robust_z": -4.653249674531073,
+              "parametric_z_rednoise_inflated": -4.653249674531073,
+              "rednoise_inflation": 6.441276976807166,
+              "rednoise_inflation_applied": false,
+              "duration_days": 0.005555480000132068,
+              "empirical_p": 0.0033222591362126247,
+              "empirical_trial_corrected_fap": 0.7576580292825601,
+              "n_random": 300,
+              "n_effective_trials": 425.9,
+              "tau_days": 0.05762506818325843,
+              "parametric_p": 1.6337210561533408e-06,
+              "trial_corrected_fap": 0.0006956092381684709,
+              "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+              "event_bjd": 2460609.0257222983
+            }
+          ],
+          "strongest": {
+            "duration_label": "",
+            "box_statistic": -138.87837367078933,
+            "robust_z": -46.7953658022457,
+            "parametric_z_rednoise_inflated": -46.7953658022457,
+            "rednoise_inflation": 6.441276976807166,
+            "rednoise_inflation_applied": false,
+            "duration_days": 0.23888586899103958,
+            "empirical_p": 0.0033222591362126247,
+            "empirical_trial_corrected_fap": 0.28727682502563867,
+            "n_random": 300,
+            "n_effective_trials": 101.8,
+            "tau_days": 0.05762506818325843,
+            "parametric_p": 0.0,
+            "trial_corrected_fap": 0.0,
+            "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+            "event_bjd": 2460603.048034598
+          },
+          "caveat": "A correlated systematic repeating on the event timescale can mimic a dip; this model constrains noise, it does not prove astrophysical origin."
+        },
         "entries": 28,
         "entries_outside_veto": 28,
         "outside_veto": [

@@ -1,8 +1,8 @@
 {
   "step": "fetch_products",
-  "run_id": 578,
-  "config_hash": "dcd8da1d403ffe81",
-  "finished_utc": "2026-09-25T11:08:09Z",
+  "run_id": 1603,
+  "config_hash": "c93830c88a5e4d89",
+  "finished_utc": "2026-09-25T15:57:56Z",
   "result": {
     "products": {
       "tess2024223182411-s0082-0000000388909695-0278-s_lc.fits": {
@@ -14,14 +14,32 @@
         "target": "TOI-5812.02",
         "tic": 388909695,
         "sector": 82,
-        "covers_known_epoch": true
+        "covers_known_epoch": true,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 17196,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       }
-    }
+    },
+    "lightcurve_products": [
+      "tess2024223182411-s0082-0000000388909695-0278-s_lc.fits"
+    ]
   },
   "checks": {
+    "Light-curve suitability for the residual screen": {
+      "state": "passed",
+      "note": "1 light curve(s) screenable",
+      "step": "fetch_products"
+    },
     "Product integrity (SHA-256)": {
       "state": "passed",
-      "note": "1 product(s) checksummed at first retrieval",
+      "note": "1 product(s) from MAST checksummed at first retrieval",
       "step": "fetch_products"
     }
   },

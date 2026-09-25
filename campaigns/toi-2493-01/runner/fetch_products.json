@@ -1,49 +1,89 @@
 {
   "step": "fetch_products",
-  "run_id": 525,
-  "config_hash": "94cff4ca6bdc2ddc",
-  "finished_utc": "2026-09-25T05:58:07Z",
+  "run_id": 1766,
+  "config_hash": "f41152cb2a869de9",
+  "finished_utc": "2026-09-25T16:37:13Z",
   "result": {
     "products": {
       "tess2020351194500-s0033-0000000123664207-0203-s_lc.fits": {
         "path": "scratch:campaign_toi-2493-01/tess2020351194500-s0033-0000000123664207-0203-s_lc.fits",
         "sha256": "986d0856f0093dc9bc69b17da29f6a30210a366e0ae06aff4adb7957eafb49d5",
         "bytes": 1892160,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-2493.01",
         "tic": 123664207,
         "sector": 33,
-        "covers_known_epoch": true
+        "covers_known_epoch": true,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 17455,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2024353092137-s0087-0000000123664207-0284-s_lc.fits": {
         "path": "scratch:campaign_toi-2493-01/tess2024353092137-s0087-0000000123664207-0284-s_lc.fits",
         "sha256": "949563d7d960e78ddb278ab0eadef9a5b553c83b5667a43db349f1f56cabd0ad",
         "bytes": 1967040,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-2493.01",
         "tic": 123664207,
         "sector": 87,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 13982,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2025312202959-s0098-0000000123664207-0298-s_lc.fits": {
         "path": "scratch:campaign_toi-2493-01/tess2025312202959-s0098-0000000123664207-0298-s_lc.fits",
         "sha256": "824bb5c01c6bea21e70eb7cb41b63b767d5668dab0f87d6f6d5fc71c27278561",
         "bytes": 4164480,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-2493.01",
         "tic": 123664207,
         "sector": 98,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 26898,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       }
-    }
+    },
+    "lightcurve_products": [
+      "tess2020351194500-s0033-0000000123664207-0203-s_lc.fits",
+      "tess2024353092137-s0087-0000000123664207-0284-s_lc.fits",
+      "tess2025312202959-s0098-0000000123664207-0298-s_lc.fits"
+    ]
   },
   "checks": {
+    "Light-curve suitability for the residual screen": {
+      "state": "passed",
+      "note": "3 light curve(s) screenable",
+      "step": "fetch_products"
+    },
     "Product integrity (SHA-256)": {
       "state": "passed",
-      "note": "3 product(s) checksummed at first retrieval",
+      "note": "3 product(s) from MAST checksummed at first retrieval",
       "step": "fetch_products"
     }
   },

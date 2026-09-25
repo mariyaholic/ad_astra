@@ -1,8 +1,8 @@
 {
   "step": "residual_screen",
-  "run_id": 299,
-  "config_hash": "e4ca318023ec5c94",
-  "finished_utc": "2026-09-25T04:27:44Z",
+  "run_id": 1612,
+  "config_hash": "ace07ed34446776e",
+  "finished_utc": "2026-09-25T15:58:20Z",
   "result": {
     "per_product": {
       "tess2024223182411-s0082-0000000305375697-0278-s_lc.fits": {
@@ -11,6 +11,7 @@
             "mid_time_BJD_like": 2460538.359986874,
             "deepest_median_residual": -0.0051152876604652064,
             "max_cadences": 2,
+            "span_days": 0.001388902680901083,
             "flux_types": [
               "PDCSAP",
               "SAP"
@@ -21,12 +22,14 @@
               3.0
             ],
             "n_entries": 4,
-            "persistent": true
+            "persistent": true,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           },
           {
             "mid_time_BJD_like": 2460538.529432992,
             "deepest_median_residual": -0.004552012145022488,
             "max_cadences": 2,
+            "span_days": 0.0013889026804463356,
             "flux_types": [
               "SAP"
             ],
@@ -35,7 +38,8 @@
               3.0
             ],
             "n_entries": 2,
-            "persistent": false
+            "persistent": false,
+            "persistence_basis": "SAP and PDCSAP at >=2 baselines"
           }
         ],
         "persistent_events_outside_veto": 1,
@@ -43,6 +47,15 @@
         "rows": 18619,
         "usable": 16987,
         "k_mad": 2.5,
+        "channel_mode": "SAP+PDCSAP",
+        "systematics_model": {
+          "method": "residual autocorrelation integral to first zero crossing",
+          "tau_days": 0.0082337157757909,
+          "n_events": 2,
+          "events": [],
+          "strongest": null,
+          "caveat": "A correlated systematic repeating on the event timescale can mimic a dip; this model constrains noise, it does not prove astrophysical origin."
+        },
         "entries": 6,
         "entries_outside_veto": 6,
         "outside_veto": [

@@ -1,60 +1,111 @@
 {
   "step": "fetch_products",
-  "run_id": 345,
-  "config_hash": "b7a817a54bdd20d1",
-  "finished_utc": "2026-09-25T05:05:46Z",
+  "run_id": 1627,
+  "config_hash": "d830a6855f7d2b50",
+  "finished_utc": "2026-09-25T16:01:24Z",
   "result": {
     "products": {
       "tess2022273165103-s0057-0000000064837857-0245-s_lc.fits": {
         "path": "scratch:campaign_toi-6650-04/tess2022273165103-s0057-0000000064837857-0245-s_lc.fits",
         "sha256": "6aa4ca0c14bcf41606a591b9c10e24ebd428b4a880accdf6d794495238e0bb8a",
         "bytes": 2102400,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-6650.04",
         "tic": 64837857,
         "sector": 57,
-        "covers_known_epoch": true
+        "covers_known_epoch": true,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 17990,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2024085201119-s0077-0000000064837857-0272-s_lc.fits": {
         "path": "scratch:campaign_toi-6650-04/tess2024085201119-s0077-0000000064837857-0272-s_lc.fits",
         "sha256": "472fe0fb5951a760e5b02a3d753e93c0fa0be81d90e912bef93f49614964a88c",
         "bytes": 2050560,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-6650.04",
         "tic": 64837857,
         "sector": 77,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 12874,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2024249191853-s0083-0000000064837857-0280-s_lc.fits": {
         "path": "scratch:campaign_toi-6650-04/tess2024249191853-s0083-0000000064837857-0280-s_lc.fits",
         "sha256": "2ce9b5b429702c229a6651f2fb03f981eaf2760a74dc9b4142344300e6183202",
         "bytes": 1825920,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-6650.04",
         "tic": 64837857,
         "sector": 83,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 17329,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       },
       "tess2024274222008-s0084-0000000064837857-0281-s_lc.fits": {
         "path": "scratch:campaign_toi-6650-04/tess2024274222008-s0084-0000000064837857-0281-s_lc.fits",
         "sha256": "a513194fd134cf2531e40ac499228744c32aa53f6757b7c247d4442138d2df53",
         "bytes": 1883520,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-6650.04",
         "tic": 64837857,
         "sector": 84,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 16718,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       }
-    }
+    },
+    "lightcurve_products": [
+      "tess2022273165103-s0057-0000000064837857-0245-s_lc.fits",
+      "tess2024085201119-s0077-0000000064837857-0272-s_lc.fits",
+      "tess2024249191853-s0083-0000000064837857-0280-s_lc.fits",
+      "tess2024274222008-s0084-0000000064837857-0281-s_lc.fits"
+    ]
   },
   "checks": {
+    "Light-curve suitability for the residual screen": {
+      "state": "passed",
+      "note": "4 light curve(s) screenable",
+      "step": "fetch_products"
+    },
     "Product integrity (SHA-256)": {
       "state": "passed",
-      "note": "4 product(s) checksummed at first retrieval",
+      "note": "4 product(s) from MAST checksummed at first retrieval",
       "step": "fetch_products"
     }
   },

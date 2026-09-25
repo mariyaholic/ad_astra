@@ -1,41 +1,41 @@
 {
   "step": "prior_art",
-  "run_id": 440,
-  "config_hash": "01f194f2962498fa",
-  "finished_utc": "2026-09-25T05:38:44Z",
+  "run_id": 1458,
+  "config_hash": "75bbd1381c492e13",
+  "finished_utc": "2026-09-25T15:42:20Z",
   "result": {
     "targets": {
       "TOI-2456.01": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T05:38:38Z",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T15:42:11Z",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 80.5798700, 10.5750490, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T05:38:38Z",
+          "retrieved_utc": "2026-09-25T15:42:11Z",
           "matches": []
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T05:38:40Z: TOI-2456.01 (TIC 311271011, disposition PC)",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T15:42:15Z: TOI-2456.01 (TIC 311271011, disposition PC)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 80.5713927 AND 80.5883473 AND dec BETWEEN 10.5667157 AND 10.5833823",
-          "retrieved_utc": "2026-09-25T05:38:40Z",
+          "retrieved_utc": "2026-09-25T15:42:15Z",
           "matches": [
             "TOI-2456.01 (TIC 311271011, disposition PC)"
           ]
         },
         "VSX": {
           "state": "done",
-          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T05:38:42Z: Gaia DR3 3339208743313866368 (type ROT, P 6.2241 d)",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T15:42:18Z: Gaia DR3 3339208743313866368 (type ROT, P 6.2241 d)",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 80.5798700, 10.5750490, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T05:38:42Z",
+          "retrieved_utc": "2026-09-25T15:42:18Z",
           "matches": [
             "Gaia DR3 3339208743313866368 (type ROT, P 6.2241 d)"
           ]
         },
         "SIMBAD": {
           "state": "done",
-          "result": "1 match(es) in SIMBAD within 30\" as of 2026-09-25T05:38:43Z: HD 243032 (PM*)",
+          "result": "1 match(es) in SIMBAD within 30\" as of 2026-09-25T15:42:19Z: HD 243032 (PM*)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 80.5798700, 10.5750490, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T05:38:43Z",
+          "retrieved_utc": "2026-09-25T15:42:19Z",
           "matches": [
             "HD 243032 (PM*)"
           ]

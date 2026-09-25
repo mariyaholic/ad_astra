@@ -37,6 +37,8 @@
   "time_scale": "TDB",
   "cadence_seconds_header": 120.0,
   "coordinate_convention": "header RA_OBJ/DEC_OBJ as supplied; frame not independently established",
+  "channel_mode": "SAP and PDCSAP",
+  "channels": {},
   "threshold": {
     "k_mad": 2.5,
     "source": "calibrated (calibrate_screen)"
@@ -1483,5 +1485,67 @@
       "inside_veto": false
     }
   ],
-  "interpretation_limit": "-2.5 robust-MAD threshold from the campaign's sign-flip calibration; entries overlap across recipes and are not independent events."
+  "interpretation_limit": "-2.5 robust-MAD threshold from the campaign's sign-flip calibration; entries overlap across recipes and are not independent events.",
+  "systematics_model": {
+    "method": "residual autocorrelation integral to first zero crossing",
+    "tau_days": 0.005408014379007212,
+    "n_events": 35,
+    "events": [
+      {
+        "duration_label": "",
+        "box_statistic": -28.345616005334403,
+        "robust_z": -2.7767372056951407,
+        "parametric_z_rednoise_inflated": -2.7767372056951407,
+        "rednoise_inflation": 1.973263883236399,
+        "rednoise_inflation_applied": false,
+        "duration_days": 0.004166637986847693,
+        "empirical_p": 0.006644518272425249,
+        "empirical_trial_corrected_fap": 0.9999999999981047,
+        "n_random": 300,
+        "n_effective_trials": 4048.7,
+        "tau_days": 0.005408014379007212,
+        "parametric_p": 0.0027453776754860016,
+        "trial_corrected_fap": 0.9999853428836009,
+        "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+        "event_bjd": 2458764.8097953214
+      },
+      {
+        "duration_label": "",
+        "box_statistic": -29.321596364478562,
+        "robust_z": -2.87191151017187,
+        "parametric_z_rednoise_inflated": -2.87191151017187,
+        "rednoise_inflation": 1.973263883236399,
+        "rednoise_inflation_applied": false,
+        "duration_days": 0.0041666362995076475,
+        "empirical_p": 0.0033222591362126247,
+        "empirical_trial_corrected_fap": 0.9999985919863499,
+        "n_random": 300,
+        "n_effective_trials": 4048.7,
+        "tau_days": 0.005408014379007212,
+        "parametric_p": 0.0020399859789677296,
+        "trial_corrected_fap": 0.9997433488271181,
+        "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+        "event_bjd": 2458765.823673266
+      }
+    ],
+    "strongest": {
+      "duration_label": "",
+      "box_statistic": -29.321596364478562,
+      "robust_z": -2.87191151017187,
+      "parametric_z_rednoise_inflated": -2.87191151017187,
+      "rednoise_inflation": 1.973263883236399,
+      "rednoise_inflation_applied": false,
+      "duration_days": 0.0041666362995076475,
+      "empirical_p": 0.0033222591362126247,
+      "empirical_trial_corrected_fap": 0.9999985919863499,
+      "n_random": 300,
+      "n_effective_trials": 4048.7,
+      "tau_days": 0.005408014379007212,
+      "parametric_p": 0.0020399859789677296,
+      "trial_corrected_fap": 0.9997433488271181,
+      "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; parametric p from the robust z against that red-noise-bearing null (Gaussian tail), corrected for the independent resolution elements at this duration. The empirical p cannot go below 1/(n_random+1).",
+      "event_bjd": 2458765.823673266
+    },
+    "caveat": "A correlated systematic repeating on the event timescale can mimic a dip; this model constrains noise, it does not prove astrophysical origin."
+  }
 }

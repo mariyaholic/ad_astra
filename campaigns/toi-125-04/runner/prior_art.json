@@ -1,16 +1,16 @@
 {
   "step": "prior_art",
-  "run_id": 512,
-  "config_hash": "f76b2105275c1aa8",
-  "finished_utc": "2026-09-25T05:56:22Z",
+  "run_id": 1308,
+  "config_hash": "82226864ed1e54c1",
+  "finished_utc": "2026-09-25T15:28:41Z",
   "result": {
     "targets": {
       "TOI-125.04": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "3 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T05:56:17Z: TOI-125 b (host TOI-125); TOI-125 c (host TOI-125); TOI-125 d (host TOI-125)",
+          "result": "3 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T15:28:34Z: TOI-125 b (host TOI-125); TOI-125 c (host TOI-125); TOI-125 d (host TOI-125)",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 23.5934250, -66.6763490, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T05:56:17Z",
+          "retrieved_utc": "2026-09-25T15:28:34Z",
           "matches": [
             "TOI-125 b (host TOI-125)",
             "TOI-125 c (host TOI-125)",
@@ -19,9 +19,9 @@
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "4 match(es) in TESS_TOI within 30\" as of 2026-09-25T05:56:19Z: TOI-125.01 (TIC 52368076, disposition CP); TOI-125.02 (TIC 52368076, disposition CP); TOI-125.03 (TIC 52368076, disposition CP); TOI-125.04 (TIC 52368076, disposition PC)",
+          "result": "4 match(es) in TESS_TOI within 30\" as of 2026-09-25T15:28:36Z: TOI-125.01 (TIC 52368076, disposition CP); TOI-125.02 (TIC 52368076, disposition CP); TOI-125.03 (TIC 52368076, disposition CP); TOI-125.04 (TIC 52368076, disposition PC)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 23.5723772 AND 23.6144728 AND dec BETWEEN -66.6846823 AND -66.6680157",
-          "retrieved_utc": "2026-09-25T05:56:19Z",
+          "retrieved_utc": "2026-09-25T15:28:36Z",
           "matches": [
             "TOI-125.01 (TIC 52368076, disposition CP)",
             "TOI-125.02 (TIC 52368076, disposition CP)",
@@ -31,18 +31,18 @@
         },
         "VSX": {
           "state": "done",
-          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T05:56:21Z: TOI-125 (type EP, P 4.65382 d)",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T15:28:38Z: TOI-125 (type EP, P 4.65382 d)",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 23.5934250, -66.6763490, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T05:56:21Z",
+          "retrieved_utc": "2026-09-25T15:28:38Z",
           "matches": [
             "TOI-125 (type EP, P 4.65382 d)"
           ]
         },
         "SIMBAD": {
           "state": "done",
-          "result": "6 match(es) in SIMBAD within 30\" as of 2026-09-25T05:56:22Z: TOI-125d (Pl); TOI-125.05 (Pl?); TOI-125 (PM*); TOI-125b (Pl); TOI-125.04 (Pl?); TOI-125c (Pl)",
+          "result": "6 match(es) in SIMBAD within 30\" as of 2026-09-25T15:28:40Z: TOI-125d (Pl); TOI-125.05 (Pl?); TOI-125 (PM*); TOI-125b (Pl); TOI-125.04 (Pl?); TOI-125c (Pl)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 23.5934250, -66.6763490, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T05:56:22Z",
+          "retrieved_utc": "2026-09-25T15:28:40Z",
           "matches": [
             "TOI-125d (Pl)",
             "TOI-125.05 (Pl?)",

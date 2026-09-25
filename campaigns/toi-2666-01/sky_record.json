@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "lead",
  "evidence": "Unverified lead",
- "date": "2026-09-24",
+ "date": "2026-09-25",
  "summary": "Known-object test on TOI-2666.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 10, 3.5, 5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 20%, 30%, 30%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 59 threshold entries outside the known-signal veto across 3 light curve(s), forming 32 distinct event(s), 3 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461049.1644 (ΔT 1790.01 d); 52 period aliases remain. Unverified lead until vetted.",
  "spec": "campaigns/toi-2666-01.yaml",
  "report": "campaigns/toi-2666-01/REPORT.md",
@@ -25,24 +25,27 @@
   {
    "id": "tess2021039152502-s0035-0000000170889511-0205-s_lc.fits",
    "archive": "MAST",
-   "sha256": "37a2ecd845582f310a1196c95285d0b4e6c7ff5746a5505c12a975daf4428359"
+   "sha256": "37a2ecd845582f310a1196c95285d0b4e6c7ff5746a5505c12a975daf4428359",
+   "format": "spoc_lc"
   },
   {
    "id": "tess2023018032328-s0061-0000000170889511-0250-s_lc.fits",
    "archive": "MAST",
-   "sha256": "c66e7a0a967d5e3e6c4ed43eed9f40e058af26a737ffde87c320ccfc5d0f4015"
+   "sha256": "c66e7a0a967d5e3e6c4ed43eed9f40e058af26a737ffde87c320ccfc5d0f4015",
+   "format": "spoc_lc"
   },
   {
    "id": "tess2026005125623-s0099-0000000170889511-0300-s_lc.fits",
    "archive": "MAST",
-   "sha256": "90366f3815e4520800bfe27e704cc81e425f50b124c0679146d8d73d171bd0c8"
+   "sha256": "90366f3815e4520800bfe27e704cc81e425f50b124c0679146d8d73d171bd0c8",
+   "format": "spoc_lc"
   }
  ],
  "checks": [
   {
    "name": "Product integrity (SHA-256)",
    "state": "passed",
-   "note": "3 product(s) checksummed at first retrieval",
+   "note": "3 product(s) from MAST checksummed at first retrieval",
    "source": "campaign runner, step fetch_products"
   },
   {
@@ -90,8 +93,14 @@
   {
    "name": "Literature (ADS) audit",
    "state": "not_tested"
+  },
+  {
+   "name": "Light-curve suitability for the residual screen",
+   "state": "passed",
+   "note": "3 light curve(s) screenable",
+   "source": "campaign runner, step fetch_products"
   }
  ],
- "generated_by": "cygnus.campaign runner",
- "generated_utc": "2026-09-24T12:14:44Z"
+ "generated_by": "cygnus_multi campaign runner",
+ "generated_utc": "2026-09-25T15:44:53Z"
 }

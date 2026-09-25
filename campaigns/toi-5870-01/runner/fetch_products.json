@@ -1,27 +1,45 @@
 {
   "step": "fetch_products",
-  "run_id": 296,
-  "config_hash": "d7594310f4024fe6",
-  "finished_utc": "2026-09-25T04:27:40Z",
+  "run_id": 1609,
+  "config_hash": "ee64c479b709cbc1",
+  "finished_utc": "2026-09-25T15:58:19Z",
   "result": {
     "products": {
       "tess2024223182411-s0082-0000000305375697-0278-s_lc.fits": {
         "path": "scratch:campaign_toi-5870-01/tess2024223182411-s0082-0000000305375697-0278-s_lc.fits",
         "sha256": "f023ef21b7b0a03b8ca199795e3134a06883f4a752aea7209d60c721c0ce9ea3",
         "bytes": 1892160,
-        "fetched_now": true,
+        "fetched_now": false,
         "pinned": false,
         "target": "TOI-5870.01",
         "tic": 305375697,
         "sector": 82,
-        "covers_known_epoch": false
+        "covers_known_epoch": false,
+        "archive": "MAST",
+        "format": "spoc_lc",
+        "url": null,
+        "kind": "lightcurve",
+        "description": "",
+        "screen_suitability": {
+          "usable_cadences": 16987,
+          "cadence_s": 120.0,
+          "screenable": true
+        }
       }
-    }
+    },
+    "lightcurve_products": [
+      "tess2024223182411-s0082-0000000305375697-0278-s_lc.fits"
+    ]
   },
   "checks": {
+    "Light-curve suitability for the residual screen": {
+      "state": "passed",
+      "note": "1 light curve(s) screenable",
+      "step": "fetch_products"
+    },
     "Product integrity (SHA-256)": {
       "state": "passed",
-      "note": "1 product(s) checksummed at first retrieval",
+      "note": "1 product(s) from MAST checksummed at first retrieval",
       "step": "fetch_products"
     }
   },
