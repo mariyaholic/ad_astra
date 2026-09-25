@@ -1,0 +1,67 @@
+{
+  "step": "prior_art",
+  "run_id": 283,
+  "config_hash": "729b00c2398f2714",
+  "finished_utc": "2026-09-25T04:17:25Z",
+  "result": {
+    "targets": {
+      "TOI-1835.02": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "6 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T04:17:17Z: HD 110067 b (host HD 110067); HD 110067 c (host HD 110067); HD 110067 d (host HD 110067); HD 110067 e (host HD 110067); HD 110067 f (host HD 110067); HD 110067 g (host HD 110067)",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 189.8392240, 20.0273380, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:17:17Z",
+          "matches": [
+            "HD 110067 b (host HD 110067)",
+            "HD 110067 c (host HD 110067)",
+            "HD 110067 d (host HD 110067)",
+            "HD 110067 e (host HD 110067)",
+            "HD 110067 f (host HD 110067)",
+            "HD 110067 g (host HD 110067)"
+          ]
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T04:17:20Z: TOI-1835.01 (TIC 347332255, disposition PC); TOI-1835.02 (TIC 347332255, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 189.8303543 AND 189.8480937 AND dec BETWEEN 20.0190047 AND 20.0356713",
+          "retrieved_utc": "2026-09-25T04:17:20Z",
+          "matches": [
+            "TOI-1835.01 (TIC 347332255, disposition PC)",
+            "TOI-1835.02 (TIC 347332255, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T04:17:22Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 189.8392240, 20.0273380, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:17:22Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "7 match(es) in SIMBAD within 30\" as of 2026-09-25T04:17:23Z: HD 110067f (Pl); HD 110067 (PM*); HD 110067c (Pl); HD 110067g (Pl); HD 110067d (Pl); HD 110067e (Pl); HD 110067b (Pl)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 189.8392240, 20.0273380, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:17:23Z",
+          "matches": [
+            "HD 110067f (Pl)",
+            "HD 110067 (PM*)",
+            "HD 110067c (Pl)",
+            "HD 110067g (Pl)",
+            "HD 110067d (Pl)",
+            "HD 110067e (Pl)",
+            "HD 110067b (Pl)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
