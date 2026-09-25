@@ -522,8 +522,8 @@ def step_residual_screen(ctx, params: dict) -> dict:
                 state, empirical_agrees = significance_state(fap, strongest["empirical_p"], strongest["n_random"])
                 ctx.check("Single-channel event significance (red noise)", state,
                           f"strongest {strongest['product']} event BJD {strongest['event_bjd']:.4f}: box "
-                          f"{strongest['box_statistic']:+.4f}, red-noise-inflated z "
-                          f"{strongest['parametric_z_rednoise_inflated']:+.1f}, empirical p {strongest['empirical_p']:.3g}, "
+                          f"{strongest['box_statistic']:+.4f}, z vs random-epoch null "
+                          f"{strongest['parametric_z']:+.1f}, empirical p {strongest['empirical_p']:.3g}, "
                           f"FAP {fap:.3g} (n_eff {strongest['n_effective_trials']:.0f}, tau {strongest['tau_days']})"
                           + ("" if empirical_agrees else "; the empirical random-epoch test does not confirm it"))
     if k_decl == "calibrated":

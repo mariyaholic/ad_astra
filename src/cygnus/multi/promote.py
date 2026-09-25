@@ -1,13 +1,14 @@
 """Promote a vetted sandbox campaign into the official tree (no production code change).
 
-Implements the promotion path from ``experimental/VERIFICATION_REQUEST.md``: copy
-a completed ``cygnus_multi`` campaign (spec, report, search log, sky record and
-runner outputs) from the sandbox root into ``campaigns/<id>/``, rewrite the
+Copy a completed ``cygnus_multi`` campaign run in a sandbox (any directory given by
+``--root`` or ``CYGNUS_MULTI_ROOT``; spec, report, search log, sky record and runner
+outputs) into ``campaigns/<id>/`` of the worktree, rewrite the
 repository paths, record provenance in ``PROMOTED.md`` and create a **draft**
 collection in ``publish/collections/``.
 
 Guards, all enforced before anything is written:
 
+* a sandbox root must be given and must not be the worktree itself;
 * the sandbox spec and a ``completed`` sky record must exist;
 * the record must pass ``cygnus.skyrecord.validate`` in the sandbox;
 * the record must carry ``generated_by: cygnus_multi campaign runner``;
@@ -29,7 +30,6 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-DEFAULT_SANDBOX = Path(__file__).resolve().parent
 
 
 def _utc_now() -> str:
@@ -53,11 +53,16 @@ def _write_yaml(path: Path, data: dict) -> None:
 
 
 def _sandbox_root(explicit: str | Path | None) -> Path:
-    return Path(explicit or os.environ.get("CYGNUS_MULTI_ROOT") or DEFAULT_SANDBOX).resolve()
+    given = explicit or os.environ.get("CYGNUS_MULTI_ROOT")
+    if not given:
+        raise SystemExit("promote: no sandbox root; pass --root or set CYGNUS_MULTI_ROOT")
+    return Path(given).resolve()
 
 
 def _worktree_root(explicit: str | Path | None) -> Path:
-    return Path(explicit).resolve() if explicit else Path(__file__).resolve().parents[1]
+    from cygnus.config import WORKTREE
+
+    return Path(explicit or WORKTREE).resolve()
 
 
 def promote(root: Path | str | None, worktree: Path | str | None, campaign_id: str, *,
@@ -67,6 +72,8 @@ def promote(root: Path | str | None, worktree: Path | str | None, campaign_id: s
     from cygnus.ledger import Ledger
 
     root, worktree = _sandbox_root(root), _worktree_root(worktree)
+    if root == worktree:
+        raise SystemExit("promote refused: the sandbox root is the worktree itself (nothing to promote)")
     as_id = as_id or campaign_id
     src_spec = root / "campaigns" / f"{campaign_id}.yaml"
     src_dir = root / "campaigns" / campaign_id
@@ -148,10 +155,11 @@ def promote(root: Path | str | None, worktree: Path | str | None, campaign_id: s
         f"- Promoted from sandbox: `{src_dir.relative_to(root).as_posix()}` (root `{root.as_posix()}`)",
         f"- Promotion date: {_utc_date()} (UTC)",
         f"- Provenance note: {note.strip() or 'none supplied'}",
-        "- Promoted by: `python -m cygnus.multi.promote` — see `experimental/VERIFICATION_REQUEST.md`.",
+        "- Promoted by: `python -m cygnus.multi.promote` (see `docs/CAMPAIGNS.md`).",
         f"- The spec is kept at `campaigns/{as_id}/SPEC.yaml`, not top-level `campaigns/{as_id}.yaml`:",
-        "  its steps are implemented only by the experimental runner, the production `cygnus.campaign check`",
-        "  rejects it by design, and CI's campaign-check loop globs only top-level specs.",
+        "  CI's campaign-check loop and record regeneration glob only top-level specs, and this campaign's",
+        "  runs are in the sandbox ledger, not the production one. Re-run it with `python -m cygnus.multi run`",
+        "  as a top-level spec to make it a production campaign.",
         "", "## Sandbox ledger runs (not in `state/ledger.sqlite`)", "",
     ]
     lines += [f"- run #{r['id']} `{r['script']}` — {r['status']}" + (f": {r['summary']}" if r.get("summary") else "")
@@ -159,7 +167,7 @@ def promote(root: Path | str | None, worktree: Path | str | None, campaign_id: s
     lines += [
         "", "The ledger runs for this campaign live in the sandbox ledger under the `cygnus_multi:`",
         "namespace and are **not** visible to the published site's `/log/` until the ledgers are",
-        "merged. The record was produced by the experimental runner",
+        "merged. The record was produced by the sandbox runner",
         f"(`generated_by: {rec.get('generated_by')}`).", "",
     ]
     (dst_dir / "PROMOTED.md").write_text("\n".join(lines), encoding="utf-8", newline="\n")
@@ -189,7 +197,7 @@ def promote(root: Path | str | None, worktree: Path | str | None, campaign_id: s
                               "source": f"{rel_dir}/{name}", "title": title, "origin": "derived", "download": True})
         coll = {"id": as_id, "title": rec["title"], "type": "campaign", "status": "draft", "published": None,
                 "summary": rec["summary"],
-                "research_status": "Draft collection · promoted from the experimental pipeline; not independently verified",
+                "research_status": "Draft collection · promoted from a cygnus.multi sandbox run; not independently verified",
                 "license": "Apache-2.0", "related": [], "items": items}
         coll_path.write_text(json.dumps(coll, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
 
@@ -205,8 +213,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--campaign", required=True, help="sandbox campaign id (campaigns/<id>.yaml under the sandbox root)")
     ap.add_argument("--as", dest="as_id", default=None, help="production campaign id (default: same)")
     ap.add_argument("--note", default="", help="provenance note recorded in PROMOTED.md")
-    ap.add_argument("--root", default=None, help="sandbox root (default: CYGNUS_MULTI_ROOT or experimental/)")
-    ap.add_argument("--worktree", default=None, help="repository root (default: this checkout)")
+    ap.add_argument("--root", default=None, help="sandbox root (default: CYGNUS_MULTI_ROOT; required)")
+    ap.add_argument("--worktree", default=None, help="repository root (default: this checkout, cygnus.config.WORKTREE)")
     ap.add_argument("--dry-run", action="store_true", help="check and report without writing")
     a = ap.parse_args(argv)
     out = promote(a.root, a.worktree, a.campaign, as_id=a.as_id, note=a.note, dry_run=a.dry_run)

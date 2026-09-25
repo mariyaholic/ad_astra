@@ -19,8 +19,8 @@ targets:
     ra_deg: 139.480865
     dec_deg: -3.387525
     frame: ICRS
-    epoch: J2000.0
-    position_source: NASA Exoplanet Archive TOI table (via campaigns/toi-2666-01.yaml)
+    epoch: J2015.5
+    position_source: NASA Exoplanet Archive TOI table (via campaigns/toi-2666-01.yaml; Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)
 
 steps:
   - fetch_products:
@@ -50,5 +50,5 @@ record:
     - {name: "Product integrity (SHA-256)", state: not_tested}
     - {name: "Target-to-Gaia source identification", state: not_tested}
     - {name: "Gaia NSS astrometric vetting", state: not_tested}
-    - {name: "Proper-motion propagation to the Gaia epoch", state: not_tested, note: "positions are matched as given (J2000.0 TOI-table coordinates vs Gaia epoch 2016.0); not propagated"}
+    - {name: "Proper-motion propagation to the Gaia epoch", state: passed, note: "the runner matches positions as given; reports/position-epoch-audit-01 (Gaia DR3 TAP, 2026-09-25) shows the TOI-table position is at epoch J2015.5, not J2000.0: TOI minus Gaia DR3 = (-11.2, +31.7) mas, equal to -0.5 yr x PM (-11.6, +31.9) mas; residual after propagation 0.5 mas. The 0.5-yr offset (0.034 arcsec) is far below the 5 arcsec match radius, so identification is unaffected"}
     - {name: "Radial-velocity / literature companion search (ADS)", state: not_tested}

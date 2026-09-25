@@ -14,6 +14,19 @@ from cygnus.multi.readers import read_lightcurve, read_table
 
 
 # ------------------------------------------------------------------ registry
+def test_documented_adapter_count_matches_the_registry():
+    """Every "<N> ... archive adapters" statement in the docs matches ``len(base.summary())``."""
+    import re
+
+    docs = Path(__file__).resolve().parents[1] / "docs"
+    pat = re.compile(r"(\d+) (?:registered )?archive adapters")
+    found = {name: [int(n) for n in pat.findall((docs / name).read_text(encoding="utf-8"))]
+             for name in ("STATUS.md", "CAMPAIGNS.md")}
+    assert any(found.values()), "no adapter count is documented; update this test if the wording changed"
+    n = len(base.summary())
+    assert all(v == n for vs in found.values() for v in vs), (found, n)
+
+
 def test_every_datasource_archive_has_an_adapter():
     """Every archive the project lists in DATA_SOURCES.md is registered."""
     expected = {

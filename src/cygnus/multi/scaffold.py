@@ -54,6 +54,21 @@ def target_from_row(row: dict, source: str) -> dict:
             "disposition": row.get("disposition") or ""}
 
 
+TOI_POSITION_EPOCH = "J2015.5"
+TOI_POSITION_NOTE = "Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01"
+
+
+def position_epoch(t: dict) -> str:
+    """Epoch label for a target position. TOI-table positions are at the Gaia DR2 epoch J2015.5
+    (reports/position-epoch-audit-01: TOI minus Gaia DR3 equals -0.5 yr x proper motion). Other
+    sources have not been audited, so an explicit ``epoch`` is used if given, else "unverified"."""
+    if t.get("epoch"):
+        return str(t["epoch"])
+    if "TOI table" in str(t.get("position_source", "")):
+        return TOI_POSITION_EPOCH
+    return "unverified"
+
+
 def lookup_planet(name: str, fetch=None) -> dict:
     """A known planet from the NASA Exoplanet Archive composite table (``pscomppars``)."""
     import io
@@ -144,7 +159,7 @@ targets:
     ra_deg: {t['ra_deg']}
     dec_deg: {t['dec_deg']}
     frame: ICRS
-    epoch: J2000.0
+    epoch: {position_epoch(t)}
     position_source: {t['position_source']}
     t0_bjd: {t['t0_bjd']}
     period_days: {t.get('period_days')}

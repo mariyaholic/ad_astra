@@ -35,7 +35,9 @@ def test_white_noise_deep_dip_is_highly_significant(tmp_path):
     s = summary["strongest"]
     assert s is not None
     assert s["trial_corrected_fap"] is not None and s["trial_corrected_fap"] < 1e-3
-    assert s["parametric_z_rednoise_inflated"] < -7
+    assert s["parametric_z"] < -7
+    assert s["parametric_z"] == s["robust_z"] and s["rednoise_inflation_applied"] is False
+    assert "parametric_z_rednoise_inflated" not in s
     assert s["empirical_p"] <= 1 / (s["n_random"] + 1) + 1e-9
 
 
@@ -57,7 +59,7 @@ def test_red_noise_shallow_dip_is_not_significant(tmp_path):
     assert summary["tau_days"] is None or summary["tau_days"] > 0.0   # tau was estimated
     s = summary["strongest"]
     if s is not None:
-        # the red-noise-inflated significance must be far weaker than the white-noise case
+        # against a red-noise-bearing null the significance must be far weaker than the white-noise case
         assert s["rednoise_inflation"] >= 1.0
         assert s["trial_corrected_fap"] is None or s["trial_corrected_fap"] > 1e-4
 

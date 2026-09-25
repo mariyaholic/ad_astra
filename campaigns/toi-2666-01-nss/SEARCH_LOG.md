@@ -22,4 +22,4 @@ No light curve was retrieved, so there are no rows, thresholds or entries to rep
 ## Not searched / not tested
 
 - No light curve was retrieved or screened: this campaign's questions are answered from catalogue tables alone, so transit photometry (depths, epochs, centroids) is not tested here.
-- Proper-motion propagation of the target position to the Gaia epoch, and the ADS literature search (both are declared checks marked not_tested in the sky record).
+- The ADS literature search (a declared check marked not_tested in the sky record). Proper-motion propagation to the Gaia epoch was not done by the runner (positions matched as given) but has since been computed in `reports/position-epoch-audit-01`: the TOI-table position is at epoch J2015.5, and the 0.5-yr offset to Gaia DR3 (2016.0) is 0.034″ against a 5″ match radius (check now `passed`).

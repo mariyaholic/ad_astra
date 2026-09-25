@@ -75,7 +75,9 @@ def event_significance(lc, channel: np.ndarray, resid: np.ndarray, rednoise: Red
                        duration_label: str = "") -> dict | None:
     """Empirical dip significance of one event against the light curve's own red noise.
 
-    Returns the statistic, its robust z, the empirical per-epoch p-value, the number
+    Returns the statistic, its robust z (also reported as ``parametric_z``, the z the
+    parametric p is computed from; no red-noise inflation is applied to it), the empirical
+    per-epoch p-value, the number
     of independent resolution elements and the trial-corrected FAP. ``None`` when the
     event window has too few usable cadences.
     """
@@ -117,22 +119,22 @@ def event_significance(lc, channel: np.ndarray, resid: np.ndarray, rednoise: Red
     # empirical floor 1/(n_random+1)), so the campaign check passes an event only when the
     # empirical test agrees.
     inflation = (max(1.0, (tau or 0.0) / cad_d)) ** 0.5 if cad_d > 0 else 1.0
-    z_eff = z
-    p_param = (0.5 * math.erfc(-z_eff / math.sqrt(2))) if z_eff is not None else None
+    p_param = (0.5 * math.erfc(-z / math.sqrt(2))) if z is not None else None
     element = max(dur_d, tau or 0.0, cad_d)
     n_eff = max(1.0, span_d / element)
     fap = float(1 - (1 - p_param) ** n_eff) if p_param is not None else None
     empirical_fap = float(1 - (1 - p) ** n_eff)
     return {"duration_label": duration_label, "box_statistic": stat, "robust_z": z,
-            "parametric_z_rednoise_inflated": z_eff, "rednoise_inflation": inflation,
+            "parametric_z": z, "rednoise_inflation": inflation,
             "rednoise_inflation_applied": False, "duration_days": dur_d,
             "empirical_p": p, "empirical_trial_corrected_fap": empirical_fap, "n_random": int(null.size),
             "n_effective_trials": round(n_eff, 1), "tau_days": tau,
             "parametric_p": p_param, "trial_corrected_fap": fap,
             "interpretation": "empirical dip statistic at the event vs random epochs of the same light curve; "
-                              "parametric p from the robust z against that red-noise-bearing null (Gaussian tail), "
-                              "corrected for the independent resolution elements at this duration. The empirical p "
-                              "cannot go below 1/(n_random+1)."}
+                              "parametric_z is the robust z against that red-noise-bearing null (not further "
+                              "inflated: rednoise_inflation is reported as a diagnostic only and is not applied), "
+                              "and parametric p is its Gaussian tail, corrected for the independent resolution "
+                              "elements at this duration. The empirical p cannot go below 1/(n_random+1)."}
 
 
 def product_summary(lc, channel: np.ndarray, events: list[dict], *, seed: int = 0, n_random: int = 300) -> dict:

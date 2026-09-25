@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import pytest
 
@@ -12,7 +11,6 @@ from cygnus.ledger import Ledger
 
 from cygnus.multi import promote
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
 
 SPEC = """schema: cygnus.campaign/1
 campaign_id: exp-01
@@ -125,3 +123,21 @@ def test_dry_run_writes_nothing(worlds):
     assert out["dry_run"] is True
     assert not (worktree / "campaigns" / "prod-01").exists()
     assert not (worktree / "publish" / "collections" / "prod-01.json").exists()
+
+
+def test_sandbox_root_is_required_and_defaults_are_the_real_checkout(monkeypatch, tmp_path):
+    from cygnus.config import WORKTREE
+
+    monkeypatch.delenv("CYGNUS_MULTI_ROOT", raising=False)
+    with pytest.raises(SystemExit, match="no sandbox root"):
+        promote.promote(None, tmp_path, "exp-01")
+    assert promote._worktree_root(None) == WORKTREE.resolve()
+    assert (promote._worktree_root(None) / "src" / "cygnus" / "multi" / "promote.py").is_file()
+    monkeypatch.setenv("CYGNUS_MULTI_ROOT", str(tmp_path))
+    assert promote._sandbox_root(None) == tmp_path.resolve()
+
+
+def test_worktree_is_never_its_own_sandbox(worlds):
+    _, worktree = worlds
+    with pytest.raises(SystemExit, match="sandbox root is the worktree"):
+        promote.promote(worktree, worktree, "exp-01")

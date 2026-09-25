@@ -20,7 +20,10 @@ This is a pipeline check on a known object, not a discovery claim.
 **Astrometry of the matched host is clean.** From `gaia_cone_TOI-6666.01_r30as.csv` and
 `source_checks.json` on disk: the matched source 2223770483452673408 has RUWE 0.827 (single-star
 model fits), no `non_single_star` flag, and it is the only Gaia DR3 source within 5″ — the
-identification is unique. No NSS two-body solution is published for it, which is *inconclusive*:
+identification is unique. (The 0.02″ to Gaia is itself 0.5 yr of proper motion, since the
+TOI-table position is at epoch J2015.5, `reports/position-epoch-audit-01`; the single SIMBAD row,
+`HD 206617`, is 0.57″ from the TOI position for the same reason: SIMBAD is at epoch 2000, and
+Gaia DR3 minus SIMBAD equals 16 yr × PM to within 1 mas.) No NSS two-body solution is published for it, which is *inconclusive*:
 Gaia's NSS catalogue is not complete at these orbital parameters, so absence is not evidence for
 or against the eclipsing-binary / companion alternative for the TOI-6666.01 repeat-event lead.
 
@@ -68,7 +71,7 @@ An NSS solution at or above the significance threshold means the companion is al
 | Product integrity (SHA-256) | passed | 2 product(s) from gaia, simbad checksummed at first retrieval |
 | Target-to-Gaia source identification | passed | TOI-6666.01: Gaia DR3 2223770483452673408 at 0.02", G 8.779094; 1 source(s) within 5" |
 | Gaia NSS astrometric vetting | inconclusive | TOI-6666.01: no Gaia DR3 NSS two-body solution for source 2223770483452673408 (0.02" away); Gaia sensitivity is incomplete, so this is not proof of a single star |
-| Proper-motion propagation to the Gaia epoch | not_tested | positions are matched as given (J2000.0 TOI-table coordinates vs Gaia epoch 2016.0); not propagated |
+| Proper-motion propagation to the Gaia epoch | passed | the runner matches positions as given; `reports/position-epoch-audit-01` (Gaia DR3 TAP, 2026-09-25) shows the TOI-table position is at epoch J2015.5, not J2000.0: TOI − Gaia DR3 = (+0.8, −19.1) mas = −0.5 yr × PM (+0.8, −18.5) mas; residual after propagation 0.6 mas. The 0.5-yr offset (0.019″) is far below the 5″ match radius |
 | Radial-velocity / literature companion search (ADS) | not_tested |  |
 | Earlier ad-hoc SB2 attribution | failed | cited source 4513527912472807936 (ICRS 287.16737, +16.85086) is 57.276 deg from the target; attribution withdrawn |
 | Context products read | passed | 2 non-light-curve product(s) (table) recorded in context.json |

@@ -23,6 +23,7 @@ from typing import Any
 from ..config import WORKTREE, scratch_dir
 from ..ledger import Ledger, now_utc
 from ..skyrecord import SCHEMA as RECORD_SCHEMA
+from .scaffold import TOI_POSITION_EPOCH, TOI_POSITION_NOTE
 from .steps import STEPS
 
 SPEC_SCHEMA = "cygnus.campaign/1"
@@ -274,7 +275,8 @@ def write_record(ctx: Context, complete: bool) -> str | None:
     n = int(rec_spec.get("queue_targets_in_record", 10))
     for t in ctx.optional_result("target_queue", {}).get("queue", [])[:n]:
         targets.append({"name": t["name"], "ra_deg": t["ra_deg"], "dec_deg": t["dec_deg"], "frame": "ICRS",
-                        "epoch": "J2000.0 (TIC)", "position_source": "NASA Exoplanet Archive TOI table"})
+                        "epoch": TOI_POSITION_EPOCH,
+                        "position_source": f"NASA Exoplanet Archive TOI table ({TOI_POSITION_NOTE})"})
     products = [{"id": pid, "archive": "MAST", "sha256": p["sha256"]}
                 for pid, p in ctx.optional_result("fetch_products", {}).get("products", {}).items()]
     summary = rec_spec["summary"].strip()

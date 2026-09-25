@@ -66,7 +66,7 @@ def main(argv=None) -> int:
         if a.next or a.from_queue:
             qpath = root / a.queue
             row = scaffold.pick_from_queue(root, qpath, a.from_queue)
-            t = scaffold.target_from_row(row, "NASA Exoplanet Archive TOI table")
+            t = scaffold.target_from_row(row, f"NASA Exoplanet Archive TOI table ({scaffold.TOI_POSITION_NOTE})")
             parent = Path(a.queue).parent.name
             origin = f"{a.queue} (rank {row.get('rank')}), itself from the NASA Exoplanet Archive TOI table"
         elif a.planet:
