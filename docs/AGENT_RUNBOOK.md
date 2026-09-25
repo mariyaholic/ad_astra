@@ -85,3 +85,9 @@ Do not change code in `src/`, thresholds in a generated spec, or anyone else's c
 | `prior_art` | NASA Exoplanet Archive, TOI, VSX and SIMBAD cone searches, dated, into the ledger | Catalogue cross-match |
 
 The following checks stay `not_tested`: detrending alternatives, difference-image centroids, pointing correlation and ADS. They are designed in `ANALYSIS_STACK.md` but not built.
+
+## Operational notes (added 2026-09-25)
+
+1. **Empty ≠ absent, and absent ≠ outage.** When a healthy source returns no rows for a supposedly observed target, poke around before concluding anything: (a) run a **control query** that must return data on the same path; (b) try the target-name format the archive actually indexes — for MAST TESS this is the bare TIC number, `query_criteria(target_name=str(tic), obs_collection='TESS', provenance_name='SPOC', dataproduct_type='timeseries')` (see `DATA_SOURCES.md` §0); (c) loosen filters step by step; (d) fall back to a cone search around the coordinates. Only then conclude "no data at this archive", **record the evidence in the target's claim/report**, skip the target, and continue with the queue — never pause a queue-population run on a single emptiness.
+2. **DSH runtime note.** The harness's web-search helper runs on a separate endpoint from chat and can fail independently (e.g., HTTP 402 balance errors) without implying anything about the archives. Prefer **direct fetches** (`web_fetch`, `astroquery`, native archive APIs) and verify any query path with a control before judging a failure from its output.
+3. **Pre-screen claims (optional but cheap).** Before `new --next`, probe each unclaimed TIC with the exact fetch filter ladder of step 1 above; claim only targets with SPOC timeseries rows. Saves dead claims like TOI-7176.01 (TIC 44161614 has no SPOC LC at MAST; only SPOC FFI at its position).
