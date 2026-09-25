@@ -1,0 +1,108 @@
+# Known-object test, TOI-2003.01
+
+> Drafted by `python -m cygnus.campaign report` from the runner's outputs; reviewed 2026-09-25.
+> The reviewer notes below were added by hand; every other number is the runner's.
+
+- Campaign spec: `campaigns/toi-2003-01.yaml`
+- Parent queue: `tess-mono-01`
+- Ledger runs: calibrate_screen #188, fetch_products #187, known_signal_recovery #189, period_aliases #191, prior_art #192, residual_screen #190
+- Runner finished (UTC): 2026-09-25T02:59:44Z
+
+## Bottom line
+
+Positive control **not tested**: no retrieved light curve covers a catalogued transit epoch.
+Outside the catalogued epoch the screen left 1 threshold entries forming **1 distinct event(s)**, **0 persistent** (SAP and PDCSAP, two or more baselines). None is vetted; see *Screen events*.
+
+This is a pipeline check on a known object, not a discovery claim. No period is implied by a single transit.
+
+## Reviewer notes (2026-09-25)
+
+**Positive control not tested.** Only one SPOC light curve was available (sector 37,
+`tess2021091135823-s0037-…-s_lc.fits`) and it does not cover the catalogued epoch (BJD 2458579.365).
+Per the runbook this is recorded and the target skipped — it is not a positive-control failure.
+Injection–recovery completeness at the reference box is 50 %, so the screen is only moderately sensitive.
+
+No persistent screen events and no repeat candidate were found, so there are no events to review
+individually. The single distinct event outside the veto is non-persistent, which the runbook treats as a
+systematic.
+
+What this supports: nothing beyond a null screen of one sector. What it does not: any statement about the
+catalogued transit (not covered) or a second transit (none persistent). Next test: none proposed; the
+target is not informative until a light curve covering the catalogue epoch exists.
+
+## Target
+
+| Field | Value | Source |
+|---|---|---|
+| name | TOI-2003.01 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tic | 58463434 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| ra_deg | 201.527127 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| dec_deg | -27.41256 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| t0_bjd | 2458579.36532 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| depth_ppm | 3860.0 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| duration_h | 3.529 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| tmag | 9.6569 | NASA Exoplanet Archive TOI table (copied in the spec) |
+| catalogue_row_updated | 2025-07-22 12:04:25 | NASA Exoplanet Archive TOI table (copied in the spec) |
+
+## Products
+
+| Product | Sector | Covers catalogued epoch | SHA-256 (first 16) | Retrieved now |
+|---|---|---|---|---|
+| `tess2021091135823-s0037-0000000058463434-0208-s_lc.fits` | 37 | False | `da353e633255c6a3` | True |
+
+## Positive control (catalogued transit)
+
+| Product | Epoch (BJD) | State | Usable in-transit cadences | Measured depth (ppm) | Catalogue depth (ppm) | Entry offset (h) |
+|---|---|---|---|---|---|---|
+| `tess2021091135823-s0037-0000000058463434-0208-s_lc.fits` | — | epoch not in this light curve | — | — | 3860 | — |
+
+Depth: median PDCSAP residual inside ±duration/2 about the catalogued epoch, against a 2-d running median; the error is statistical only. A depth unlike the catalogue's may reflect dilution, detrending or an epoch/duration error; it is reported, not used as a pass mark.
+
+## Calibration and sensitivity
+
+| Product | k* (sign-flip null) | At grid floor | 90 % completeness depth at k = 5, by duration | at k* |
+|---|---|---|---|---|
+| `tess2021091135823-s0037-0000000058463434-0208-s_lc.fits` | 3 | False | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 10000 | 1h: 5000, 2h: 5000, 4h: 5000, 8h: 5000 |
+
+The null result (if any) excludes only dips deeper than the 90 %-completeness depth for their duration.
+
+## Screen events outside the catalogued epoch
+
+Entries merged where they overlap in time. *Persistent* = SAP and PDCSAP at two or more baselines.
+
+| Product | Mid time (BJD) | Deepest median residual | Max cadences | Flux | Baselines (d) | Persistent |
+|---|---|---|---|---|---|---|
+| `tess2021091135823-s0037-0000000058463434-0208-s_lc.fits` | 2459325.82793 | -0.00297 | 2 | SAP | 3 | no |
+
+None has been vetted: centroids, pointing, background, momentum dumps and other reductions are **not tested**. Most screen events in TESS light curves are systematics; each is at most an unverified lead.
+
+## Catalogue cross-match
+
+**TOI-2003.01**
+
+- NASA_Exoplanet_Archive (done, 2026-09-25): no match in NASA_Exoplanet_Archive within 30" as of 2026-09-25T02:59:25Z
+- TESS_TOI (done, 2026-09-25): 1 match(es) in TESS_TOI within 30" as of 2026-09-25T02:59:27Z: TOI-2003.01 (TIC 58463434, disposition PC)
+- VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T02:59:32Z
+- SIMBAD (error, 2026-09-25): inconclusive (SIMBAD query failed as of 2026-09-25T02:59:33Z: ProxyError: HTTPSConnectionPool(host='simbad.cds.unistra.fr', port=443): Max retries exceeded with url: /simbad/sim-tap/sync (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: )
+
+## Checks
+
+| Check | State | Note |
+|---|---|---|
+| Product integrity (SHA-256) | passed | 1 product(s) checksummed at first retrieval |
+| Known-signal recovery (positive control) | not_tested | no retrieved light curve covers a catalogued transit epoch |
+| Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (3; ≤ 0 persistent null events outside the veto) |
+| Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 50% (pass mark 90%); 90%-completeness depths are in calibration.json |
+| Catalogue cross-match | inconclusive | 1 target(s) × 4 services, radius 30″; 3 answered, 1 errored; results in the ledger prior_art table |
+| Period aliases (repeat events) | not_tested | catalogued transit not recovered; no reference depth |
+| Alternative detrending | not_tested |  |
+| Difference-image centroids / blend audit | not_tested |  |
+| Pointing / jitter correlation | not_tested |  |
+| Literature (ADS) audit | not_tested |  |
+
+## Reproduction
+
+```bash
+python -m cygnus.campaign run campaigns/toi-2003-01.yaml
+python -m cygnus.campaign report campaigns/toi-2003-01.yaml
+```

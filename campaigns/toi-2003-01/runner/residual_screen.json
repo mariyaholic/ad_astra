@@ -1,0 +1,62 @@
+{
+  "step": "residual_screen",
+  "run_id": 190,
+  "config_hash": "e16608f22628a411",
+  "finished_utc": "2026-09-25T02:59:25Z",
+  "result": {
+    "per_product": {
+      "tess2021091135823-s0037-0000000058463434-0208-s_lc.fits": {
+        "distinct_events_outside_veto": [
+          {
+            "mid_time_BJD_like": 2459325.8279340016,
+            "deepest_median_residual": -0.0029682513589164294,
+            "max_cadences": 2,
+            "flux_types": [
+              "SAP"
+            ],
+            "baselines_days": [
+              3.0
+            ],
+            "n_entries": 1,
+            "persistent": false
+          }
+        ],
+        "persistent_events_outside_veto": 0,
+        "dir": "campaigns/toi-2003-01/tic58463434/sector37",
+        "rows": 18249,
+        "usable": 15603,
+        "k_mad": 3.0,
+        "entries": 1,
+        "entries_outside_veto": 1,
+        "outside_veto": [
+          {
+            "detrend_days": 3.0,
+            "flux_type": "SAP",
+            "mid_time_BJD_like": 2459325.8279340016,
+            "n_cadences": 2,
+            "median_fractional_residual": -0.0029682513589164294
+          }
+        ]
+      }
+    },
+    "entries_outside_veto_total": 1,
+    "distinct_events_outside_veto_total": 1,
+    "persistent_events_outside_veto_total": 0
+  },
+  "checks": {
+    "Calibrated false-alarm threshold (sign-flip null)": {
+      "state": "passed",
+      "note": "screen run at each light curve's own k* (3; \u2264 0 persistent null events outside the veto)",
+      "step": "residual_screen"
+    },
+    "Synthetic signal injection\u2013recovery": {
+      "state": "inconclusive",
+      "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 50% (pass mark 90%); 90%-completeness depths are in calibration.json",
+      "step": "residual_screen"
+    }
+  },
+  "notes": [
+    "Residual screen: 1 threshold entry outside the known-signal veto across 1 light curve(s), forming 1 distinct event(s), 0 persistent in SAP and PDCSAP at two or more baselines."
+  ],
+  "outcome": null
+}
