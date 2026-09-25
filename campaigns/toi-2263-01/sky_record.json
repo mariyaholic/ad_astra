@@ -1,0 +1,112 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "toi-2263-01",
+ "title": "Known-object test, TOI-2263.01",
+ "kind": "known-object test",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-25",
+ "summary": "Known-object test on TOI-2263.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3, ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 94 threshold entries outside the known-signal veto across 6 light curve(s), forming 38 distinct event(s), 1 persistent in SAP and PDCSAP at two or more baselines.",
+ "spec": "campaigns/toi-2263-01.yaml",
+ "report": "campaigns/toi-2263-01/REPORT.md",
+ "search_log": "campaigns/toi-2263-01/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "TOI-2263.01",
+   "ra_deg": 237.961131,
+   "dec_deg": 83.110888,
+   "frame": "ICRS",
+   "epoch": "J2000.0",
+   "position_source": "NASA Exoplanet Archive TOI table"
+  }
+ ],
+ "products": [
+  {
+   "id": "tess2019198215352-s0014-0000000159400561-0150-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "55ff89fc7be45455d7aea9ac3131766b3841db3fd5a8865162b5ff2623b5ec8a"
+  },
+  {
+   "id": "tess2019331140908-s0019-0000000159400561-0164-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "51bc7088b534e36b9932aeb76f61ba12f59b47923d04df9670512ee8d599307e"
+  },
+  {
+   "id": "tess2019357164649-s0020-0000000159400561-0165-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "0e4242366543cf163133c89833370540f61d330024855aa543a0a09842b9cebb"
+  },
+  {
+   "id": "tess2020020091053-s0021-0000000159400561-0167-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "25536edafc9fdb6f803d83d4edd96ea35072493160b1e7e4f2e23a514969d731"
+  },
+  {
+   "id": "tess2020133194932-s0025-0000000159400561-0182-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "9c57b9a8afbd9e8c292099db387861d7d1a822d53c09f998adbd2077883ea156"
+  },
+  {
+   "id": "tess2020160202036-s0026-0000000159400561-0188-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "3c88e57dc95ba009cadada76615bf0b05e63ba636045d18de9a01a52d672c266"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "passed",
+   "note": "6 product(s) checksummed at first retrieval",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Known-signal recovery (positive control)",
+   "state": "failed",
+   "note": "BJD 2458708.3844: not recovered, depth 208 ± 45 ppm (catalogue 358 ppm)",
+   "source": "campaign runner, step known_signal_recovery"
+  },
+  {
+   "name": "Calibrated false-alarm threshold (sign-flip null)",
+   "state": "passed",
+   "note": "screen run at each light curve's own k* (3, 3, 3, ≤2.5, 3, ≤2.5; ≤ 0 persistent null events outside the veto)",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Synthetic signal injection–recovery",
+   "state": "inconclusive",
+   "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 10%, 10%, 30%, 100%, 30%, 90% (pass mark 90%); 90%-completeness depths are in calibration.json",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Catalogue cross-match",
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
+  },
+  {
+   "name": "Period aliases (repeat events)",
+   "state": "not_tested",
+   "note": "catalogued transit not recovered; no reference depth",
+   "source": "campaign runner, step period_aliases"
+  },
+  {
+   "name": "Alternative detrending",
+   "state": "not_tested"
+  },
+  {
+   "name": "Difference-image centroids / blend audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Pointing / jitter correlation",
+   "state": "not_tested"
+  },
+  {
+   "name": "Literature (ADS) audit",
+   "state": "not_tested"
+  }
+ ],
+ "generated_by": "cygnus.campaign runner",
+ "generated_utc": "2026-09-25T05:54:50Z"
+}
