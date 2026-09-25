@@ -1,0 +1,56 @@
+{
+  "step": "prior_art",
+  "run_id": 313,
+  "config_hash": "6148ef6a1aa81ce1",
+  "finished_utc": "2026-09-25T04:31:09Z",
+  "result": {
+    "targets": {
+      "TOI-1893.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T04:31:01Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 326.4383920, 79.6139390, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:31:01Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T04:31:04Z: TOI-1893.01 (TIC 264544388, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 326.3921676 AND 326.4846164 AND dec BETWEEN 79.6056057 AND 79.6222723",
+          "retrieved_utc": "2026-09-25T04:31:04Z",
+          "matches": [
+            "TOI-1893.01 (TIC 264544388, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T04:31:06Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 326.4383920, 79.6139390, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:31:06Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "4 match(es) in SIMBAD within 30\" as of 2026-09-25T04:31:07Z: BD+78   764 (*); TOI-1893.01 (Pl?); Gaia DR3 2285334677816030848 (*); 1RXS J214540.5+793658 (X)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 326.4383920, 79.6139390, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T04:31:07Z",
+          "matches": [
+            "BD+78   764 (*)",
+            "TOI-1893.01 (Pl?)",
+            "Gaia DR3 2285334677816030848 (*)",
+            "1RXS J214540.5+793658 (X)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

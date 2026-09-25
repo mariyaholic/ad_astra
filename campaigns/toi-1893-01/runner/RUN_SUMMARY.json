@@ -1,0 +1,51 @@
+{
+  "campaign_id": "toi-1893-01",
+  "steps_run": [
+    "fetch_products",
+    "calibrate_screen",
+    "known_signal_recovery",
+    "residual_screen",
+    "period_aliases",
+    "prior_art"
+  ],
+  "complete": true,
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "6 product(s) checksummed at first retrieval",
+      "step": "fetch_products"
+    },
+    "Calibrated false-alarm threshold (sign-flip null)": {
+      "state": "passed",
+      "note": "screen run at each light curve's own k* (3.5, 3, 3.5, 3, \u22642.5, 8; \u2264 0 persistent null events outside the veto)",
+      "step": "residual_screen"
+    },
+    "Synthetic signal injection\u2013recovery": {
+      "state": "inconclusive",
+      "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 100%, 100%, 20%, 100%, 100%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json",
+      "step": "residual_screen"
+    },
+    "Known-signal recovery (positive control)": {
+      "state": "failed",
+      "note": "BJD 2458824.8615: not recovered, depth 470 \u00b1 22 ppm (catalogue 560 ppm)",
+      "step": "known_signal_recovery"
+    },
+    "Period aliases (repeat events)": {
+      "state": "not_tested",
+      "note": "catalogued transit not recovered; no reference depth",
+      "step": "period_aliases"
+    },
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [
+    "Calibration on each light curve (sign-flip null, injection\u2013recovery): k* 3.5, 3, 3.5, 3, \u22642.5, 8; at the declared k = 5 the screen recovers \u226590% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that.",
+    "Positive control: catalogued transit not recovered (1 covered epoch).",
+    "Residual screen: 229 threshold entries outside the known-signal veto across 6 light curve(s), forming 86 distinct event(s), 1 persistent in SAP and PDCSAP at two or more baselines."
+  ],
+  "record": "campaigns/toi-1893-01/sky_record.json",
+  "finished_utc": "2026-09-25T04:31:09Z"
+}
