@@ -22,7 +22,10 @@ veto:
 steps:
   - target_queue:
       source: nasa_exoplanet_archive.toi
-      where: "pl_orbper IS NULL AND tfopwg_disp IN ('PC','APC')"
+      # tid 44161614 (TOI-7176.01) excluded: no SPOC 120-s light curve exists at MAST for this TIC
+      # (only SPOC FFI observations at 0.02 deg; verified with the filter ladder on 2026-09-25,
+      # evidence in DATA_SOURCES.md). The fetch step cannot retrieve its data.
+      where: "pl_orbper IS NULL AND tfopwg_disp IN ('PC','APC') AND tid <> 44161614"
       top: 20
   - fetch_products:
       from_queue: {top: 5, max_products_per_target: 2}
