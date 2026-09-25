@@ -1,0 +1,62 @@
+{
+  "step": "prior_art",
+  "run_id": 114,
+  "config_hash": "1df7e712df06f44a",
+  "finished_utc": "2026-09-25T00:40:08Z",
+  "result": {
+    "targets": {
+      "TOI-5523.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "2 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T00:39:58Z: K2-43 c (host K2-43); K2-43 b (host K2-43)",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 169.1170280, -3.9754410, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:39:58Z",
+          "matches": [
+            "K2-43 c (host K2-43)",
+            "K2-43 b (host K2-43)"
+          ]
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T00:40:01Z: TOI-5523.01 (TIC 443616612, disposition PC); TOI-5523.02 (TIC 443616612, disposition KP)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 169.1086746 AND 169.1253814 AND dec BETWEEN -3.9837743 AND -3.9671077",
+          "retrieved_utc": "2026-09-25T00:40:01Z",
+          "matches": [
+            "TOI-5523.01 (TIC 443616612, disposition PC)",
+            "TOI-5523.02 (TIC 443616612, disposition KP)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T00:40:05Z: EPIC 201205469 (type VAR, P 9.904933 d)",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 169.1170280, -3.9754410, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:40:05Z",
+          "matches": [
+            "EPIC 201205469 (type VAR, P 9.904933 d)"
+          ]
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "4 match(es) in SIMBAD within 30\" as of 2026-09-25T00:40:07Z: K2-43d (Pl?); K2-43 (LM*); K2-43c (Pl); K2-43b (Pl)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 169.1170280, -3.9754410, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:40:07Z",
+          "matches": [
+            "K2-43d (Pl?)",
+            "K2-43 (LM*)",
+            "K2-43c (Pl)",
+            "K2-43b (Pl)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
