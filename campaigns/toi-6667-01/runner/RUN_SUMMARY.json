@@ -1,0 +1,52 @@
+{
+  "campaign_id": "toi-6667-01",
+  "steps_run": [
+    "fetch_products",
+    "calibrate_screen",
+    "known_signal_recovery",
+    "residual_screen",
+    "period_aliases",
+    "prior_art"
+  ],
+  "complete": true,
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "6 product(s) checksummed at first retrieval",
+      "step": "fetch_products"
+    },
+    "Calibrated false-alarm threshold (sign-flip null)": {
+      "state": "passed",
+      "note": "screen run at each light curve's own k* (\u22642.5, \u22642.5, 3, 3, 3.5, 3; \u2264 0 persistent null events outside the veto)",
+      "step": "residual_screen"
+    },
+    "Synthetic signal injection\u2013recovery": {
+      "state": "inconclusive",
+      "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 10%, 0%, 0%, 0%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json",
+      "step": "residual_screen"
+    },
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2459083.3107: recovered, depth 7982 \u00b1 239 ppm (catalogue 5127 ppm)",
+      "step": "known_signal_recovery"
+    },
+    "Period aliases (repeat events)": {
+      "state": "inconclusive",
+      "note": "7 repeat-candidate event(s); first at BJD 2461197.3537, \u0394T = 2114.028 d, 29 of 2114 aliases P = \u0394T/n \u2265 1 d allowed by the retrieved data (2114.03, 1057.01, 704.676, 528.507, 422.806, 352.338, 302.004, 264.253, 234.892, 211.403, 192.184, 176.169 \u2026 d)",
+      "step": "period_aliases"
+    },
+    "Catalogue cross-match": {
+      "state": "inconclusive",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 2 answered, 2 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [
+    "Calibration on each light curve (sign-flip null, injection\u2013recovery): k* \u22642.5, \u22642.5, 3, 3, 3.5, 3; at the declared k = 5 the screen recovers \u226590% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that.",
+    "Positive control: catalogued transit recovered (1 covered epoch).",
+    "Residual screen: 93 threshold entries outside the known-signal veto across 6 light curve(s), forming 31 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines.",
+    "Repeat candidate: a persistent event matching the catalogued depth at BJD 2461197.3537 (\u0394T 2114.03 d); 29 period aliases remain. Unverified lead until vetted."
+  ],
+  "record": "campaigns/toi-6667-01/sky_record.json",
+  "finished_utc": "2026-09-25T04:23:47Z"
+}
