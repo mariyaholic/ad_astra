@@ -1,0 +1,69 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 226,
+  "config_hash": "2d1e47a17aaa627b",
+  "finished_utc": "2026-09-25T03:56:59Z",
+  "result": {
+    "per_product": {
+      "tess2022027120115-s0048-0000000085293053-0219-s_lc.fits": {
+        "k_mad": 2.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-1772.02",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 2162.8449313,
+          "duration_h": 5.3489749
+        },
+        "time_span_bjd": [
+          2459607.9335402776,
+          2459635.990643958
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2459618.707643,
+            "usable_in_transit_cadences": 161,
+            "screen_entries": 42,
+            "flux_types": [
+              "PDCSAP",
+              "SAP"
+            ],
+            "measured_depth_ppm": 3322.033367213595,
+            "depth_err_ppm": 59.87025556881717,
+            "depth_ratio_to_catalogue": 1.5359554072223072,
+            "entry_offset_hours": 0.026841245591640472,
+            "state": "recovered"
+          }
+        ]
+      },
+      "tess2020020091053-s0021-0000000085293053-0167-s_lc.fits": {
+        "k_mad": 2.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-1772.02",
+        "catalogue": {
+          "epoch_source": "target t0_bjd",
+          "depth_ppm": 2162.8449313,
+          "duration_h": 5.3489749
+        },
+        "time_span_bjd": [
+          2458870.4336264757,
+          2458897.7854898833
+        ],
+        "epochs": []
+      }
+    },
+    "states": [
+      "recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2459618.7076: recovered, depth 3322 \u00b1 60 ppm (catalogue 2163 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit recovered (1 covered epoch)."
+  ],
+  "outcome": null
+}
