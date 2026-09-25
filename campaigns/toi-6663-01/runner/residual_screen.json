@@ -1,0 +1,109 @@
+{
+  "step": "residual_screen",
+  "run_id": 251,
+  "config_hash": "c6301161d575782d",
+  "finished_utc": "2026-09-25T04:04:58Z",
+  "result": {
+    "per_product": {
+      "tess2021364111932-s0047-0000000415732733-0218-s_lc.fits": {
+        "distinct_events_outside_veto": [],
+        "persistent_events_outside_veto": 0,
+        "dir": "campaigns/toi-6663-01/tic415732733/sector47",
+        "rows": 19544,
+        "usable": 16460,
+        "k_mad": 3.0,
+        "entries": 51,
+        "entries_outside_veto": 0,
+        "outside_veto": []
+      },
+      "tess2022357055054-s0060-0000000415732733-0249-s_lc.fits": {
+        "distinct_events_outside_veto": [
+          {
+            "mid_time_BJD_like": 2459943.9826717363,
+            "deepest_median_residual": -0.0067918037469626436,
+            "max_cadences": 3,
+            "flux_types": [
+              "PDCSAP"
+            ],
+            "baselines_days": [
+              2.0,
+              3.0
+            ],
+            "n_entries": 2,
+            "persistent": false
+          },
+          {
+            "mid_time_BJD_like": 2459944.031977729,
+            "deepest_median_residual": -0.007402041818351579,
+            "max_cadences": 2,
+            "flux_types": [
+              "PDCSAP"
+            ],
+            "baselines_days": [
+              2.0,
+              3.0
+            ],
+            "n_entries": 2,
+            "persistent": false
+          }
+        ],
+        "persistent_events_outside_veto": 0,
+        "dir": "campaigns/toi-6663-01/tic415732733/sector60",
+        "rows": 18494,
+        "usable": 12548,
+        "k_mad": 3.0,
+        "entries": 4,
+        "entries_outside_veto": 4,
+        "outside_veto": [
+          {
+            "detrend_days": 2.0,
+            "flux_type": "PDCSAP",
+            "mid_time_BJD_like": 2459943.9826717363,
+            "n_cadences": 3,
+            "median_fractional_residual": -0.006711908665294586
+          },
+          {
+            "detrend_days": 2.0,
+            "flux_type": "PDCSAP",
+            "mid_time_BJD_like": 2459944.031977729,
+            "n_cadences": 2,
+            "median_fractional_residual": -0.0073048954218781215
+          },
+          {
+            "detrend_days": 3.0,
+            "flux_type": "PDCSAP",
+            "mid_time_BJD_like": 2459943.9826717363,
+            "n_cadences": 3,
+            "median_fractional_residual": -0.0067918037469626436
+          },
+          {
+            "detrend_days": 3.0,
+            "flux_type": "PDCSAP",
+            "mid_time_BJD_like": 2459944.031977729,
+            "n_cadences": 2,
+            "median_fractional_residual": -0.007402041818351579
+          }
+        ]
+      }
+    },
+    "entries_outside_veto_total": 4,
+    "distinct_events_outside_veto_total": 2,
+    "persistent_events_outside_veto_total": 0
+  },
+  "checks": {
+    "Calibrated false-alarm threshold (sign-flip null)": {
+      "state": "passed",
+      "note": "screen run at each light curve's own k* (3, 3; \u2264 0 persistent null events outside the veto)",
+      "step": "residual_screen"
+    },
+    "Synthetic signal injection\u2013recovery": {
+      "state": "inconclusive",
+      "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json",
+      "step": "residual_screen"
+    }
+  },
+  "notes": [
+    "Residual screen: 4 threshold entries outside the known-signal veto across 2 light curve(s), forming 2 distinct event(s), 0 persistent in SAP and PDCSAP at two or more baselines."
+  ],
+  "outcome": null
+}
