@@ -1,0 +1,54 @@
+{
+  "step": "prior_art",
+  "run_id": 108,
+  "config_hash": "4424a31cbaf06e5d",
+  "finished_utc": "2026-09-25T00:36:46Z",
+  "result": {
+    "targets": {
+      "TOI-1896.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T00:36:40Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 352.1786100, 47.3495210, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:36:40Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T00:36:42Z: TOI-1896.01 (TIC 174302697, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 352.1663103 AND 352.1909097 AND dec BETWEEN 47.3411877 AND 47.3578543",
+          "retrieved_utc": "2026-09-25T00:36:42Z",
+          "matches": [
+            "TOI-1896.01 (TIC 174302697, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "no match in VSX within 30\" as of 2026-09-25T00:36:44Z",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 352.1786100, 47.3495210, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:36:44Z",
+          "matches": []
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-25T00:36:45Z: TOI-1896.01 (Pl?); BD+46  4054 (PM*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 352.1786100, 47.3495210, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T00:36:45Z",
+          "matches": [
+            "TOI-1896.01 (Pl?)",
+            "BD+46  4054 (PM*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
