@@ -1,0 +1,55 @@
+{
+  "step": "prior_art",
+  "run_id": 440,
+  "config_hash": "01f194f2962498fa",
+  "finished_utc": "2026-09-25T05:38:44Z",
+  "result": {
+    "targets": {
+      "TOI-2456.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T05:38:38Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 80.5798700, 10.5750490, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:38:38Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T05:38:40Z: TOI-2456.01 (TIC 311271011, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 80.5713927 AND 80.5883473 AND dec BETWEEN 10.5667157 AND 10.5833823",
+          "retrieved_utc": "2026-09-25T05:38:40Z",
+          "matches": [
+            "TOI-2456.01 (TIC 311271011, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T05:38:42Z: Gaia DR3 3339208743313866368 (type ROT, P 6.2241 d)",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 80.5798700, 10.5750490, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:38:42Z",
+          "matches": [
+            "Gaia DR3 3339208743313866368 (type ROT, P 6.2241 d)"
+          ]
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "1 match(es) in SIMBAD within 30\" as of 2026-09-25T05:38:43Z: HD 243032 (PM*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 80.5798700, 10.5750490, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:38:43Z",
+          "matches": [
+            "HD 243032 (PM*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
