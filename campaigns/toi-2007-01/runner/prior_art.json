@@ -1,0 +1,58 @@
+{
+  "step": "prior_art",
+  "run_id": 386,
+  "config_hash": "3ba02fd750b90851",
+  "finished_utc": "2026-09-25T05:13:12Z",
+  "result": {
+    "targets": {
+      "TOI-2007.01": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T05:13:07Z",
+          "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 209.8584150, 74.1512280, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:13:07Z",
+          "matches": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T05:13:09Z: TOI-2007.01 (TIC 219466784, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 209.8279011 AND 209.8889289 AND dec BETWEEN 74.1428947 AND 74.1595613",
+          "retrieved_utc": "2026-09-25T05:13:09Z",
+          "matches": [
+            "TOI-2007.01 (TIC 219466784, disposition PC)"
+          ]
+        },
+        "VSX": {
+          "state": "done",
+          "result": "2 match(es) in VSX within 30\" as of 2026-09-25T05:13:10Z: Gaia DR3 1711633081221936896 (type E, P 2.3726 d); Gaia DR3 1711633081221292800 (type ROT, P \u2014 d)",
+          "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 209.8584150, 74.1512280, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:13:10Z",
+          "matches": [
+            "Gaia DR3 1711633081221936896 (type E, P 2.3726 d)",
+            "Gaia DR3 1711633081221292800 (type ROT, P \u2014 d)"
+          ]
+        },
+        "SIMBAD": {
+          "state": "done",
+          "result": "3 match(es) in SIMBAD within 30\" as of 2026-09-25T05:13:11Z: TOI-2007 (PM*); TOI-2007.01 (Pl?); Gaia DR3 1711633081221936896 (EB*)",
+          "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 209.8584150, 74.1512280, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-25T05:13:11Z",
+          "matches": [
+            "TOI-2007 (PM*)",
+            "TOI-2007.01 (Pl?)",
+            "Gaia DR3 1711633081221936896 (EB*)"
+          ]
+        }
+      }
+    }
+  },
+  "checks": {
+    "Catalogue cross-match": {
+      "state": "passed",
+      "note": "1 target(s) \u00d7 4 services, radius 30\u2033; 4 answered, 0 errored; results in the ledger prior_art table",
+      "step": "prior_art"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}
