@@ -149,3 +149,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: not the same signal.** The 'repeat candidate' is 5x deeper and 3x longer than the catalogued transit - a different phenomenon (the host is noted on ExoFOP as a possible circumbinary-planet host, i.e. potentially an eclipsing binary; this event is consistent with an EB eclipse, not with the TOI's transit). The phase-0.5 dip at P 33.78 d (3,169 +/- 399 ppm) is part of that other signal. No new planetary candidate.
+
+Source: `campaigns/toi-7857-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

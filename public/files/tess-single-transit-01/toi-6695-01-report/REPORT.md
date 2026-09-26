@@ -278,3 +278,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Survives via E1 (Unverified lead).** E1 (S61, BJD 2459973.5382, depth 3,494 +/- 159 ppm, 6.93 h) passes every vet check with the difference image on the stamp's flux centroid; the only inconclusive is the 35.1-arcsec (dG 4.54) Gaia neighbour, far outside the 2.5-pixel blend radius. E2 (S88) is **rejected** - its difference image sits 12.0 arcsec from the OOT centroid at 14.7 sigma (the deficit is elsewhere) with POS_CORR2 -5.2 sigma; the 24 'phase-0.5 secondary' rows on the 1,448-d family are E1/E2 contamination. The alias family from DeltaT(ref->E1) = 723.995 d holds 26 data-allowed aliases (P >= 27.8 d, the density limit pending in the vetting detail). Next tests: ZTF/ground photometry at the alias phases, future sectors, RV. Catalogue note: the ExoFOP possible additional transit at TBJD 1525.648 is unrelated to the vetted epochs.
+
+Source: `campaigns/toi-6695-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

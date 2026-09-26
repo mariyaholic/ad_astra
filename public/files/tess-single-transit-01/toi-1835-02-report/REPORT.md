@@ -413,3 +413,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead event is the known sibling planet TOI-1835.01's transit** (predicted -0.27 +/- 0.06 h from the catalogue ephemeris; the measured depth ~845 ppm and 2.47-h duration fit the 544-ppm sibling rather than the reference). E2 additionally carries pointing excursions (+7.2 to +8.5 sigma). No new signal.
+
+Source: `campaigns/toi-1835-02/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

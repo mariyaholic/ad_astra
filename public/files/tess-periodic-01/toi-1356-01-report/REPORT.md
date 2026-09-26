@@ -216,3 +216,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-1356-01.yaml
 python -m cygnus.multi report campaigns/toi-1356-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** Both events land within 0.04 h (sigma 0.01 h) of predicted TOI-1356.01 transits at the catalogued P 24.2545 d. No new signal.
+
+Source: `campaigns/toi-1356-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

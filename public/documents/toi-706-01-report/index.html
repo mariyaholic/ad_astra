@@ -58,11 +58,11 @@
   <aside class="toc" aria-label="On this page">
     <p class="panel-title">On this page</p>
     <ol>
-<li class="l2"><a href="#bottom-line">Bottom line</a></li><li class="l2"><a href="#target">Target</a></li><li class="l2"><a href="#products">Products</a></li><li class="l2"><a href="#positive-control-catalogued-transit">Positive control (catalogued transit)</a></li><li class="l2"><a href="#calibration-and-sensitivity">Calibration and sensitivity</a></li><li class="l2"><a href="#screen-events-outside-the-catalogued-epoch">Screen events outside the catalogued epoch</a></li><li class="l2"><a href="#repeat-candidates">Repeat candidates</a></li><li class="l2"><a href="#catalogue-cross-match">Catalogue cross-match</a></li><li class="l2"><a href="#checks">Checks</a></li><li class="l2"><a href="#reproduction">Reproduction</a></li>    </ol>
+<li class="l2"><a href="#bottom-line">Bottom line</a></li><li class="l2"><a href="#target">Target</a></li><li class="l2"><a href="#products">Products</a></li><li class="l2"><a href="#positive-control-catalogued-transit">Positive control (catalogued transit)</a></li><li class="l2"><a href="#calibration-and-sensitivity">Calibration and sensitivity</a></li><li class="l2"><a href="#screen-events-outside-the-catalogued-epoch">Screen events outside the catalogued epoch</a></li><li class="l2"><a href="#repeat-candidates">Repeat candidates</a></li><li class="l2"><a href="#catalogue-cross-match">Catalogue cross-match</a></li><li class="l2"><a href="#checks">Checks</a></li><li class="l2"><a href="#reproduction">Reproduction</a></li><li class="l2"><a href="#reviewer-notes-2026-09-26-lead-vetting">Reviewer notes (2026-09-26, lead vetting)</a></li>    </ol>
 <div class="section"><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 22.6 KB · <span class="id" title="sha256 17e68388071b8e248409cf46af509871a1b69dc8abcc55d68f5ddfe9f44127c4">sha256 17e68388071b…</span> <button type="button" class="copy" data-copy="17e68388071b8e248409cf46af509871a1b69dc8abcc55d68f5ddfe9f44127c4" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 23.5 KB · <span class="id" title="sha256 7e90593d81eb6694ca869710c78bc94fe5963f5fd62809b017b27f9de5ab746a">sha256 7e90593d81eb…</span> <button type="button" class="copy" data-copy="7e90593d81eb6694ca869710c78bc94fe5963f5fd62809b017b27f9de5ab746a" hidden>copy</button></span>
     <a class="btn" href="/files/tess-periodic-01/toi-706-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul></div>    <p class="small muted section">Part of <a href="/collections/tess-periodic-01/">TESS periodic-candidate screen, batch colab-p01 (100 of 1,000 targets)</a>. Locations of private storage in this public copy read “[private path]” or “[private Drive store]”.</p>
@@ -110,6 +110,9 @@
 <h2 id="reproduction">Reproduction<a class="anchor" href="#reproduction" aria-label="Link to this section">#</a></h2>
 <pre><code class="lang-bash">python -m cygnus.multi run campaigns/toi-706-01.yaml
 python -m cygnus.multi report campaigns/toi-706-01.yaml</code></pre>
+<h2 id="reviewer-notes-2026-09-26-lead-vetting">Reviewer notes (2026-09-26, lead vetting)<a class="anchor" href="#reviewer-notes-2026-09-26-lead-vetting" aria-label="Link to this section">#</a></h2>
+<p><strong>The lead event E1 is rejected as a self-match</strong> (it is the catalogued PC signal's own next transit at P 719.0381 d, offset -0.01 +/- 0.04 h). <strong>E2 (S97, BJD 2460951.5448) is a real event of the same object</strong>: depth ratio 1.002 vs the reference, duration ratio 1.00, difference image on target (2.5 arcsec, 1.6 sigma), and it sits at 3.5 x P_cat = exactly 7 x 359.52 d — the catalogued period's even alias. The six joint periods (359.52, 179.76, 119.84, 89.88, 71.90, 59.92 d = 719.04/m, m even) all satisfy both events; if P = 359.52 d is the true period, the catalogue's 719.04 d misses every second transit. Disposition: the events belong to the catalogued object (its period is likely P_cat/2); no new candidate. Gaia neighbours not_tested (cone pending) — re-check after the cone sweep.</p>
+<p>Source: <code>campaigns/toi-706-01/vetting/VETTING.md</code> and <code>campaigns/tess-periodic-01/LEAD_VETTING_LOG.md</code>.</p>
   </article>
 </div>
   </div>
@@ -118,7 +121,7 @@ python -m cygnus.multi report campaigns/toi-706-01.yaml</code></pre>
   <div class="wrap">
     <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
     <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
-    <p>Built <time datetime="2026-09-26T14:29:45Z" class="mono">2026-09-26T14:29:45Z</time> by cygnus 0.1.0 from curated publication manifests.
+    <p>Built <time datetime="2026-09-26T19:10:31Z" class="mono">2026-09-26T19:10:31Z</time> by cygnus 0.1.0 from curated publication manifests.
       <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
   </div>
 </footer>

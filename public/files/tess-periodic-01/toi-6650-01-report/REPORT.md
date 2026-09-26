@@ -168,3 +168,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-6650-01.yaml
 python -m cygnus.multi report campaigns/toi-6650-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead event is the target's own catalogued ephemeris transit** (35 periods before the reference; predicted offset -0.59 h, inside the duration+3-sigma tolerance). The TIC carries TOI-6650.01 (PC, P 20.3292 d), TOI-6650.02 (PC, P 30.5056 d) and TOI-6650.03 (FP); the event matched 6650.01. No new signal.
+
+Source: `campaigns/toi-6650-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

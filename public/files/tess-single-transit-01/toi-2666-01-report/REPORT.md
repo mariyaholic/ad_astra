@@ -191,3 +191,30 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 Vetting rerun 2026-09-26 with the final code: the lead survives. Shape (ratio 1.02 +/- 0.02), detrending, red noise (158 sigma below the random-epoch null), background/pointing, common mode, Gaia neighbours, duration limit and difference image (0.4", 0.7 sigma) all pass. Open items: the error-weighted box fit is inconclusive (chi2_nu 21.8 - the pipeline errors do not describe the scatter; weighted depth unchanged), the event carries argabrightening flags within +/-0.5 d, and the secondary-eclipse search flags 1 of 26 covered aliases (P 36.53 d, 316 +/- 62 ppm) - a possible secondary that would fit the V-shaped eclipsing-binary reading. V-shaped index 1.47: grazing planet or EB. Dossier decision pending.
 
 Source: `campaigns/toi-2666-01/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`.
+
+## Reviewer notes (2026-09-26, meticulous DV + parity vetting)
+
+**Evidence level unchanged: Unverified lead.** The ExoFOP/SPOC DV check (open decision 3) is now done, plus a
+parity test and an independent-data census. Findings (full detail in the vetting log):
+
+1. **SPOC's own DV periods are two-event artifacts, refuted by the data.** The S35 DV fitted P = 13.92639 d;
+   its 2nd modelled transit (2459273.0855) is inside S35 data and absent (−180 ± 96 ppm). The S35+S61 DV fitted
+   P = 34.36669 ± 0.00003 d; the S61 sector contains **no transit at all** (the model's S61 epoch 2459980.860
+   measures −254 ± 87 ppm). The S99 DV fitted P = 7.50451 d at the lead event's epoch (depth 286 ± 83 ppm,
+   TSNR 4.3); its k=3 predicted transit (2461071.675) is a null (−336 ± 105 ppm). Each fit is anchored on one
+   or two observed events and refuted by its own absent predicted transits.
+2. **The P 36.53 d "secondary" (316 ± 62 ppm) is parity-inconsistent.** 36.53 d = ΔT/49 with 49 odd, so the two
+   measured deep events would alternate primary/secondary — both measure ~12-15 ppt. Not an EB secondary at
+   that alias. The host's spot variability (1-3.4 ppt dips, 2-61 h, every sector) is the likelier source.
+3. **Independent epochs are absent:** no Kepler/K2 coverage (0 products at the position, recorded); ZTF VOTable
+   empty (host G 7.5, saturated); Gaia DR3 has no RVS velocity for the host; ESO TAP timed out (2026-09-26
+   outage) so archival-RV bounds are **not tested** today.
+4. **What remains:** the 52 data-allowed aliases (all P ≥ 12.79 d by the density limit), with most phase-0.5
+   windows inside the seasonal gaps — a grazing EB's secondary can hide there. Equal depths (1.02 ± 0.02), equal
+   durations, on-target difference images and no capable neighbour within 52.5″ leave a grazing planet
+   (R_p ≈ 1.1-1.4 R_Jup at b near 1) or an equal-depth grazing EB.
+
+**Verdict: the lead survives; the repeat event is real, but the period is unresolved and the EB-vs-planet
+question needs RV.** A stellar companion gives K ~ km/s at every surviving alias (decisive); a planet gives
+≲ 100 m/s. Recommended follow-up: archival or new RV (host V ~ 7 — easy), ground photometry at the predicted
+phases of the shortest surviving aliases (12.79-40 d), and future TESS sectors against the alias ephemerides.

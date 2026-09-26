@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>TESS single-transit tests: 76 TOI targets and 2 Gaia NSS companion checks · Project Cygnus / Astraea</title>
-<meta name="description" content="The known-object test queue: 76 TOIs searched for isolated transits and period aliases, plus two Gaia DR3 NSS astrometric companion checks. Every campaign completed and was leaf-verified against its previous run; outcomes per item.">
+<meta name="description" content="The known-object test queue: 76 TOIs searched for isolated transits and period aliases, plus two Gaia DR3 NSS astrometric companion checks. Every campaign completed; all leads vetted on 2026-09-26 — 3 unverified leads survive, 5 original leads retracted.">
 <link rel="stylesheet" href="/static/site.css">
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
@@ -52,13 +52,14 @@
   <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span>collections<span aria-hidden="true">/</span><span class="id">tess-single-transit-01</span></p>
   <p class="kicker">Collection · campaign</p>
   <h1>TESS single-transit tests: 76 TOI targets and 2 Gaia NSS companion checks</h1>
-  <p class="lede">The known-object test queue: 76 TOIs searched for isolated transits and period aliases, plus two Gaia DR3 NSS astrometric companion checks. Every campaign completed and was leaf-verified against its previous run; outcomes per item.</p>
-  <p class="badges"><span class="badge">Published</span> <span class="badge">Completed · per-campaign outcomes · partly vetted</span></p>
+  <p class="lede">The known-object test queue: 76 TOIs searched for isolated transits and period aliases, plus two Gaia DR3 NSS astrometric companion checks. Every campaign completed; all leads vetted on 2026-09-26 — 3 unverified leads survive, 5 original leads retracted.</p>
+  <p class="badges"><span class="badge">Published</span> <span class="badge">Completed · per-campaign outcomes · all leads vetted</span></p>
 </header>
 
 <div class="grid-2">
   <div>
-<div class="prose"><p>All 78 campaigns ran through the multi-archive runner (<code>cygnus.multi</code>) on this workstation (batch <code>suite2-2026-09-26</code>, 78/78 ok) and every committed record was verified leaf-by-leaf against the previous pass: no science value changed. Target positions are Gaia epoch J2015.5 (TOI-6663.01 at J2015.0), audited in <code>reports/position-epoch-audit-01/</code>. Lead-level campaigns carry per-lead vetting where it has run; evidence levels are copied verbatim from each record. Run logs live in the local ledger and batch journal (<code>state/batches/suite2-2026-09-26/</code>); TOI-2065.01 is a known VSX eclipsing binary (KELT, P = 71.96 d; SIMBAD classifies the host HD 111605 as a spectroscopic binary) and stays rejected.</p></div>
+<div class="prose"><p>All 78 campaigns ran through the multi-archive runner (<code>cygnus.multi</code>) on this workstation (batch <code>suite2-2026-09-26</code>, 78/78 ok) and every committed record was verified leaf-by-leaf against the previous pass: no science value changed. Target positions are Gaia epoch J2015.5 (TOI-6663.01 at J2015.0), audited in <code>reports/position-epoch-audit-01/</code>.</p>
+<p><strong>Lead vetting 2026-09-26 (complete).</strong> All 13 lead campaigns were vetted (per-campaign <code>vetting/</code> artifacts; readings in <code>campaigns/tess-mono-01/LEAD_VETTING_LOG.md</code>). Five were rejected earlier (sibling/systematics/scattered light/pointing). Of the remaining, <strong>TOI-1835.02 is the sibling planet TOI-1835.01’s transit</strong>; TOI-225.01 finds no dip (scattered light); TOI-6667.01’s deficit sits 108.7 arcsec off-target; TOI-7399.01 fails shape (+ pointing excursions); TOI-7857.01’s event is 5× deeper and 3× longer than the catalogued transit (an EB-consistent signal, not the TOI). <strong>Three leads survive with complete audits</strong>: TOI-2666.01 (SPOC’s own DV periods are two-event artifacts refuted by absent predicted transits; the P 36.53 d "secondary" is parity-inconsistent; a grazing planet or equal-depth grazing EB — RV is decisive), TOI-3500.02 (E2 rejected as an aperture-loss artifact; E1 clean; the 3.7-arcsec co-moving neighbour excluded by the deficit direction; no secondary once E2’s contamination is removed) and TOI-6695.01 (E1 clean; E2 rejected, its deficit 12.0 arcsec off-target). All remain <strong>Unverified leads</strong>; no candidate dossier is published. TOI-2065.01 is a known VSX eclipsing binary (KELT, P = 71.96 d; SIMBAD classifies the host HD 111605 as a spectroscopic binary) and stays rejected.</p></div>
     <h2 class="section-title">Contents <span class="count">234 items</span></h2>
     <section class="section" id="toi-125-04-spec" aria-labelledby="toi-125-04-spec-title">
       <h3 id="toi-125-04-spec-title"><a href="/campaigns/toi-125-04/">Known-object test, TOI-125.04</a></h3>
@@ -303,10 +304,10 @@
     <section class="section" id="toi-1835-02-spec" aria-labelledby="toi-1835-02-spec-title">
       <h3 id="toi-1835-02-spec-title"><a href="/campaigns/toi-1835-02/">Known-object test, TOI-1835.02</a></h3>
       <p class="badges"><span class="badge badge--accent">Download available</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">campaign</span></p>
-<p class="prose">Known-object test on TOI-1835.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 20%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 589 threshold entries outside the known-signal veto across 2 light curve(s), forming 230 distinct event(s), 21 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458938.4279 (ΔT 0.54 d); 0 period aliases remain. Unverified lead until vetted.</p>
+<p class="prose">Known-object test on TOI-1835.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 20%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 589 threshold entries outside the known-signal veto across 2 light curve(s), forming 230 distinct event(s), 21 persistent in SAP and PDCSAP at two or more baselines.</p>
       <dl class="meta">
         <dt>Campaign</dt><dd class="id">toi-1835-02</dd>
-        <dt>Status</dt><dd>completed · lead (Unverified lead)</dd>
+        <dt>Status</dt><dd>completed · pipeline_check</dd>
         <dt>Domain</dt><dd class="id">worlds.planetary.monotransit</dd>
         <dt>Steps</dt><dd>11</dd>
       </dl>
@@ -326,7 +327,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">41.1 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">41.5 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -336,7 +337,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 41.1 KB · <span class="id" title="sha256 3ce8b73c72a0130edcea6cf955e88af75bfd988e8e41b51fd3ef3012b8186b6b">sha256 3ce8b73c72a0…</span> <button type="button" class="copy" data-copy="3ce8b73c72a0130edcea6cf955e88af75bfd988e8e41b51fd3ef3012b8186b6b" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 41.5 KB · <span class="id" title="sha256 2ea26f037c8798994b1c65c1ad9a65f964d9b2b3fdb99d97d392fad2cd5d82e9">sha256 2ea26f037c87…</span> <button type="button" class="copy" data-copy="2ea26f037c8798994b1c65c1ad9a65f964d9b2b3fdb99d97d392fad2cd5d82e9" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-1835-02-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -903,10 +904,10 @@
     <section class="section" id="toi-225-01-spec" aria-labelledby="toi-225-01-spec-title">
       <h3 id="toi-225-01-spec-title"><a href="/campaigns/toi-225-01/">Known-object test, TOI-225.01</a></h3>
       <p class="badges"><span class="badge badge--accent">Download available</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">campaign</span></p>
-<p class="prose">Known-object test on TOI-225.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 91 threshold entries outside the known-signal veto across 4 light curve(s), forming 38 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460909.5212 (ΔT 2554.40 d); 40 period aliases remain. Unverified lead until vetted.</p>
+<p class="prose">Known-object test on TOI-225.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 91 threshold entries outside the known-signal veto across 4 light curve(s), forming 38 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines.</p>
       <dl class="meta">
         <dt>Campaign</dt><dd class="id">toi-225-01</dd>
-        <dt>Status</dt><dd>completed · lead (Unverified lead)</dd>
+        <dt>Status</dt><dd>completed · pipeline_check</dd>
         <dt>Domain</dt><dd class="id">worlds.planetary.monotransit</dd>
         <dt>Steps</dt><dd>11</dd>
       </dl>
@@ -926,7 +927,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">18.2 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">18.6 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -936,7 +937,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 18.2 KB · <span class="id" title="sha256 3f2f18a7df72b29ec23b1be16cbbe0627f3b145ce2fa511b05dd9405d5d90e1a">sha256 3f2f18a7df72…</span> <button type="button" class="copy" data-copy="3f2f18a7df72b29ec23b1be16cbbe0627f3b145ce2fa511b05dd9405d5d90e1a" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 18.6 KB · <span class="id" title="sha256 b98f0aaf77648046fa6bb00052c670c74dc3d28795c92e9cdb88e78904da5eff">sha256 b98f0aaf7764…</span> <button type="button" class="copy" data-copy="b98f0aaf77648046fa6bb00052c670c74dc3d28795c92e9cdb88e78904da5eff" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-225-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -2006,7 +2007,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">16.8 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">19.2 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -2016,7 +2017,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 16.8 KB · <span class="id" title="sha256 b7af2af356b916851a1179fe073d4adf1cfa388df269d3e5de05e212bbacf4e3">sha256 b7af2af356b9…</span> <button type="button" class="copy" data-copy="b7af2af356b916851a1179fe073d4adf1cfa388df269d3e5de05e212bbacf4e3" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 19.2 KB · <span class="id" title="sha256 c68870688a35e8a6d3c884ad123d1e73a4c34a951eae8cc7af4e08be5563ae6e">sha256 c68870688a35…</span> <button type="button" class="copy" data-copy="c68870688a35e8a6d3c884ad123d1e73a4c34a951eae8cc7af4e08be5563ae6e" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-2666-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -2246,7 +2247,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">22.1 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">25.0 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -2256,7 +2257,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 22.1 KB · <span class="id" title="sha256 c60ee8f7844bf9138b637cc87b8f9ece68e8f9d995ba3b89368dca01d7c7b130">sha256 c60ee8f7844b…</span> <button type="button" class="copy" data-copy="c60ee8f7844bf9138b637cc87b8f9ece68e8f9d995ba3b89368dca01d7c7b130" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 25.0 KB · <span class="id" title="sha256 648c065fb6101cf80fb2d58e002bce44e161c893ba990a783b32b6a4f54d3a6e">sha256 648c065fb610…</span> <button type="button" class="copy" data-copy="648c065fb6101cf80fb2d58e002bce44e161c893ba990a783b32b6a4f54d3a6e" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-3500-02-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -3723,10 +3724,10 @@
     <section class="section" id="toi-6667-01-spec" aria-labelledby="toi-6667-01-spec-title">
       <h3 id="toi-6667-01-spec-title"><a href="/campaigns/toi-6667-01/">Known-object test, TOI-6667.01</a></h3>
       <p class="badges"><span class="badge badge--accent">Download available</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">campaign</span></p>
-<p class="prose">Known-object test on TOI-6667.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3, 3.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 93 threshold entries outside the known-signal veto across 6 light curve(s), forming 31 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461197.3537 (ΔT 2114.03 d); 29 period aliases remain. Unverified lead until vetted.</p>
+<p class="prose">Known-object test on TOI-6667.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3, 3.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 93 threshold entries outside the known-signal veto across 6 light curve(s), forming 31 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines.</p>
       <dl class="meta">
         <dt>Campaign</dt><dd class="id">toi-6667-01</dd>
-        <dt>Status</dt><dd>completed · lead (Unverified lead)</dd>
+        <dt>Status</dt><dd>completed · pipeline_check</dd>
         <dt>Domain</dt><dd class="id">worlds.planetary.monotransit</dd>
         <dt>Steps</dt><dd>11</dd>
       </dl>
@@ -3746,7 +3747,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">19.3 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">19.8 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -3756,7 +3757,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 19.3 KB · <span class="id" title="sha256 7390266cc75a2009acc8dd84b5e1e3596840fb234c82d3e9f4a70293206058a7">sha256 7390266cc75a…</span> <button type="button" class="copy" data-copy="7390266cc75a2009acc8dd84b5e1e3596840fb234c82d3e9f4a70293206058a7" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 19.8 KB · <span class="id" title="sha256 ab90eb9992ca5c3f6af38182913081a9294ff3709626cf1f4732ddaf7610c223">sha256 ab90eb9992ca…</span> <button type="button" class="copy" data-copy="ab90eb9992ca5c3f6af38182913081a9294ff3709626cf1f4732ddaf7610c223" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-6667-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -4226,7 +4227,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">29.1 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">30.1 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -4236,7 +4237,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 29.1 KB · <span class="id" title="sha256 fa80c80f8c1ee856d2d3f5731d7235a0b9f29a2f550e62eb39ddabbb397ec73b">sha256 fa80c80f8c1e…</span> <button type="button" class="copy" data-copy="fa80c80f8c1ee856d2d3f5731d7235a0b9f29a2f550e62eb39ddabbb397ec73b" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 30.1 KB · <span class="id" title="sha256 06504e4828797b427b514b678487697b697c3872c23a3eb0c28ff98c8459ce5f">sha256 06504e482879…</span> <button type="button" class="copy" data-copy="06504e4828797b427b514b678487697b697c3872c23a3eb0c28ff98c8459ce5f" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-6695-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -4503,10 +4504,10 @@
     <section class="section" id="toi-7399-01-spec" aria-labelledby="toi-7399-01-spec-title">
       <h3 id="toi-7399-01-spec-title"><a href="/campaigns/toi-7399-01/">Known-object test, TOI-7399.01</a></h3>
       <p class="badges"><span class="badge badge--accent">Download available</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">campaign</span></p>
-<p class="prose">Known-object test on TOI-7399.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3.5, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 287 threshold entries outside the known-signal veto across 6 light curve(s), forming 119 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458842.6365 (ΔT 72.09 d); 0 period aliases remain. Unverified lead until vetted.</p>
+<p class="prose">Known-object test on TOI-7399.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3.5, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 287 threshold entries outside the known-signal veto across 6 light curve(s), forming 119 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines.</p>
       <dl class="meta">
         <dt>Campaign</dt><dd class="id">toi-7399-01</dd>
-        <dt>Status</dt><dd>completed · lead (Unverified lead)</dd>
+        <dt>Status</dt><dd>completed · pipeline_check</dd>
         <dt>Domain</dt><dd class="id">worlds.planetary.monotransit</dd>
         <dt>Steps</dt><dd>11</dd>
       </dl>
@@ -4526,7 +4527,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">26.6 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">27.1 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -4536,7 +4537,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 26.6 KB · <span class="id" title="sha256 e1a40680aa44c4215ea9b803fb6de715b05ad6f47fc5ad8a4d7e2ed198bf111d">sha256 e1a40680aa44…</span> <button type="button" class="copy" data-copy="e1a40680aa44c4215ea9b803fb6de715b05ad6f47fc5ad8a4d7e2ed198bf111d" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 27.1 KB · <span class="id" title="sha256 6ba1d3a5a8abf6ab38c270e10580fc6edb2551c25ea1a61918fddafb50964ed7">sha256 6ba1d3a5a8ab…</span> <button type="button" class="copy" data-copy="6ba1d3a5a8abf6ab38c270e10580fc6edb2551c25ea1a61918fddafb50964ed7" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-7399-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -4563,10 +4564,10 @@
     <section class="section" id="toi-7857-01-spec" aria-labelledby="toi-7857-01-spec-title">
       <h3 id="toi-7857-01-spec-title"><a href="/campaigns/toi-7857-01/">Known-object test, TOI-7857.01</a></h3>
       <p class="badges"><span class="badge badge--accent">Download available</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">campaign</span></p>
-<p class="prose">Known-object test on TOI-7857.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 48 threshold entries outside the known-signal veto across 2 light curve(s), forming 9 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459800.0638 (ΔT 743.14 d); 34 period aliases remain. Unverified lead until vetted.</p>
+<p class="prose">Known-object test on TOI-7857.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 48 threshold entries outside the known-signal veto across 2 light curve(s), forming 9 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines.</p>
       <dl class="meta">
         <dt>Campaign</dt><dd class="id">toi-7857-01</dd>
-        <dt>Status</dt><dd>completed · lead (Unverified lead)</dd>
+        <dt>Status</dt><dd>completed · pipeline_check</dd>
         <dt>Domain</dt><dd class="id">worlds.planetary.monotransit</dd>
         <dt>Steps</dt><dd>11</dd>
       </dl>
@@ -4586,7 +4587,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">13.9 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">14.4 KB</span></dd>
         <dt>Public copy</dt><dd>Unmodified</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -4596,7 +4597,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 13.9 KB · <span class="id" title="sha256 3da6ade8be6930456eedadbebcce89f0d20776551d82a5aec2e5eaf961663114">sha256 3da6ade8be69…</span> <button type="button" class="copy" data-copy="3da6ade8be6930456eedadbebcce89f0d20776551d82a5aec2e5eaf961663114" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 14.4 KB · <span class="id" title="sha256 35d3a0efeae80443ac7ee39d6ccc3070654bacb3e19860d295d90999c8e0499b">sha256 35d3a0efeae8…</span> <button type="button" class="copy" data-copy="35d3a0efeae80443ac7ee39d6ccc3070654bacb3e19860d295d90999c8e0499b" hidden>copy</button></span>
     <a class="btn" href="/files/tess-single-transit-01/toi-7857-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -4773,7 +4774,7 @@
   <div class="wrap">
     <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
     <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
-    <p>Built <time datetime="2026-09-26T14:29:45Z" class="mono">2026-09-26T14:29:45Z</time> by cygnus 0.1.0 from curated publication manifests.
+    <p>Built <time datetime="2026-09-26T19:10:31Z" class="mono">2026-09-26T19:10:31Z</time> by cygnus 0.1.0 from curated publication manifests.
       <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
   </div>
 </footer>

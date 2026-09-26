@@ -250,3 +250,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-4381-01.yaml
 python -m cygnus.multi report campaigns/toi-4381-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead train is the catalogued signal's own transit train.** The catalogued period (P 1.4974 d, PC, row updated 2022-08-19) reproduces every event (predicted-transit offsets +0.05 to +0.12 h within the accumulated sigma 0.58-0.59 h over ~1143 epochs). The phase-0.5 search finds a 3,200 +/- 622 ppm dip at phase 0.5 of P 1.50 d in several sectors — the catalogued EB's secondary eclipse, independently confirming the binary. The record's '22 surviving aliases' were aliases of DeltaT = 1143 x P_cat.
+
+Source: `campaigns/toi-4381-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

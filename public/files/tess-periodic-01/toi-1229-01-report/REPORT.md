@@ -160,3 +160,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-1229-01.yaml
 python -m cygnus.multi report campaigns/toi-1229-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** The joint period of the eighteen events is 31.8132 d — the catalogued period itself (row updated 2023-07-12); predicted-transit offsets +0.06 to +0.11 h at sigma 0.07 h. No new signal.
+
+Source: `campaigns/toi-1229-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

@@ -458,3 +458,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-1124-01.yaml
 python -m cygnus.multi report campaigns/toi-1124-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead event is the target's own catalogued ephemeris transit** (424 periods before the reference). The event's window is additionally heavily flagged (planet-search exclude 93, insufficient targets 93, manual exclude 54) with a 25-sigma SAP_BKG shift and a 16.4-arcsec difference-image offset. No new signal.
+
+Source: `campaigns/toi-1124-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.
