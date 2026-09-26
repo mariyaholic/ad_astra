@@ -168,6 +168,9 @@ def fetch_images(prov: dict, targets: dict, only: set[str]) -> None:
     for name, t in targets.items():
         if only and name not in only:
             continue
+        fn = f"fields/{slug(name)}.jpg"
+        if (OUT / fn).exists():
+            continue  # already fetched (possibly by a previous pass); record() entry already in PROVENANCE
         fov = 2 * FIELD_RADIUS.get(name, DEFAULT_RADIUS)
         hips = "CDS/P/PanSTARRS/DR1/color-z-zg-g" if t["dec_deg"] > -29 else "CDS/P/2MASS/color"
         params = {"hips": hips, "ra": f"{t['ra_deg']:.6f}", "dec": f"{t['dec_deg']:.6f}", "fov": f"{fov:.4f}",
