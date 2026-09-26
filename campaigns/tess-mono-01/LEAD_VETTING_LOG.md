@@ -75,3 +75,6 @@ science outputs are unchanged (leaf-by-leaf comparison). For the leads:
 - **Independent repetition / ZTF:** `not_tested` everywhere. No light curve from another instrument was fetched;
   adding Kepler/K2/HLSP or ZTF products to `fetch_products` is the next discriminating test.
 
+## Reconciliation 2026-09-26: records and reports brought in line with the verdicts
+
+All seven vetted campaigns were re-run with the final code (cached products; fresh `vetting/VETTING.md` and ledger runs); the regenerated tool states confirm the earlier readings. The five rejected leads (TOI-5812.02, TOI-2318.01, TOI-6674.01, TOI-2065.01, TOI-6666.01) had their sky records reconciled: `outcome` lead -> `pipeline_check`, evidence level cleared (the TOI-6650.04 precedent), and the repeat-candidate sentence dropped from the record summary; each REPORT.md carries the verdict with its tool evidence. The two surviving leads (TOI-2666.01, TOI-3500.02) keep their records unchanged and gained the rerun reading in REPORT.md; both are the dossier front-runners. The per-target failure entries under `FAILED:field:*` in the explorer provenance are unrelated to vetting (Gaia cone fetches).

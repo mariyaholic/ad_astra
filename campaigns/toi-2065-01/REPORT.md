@@ -221,3 +221,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
 
 **Reviewer note:** VSX lists an eclipsing binary (type EA, P = 71.9649 d, KELT) 0.9″ from the target, and SIMBAD classifies the host HD 111605 as a spectroscopic binary (SB*, 0.2″). With the earlier rejection (scattered light), this points to the TOI being a binary; the lead stays rejected.
+
+## Reviewer notes (2026-09-26, vetting reconciliation)
+
+Rejected by vetting: scattered light. The box fit finds no dip (-367 +/- 110 ppm), background +257.4 sigma, scattered-light flags on 365 cadences within +/-0.5 d. Independently, VSX lists KELT KC08C10921 (EA, P 71.9649 d) 0.9" away and SIMBAD classifies the host HD 111605 as SB*. Record outcome changed to pipeline_check.
+
+Source: `campaigns/toi-2065-01/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`. The sky record outcome was reconciled with this verdict on 2026-09-26.

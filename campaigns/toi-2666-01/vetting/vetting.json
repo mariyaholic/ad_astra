@@ -9,6 +9,7 @@
    "sector": 99,
    "camera": 1,
    "ccd": 3,
+   "given_by_hand": false,
    "screen_candidates": 1,
    "screen_span_h": 0.0,
    "max_aliases_allowed": 52,
@@ -20,9 +21,21 @@
     "delta_chi2": 7865.356572520438,
     "n_in": 34,
     "vshape_index": 1.5091629411287062,
-    "sigma_ppm": 972.3696505050226
+    "sigma_ppm": 972.3696505050226,
+    "weighted": {
+     "depth_ppm": 15473.213206881599,
+     "depth_err_formal_ppm": 38.69479440330599,
+     "depth_err_scaled_ppm": 180.69267828606954,
+     "chi2_reduced": 21.806000788213364,
+     "scatter_over_quoted_error": 1.5406486177242096,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
    },
    "checks": {
+    "Error-weighted box fit": [
+     "inconclusive",
+     "weighted depth 15473 \u00b1 181 ppm (\u03c7\u00b2\u03bd 21.81) vs unweighted 15464 \u00b1 181 ppm; residual scatter / quoted error 1.54; the pipeline errors do not describe the scatter"
+    ],
     "Sibling TOI ephemerides": [
      "passed",
      "no periodic TOI on this TIC"
@@ -60,13 +73,75 @@
      "52 of 52 allowed aliases compatible with a 1.2-h transit on a 1.11 R\u2609, 0.90 M\u2609 star (circular, central); shortest compatible 12.79 d"
     ],
     "Secondary eclipse (circular aliases)": [
-     "passed",
-     "phase 0.5 covered for 26 of 52 allowed aliases; no \u22654\u03c3 dip; median 1\u03c3 limit 77 ppm"
+     "failed",
+     "phase 0.5 covered for 26 of 52 allowed aliases (red-noise errors, sibling transits masked); 1 with a \u22654\u03c3 dip: P 36.53 d 316\u00b162 ppm"
     ],
     "Difference-image centroid": [
      "passed",
      "difference-image centroid 0.4\u2033 from the out-of-transit centroid (0.7\u03c3 bootstrap); 5.5\u2033 from the catalogue position; 97% of the deficit in the optimal aperture"
     ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2459259.1579404767,
+    "delta_t_days": 1790.0064833494835,
+    "n_aliases": 1790,
+    "n_allowed": 52,
+    "allowed_periods_days": [
+     1790.0065,
+     895.0032,
+     596.6688,
+     447.5016,
+     358.0013,
+     298.3344,
+     255.7152,
+     223.7508,
+     198.8896,
+     179.0006,
+     162.7279,
+     149.1672,
+     137.6928,
+     127.8576,
+     119.3338,
+     111.8754,
+     105.2945,
+     99.4448,
+     94.2109,
+     89.5003,
+     85.2384,
+     81.3639,
+     77.8264,
+     74.5836,
+     71.6003,
+     68.8464,
+     66.2965,
+     63.9288,
+     61.7244,
+     59.6669,
+     57.7421,
+     52.6472,
+     51.143,
+     49.7224,
+     45.8976,
+     44.7502,
+     43.6587,
+     40.682,
+     39.7779,
+     38.9132,
+     36.5307,
+     35.8001,
+     35.0982,
+     33.1483,
+     32.5456,
+     31.9644,
+     29.8334,
+     29.3444,
+     28.4128,
+     27.5386,
+     25.5715,
+     12.7858
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
    },
    "ephemerides": [],
    "shape_vs_reference": {
@@ -214,422 +289,427 @@
    ],
    "aliases_density": [
     {
-     "period_days": 12.7858,
-     "max_central_duration_h": 5.4970313528437575,
+     "period_days": 1790.0064833494835,
+     "max_central_duration_h": 28.528229508902264,
      "disfavoured_circular": false
     },
     {
-     "period_days": 25.5715,
-     "max_central_duration_h": 6.923610523011877,
+     "period_days": 895.0032416747417,
+     "max_central_duration_h": 22.642895729707032,
      "disfavoured_circular": false
     },
     {
-     "period_days": 27.5385,
-     "max_central_duration_h": 7.096628921225811,
+     "period_days": 596.6688277831612,
+     "max_central_duration_h": 19.78041730088603,
      "disfavoured_circular": false
     },
     {
-     "period_days": 28.4128,
-     "max_central_duration_h": 7.170894250919292,
+     "period_days": 447.50162083737087,
+     "max_central_duration_h": 17.971728177187067,
      "disfavoured_circular": false
     },
     {
-     "period_days": 29.3443,
-     "max_central_duration_h": 7.248362374178441,
+     "period_days": 358.0012966698967,
+     "max_central_duration_h": 16.683501193683664,
      "disfavoured_circular": false
     },
     {
-     "period_days": 29.8334,
-     "max_central_duration_h": 7.288383999645499,
+     "period_days": 298.3344138915806,
+     "max_central_duration_h": 15.699802506904318,
      "disfavoured_circular": false
     },
     {
-     "period_days": 31.9644,
-     "max_central_duration_h": 7.457833324818692,
+     "period_days": 255.71521190706906,
+     "max_central_duration_h": 14.913493062375519,
      "disfavoured_circular": false
     },
     {
-     "period_days": 32.5456,
-     "max_central_duration_h": 7.502735651399778,
+     "period_days": 223.75081041868543,
+     "max_central_duration_h": 14.264269963143967,
      "disfavoured_circular": false
     },
     {
-     "period_days": 33.1482,
-     "max_central_duration_h": 7.548730851600881,
+     "period_days": 198.88960926105372,
+     "max_central_duration_h": 13.715118552778467,
      "disfavoured_circular": false
     },
     {
-     "period_days": 35.0981,
-     "max_central_duration_h": 7.693851007417632,
+     "period_days": 179.00064833494835,
+     "max_central_duration_h": 13.241828494660634,
      "disfavoured_circular": false
     },
     {
-     "period_days": 35.8001,
-     "max_central_duration_h": 7.7447801831917875,
+     "period_days": 162.7278621226803,
+     "max_central_duration_h": 12.827774497156524,
      "disfavoured_circular": false
     },
     {
-     "period_days": 36.5307,
-     "max_central_duration_h": 7.797082645686862,
+     "period_days": 149.1672069457903,
+     "max_central_duration_h": 12.461091296379218,
      "disfavoured_circular": false
     },
     {
-     "period_days": 38.9132,
-     "max_central_duration_h": 7.96294816768199,
+     "period_days": 137.69280641149874,
+     "max_central_duration_h": 12.133041526016846,
      "disfavoured_circular": false
     },
     {
-     "period_days": 39.7779,
-     "max_central_duration_h": 8.021471110719158,
+     "period_days": 127.85760595353453,
+     "max_central_duration_h": 11.837022044468252,
      "disfavoured_circular": false
     },
     {
-     "period_days": 40.6819,
-     "max_central_duration_h": 8.081754617238802,
+     "period_days": 119.33376555663223,
+     "max_central_duration_h": 11.567932335214238,
      "disfavoured_circular": false
     },
     {
-     "period_days": 43.6587,
-     "max_central_duration_h": 8.274170219848383,
+     "period_days": 111.87540520934272,
+     "max_central_duration_h": 11.32175829794903,
      "disfavoured_circular": false
     },
     {
-     "period_days": 44.7501,
-     "max_central_duration_h": 8.342522979006901,
+     "period_days": 105.29449902055785,
+     "max_central_duration_h": 11.095289430485607,
      "disfavoured_circular": false
     },
     {
-     "period_days": 45.8976,
-     "max_central_duration_h": 8.413201732317006,
+     "period_days": 99.44480463052686,
+     "max_central_duration_h": 10.885921504589755,
      "disfavoured_circular": false
     },
     {
-     "period_days": 49.7224,
-     "max_central_duration_h": 8.640610968754,
+     "period_days": 94.21086754470966,
+     "max_central_duration_h": 10.691515687346316,
      "disfavoured_circular": false
     },
     {
-     "period_days": 51.143,
-     "max_central_duration_h": 8.72210097281118,
+     "period_days": 89.50032416747418,
+     "max_central_duration_h": 10.510295907525181,
      "disfavoured_circular": false
     },
     {
-     "period_days": 52.6472,
-     "max_central_duration_h": 8.80675879476109,
+     "period_days": 85.23840396902303,
+     "max_central_duration_h": 10.340772733330105,
      "disfavoured_circular": false
     },
     {
-     "period_days": 57.7421,
-     "max_central_duration_h": 9.082063025640592,
+     "period_days": 81.36393106134015,
+     "max_central_duration_h": 10.181686004080742,
      "disfavoured_circular": false
     },
     {
-     "period_days": 59.6668,
-     "max_central_duration_h": 9.1818442734142,
+     "period_days": 77.82636884128189,
+     "max_central_duration_h": 10.031960970877632,
      "disfavoured_circular": false
     },
     {
-     "period_days": 61.7243,
-     "max_central_duration_h": 9.286165797038734,
+     "period_days": 74.58360347289515,
+     "max_central_duration_h": 9.890674328105813,
      "disfavoured_circular": false
     },
     {
-     "period_days": 63.9288,
-     "max_central_duration_h": 9.39540003923646,
+     "period_days": 71.60025933397934,
+     "max_central_duration_h": 9.757027594269637,
      "disfavoured_circular": false
     },
     {
-     "period_days": 66.2965,
-     "max_central_duration_h": 9.50996001865946,
+     "period_days": 68.84640320574937,
+     "max_central_duration_h": 9.63032602739812,
      "disfavoured_circular": false
     },
     {
-     "period_days": 68.8464,
-     "max_central_duration_h": 9.630325877956711,
+     "period_days": 66.29653642035125,
+     "max_central_duration_h": 9.509961759699577,
      "disfavoured_circular": false
     },
     {
-     "period_days": 71.6002,
-     "max_central_duration_h": 9.75702489967691,
+     "period_days": 63.928802976767265,
+     "max_central_duration_h": 9.395400185028953,
      "disfavoured_circular": false
     },
     {
-     "period_days": 74.5836,
-     "max_central_duration_h": 9.890674174620896,
+     "period_days": 61.72436149480978,
+     "max_central_duration_h": 9.286168880120227,
      "disfavoured_circular": false
     },
     {
-     "period_days": 77.8263,
-     "max_central_duration_h": 10.03195801351596,
+     "period_days": 59.666882778316115,
+     "max_central_duration_h": 9.181848518385838,
      "disfavoured_circular": false
     },
     {
-     "period_days": 81.3639,
-     "max_central_duration_h": 10.181684708665314,
+     "period_days": 57.74214462417689,
+     "max_central_duration_h": 9.082065364574873,
      "disfavoured_circular": false
     },
     {
-     "period_days": 85.2383,
-     "max_central_duration_h": 10.340768529670498,
+     "period_days": 52.647249510278925,
+     "max_central_duration_h": 8.806761554550455,
      "disfavoured_circular": false
     },
     {
-     "period_days": 89.5003,
-     "max_central_duration_h": 10.510294961654083,
+     "period_days": 51.143042381413814,
+     "max_central_duration_h": 8.722103381299984,
      "disfavoured_circular": false
     },
     {
-     "period_days": 94.2108,
-     "max_central_duration_h": 10.69151313261895,
+     "period_days": 49.72240231526343,
+     "max_central_duration_h": 8.640611102820927,
      "disfavoured_circular": false
     },
     {
-     "period_days": 99.4447,
-     "max_central_duration_h": 10.885917687248794,
+     "period_days": 45.897602137166245,
+     "max_central_duration_h": 8.413201862850393,
      "disfavoured_circular": false
     },
     {
-     "period_days": 105.2944,
-     "max_central_duration_h": 11.095285952865723,
+     "period_days": 44.75016208373709,
+     "max_central_duration_h": 8.342526835453357,
      "disfavoured_circular": false
     },
     {
-     "period_days": 111.8753,
-     "max_central_duration_h": 11.32175474931157,
+     "period_days": 43.65869471584106,
+     "max_central_duration_h": 8.274169886168504,
      "disfavoured_circular": false
     },
     {
-     "period_days": 119.3337,
-     "max_central_duration_h": 11.567930217139741,
+     "period_days": 40.68196553067008,
+     "max_central_duration_h": 8.081758954660735,
      "disfavoured_circular": false
     },
     {
-     "period_days": 127.8575,
-     "max_central_duration_h": 11.837018775071126,
+     "period_days": 39.777921852210746,
+     "max_central_duration_h": 8.021472578916299,
      "disfavoured_circular": false
     },
     {
-     "period_days": 137.6927,
-     "max_central_duration_h": 12.133038400748413,
+     "period_days": 38.913184420640945,
+     "max_central_duration_h": 7.962947105503552,
      "disfavoured_circular": false
     },
     {
-     "period_days": 149.1671,
-     "max_central_duration_h": 12.461088318612717,
+     "period_days": 36.530744558152726,
+     "max_central_duration_h": 7.797085814187181,
      "disfavoured_circular": false
     },
     {
-     "period_days": 162.7278,
-     "max_central_duration_h": 12.827772864903235,
+     "period_days": 35.80012966698967,
+     "max_central_duration_h": 7.74478232137368,
      "disfavoured_circular": false
     },
     {
-     "period_days": 179.0005,
-     "max_central_duration_h": 13.241824837125105,
+     "period_days": 35.09816634018595,
+     "max_central_duration_h": 7.693855852228031,
      "disfavoured_circular": false
     },
     {
-     "period_days": 198.8895,
-     "max_central_duration_h": 13.715116041423578,
+     "period_days": 33.14826821017562,
+     "max_central_duration_h": 7.548736026288795,
      "disfavoured_circular": false
     },
     {
-     "period_days": 223.7507,
-     "max_central_duration_h": 14.264267616829818,
+     "period_days": 32.54557242453606,
+     "max_central_duration_h": 7.502733533695894,
      "disfavoured_circular": false
     },
     {
-     "period_days": 255.715,
-     "max_central_duration_h": 14.913488943010773,
+     "period_days": 31.964401488383633,
+     "max_central_duration_h": 7.457833440501679,
      "disfavoured_circular": false
     },
     {
-     "period_days": 298.3342,
-     "max_central_duration_h": 15.699798755018305,
+     "period_days": 29.833441389158057,
+     "max_central_duration_h": 7.288387367841198,
      "disfavoured_circular": false
     },
     {
-     "period_days": 358.0011,
-     "max_central_duration_h": 16.683498138702497,
+     "period_days": 29.34436857949973,
+     "max_central_duration_h": 7.248368016865147,
      "disfavoured_circular": false
     },
     {
-     "period_days": 447.5013,
-     "max_central_duration_h": 17.971723882307153,
+     "period_days": 28.412801323007674,
+     "max_central_duration_h": 7.170894362139613,
      "disfavoured_circular": false
     },
     {
-     "period_days": 596.6684,
-     "max_central_duration_h": 19.78041257373821,
+     "period_days": 27.538561282299746,
+     "max_central_duration_h": 7.096634181344767,
      "disfavoured_circular": false
     },
     {
-     "period_days": 895.0027,
-     "max_central_duration_h": 22.6428911617543,
+     "period_days": 25.571521190706907,
+     "max_central_duration_h": 6.92361243390535,
      "disfavoured_circular": false
     },
     {
-     "period_days": 1790.0053,
-     "max_central_duration_h": 28.528223222374727,
+     "period_days": 12.785760595353453,
+     "max_central_duration_h": 5.497025717663731,
      "disfavoured_circular": false
     }
    ],
+   "secondary_red_noise_ppm": {
+    "35": 85.22763723337279,
+    "61": 163.7834018551758,
+    "99": 107.10599990362064
+   },
    "secondary_eclipse": [
     {
-     "period_days": 12.7858,
+     "period_days": 111.87540520934272,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -77.51379711957401,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 94.21086754470966,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -89.55066450923883,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 85.23840396902303,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -76.11275573310101,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 74.58360347289515,
+     "n_epochs": 1,
+     "secondary_depth_ppm": 111.3741319706965,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 68.84640320574937,
+     "n_epochs": 1,
+     "secondary_depth_ppm": 339.87647235586167,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 61.72436149480978,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -89.05518452539317,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 57.74214462417689,
+     "n_epochs": 1,
+     "secondary_depth_ppm": 178.29508182772688,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 52.647249510278925,
+     "n_epochs": 1,
+     "secondary_depth_ppm": 107.97915658661442,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 49.72240231526343,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -405.3716612449402,
+     "err_ppm": 163.7834018551758
+    },
+    {
+     "period_days": 45.897602137166245,
+     "n_epochs": 2,
+     "secondary_depth_ppm": 81.52562285405685,
+     "err_ppm": 89.64024248504901
+    },
+    {
+     "period_days": 44.75016208373709,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -51.169638698588294,
+     "err_ppm": 107.10599990362064
+    },
+    {
+     "period_days": 43.65869471584106,
+     "n_epochs": 2,
+     "secondary_depth_ppm": 100.59678335621336,
+     "err_ppm": 89.64024248504901
+    },
+    {
+     "period_days": 40.68196553067008,
+     "n_epochs": 3,
+     "secondary_depth_ppm": 70.46483078510495,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 39.777921852210746,
+     "n_epochs": 2,
+     "secondary_depth_ppm": 101.82369609203448,
+     "err_ppm": 66.69023350279708
+    },
+    {
+     "period_days": 38.913184420640945,
+     "n_epochs": 3,
+     "secondary_depth_ppm": -18.162683245669857,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 36.530744558152726,
+     "n_epochs": 3,
+     "secondary_depth_ppm": 315.55244143551107,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 35.80012966698967,
+     "n_epochs": 2,
+     "secondary_depth_ppm": -96.86994828432562,
+     "err_ppm": 66.69023350279708
+    },
+    {
+     "period_days": 35.09816634018595,
+     "n_epochs": 3,
+     "secondary_depth_ppm": 53.457136901474364,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 33.14826821017562,
+     "n_epochs": 3,
+     "secondary_depth_ppm": 52.4154244014729,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 32.54557242453606,
+     "n_epochs": 2,
+     "secondary_depth_ppm": -2.1813671398380126,
+     "err_ppm": 66.69023350279708
+    },
+    {
+     "period_days": 31.964401488383633,
+     "n_epochs": 3,
+     "secondary_depth_ppm": -15.277831529740428,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 29.833441389158057,
+     "n_epochs": 2,
+     "secondary_depth_ppm": -160.88587602672203,
+     "err_ppm": 66.69023350279708
+    },
+    {
+     "period_days": 29.34436857949973,
+     "n_epochs": 3,
+     "secondary_depth_ppm": 35.7035365734558,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 28.412801323007674,
+     "n_epochs": 3,
+     "secondary_depth_ppm": 4.775201570401231,
+     "err_ppm": 61.76610282278381
+    },
+    {
+     "period_days": 27.538561282299746,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -154.50085962412453,
+     "err_ppm": 85.22763723337279
+    },
+    {
+     "period_days": 12.785760595353453,
      "n_epochs": 6,
-     "secondary_depth_ppm": -22.672167831713896,
-     "err_ppm": 30.70982854519714
-    },
-    {
-     "period_days": 27.5385,
-     "n_epochs": 1,
-     "secondary_depth_ppm": -154.5008596250508,
-     "err_ppm": 178.28497665918295
-    },
-    {
-     "period_days": 28.4128,
-     "n_epochs": 3,
-     "secondary_depth_ppm": -34.66785130774955,
-     "err_ppm": 111.05396549065723
-    },
-    {
-     "period_days": 29.3443,
-     "n_epochs": 3,
-     "secondary_depth_ppm": 6.472426709891441,
-     "err_ppm": 62.717276490409255
-    },
-    {
-     "period_days": 29.8334,
-     "n_epochs": 2,
-     "secondary_depth_ppm": -163.1403345812584,
-     "err_ppm": 98.34219466612221
-    },
-    {
-     "period_days": 31.9644,
-     "n_epochs": 3,
-     "secondary_depth_ppm": -30.627930047854306,
-     "err_ppm": 76.92941765115239
-    },
-    {
-     "period_days": 32.5456,
-     "n_epochs": 2,
-     "secondary_depth_ppm": 21.46940252789983,
-     "err_ppm": 74.99425936400601
-    },
-    {
-     "period_days": 33.1482,
-     "n_epochs": 3,
-     "secondary_depth_ppm": 73.18453708834319,
-     "err_ppm": 54.51277251735807
-    },
-    {
-     "period_days": 35.0981,
-     "n_epochs": 3,
-     "secondary_depth_ppm": 62.41472353396333,
-     "err_ppm": 76.54488601675912
-    },
-    {
-     "period_days": 35.8001,
-     "n_epochs": 2,
-     "secondary_depth_ppm": -47.28305752197968,
-     "err_ppm": 86.12019609895569
-    },
-    {
-     "period_days": 36.5307,
-     "n_epochs": 3,
-     "secondary_depth_ppm": 190.79508912058625,
-     "err_ppm": 59.21296475829233
-    },
-    {
-     "period_days": 38.9132,
-     "n_epochs": 3,
-     "secondary_depth_ppm": -16.810053418742996,
-     "err_ppm": 43.043054933742795
-    },
-    {
-     "period_days": 39.7779,
-     "n_epochs": 2,
-     "secondary_depth_ppm": 46.587481976148794,
-     "err_ppm": 50.27887599561807
-    },
-    {
-     "period_days": 40.6819,
-     "n_epochs": 3,
-     "secondary_depth_ppm": 17.012146402839992,
-     "err_ppm": 43.07952709101022
-    },
-    {
-     "period_days": 43.6587,
-     "n_epochs": 2,
-     "secondary_depth_ppm": 101.70345068151153,
-     "err_ppm": 70.43292412236447
-    },
-    {
-     "period_days": 44.7501,
-     "n_epochs": 1,
-     "secondary_depth_ppm": -61.15440072327051,
-     "err_ppm": 145.40838892003185
-    },
-    {
-     "period_days": 45.8976,
-     "n_epochs": 2,
-     "secondary_depth_ppm": -23.891262259517838,
-     "err_ppm": 52.86566595816837
-    },
-    {
-     "period_days": 49.7224,
-     "n_epochs": 1,
-     "secondary_depth_ppm": -405.371661245619,
-     "err_ppm": 59.098693295180375
-    },
-    {
-     "period_days": 52.6472,
-     "n_epochs": 1,
-     "secondary_depth_ppm": 97.44366593335846,
-     "err_ppm": 123.38289032399182
-    },
-    {
-     "period_days": 57.7421,
-     "n_epochs": 1,
-     "secondary_depth_ppm": 142.47353955036638,
-     "err_ppm": 93.42520935506334
-    },
-    {
-     "period_days": 61.7243,
-     "n_epochs": 1,
-     "secondary_depth_ppm": -88.4342611117171,
-     "err_ppm": 64.59694488290098
-    },
-    {
-     "period_days": 68.8464,
-     "n_epochs": 1,
-     "secondary_depth_ppm": 339.87647235683227,
-     "err_ppm": 88.14478467450786
-    },
-    {
-     "period_days": 74.5836,
-     "n_epochs": 1,
-     "secondary_depth_ppm": 111.3741319702524,
-     "err_ppm": 128.27552871731532
-    },
-    {
-     "period_days": 85.2383,
-     "n_epochs": 1,
-     "secondary_depth_ppm": -79.27283722718924,
-     "err_ppm": 147.70166560204237
-    },
-    {
-     "period_days": 94.2108,
-     "n_epochs": 1,
-     "secondary_depth_ppm": -84.84297775000245,
-     "err_ppm": 94.92746388716753
-    },
-    {
-     "period_days": 111.8753,
-     "n_epochs": 1,
-     "secondary_depth_ppm": -77.51379711927584,
-     "err_ppm": 214.76230791766434
+     "secondary_depth_ppm": -9.85607975621688,
+     "err_ppm": 43.675230153455985
     }
    ],
    "difference_image": {
@@ -1025,7 +1105,15 @@
    "delta_chi2": 8505.09233762783,
    "n_in": 35,
    "vshape_index": 1.470971381360848,
-   "sigma_ppm": 932.7674479726131
+   "sigma_ppm": 932.7674479726131,
+   "weighted": {
+    "depth_ppm": 15226.577374064329,
+    "depth_err_formal_ppm": 37.980469009234675,
+    "depth_err_scaled_ppm": 175.84926537296968,
+    "chi2_reduced": 21.43682536026983,
+    "scatter_over_quoted_error": 1.3412517727936364,
+    "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+   }
   },
   "difference_image": {
    "state": "done",

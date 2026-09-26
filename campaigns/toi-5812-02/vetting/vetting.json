@@ -21,9 +21,21 @@
     "delta_chi2": 1217.7164252577345,
     "n_in": 143,
     "vshape_index": 1.119703000682132,
-    "sigma_ppm": 1938.5593063306987
+    "sigma_ppm": 1938.5593063306987,
+    "weighted": {
+     "depth_ppm": 6760.451025118408,
+     "depth_err_formal_ppm": 128.0772495575177,
+     "depth_err_scaled_ppm": 135.67650328037493,
+     "chi2_reduced": 1.1221871703722677,
+     "scatter_over_quoted_error": 0.972554478785249,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
    },
    "checks": {
+    "Error-weighted box fit": [
+     "passed",
+     "weighted depth 6760 \u00b1 136 ppm (\u03c7\u00b2\u03bd 1.12) vs unweighted 6761 \u00b1 194 ppm; residual scatter / quoted error 0.97"
+    ],
     "Sibling TOI ephemerides": [
      "failed",
      "TOI-5812.01 (KP, P 10.1466 d, 8161 ppm) predicted -0.01 h \u00b1 0.02 h"
@@ -58,16 +70,27 @@
     ],
     "Stellar-density duration limit": [
      "passed",
-     "2 of 2 allowed aliases compatible with a 4.7-h transit on a 1.22 R\u2609, 1.01 M\u2609 star (circular, central); shortest compatible 13.36 d"
+     "1 of 1 allowed aliases compatible with a 4.7-h transit on a 1.22 R\u2609, 1.01 M\u2609 star (circular, central); shortest compatible 13.38 d"
     ],
     "Secondary eclipse (circular aliases)": [
      "passed",
-     "phase 0.5 covered for 2 of 2 allowed aliases; no \u22654\u03c3 dip; median 1\u03c3 limit 76 ppm"
+     "phase 0.5 covered for 1 of 1 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 115 ppm"
     ],
     "Difference-image centroid": [
      "passed",
      "difference-image centroid 0.7\u2033 from the out-of-transit centroid (0.6\u03c3 bootstrap); 1.7\u2033 from the catalogue position; 87% of the deficit in the optimal aperture"
     ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2460536.080276543,
+    "delta_t_days": 13.380654824897647,
+    "n_aliases": 13,
+    "n_allowed": 1,
+    "allowed_periods_days": [
+     13.3807
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
    },
    "ephemerides": [
     {
@@ -226,28 +249,20 @@
    ],
    "aliases_density": [
     {
-     "period_days": 13.3577,
-     "max_central_duration_h": 5.669584676691567,
-     "disfavoured_circular": false
-    },
-    {
-     "period_days": 13.4598,
-     "max_central_duration_h": 5.683963669288501,
+     "period_days": 13.380654824897647,
+     "max_central_duration_h": 5.6728238090127725,
      "disfavoured_circular": false
     }
    ],
+   "secondary_red_noise_ppm": {
+    "82": 163.15077347315946
+   },
    "secondary_eclipse": [
     {
-     "period_days": 13.3577,
+     "period_days": 13.380654824897647,
      "n_epochs": 2,
-     "secondary_depth_ppm": 27.234459308988605,
-     "err_ppm": 75.99555770138556
-    },
-    {
-     "period_days": 13.4598,
-     "n_epochs": 2,
-     "secondary_depth_ppm": -33.79929280563155,
-     "err_ppm": 76.73439852829148
+     "secondary_depth_ppm": 73.62089601199611,
+     "err_ppm": 115.36501827870137
     }
    ],
    "difference_image": {
@@ -591,7 +606,15 @@
    "delta_chi2": 715.5773951302508,
    "n_in": 178,
    "vshape_index": 1.3790954034380016,
-   "sigma_ppm": 1859.3318484803178
+   "sigma_ppm": 1859.3318484803178,
+   "weighted": {
+    "depth_ppm": 4702.354881896297,
+    "depth_err_formal_ppm": 121.10452717302744,
+    "depth_err_scaled_ppm": 123.61284441181496,
+    "chi2_reduced": 1.0418529915286845,
+    "scatter_over_quoted_error": 1.0189464396970425,
+    "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+   }
   },
   "difference_image": {
    "state": "done",

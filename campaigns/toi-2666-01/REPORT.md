@@ -185,3 +185,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, vetting reconciliation)
+
+Vetting rerun 2026-09-26 with the final code: the lead survives. Shape (ratio 1.02 +/- 0.02), detrending, red noise (158 sigma below the random-epoch null), background/pointing, common mode, Gaia neighbours, duration limit and difference image (0.4", 0.7 sigma) all pass. Open items: the error-weighted box fit is inconclusive (chi2_nu 21.8 - the pipeline errors do not describe the scatter; weighted depth unchanged), the event carries argabrightening flags within +/-0.5 d, and the secondary-eclipse search flags 1 of 26 covered aliases (P 36.53 d, 316 +/- 62 ppm) - a possible secondary that would fit the V-shaped eclipsing-binary reading. V-shaped index 1.47: grazing planet or EB. Dossier decision pending.
+
+Source: `campaigns/toi-2666-01/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`.

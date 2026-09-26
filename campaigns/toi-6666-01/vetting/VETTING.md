@@ -11,6 +11,7 @@ Reference difference-image centroid 8.2″ from the target (1.3σ).
 
 | Check | State | Detail |
 |---|---|---|
+| Error-weighted box fit | passed | weighted depth 242 ± 58 ppm (χ²ν 1.38) vs unweighted 242 ± 58 ppm; residual scatter / quoted error 1.16 |
 | Sibling TOI ephemerides | passed | no periodic TOI on this TIC |
 | Shape matches reference transit | failed | depth ratio 0.19 ± 0.05, duration ratio 0.50 (box fits; duration grid step ~25%) |
 | Detrending alternatives | failed | PDCSAP depth 176–537 ppm across 6 detrendings (box fit 242); SAP poly2 4372 ppm |

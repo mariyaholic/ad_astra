@@ -7,10 +7,11 @@ Reference difference-image centroid 2.9″ from the target (0.9σ).
 
 ## E1: S99, BJD 2461049.1644, depth 15464 ± 181 ppm, 1.16 h
 
-1 screen candidate(s) merged; up to 52 period aliases allowed by the screen.
+1 screen candidate(s) merged; ΔT from the reference 1790.006 d, 52 of 1790 aliases P = ΔT/n ≥ 1 d allowed by the data.
 
 | Check | State | Detail |
 |---|---|---|
+| Error-weighted box fit | inconclusive | weighted depth 15473 ± 181 ppm (χ²ν 21.81) vs unweighted 15464 ± 181 ppm; residual scatter / quoted error 1.54; the pipeline errors do not describe the scatter |
 | Sibling TOI ephemerides | passed | no periodic TOI on this TIC |
 | Shape matches reference transit | passed | depth ratio 1.02 ± 0.02, duration ratio 1.00 (box fits; duration grid step ~25%) |
 | Detrending alternatives | passed | PDCSAP depth 15478–15772 ppm across 6 detrendings (box fit 15464); SAP poly2 15444 ppm |
@@ -20,6 +21,6 @@ Reference difference-image centroid 2.9″ from the target (0.9σ).
 | Gaia neighbours able to mimic the depth | passed | 2 Gaia source(s) G<17 within 52″; 0 bright enough (ΔG ≤ 4.53) |
 | Common mode (same camera/CCD) | passed | 5 neighbour light curve(s) in S99 cam 1 CCD 3; 0 dip ≥ 4σ at the event |
 | Stellar-density duration limit | passed | 52 of 52 allowed aliases compatible with a 1.2-h transit on a 1.11 R☉, 0.90 M☉ star (circular, central); shortest compatible 12.79 d |
-| Secondary eclipse (circular aliases) | passed | phase 0.5 covered for 26 of 52 allowed aliases; no ≥4σ dip; median 1σ limit 77 ppm |
+| Secondary eclipse (circular aliases) | failed | phase 0.5 covered for 26 of 52 allowed aliases (red-noise errors, sibling transits masked); 1 with a ≥4σ dip: P 36.53 d 316±62 ppm |
 | Difference-image centroid | passed | difference-image centroid 0.4″ from the out-of-transit centroid (0.7σ bootstrap); 5.5″ from the catalogue position; 97% of the deficit in the optimal aperture |
 

@@ -21,9 +21,21 @@
     "delta_chi2": 17.940907156015214,
     "n_in": 247,
     "vshape_index": 0.956675128777257,
-    "sigma_ppm": 508.1899853301413
+    "sigma_ppm": 508.1899853301413,
+    "weighted": {
+     "depth_ppm": 241.76231901963087,
+     "depth_err_formal_ppm": 49.6090487573207,
+     "depth_err_scaled_ppm": 58.265064441874266,
+     "chi2_reduced": 1.3794141066867611,
+     "scatter_over_quoted_error": 1.1583764397201723,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
    },
    "checks": {
+    "Error-weighted box fit": [
+     "passed",
+     "weighted depth 242 \u00b1 58 ppm (\u03c7\u00b2\u03bd 1.38) vs unweighted 242 \u00b1 58 ppm; residual scatter / quoted error 1.16"
+    ],
     "Sibling TOI ephemerides": [
      "passed",
      "no periodic TOI on this TIC"
@@ -69,6 +81,7 @@
      "difference-image centroid 19.9\u2033 from the out-of-transit centroid (132.7\u03c3 bootstrap); 20.8\u2033 from the catalogue position; 7% of the deficit in the optimal aperture"
     ]
    },
+   "significant_dip": true,
    "aliases_from_reference": {
     "reference_bjd": 2458962.1584273707,
     "delta_t_days": 171.22254405310377,
@@ -606,7 +619,15 @@
    "delta_chi2": 641.0607960804199,
    "n_in": 493,
    "vshape_index": 1.1989459728389151,
-   "sigma_ppm": 653.9033591117062
+   "sigma_ppm": 653.9033591117062,
+   "weighted": {
+    "depth_ppm": 1271.3675474253505,
+    "depth_err_formal_ppm": 35.53219685363858,
+    "depth_err_scaled_ppm": 37.75512030910612,
+    "chi2_reduced": 1.1290355012171407,
+    "scatter_over_quoted_error": 1.0161626834853903,
+    "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+   }
   },
   "difference_image": {
    "state": "done",

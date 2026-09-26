@@ -7,17 +7,14 @@ Reference difference-image centroid 4.8″ from the target (0.8σ).
 
 ## E1: S52, BJD 2459743.0301, depth -382 ± 110 ppm, 9.13 h
 
-2 screen candidate(s) merged; up to 0 period aliases allowed by the screen.
+2 screen candidate(s) merged; ΔT from the reference nan d, 0 of 0 aliases P = ΔT/n ≥ 1 d allowed by the data.
 
 | Check | State | Detail |
 |---|---|---|
+| Error-weighted box fit | passed | weighted depth -382 ± 110 ppm (χ²ν 1.37) vs unweighted -382 ± 110 ppm; residual scatter / quoted error 1.08 |
+| Box fit finds a dip | failed | best box depth -382 ± 110 ppm: no significant dip near the screen candidates; the screen entries are not a transit-shaped event |
 | Sibling TOI ephemerides | passed | no periodic TOI on this TIC |
-| Shape matches reference transit | failed | depth ratio -0.12 ± -0.04, duration ratio 3.00 (box fits; duration grid step ~25%) |
-| Detrending alternatives | failed | PDCSAP depth -580–-108 ppm across 6 detrendings (box fit -382); SAP poly2 -356 ppm |
-| Red-noise significance | failed | box statistic at the event is -5.0 robust σ below 300 random epochs of the same light curve; fraction as extreme 0.000 |
 | Background / centroid / pointing | failed | SAP_BKG -0.1σ; MOM_CENTR1 +8.3σ; MOM_CENTR2 +0.9σ; POS_CORR1 +8.2σ; POS_CORR2 -0.2σ (shift at the event vs random epochs) |
 | Quality flags and coverage | inconclusive | 172/274 usable in-transit cadences; flags within ±0.5 d: none; nearest momentum dump 138.9 h |
-| Gaia neighbours able to mimic the depth | inconclusive | 1 Gaia source(s) G<17 within 52″; 1 bright enough (ΔG ≤ 15.0): 30.9″ ΔG 7.38 |
 | Common mode (same camera/CCD) | passed | 5 neighbour light curve(s) in S52 cam 2 CCD 4; 0 dip ≥ 4σ at the event |
-| Difference-image centroid | passed | difference-image centroid 20.5″ from the out-of-transit centroid (2.4σ bootstrap); 18.6″ from the catalogue position; -7% of the deficit in the optimal aperture |
 

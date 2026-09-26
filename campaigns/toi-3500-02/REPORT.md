@@ -226,3 +226,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, vetting reconciliation)
+
+Vetting rerun 2026-09-26 with the final code. E1 survives every test run (difference image 0.3", 0.7 sigma; 237/237 usable cadences, no flags; red noise 36 sigma below the null; the only inconclusive is the unresolved Gaia neighbour 3.7" away, Delta-G 2.72, which could host the signal). E2 remains suspect: the detrending alternatives disagree (depth 1614-7796 ppm across six detrendings vs box fit 7767 ppm). Timing: reference -> E1 700.62 d, E1 -> E2 350.32 d; nine periods P = 350.3/n d stay data-allowed. Record stays lead (Unverified lead); dossier decision pending.
+
+Source: `campaigns/toi-3500-02/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`.

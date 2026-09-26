@@ -267,3 +267,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, vetting reconciliation)
+
+Rejected by vetting: systematics. The regenerated vet finds no dip at the screen candidates (box depth -382 +/- 110 ppm) and a background/pointing excursion (MOM_CENTR1 +8.3 sigma, POS_CORR1 +8.2 sigma). Record outcome changed to pipeline_check.
+
+Source: `campaigns/toi-2318-01/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`. The sky record outcome was reconciled with this verdict on 2026-09-26.

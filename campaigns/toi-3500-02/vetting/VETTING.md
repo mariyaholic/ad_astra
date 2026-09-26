@@ -7,14 +7,15 @@ Reference difference-image centroid 3.7″ from the target (1.0σ).
 
 **Periodic TOIs on this TIC:** TOI-3500.01 P 7.3436 d, 1314.7094959 ppm, PC
 
-**Periods consistent with all events** (±1.0 h): 350: 350.312, 175.156, 116.771, 87.578, 70.062, 58.385, 50.045, 43.789, 38.924, 35.031, 31.847, 29.193, 26.947, 25.022, 23.354 …
+**Periods consistent with the reference and events E1, E2** (±0.75 h, data-allowed): 9: 350.312, 175.156, 116.771, 87.578, 70.062, 58.385, 50.045, 35.031, 18.438
 
 ## E1: S90, BJD 2460757.3199, depth 7553 ± 277 ppm, 7.91 h
 
-11 screen candidate(s) merged; up to 17 period aliases allowed by the screen.
+11 screen candidate(s) merged; ΔT from the reference 700.624 d, 17 of 700 aliases P = ΔT/n ≥ 1 d allowed by the data.
 
 | Check | State | Detail |
 |---|---|---|
+| Error-weighted box fit | passed | weighted depth 7556 ± 159 ppm (χ²ν 1.19) vs unweighted 7553 ± 277 ppm; residual scatter / quoted error 1.03 |
 | Sibling TOI ephemerides | passed | 1 periodic TOI(s) on this TIC; none predicted at the event |
 | Shape matches reference transit | passed | depth ratio 1.08 ± 0.06, duration ratio 1.00 (box fits; duration grid step ~25%) |
 | Detrending alternatives | passed | PDCSAP depth 7480–7885 ppm across 6 detrendings (box fit 7553); SAP poly2 6586 ppm |
@@ -23,16 +24,17 @@ Reference difference-image centroid 3.7″ from the target (1.0σ).
 | Quality flags and coverage | passed | 237/237 usable in-transit cadences; flags within ±0.5 d: none; nearest momentum dump 82.2 h |
 | Gaia neighbours able to mimic the depth | inconclusive | 2 Gaia source(s) G<17 within 52″; 2 bright enough (ΔG ≤ 5.3): 3.7″ ΔG 2.72, 43.2″ ΔG 3.88 |
 | Common mode (same camera/CCD) | passed | 5 neighbour light curve(s) in S90 cam 1 CCD 2; 0 dip ≥ 4σ at the event |
-| Stellar-density duration limit | passed | 127 of 132 allowed aliases compatible with a 7.9-h transit on a 1.10 R☉, 0.94 M☉ star (circular, central); shortest compatible 35.03 d |
-| Secondary eclipse (circular aliases) | failed | phase 0.5 covered for 110 of 132 allowed aliases; 48 with a ≥4σ dip: P 18.44 d 223±40 ppm, P 18.44 d 176±40 ppm, P 18.44 d 161±40 ppm, P 36.87 d 731±163 ppm |
+| Stellar-density duration limit | passed | 16 of 17 allowed aliases compatible with a 7.9-h transit on a 1.10 R☉, 0.94 M☉ star (circular, central); shortest compatible 35.03 d |
+| Secondary eclipse (circular aliases) | failed | phase 0.5 covered for 13 of 17 allowed aliases (red-noise errors, sibling transits masked); 8 with a ≥4σ dip: P 700.62 d 7491±186 ppm, P 233.54 d 7491±186 ppm, P 140.12 d 7491±186 ppm, P 100.09 d 7491±186 ppm |
 | Difference-image centroid | passed | difference-image centroid 0.3″ from the out-of-transit centroid (0.7σ bootstrap); 3.7″ from the catalogue position; 83% of the deficit in the optimal aperture |
 
 ## E2: S101, BJD 2461107.6407, depth 7767 ± 323 ppm, 6.33 h
 
-4 screen candidate(s) merged; up to 22 period aliases allowed by the screen.
+4 screen candidate(s) merged; ΔT from the reference 1050.945 d, 22 of 1050 aliases P = ΔT/n ≥ 1 d allowed by the data.
 
 | Check | State | Detail |
 |---|---|---|
+| Error-weighted box fit | passed | weighted depth 7765 ± 179 ppm (χ²ν 1.35) vs unweighted 7767 ± 323 ppm; residual scatter / quoted error 1.07 |
 | Sibling TOI ephemerides | passed | 1 periodic TOI(s) on this TIC; none predicted at the event |
 | Shape matches reference transit | passed | depth ratio 1.11 ± 0.06, duration ratio 0.80 (box fits; duration grid step ~25%) |
 | Detrending alternatives | failed | PDCSAP depth 1614–7796 ppm across 6 detrendings (box fit 7767); SAP poly2 6787 ppm |
@@ -41,7 +43,7 @@ Reference difference-image centroid 3.7″ from the target (1.0σ).
 | Quality flags and coverage | inconclusive | 190/190 usable in-transit cadences; flags within ±0.5 d: {'momentum dump': 4, 'manual exclude': 1}; nearest momentum dump 8.8 h |
 | Gaia neighbours able to mimic the depth | inconclusive | 2 Gaia source(s) G<17 within 52″; 2 bright enough (ΔG ≤ 5.27): 3.7″ ΔG 2.72, 43.2″ ΔG 3.88 |
 | Common mode (same camera/CCD) | passed | 5 neighbour light curve(s) in S101 cam 1 CCD 2; 0 dip ≥ 4σ at the event |
-| Stellar-density duration limit | passed | 88 of 88 allowed aliases compatible with a 6.3-h transit on a 1.10 R☉, 0.94 M☉ star (circular, central); shortest compatible 17.52 d |
-| Secondary eclipse (circular aliases) | passed | phase 0.5 covered for 39 of 88 allowed aliases; no ≥4σ dip; median 1σ limit 118 ppm |
+| Stellar-density duration limit | passed | 22 of 22 allowed aliases compatible with a 6.3-h transit on a 1.10 R☉, 0.94 M☉ star (circular, central); shortest compatible 18.44 d |
+| Secondary eclipse (circular aliases) | passed | phase 0.5 covered for 10 of 22 allowed aliases (red-noise errors, sibling transits masked); no ≥4σ dip; median 1σ limit 168 ppm |
 | Difference-image centroid | inconclusive | difference-image centroid 6.7″ from the out-of-transit centroid (11.5σ bootstrap); 7.3″ from the catalogue position; 78% of the deficit in the optimal aperture |
 

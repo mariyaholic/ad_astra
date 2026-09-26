@@ -9,10 +9,11 @@ Reference difference-image centroid 2.1″ from the target (1.3σ).
 
 ## E1: S82, BJD 2460549.4609, depth 6761 ± 194 ppm, 4.75 h
 
-2 screen candidate(s) merged; up to 1 period aliases allowed by the screen.
+2 screen candidate(s) merged; ΔT from the reference 13.381 d, 1 of 13 aliases P = ΔT/n ≥ 1 d allowed by the data.
 
 | Check | State | Detail |
 |---|---|---|
+| Error-weighted box fit | passed | weighted depth 6760 ± 136 ppm (χ²ν 1.12) vs unweighted 6761 ± 194 ppm; residual scatter / quoted error 0.97 |
 | Sibling TOI ephemerides | failed | TOI-5812.01 (KP, P 10.1466 d, 8161 ppm) predicted -0.01 h ± 0.02 h |
 | Shape matches reference transit | failed | depth ratio 1.44 ± 0.07, duration ratio 0.80 (box fits; duration grid step ~25%) |
 | Detrending alternatives | passed | PDCSAP depth 5338–6927 ppm across 6 detrendings (box fit 6761); SAP poly2 6733 ppm |
@@ -21,7 +22,7 @@ Reference difference-image centroid 2.1″ from the target (1.3σ).
 | Quality flags and coverage | passed | 143/142 usable in-transit cadences; flags within ±0.5 d: none; nearest momentum dump 70.0 h |
 | Gaia neighbours able to mimic the depth | inconclusive | 1 Gaia source(s) G<17 within 52″; 1 bright enough (ΔG ≤ 5.42): 39.6″ ΔG 4.03 |
 | Common mode (same camera/CCD) | passed | 5 neighbour light curve(s) in S82 cam 1 CCD 4; 0 dip ≥ 4σ at the event |
-| Stellar-density duration limit | passed | 2 of 2 allowed aliases compatible with a 4.7-h transit on a 1.22 R☉, 1.01 M☉ star (circular, central); shortest compatible 13.36 d |
-| Secondary eclipse (circular aliases) | passed | phase 0.5 covered for 2 of 2 allowed aliases; no ≥4σ dip; median 1σ limit 76 ppm |
+| Stellar-density duration limit | passed | 1 of 1 allowed aliases compatible with a 4.7-h transit on a 1.22 R☉, 1.01 M☉ star (circular, central); shortest compatible 13.38 d |
+| Secondary eclipse (circular aliases) | passed | phase 0.5 covered for 1 of 1 allowed aliases (red-noise errors, sibling transits masked); no ≥4σ dip; median 1σ limit 115 ppm |
 | Difference-image centroid | passed | difference-image centroid 0.7″ from the out-of-transit centroid (0.6σ bootstrap); 1.7″ from the catalogue position; 87% of the deficit in the optimal aperture |
 
