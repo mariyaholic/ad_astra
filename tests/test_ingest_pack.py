@@ -104,7 +104,7 @@ def test_ledger_products_csv_export(tmp_scratch, ledger_factory):
     led = ledger_factory()
     b = PackBuilder(led, pack_root=tmp_scratch / "tier1_pack")
     b.quiet = True
-    f = b.pack_dir("ned") / "x.bin"
+    f = b.pack_dir("NED") / "x.bin"   # matches register("NED", ...): relative_to() is case-sensitive on Linux
     f.write_bytes(b"zz")
     b.register("NED", "n1", path=f, url="u", endpoint="e", license_="public")
     out = ledger_products_csv(led, tmp_scratch / "export" / "products.csv")

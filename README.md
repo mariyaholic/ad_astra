@@ -12,6 +12,7 @@ Nothing here is a discovery. As of 2026-09-24 the project has run one known-plan
 | [`docs/STATUS.md`](docs/STATUS.md) | Current state, open decisions and known problems: the handoff note. Read second. |
 | [`ANALYSIS_STACK.md`](ANALYSIS_STACK.md) | Architecture and the module register (what is built vs. designed). |
 | [`DATA_SOURCES.md`](DATA_SOURCES.md) | Verified free archives and access tiers. |
+| [`docs/STORAGE.md`](docs/STORAGE.md) | **Where stored data lives** (Drive folders, batch evidence, Colab runs): the committed index `storage/locations.jsonl` and `python -m cygnus.storage`, for every harness. |
 | [`docs/ANALYSIS_SUITE.md`](docs/ANALYSIS_SUITE.md) | Scope and limits of `src/cygnus/analysis/`. |
 | [`docs/SUITE_EXPANSION.md`](docs/SUITE_EXPANSION.md) | 2026-09-26 inventory: adapter data the pipeline discards, code no test exercises, and the expanded desired suite (L0–L3 + new record checks). |
 | [`docs/TEST_ARCHITECTURE_PLAN_DRAFT.md`](docs/TEST_ARCHITECTURE_PLAN_DRAFT.md) | Working-draft test plan and known gaps. |
