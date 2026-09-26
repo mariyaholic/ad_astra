@@ -3,14 +3,14 @@
  "id": "toi-1149-01",
  "title": "Known-object test, TOI-1149.01",
  "kind": "known-object test",
- "status": "draft",
- "outcome": "not_run",
+ "status": "completed",
+ "outcome": "pipeline_check",
  "evidence": null,
- "date": null,
- "summary": "Known-object test on TOI-1149.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match.",
+ "date": "2026-09-26",
+ "summary": "Known-object test on TOI-1149.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 110 threshold entries outside the known-signal veto across 4 light curve(s), forming 55 distinct event(s), 3 persistent in SAP and PDCSAP at two or more baselines.",
  "spec": "campaigns/toi-1149-01.yaml",
- "report": null,
- "search_log": null,
+ "report": "campaigns/toi-1149-01/REPORT.md",
+ "search_log": "campaigns/toi-1149-01/SEARCH_LOG.md",
  "targets": [
   {
    "name": "TOI-1149.01",
@@ -21,31 +21,68 @@
    "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
   }
  ],
- "products": [],
+ "products": [
+  {
+   "id": "tess2022190063128-s0054-0000000117789567-0227-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "a6e53e2a0de13676fb7f98d4795ef607e3a93a7feaf0b6a07ddeb0167b7ca759",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2021204101404-s0041-0000000117789567-0212-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "b6acc9537ce7e615a02b17e9db96a9ac061821948a4fab560af4fe1975da3cdc",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2022217014003-s0055-0000000117789567-0242-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "defd21e2334e82d7f387609fe3ca845d22fb43fd0534e0fa4bb9f4958cc000c3",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2024196212429-s0081-0000000117789567-0276-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "36d304575c8c84a5819b7c7e2df61f315e375a80b3f05efb734598652cd79f9e",
+   "format": "spoc_lc"
+  }
+ ],
  "checks": [
   {
    "name": "Product integrity (SHA-256)",
-   "state": "not_tested"
+   "state": "passed",
+   "note": "4 product(s) from MAST checksummed at first retrieval",
+   "source": "campaign runner, step fetch_products"
   },
   {
    "name": "Known-signal recovery (positive control)",
-   "state": "not_tested"
+   "state": "failed",
+   "note": "BJD 2459770.3308: not recovered, depth 12056 ± 613 ppm (catalogue 5083 ppm)",
+   "source": "campaign runner, step known_signal_recovery"
   },
   {
    "name": "Calibrated false-alarm threshold (sign-flip null)",
-   "state": "not_tested"
+   "state": "passed",
+   "note": "screen run at each light curve's own k* (≤2.5, 3, ≤2.5, ≤2.5; ≤ 0 persistent null events outside the veto)",
+   "source": "campaign runner, step residual_screen"
   },
   {
    "name": "Synthetic signal injection–recovery",
-   "state": "not_tested"
+   "state": "inconclusive",
+   "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 0%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json",
+   "source": "campaign runner, step residual_screen"
   },
   {
    "name": "Catalogue cross-match",
-   "state": "not_tested"
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
   },
   {
    "name": "Period aliases (repeat events)",
-   "state": "not_tested"
+   "state": "not_tested",
+   "note": "catalogued transit not recovered; no reference depth",
+   "source": "campaign runner, step period_aliases"
   },
   {
    "name": "Alternative detrending",
@@ -62,8 +99,68 @@
   {
    "name": "Literature (ADS) audit",
    "state": "not_tested"
+  },
+  {
+   "name": "Light-curve suitability for the residual screen",
+   "state": "passed",
+   "note": "4 light curve(s) screenable",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-1149.01: Gaia DR3 1835201042675810688 at 0.00\" (propagated 2016.0 → J2015.5; 0.00\" unpropagated, proper-motion shift 0.00\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "inconclusive",
+   "note": "TOI-1149.01: dwarf priors not applied — 1.90 mag above (brighter: evolved, unresolved binary or young) the dwarf sequence at this colour; dwarf priors not applied",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "passed",
+   "note": "TOI-1149.01: 209 Gaia neighbour(s) within 52.5\", contamination 1.14%; depth 5083 ppm (catalogue depth); none bright enough to produce it alone; 1 neighbour(s) without G not assessed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "failed",
+   "note": "3 persistent event(s), 2 clean; BJD 2459781.9358 suspect: SAP_BKG z=-10.2",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "inconclusive",
+   "note": "3 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin); 1 epoch(s) not answered",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-1149.01: HIP 98726                      VAR                            P=0.88632 at 0.1\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-1149.01: TOI-1149.01 otype Pl? (star_or_other) at 0.1\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-26T09:21:30Z"
+ "generated_utc": "2026-09-26T10:17:40Z"
 }
