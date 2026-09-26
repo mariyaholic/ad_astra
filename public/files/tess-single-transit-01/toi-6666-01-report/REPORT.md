@@ -327,3 +327,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, vetting reconciliation)
+
+Rejected by vetting: spacecraft pointing systematic. MOM_CENTR1/2 +/-570 sigma and POS_CORR1/2 +/-520-568 sigma at the event, 4 of 5 same-CCD neighbour light curves dip, and the difference-image centroid sits 19.9" off (132.7 sigma). Record outcome changed to pipeline_check.
+
+Source: `campaigns/toi-6666-01/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`. The sky record outcome was reconciled with this verdict on 2026-09-26.

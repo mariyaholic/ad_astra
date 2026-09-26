@@ -175,3 +175,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, vetting reconciliation)
+
+Rejected by vetting: the vetted event is a transit of the known planet WASP-134 b (TOI-5812.01, KP, P 10.1466 d) - the sibling-TOI ephemeris predicted it at -0.01 +/- 0.02 h, and the box-fit depth ratio 1.44 +/- 0.07 confirms it is not the reference signal. The positive control (catalogued transit) passed; the campaign outcome is now pipeline_check.
+
+Source: `campaigns/toi-5812-02/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`. The sky record outcome was reconciled with this verdict on 2026-09-26.
