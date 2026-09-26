@@ -57,6 +57,9 @@ discipline of `AGENTS.md`. Layers:
 | `targets.py` | ranked target queue from a declared TOI pool, rationale per target | **implemented 2026-09-24** |
 | `reporting/dossier.py` | dossier markdown emission (never invents) | **implemented (scaffold)** |
 | `reporting/leads_board.py` | evidence-level ranked table | **implemented (scaffold)** |
+| `multi/` | multi-archive campaign runner: 23 archive adapters, sandboxed spec loader, production hand-off (`docs/CAMPAIGNS.md`, *Multi-archive campaigns*) | **implemented 2026-09-25** |
+| `multi/steps.py` | campaign steps: fetch_products, calibrate_screen, residual_screen, known_signal_recovery, period_aliases, bls_recovery, prior_art, target_queue, context_products, source_checks, astrometric_vetting | **implemented 2026-09-25** |
+| `multi/measure_steps.py` | context and census steps: stellar_context, event_census, moving_objects, variability_guard, fetch_independent, alias_cross_instrument, rv_bounds | **implemented 2026-09-26** |
 | `cli.py` | `doctor`, `dossier` commands | **implemented (scaffold)** |
 | `publish/` | public repository site: curated manifests → static site, leak-scanned (`docs/PUBLISHING.md`) | **implemented 2026-09-24** |
 | `analysis/` | bounded, in-memory reanalysis pilots: reduction disagreements, pixel controls, imaging residuals, epoch-aware crossmatches, Gaia NSS triage; read-only manifest/FITS adapter | **implemented research utilities; synthetic tests only — see `docs/ANALYSIS_SUITE.md`** |

@@ -1,0 +1,19 @@
+{
+  "id": "colab-p01-runs",
+  "title": "Colab batch colab-p01: provenance and run record",
+  "type": "dataset",
+  "status": "published",
+  "published": "2026-09-26",
+  "summary": "Standardized publication record of the first Colab stress batch (100 of 1,000 periodic TOIs, pinned commit 2b65d44): 1,107 ledger runs as a sanitized CSV, the 387 checksum-verified MAST products as the site's standard manifest view, and the batch summary. The companion ledger is never merged; run ids are companion-ledger ids.",
+  "description_md": "The batch ran on a Colab CPU High-RAM runtime (8 vCPU / 51 GB, `--jobs 7`) against the pinned public commit, 100/100 campaigns finished, 0 failed. The checkpoint on Drive (3,330 objects, 982.2 MiB) was verified intact: 3,327/3,327 manifest hashes match and all 387 product SHA-256s inside the records match. Products are **linked, never re-hosted**; the CSV exports only the site's public-run allowlisted fields, so local paths and per-run extras never leave the project.",
+  "research_status": "Engineering record · provenance only · no science claims",
+  "license": "Apache-2.0",
+  "citation": "Project Cygnus / Astraea, Colab batch colab-p01 run record (2026).",
+  "related": ["campaign:tess-periodic-01", "collection:tier1-baseline-pack-2026-09"],
+  "items": [
+    {"id": "colab-p01-runs", "kind": "document", "source": "publish/pages/colab-p01-runs.md", "title": "Run record: Colab batch colab-p01", "description": "Provenance chain, run statistics, verification results and the stated limits.", "origin": "project", "download": true},
+    {"id": "colab-p01-manifest", "kind": "archive_manifest", "source": "publish/data/colab-p01/manifest.json", "title": "Products manifest: 387 MAST light curves held on Drive", "description": "Sanitized standard manifest view: per-product state, bytes, SHA-256 and the public MAST download link; linked, never re-hosted.", "origin": "derived"},
+    {"id": "colab-p01-journal", "kind": "file", "source": "publish/files/colab-p01/runs.csv", "title": "Run journal (CSV, 1,107 runs)", "description": "The companion ledger's runs table projected through the site's public-run allowlist (id, script, config_hash, code_version, seed, started_utc, finished_utc, status, summary).", "origin": "derived", "download": true},
+    {"id": "colab-p01-summary", "kind": "file", "source": "publish/files/colab-p01/SUMMARY.md", "title": "Batch summary (triage board)", "description": "The batch driver's escalation-first summary, copied verbatim after a private-path scan.", "origin": "project", "download": true}
+  ]
+}

@@ -120,6 +120,16 @@ STEP_MODULE_ALIASES: dict[str, str] = {
     "period_aliases": "campaign/",
     "prior_art": "priorart.py",
     "dossier": "reporting/dossier.py",
+    "context_products": "multi/steps.py",
+    "source_checks": "multi/steps.py",
+    "astrometric_vetting": "multi/steps.py",
+    "stellar_context": "multi/measure_steps.py",
+    "event_census": "multi/measure_steps.py",
+    "moving_objects": "multi/measure_steps.py",
+    "variability_guard": "multi/measure_steps.py",
+    "fetch_independent": "multi/measure_steps.py",
+    "alias_cross_instrument": "multi/measure_steps.py",
+    "rv_bounds": "multi/measure_steps.py",
 }
 
 
