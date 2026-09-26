@@ -32,6 +32,45 @@ Other targets:
 
 Never edit a generated spec's numbers by hand. If a value is wrong, fix the source and generate the spec again.
 
+## Batches (many targets, unattended)
+
+`python -m cygnus.batch` (`src/cygnus/batch.py`) drives the same loop for tens to hundreds of targets. It calls the same commands (`cygnus.multi new`, `run` and `report`), so every campaign it produces is identical to one made by hand.
+
+```bash
+# 1. a new ranked queue (once per pool; skip it to keep working an existing queue)
+python -m cygnus.batch queue tess-mono-02 --where "pl_orbper IS NULL AND tfopwg_disp IN ('PC','APC')" --top 500
+# 2. claim the next N unclaimed targets into a named batch, then commit the claims (command printed)
+python -m cygnus.batch claim --queue campaigns/tess-mono-02/target_queue.csv --n 100 --batch b01
+# 3. run everything unfinished in the batch; safe to re-run after a crash or Ctrl-C
+python -m cygnus.batch run --batch b01 --jobs 3
+# 4. triage
+python -m cygnus.batch status --batch b01      # state/batches/b01/SUMMARY.md
+python -m pytest -q
+```
+
+What `run` guarantees:
+
+- **One batch per ledger.** Batches share a ledger through a lock file, `<ledger>.batch.lock`. A second batch refuses to start. A lock left behind by a dead process on the same host is taken over, and the takeover is recorded in the journal.
+  - Don't run single campaigns by hand on the same ledger while a batch is running.
+  - `--jobs` runs campaigns in parallel inside the one batch. 3 jobs were tested on one ledger (2026-09-26: 3 campaigns, 19 ledger runs, no lock errors, 87 s wall time vs about 195 s one at a time). The archives' rate limits, not the CPU, set the ceiling.
+- **Crash safety.**
+  - Each campaign runs in its own process, with a wall-clock limit (`--timeout`, default 1800 s).
+  - Runs left `open` by a killed attempt are closed as `aborted`, with a note, before that campaign is retried. Only that campaign's own steps are touched.
+  - MAST requests time out after 120 s instead of astroquery's 600 s.
+- **Retries.**
+  - Transient failures are retried up to `--retries` times (default 2), with 30 s and then 120 s backoff. Transient means 5xx responses, timeouts, proxy and connection errors, or a locked database.
+  - A deterministic error (a traceback that is not a network error) is not retried. It is listed under *Failed after retries*. Report it; do not patch code.
+- **Resume.**
+  - `state/batches/<id>/journal.jsonl` records every attempt, with per-attempt logs in `logs/`.
+  - A re-run skips campaigns that finished with a record. The runner also reuses completed steps.
+  - `--redo` forces a re-run.
+- **Triage.**
+  - `SUMMARY.md` lists the escalations first: a repeat candidate (`outcome: lead`), a positive control `failed`, every catalogue service errored, or no record.
+  - Then come failures, then routine finishes.
+  - Claiming skips queue rows that cannot be scaffolded (e.g. no catalogued epoch) and records why, instead of stalling.
+
+`run` never reviews, publishes or commits anything. Every campaign still needs the review below before its draft marker is removed. Batch state lives under `state/`, which is never committed.
+
 ## Reviewing the draft
 
 `report` writes `campaigns/<slug>/REPORT.md` and `SEARCH_LOG.md`. The numbers in them are copied from the runner's outputs. Your job:

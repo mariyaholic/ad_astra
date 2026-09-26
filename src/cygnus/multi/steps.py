@@ -50,31 +50,37 @@ def _sha256(path: Path) -> str:
 
 
 # ------------------------------------------------------------------ products
+MAST_TIMEOUT_S = 120   # per MAST request; a hung service fails the step (retryable) instead of stalling it
+
 def _discover_spoc_lcs(tic: int, max_products: int, t0_bjd: float | None = None) -> list[dict]:
     """SPOC 120-s light curves for a TIC id, via the MAST Observations API (astroquery).
 
     With ``t0_bjd`` (a catalogued transit), sectors whose observation window covers that epoch come
     first, so a known-signal check has the light curve it needs. Coverage uses MAST's ``t_min``/
     ``t_max`` (MJD); BJD - 2400000.5 differs from MJD by minutes, well inside a 27-d sector.
-    """
-    from astroquery.mast import Observations
 
+    Each SPOC 120-s timeseries observation's ``dataURL`` is its ``-s_lc.fits`` light curve, so the
+    list comes from the one observation query; MAST's separate product-list service
+    (``get_product_list``) is not needed and has hung for minutes at a time (2026-09-26).
+    """
+    from astroquery.mast import Observations, conf
+
+    conf.timeout = MAST_TIMEOUT_S   # astroquery's default is 600 s per request
     obs = Observations.query_criteria(target_name=str(tic), obs_collection="TESS", provenance_name="SPOC",
                                       dataproduct_type="timeseries")
     if len(obs) == 0:
         return []
-    span = {str(o["obsid"]): (float(o["t_min"]), float(o["t_max"])) for o in obs}
-    prods = Observations.filter_products(Observations.get_product_list(obs), productSubGroupDescription="LC")
     out, seen = [], set()
-    for r in prods:
-        fn = str(r["productFilename"])
+    for o in obs:
+        uri = str(o["dataURL"])
+        fn = uri.rsplit("/", 1)[-1]
         if not fn.endswith("-s_lc.fits") or "fast" in fn or fn in seen:
             continue
         seen.add(fn)
-        lo, hi = span.get(str(r["parent_obsid"]), span.get(str(r["obsID"]), (None, None)))
-        covers = None if t0_bjd is None or lo is None else bool(lo <= t0_bjd - 2400000.5 <= hi)
+        lo, hi = float(o["t_min"]), float(o["t_max"])
+        covers = None if t0_bjd is None else bool(lo <= t0_bjd - 2400000.5 <= hi)
         out.append({"product_id": fn, "tic": tic, "sector": int(fn.split("-s")[1][:4]) if "-s0" in fn else None,
-                    "data_uri": str(r["dataURI"]), "covers_known_epoch": covers})
+                    "data_uri": uri, "covers_known_epoch": covers})
     out.sort(key=lambda d: (not d["covers_known_epoch"], d["product_id"]))
     return out[:max_products]
 

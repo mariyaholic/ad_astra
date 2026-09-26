@@ -1,26 +1,26 @@
 {
   "step": "prior_art",
-  "run_id": 1578,
-  "config_hash": "c9ae4665a4a38012",
-  "finished_utc": "2026-09-25T15:54:43Z",
+  "run_id": 2066,
+  "config_hash": "b73e205062d9b350",
+  "finished_utc": "2026-09-25T23:35:28Z",
   "result": {
     "targets": {
       "TOI-5523.01": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "2 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T15:54:34Z: K2-43 c (host K2-43); K2-43 b (host K2-43)",
+          "result": "2 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T23:35:19Z: K2-43 b (host K2-43); K2-43 c (host K2-43)",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 169.1170280, -3.9754410, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:54:34Z",
+          "retrieved_utc": "2026-09-25T23:35:19Z",
           "matches": [
-            "K2-43 c (host K2-43)",
-            "K2-43 b (host K2-43)"
+            "K2-43 b (host K2-43)",
+            "K2-43 c (host K2-43)"
           ]
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T15:54:37Z: TOI-5523.01 (TIC 443616612, disposition PC); TOI-5523.02 (TIC 443616612, disposition KP)",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T23:35:21Z: TOI-5523.01 (TIC 443616612, disposition PC); TOI-5523.02 (TIC 443616612, disposition KP)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 169.1086746 AND 169.1253814 AND dec BETWEEN -3.9837743 AND -3.9671077",
-          "retrieved_utc": "2026-09-25T15:54:37Z",
+          "retrieved_utc": "2026-09-25T23:35:21Z",
           "matches": [
             "TOI-5523.01 (TIC 443616612, disposition PC)",
             "TOI-5523.02 (TIC 443616612, disposition KP)"
@@ -28,18 +28,18 @@
         },
         "VSX": {
           "state": "done",
-          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T15:54:41Z: EPIC 201205469 (type VAR, P 9.904933 d)",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T23:35:25Z: EPIC 201205469 (type VAR, P 9.904933 d)",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 169.1170280, -3.9754410, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:54:41Z",
+          "retrieved_utc": "2026-09-25T23:35:25Z",
           "matches": [
             "EPIC 201205469 (type VAR, P 9.904933 d)"
           ]
         },
         "SIMBAD": {
           "state": "done",
-          "result": "4 match(es) in SIMBAD within 30\" as of 2026-09-25T15:54:41Z: K2-43d (Pl?); K2-43 (LM*); K2-43c (Pl); K2-43b (Pl)",
+          "result": "4 match(es) in SIMBAD within 30\" as of 2026-09-25T23:35:26Z: K2-43d (Pl?); K2-43 (LM*); K2-43c (Pl); K2-43b (Pl)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 169.1170280, -3.9754410, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:54:41Z",
+          "retrieved_utc": "2026-09-25T23:35:26Z",
           "matches": [
             "K2-43d (Pl?)",
             "K2-43 (LM*)",

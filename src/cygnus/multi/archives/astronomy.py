@@ -28,6 +28,13 @@ MAST_DL = "https://mast.stsci.edu/api/v0.1/Download/file"
 _TESS_NO_AUTH = "https://mast.stsci.edu/api/v0.1/Download/file?uri=mast:TESS/product/"
 
 
+def _nearest(frame: str, target) -> str:
+    """ADQL distance from the target, selected as a column so cones come back nearest-first in a fixed
+    order: the same query then gives the same file and checksum, and a TOP cap keeps the nearest rows
+    (TAP services return rows in no fixed order otherwise). Services reject the function inside ORDER BY."""
+    return f"DISTANCE(POINT('{frame}', ra, dec), POINT('{frame}', {target.ra_deg:.7f}, {target.dec_deg:.7f}))"
+
+
 @register
 class MastAdapter(ArchiveAdapter):
     """MAST (STScI): HST, JWST, TESS, Kepler/K2, Pan-STARRS, GALEX, HLSPs.
@@ -161,8 +168,9 @@ class GaiaAdapter(ArchiveAdapter):
 
     def discover(self, target: Target, *, limit: int = 200, radius_arcsec: float = 30.0, **opts) -> list[ProductRef]:
         r = radius_arcsec / 3600
-        adql = (f"SELECT TOP {int(limit)} {_GAIA_COLS} FROM gaiadr3.gaia_source "
-                f"WHERE 1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f}))")
+        adql = (f"SELECT TOP {int(limit)} {_GAIA_COLS}, {_nearest('ICRS', target)} AS sep_deg FROM gaiadr3.gaia_source "
+                f"WHERE 1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f})) "
+                f"ORDER BY sep_deg, source_id")
         try:
             rows = self._tap(adql)
         except Exception as exc:  # noqa: BLE001
@@ -281,8 +289,9 @@ class SimbadAdapter(ArchiveAdapter):
 
     def discover(self, target: Target, *, limit: int = 200, radius_arcsec: float = 30.0, **opts) -> list[ProductRef]:
         r = radius_arcsec / 3600
-        adql = (f"SELECT TOP {int(limit)} main_id, otype, ra, dec, pmra, pmdec FROM basic WHERE "
-                f"1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f}))")
+        adql = (f"SELECT TOP {int(limit)} main_id, otype, ra, dec, pmra, pmdec, {_nearest('ICRS', target)} AS sep_deg FROM basic WHERE "
+                f"1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f})) "
+                f"ORDER BY sep_deg, main_id")
         try:
             rows = self.tap_csv(SIMBAD_TAP, adql)
         except Exception as exc:  # noqa: BLE001
@@ -311,8 +320,9 @@ class NedAdapter(ArchiveAdapter):
 
     def discover(self, target: Target, *, limit: int = 200, radius_arcsec: float = 60.0, **opts) -> list[ProductRef]:
         r = radius_arcsec / 3600
-        adql = (f"SELECT TOP {int(limit)} prefname, ra, dec, prefphytype FROM objdir WHERE "
-                f"1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f}))")
+        adql = (f"SELECT TOP {int(limit)} prefname, ra, dec, prefphytype, {_nearest('ICRS', target)} AS sep_deg FROM objdir WHERE "
+                f"1=CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f})) "
+                f"ORDER BY sep_deg, prefname")
         try:
             rows = self.tap_csv(NED_TAP, adql)
         except Exception as exc:  # noqa: BLE001
@@ -381,8 +391,11 @@ class IrsaAdapter(ArchiveAdapter):
                                  "ra": target.ra_deg, "dec": target.dec_deg, "radius": radius_arcsec}],
                                self.name, "ztf_lc")
         r = radius_arcsec / 3600
-        adql = (f"SELECT TOP {int(limit)} designation, ra, dec, w1mpro, w2mpro, w3mpro, w4mpro FROM allwise_p3as_psd "
-                f"WHERE 1=CONTAINS(POINT('J2000', ra, dec), CIRCLE('J2000', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f}))")
+        # IRSA's DISTANCE returns arcsec (verified 2026-09-26 against NED's degrees for the same WISE source)
+        adql = (f"SELECT TOP {int(limit)} designation, ra, dec, w1mpro, w2mpro, w3mpro, w4mpro, {_nearest('J2000', target)} AS sep_arcsec "
+                f"FROM allwise_p3as_psd "
+                f"WHERE 1=CONTAINS(POINT('J2000', ra, dec), CIRCLE('J2000', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f})) "
+                f"ORDER BY sep_arcsec, designation")
         try:
             rows = self.tap_csv(IRSA_TAP, adql)
         except Exception as exc:  # noqa: BLE001

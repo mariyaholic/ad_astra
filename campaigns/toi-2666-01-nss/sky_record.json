@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "pipeline_check",
  "evidence": null,
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Gaia DR3 cone, SIMBAD cone and Gaia DR3 NSS two-body cross-match of the TOI-2666.01 host, as a discriminating test for the TOI-2666.01 sector-99 repeat-event lead (V-shaped events; ExoFOP note \"v-shaped; possible EB\"; campaigns/tess-mono-01/LEAD_VETTING_LOG.md). Runner: No light-curve product was retrieved; only image/table/text products are available to screen.",
  "spec": "campaigns/toi-2666-01-nss.yaml",
  "report": "campaigns/toi-2666-01-nss/REPORT.md",
@@ -17,21 +17,21 @@
    "ra_deg": 139.480865,
    "dec_deg": -3.387525,
    "frame": "ICRS",
-   "epoch": "J2000.0",
-   "position_source": "NASA Exoplanet Archive TOI table (via campaigns/toi-2666-01.yaml)"
+   "epoch": "J2015.5",
+   "position_source": "NASA Exoplanet Archive TOI table (via campaigns/toi-2666-01.yaml; Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
   }
  ],
  "products": [
   {
    "id": "gaia_cone_TOI-2666.01_r30as.csv",
    "archive": "gaia",
-   "sha256": "e74fc63f7b4154d53d61d7d04b036a02fae13e6a361dbbcc784564bce4185af4",
+   "sha256": "c03fe9f3f58c7c60c8945c227cbba91c81864cae0dd55a0992165fffee4a92a3",
    "format": "csv"
   },
   {
    "id": "simbad_TOI-2666.01.csv",
    "archive": "simbad",
-   "sha256": "19935a08665e0d7db2fe47d06d0930a7bb44803195aa7a051c863e26c0f4fe15",
+   "sha256": "4d95fdc3bf25c25b32f2be9568166143ae262c1c27bb96bc9c9c8683f4cff442",
    "format": "csv"
   }
  ],
@@ -56,8 +56,8 @@
   },
   {
    "name": "Proper-motion propagation to the Gaia epoch",
-   "state": "not_tested",
-   "note": "positions are matched as given (J2000.0 TOI-table coordinates vs Gaia epoch 2016.0); not propagated"
+   "state": "passed",
+   "note": "the runner matches positions as given; reports/position-epoch-audit-01 (Gaia DR3 TAP, 2026-09-25) shows the TOI-table position is at epoch J2015.5, not J2000.0: TOI minus Gaia DR3 = (-11.2, +31.7) mas, equal to -0.5 yr x PM (-11.6, +31.9) mas; residual after propagation 0.5 mas. The 0.5-yr offset (0.034 arcsec) is far below the 5 arcsec match radius, so identification is unaffected"
   },
   {
    "name": "Radial-velocity / literature companion search (ADS)",
@@ -83,5 +83,5 @@
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T13:28:58Z"
+ "generated_utc": "2026-09-26T01:39:26Z"
 }

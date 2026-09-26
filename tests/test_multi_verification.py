@@ -317,3 +317,64 @@ def test_inline_query_results_are_rewritten_not_reused_from_scratch(tmp_path, mo
     finally:
         led.close()
     assert "111" in stale.read_text(encoding="utf-8") and "999" not in stale.read_text(encoding="utf-8")
+
+
+def test_spoc_discovery_uses_the_observation_query_only(monkeypatch):
+    """SPOC light curves come from each observation's dataURL; MAST's product-list service, which
+    hung for minutes on 2026-09-26, is never called (both runners)."""
+    import astroquery.mast as am
+
+    from cygnus.campaign import steps as campaign_steps
+    from cygnus.multi import steps as multi_steps
+
+    rows = [
+        {"dataURL": "mast:TESS/product/tess2018206045859-s0001-0000000052368076-0120-s_lc.fits",
+         "t_min": 58324.8, "t_max": 58352.7},
+        {"dataURL": "mast:TESS/product/tess2020212050318-s0028-0000000052368076-0190-a_fast-lc.fits",
+         "t_min": 59061.3, "t_max": 59086.9},
+        {"dataURL": "mast:TESS/product/tess2018206190142-s0001-s0036-0000000052368076-00471_dvt.fits",
+         "t_min": 58324.8, "t_max": 59061.0},
+        {"dataURL": "mast:TESS/product/tess2020212050318-s0028-0000000052368076-0190-s_lc.fits",
+         "t_min": 59061.3, "t_max": 59086.9},
+    ]
+    monkeypatch.setattr(am.Observations, "query_criteria", lambda **kw: rows)
+
+    def _hang(*a, **k):
+        raise AssertionError("get_product_list must not be called")
+
+    monkeypatch.setattr(am.Observations, "get_product_list", _hang)
+    for mod in (campaign_steps, multi_steps):
+        out = mod._discover_spoc_lcs(52368076, 6, t0_bjd=2459070.0)   # MJD 59069.5: inside sector 28
+        assert [d["product_id"] for d in out] == [
+            "tess2020212050318-s0028-0000000052368076-0190-s_lc.fits",
+            "tess2018206045859-s0001-0000000052368076-0120-s_lc.fits"]
+        assert out[0]["covers_known_epoch"] is True and out[1]["covers_known_epoch"] is False
+        assert out[0]["sector"] == 28 and out[0]["data_uri"].startswith("mast:TESS/product/")
+        assert am.conf.timeout == mod.MAST_TIMEOUT_S
+
+
+@pytest.mark.parametrize("name,col,tiebreak", [("gaia", "sep_deg", "source_id"), ("simbad", "sep_deg", "main_id"),
+                                                ("ned", "sep_deg", "prefname"), ("irsa", "sep_arcsec", "designation")])
+def test_cone_queries_are_nearest_first_in_a_fixed_order(monkeypatch, name, col, tiebreak):
+    """Unordered TAP cones changed a product checksum between identical runs (Gaia, 2026-09-26) and let a
+    TOP cap keep arbitrary rows; every catalogue cone orders by distance with an id tiebreak."""
+    from cygnus.multi.archives import base
+
+    adapter = base.get(name)
+    seen = []
+
+    def capture(url, adql, *a, **k):
+        seen.append(adql)
+        return []
+
+    monkeypatch.setattr(adapter, "tap_csv", capture)
+    if hasattr(adapter, "_tap"):
+        monkeypatch.setattr(adapter, "_tap", lambda adql: capture(None, adql))
+    try:
+        adapter.discover(base.Target(name="t", ra_deg=139.480865, dec_deg=-3.387525))
+    except Exception:  # noqa: BLE001 - an empty cone may be reported as unavailable; only the query matters
+        pass
+    assert seen, f"{name} issued no query"
+    q = seen[0]
+    assert f"AS {col}" in q and q.rstrip().endswith(f"ORDER BY {col}, {tiebreak}")
+    assert "DISTANCE(POINT(" in q

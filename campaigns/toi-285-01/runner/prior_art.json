@@ -1,39 +1,39 @@
 {
   "step": "prior_art",
-  "run_id": 1506,
-  "config_hash": "73370bbf7c5241b9",
-  "finished_utc": "2026-09-25T15:45:30Z",
+  "run_id": 1988,
+  "config_hash": "f4004b1a9ec54d20",
+  "finished_utc": "2026-09-25T23:31:33Z",
   "result": {
     "targets": {
       "TOI-285.01": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T15:45:21Z",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T23:31:26Z",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 74.6971710, -56.3938140, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:45:21Z",
+          "retrieved_utc": "2026-09-25T23:31:26Z",
           "matches": []
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T15:45:22Z: TOI-285.01 (TIC 220459976, disposition PC)",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T23:31:28Z: TOI-285.01 (TIC 220459976, disposition PC)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 74.6821148 AND 74.7122272 AND dec BETWEEN -56.4021473 AND -56.3854807",
-          "retrieved_utc": "2026-09-25T15:45:22Z",
+          "retrieved_utc": "2026-09-25T23:31:28Z",
           "matches": [
             "TOI-285.01 (TIC 220459976, disposition PC)"
           ]
         },
         "VSX": {
           "state": "done",
-          "result": "no match in VSX within 30\" as of 2026-09-25T15:45:28Z",
+          "result": "no match in VSX within 30\" as of 2026-09-25T23:31:30Z",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 74.6971710, -56.3938140, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:45:28Z",
+          "retrieved_utc": "2026-09-25T23:31:30Z",
           "matches": []
         },
         "SIMBAD": {
           "state": "done",
-          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-25T15:45:29Z: TOI-285 (PM*); TOI-285.01 (Pl?)",
+          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-25T23:31:31Z: TOI-285 (PM*); TOI-285.01 (Pl?)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 74.6971710, -56.3938140, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:45:29Z",
+          "retrieved_utc": "2026-09-25T23:31:31Z",
           "matches": [
             "TOI-285 (PM*)",
             "TOI-285.01 (Pl?)"

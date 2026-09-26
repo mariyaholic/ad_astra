@@ -1,43 +1,43 @@
 {
   "step": "prior_art",
-  "run_id": 1362,
-  "config_hash": "75136a964059ee76",
-  "finished_utc": "2026-09-25T15:32:45Z",
+  "run_id": 1840,
+  "config_hash": "580d93f8d02dfd53",
+  "finished_utc": "2026-09-25T23:22:44Z",
   "result": {
     "targets": {
       "TOI-2065.01": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "1 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T15:32:39Z: BEBOP-4 AB b (host BEBOP-4 A)",
+          "result": "1 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T23:22:38Z: BEBOP-4 AB b (host BEBOP-4 A)",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 192.5772650, 26.1595360, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:32:39Z",
+          "retrieved_utc": "2026-09-25T23:22:38Z",
           "matches": [
             "BEBOP-4 AB b (host BEBOP-4 A)"
           ]
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T15:32:41Z: TOI-2065.01 (TIC 356710041, disposition APC)",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-25T23:22:40Z: TOI-2065.01 (TIC 356710041, disposition APC)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 192.5679807 AND 192.5865493 AND dec BETWEEN 26.1512027 AND 26.1678693",
-          "retrieved_utc": "2026-09-25T15:32:41Z",
+          "retrieved_utc": "2026-09-25T23:22:40Z",
           "matches": [
             "TOI-2065.01 (TIC 356710041, disposition APC)"
           ]
         },
         "VSX": {
           "state": "done",
-          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T15:32:43Z: KELT KC08C10921 (type EA, P 71.9649 d)",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T23:22:43Z: KELT KC08C10921 (type EA, P 71.9649 d)",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 192.5772650, 26.1595360, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:32:43Z",
+          "retrieved_utc": "2026-09-25T23:22:43Z",
           "matches": [
             "KELT KC08C10921 (type EA, P 71.9649 d)"
           ]
         },
         "SIMBAD": {
           "state": "done",
-          "result": "3 match(es) in SIMBAD within 30\" as of 2026-09-25T15:32:44Z: HD 111605 (SB*); 2MASS J12501970+2609183 (*); BEBOP-4b (Pl?)",
+          "result": "3 match(es) in SIMBAD within 30\" as of 2026-09-25T23:22:43Z: HD 111605 (SB*); 2MASS J12501970+2609183 (*); BEBOP-4b (Pl?)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 192.5772650, 26.1595360, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T15:32:44Z",
+          "retrieved_utc": "2026-09-25T23:22:43Z",
           "matches": [
             "HD 111605 (SB*)",
             "2MASS J12501970+2609183 (*)",
