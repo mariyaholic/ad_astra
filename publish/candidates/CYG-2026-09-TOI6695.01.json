@@ -1,0 +1,88 @@
+{
+  "audit": {
+    "Gaia neighbours able to mimic the depth (E1)": "inconclusive",
+    "RV": "not_tested",
+    "ZTF/ground photometry at alias phases": "not_tested",
+    "alternative detrending (E1)": "passed",
+    "background/centroid/pointing (E1)": "passed",
+    "background/centroid/pointing (E2, part of its rejection)": "failed",
+    "box fit (E1)": "passed",
+    "difference-image centroid (E1)": "passed",
+    "difference-image centroid (E2)": "failed",
+    "future-sector alias test": "not_tested",
+    "quality flags and coverage (E1; E2)": "passed",
+    "red-noise significance (E1)": "passed",
+    "same-CCD common mode (E1)": "passed",
+    "secondary eclipse at phase 0.5 (E1)": "passed",
+    "shape vs reference (E1)": "passed",
+    "stellar-density duration limit on aliases (E1)": "passed"
+  },
+  "bottom_line": "Two clean equal-depth ~3.5 ppt transits (reference S34, E1 S61) on TIC 118339710, 723.995 d apart; the S88 event E2 is rejected (difference-image centroid 12.0 arcsec off at 14.7 sigma, POS_CORR2 -5.2 sigma). 26 data-allowed aliases of dT = 723.995 d (P >= 27.8 d by the review reading; shortest density-compatible 20.69 d per event). No <=4-sigma secondary at the covered aliases, no capable neighbour within the blend radius; RV untested \u2014 Unverified lead.",
+  "candidate_id": "CYG-2026-09-TOI6695.01",
+  "catalog_audit": {
+    "ExoFOP note (from the run's TOI-8 row, 2026-09-26)": "possible additional transit at TBJD 1525.648 \u2014 unrelated to the vetted epochs",
+    "NASA Exoplanet Archive (pscomppars, 30 arcsec)": "2 prior planets on the host (TOI-6695 b, TOI-6695 c) \u2014 sibling-neighborhood checked through the host ephemerides in vet; neither predicts the lead epochs",
+    "SIMBAD (30 arcsec)": "TOI-6695b (Pl); TOI-6695 (*); TOI-6695c (Pl) \u2014 no eclipsing-binary class",
+    "TESS_TOI (30 arcsec)": "TOI-6695.01 (PC) \u2014 the target itself",
+    "VSX (30 arcsec)": "no match (as of 2026-09-26T08:53:19Z)"
+  },
+  "competing": [
+    "Transiting planet (P one of 26 aliases, possibly ~ 20-724 d; depth 3.5 ppt on a 1.56 Rsun host => Rp ~ 3.9 R_Earth).",
+    "Long-period grazing EB: allowed by two events; secondary hiding in seasonal gaps possible; RV is decisive.",
+    "Blend: disfavoured \u2014 no capable neighbour within the blend radius, difference image on-target at E1, empty common mode.",
+    "Sibling-planet transit: excluded by the sibling ephemerides (none predicted at the lead epoch)."
+  ],
+  "evidence_level": "unverified_lead",
+  "measured": {
+    "E1_S61": {
+      "value": "BJD 2459973.5382, depth 3494 +/- 159 ppm, 6.93 h, depth ratio 0.97 +/- 0.06, duration ratio 0.80"
+    },
+    "delta_T_reference_to_E1": {
+      "method": "alias family dT/n; 26 data-allowed aliases, all compatible with the density limit (shortest 20.69 d)",
+      "unit": "d",
+      "value": 723.995
+    },
+    "no_secondary_E1": {
+      "value": "phase 0.5 covered for 14 of 26 aliases; no >=4-sigma dip; median 1-sigma limit 115 ppm"
+    },
+    "red_noise_significance_E1": {
+      "value": "33.3 robust sigma below the 300-epoch random null"
+    },
+    "reference_depth": {
+      "uncertainty": "+/-162",
+      "unit": "ppm",
+      "value": 3598
+    },
+    "reference_duration": {
+      "method": "box fit",
+      "unit": "h",
+      "value": 8.67
+    },
+    "reference_transit_S34_bjd": {
+      "method": "box fit",
+      "unit": "BJD_TDB",
+      "value": 2459249.5428
+    },
+    "stellar_priors": {
+      "value": "1.56 Rsun, 1.15 Msun host (density limit)"
+    }
+  },
+  "next_test": "RV on the host (host 1.15 Msun): a planet at these P gives K ~ 20 m/s for a Saturn-mass companion; a stellar companion km/s. Ground photometry at the 26 alias phases and future TESS sectors against each alias ephemeris are the photometric path.",
+  "provenance": {
+    "archive": "MAST (TESS SPOC 120-s light curves, TPF difference images; NASA Exoplanet Archive TOI table for target metadata)",
+    "campaign": "campaigns/toi-6695-01.yaml and campaigns/toi-6695-01; vetting artifacts campaigns/toi-6695-01/../vetting/ (vetting.json, VETTING.md, figures)",
+    "position": "RA 129.572022 deg, Dec -23.550217 deg (ICRS; TOI-table position at Gaia DR2 epoch J2015.5 \u2014 reports/position-epoch-audit-01)",
+    "products": "`tess*-s0034-00000000118339710-*-s_lc.fits`, `...s0061-...`, `...s0088-...`",
+    "sectors": "S34 (reference), S61 (E1); S88 (E2) rejected",
+    "target": "TOI-6695.01 (TIC 118339710), Tmag 10.35",
+    "time_standard": "BJD_TDB (SPOC light-curve timestamps)",
+    "vetting": "python -m cygnus.campaign vet, 2026-09-26; per-lead reading in campaigns/tess-{mono-01,periodic-01}/LEAD_VETTING_LOG.md",
+    "worktree_commit": "6a3aa66"
+  },
+  "reproduction": {
+    "code": "cygnus (src/cygnus/), suite gate at commit 6a3aa66: python -m pytest -q (639 passed, 37 deselected)",
+    "figures": "vetting/figures/ and vetting/*.png in the campaign directory",
+    "package_versions": "python 3.13; astropy/lightkurve/numpy per requirements.txt; candidates rendered by cygnus.reporting.dossier",
+    "run": "python -m cygnus.multi run campaigns/toi-6695-01.yaml ; python -m cygnus.campaign vet campaigns/toi-6695-01.yaml"
+  }
+}

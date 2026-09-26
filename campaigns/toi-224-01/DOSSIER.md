@@ -1,0 +1,94 @@
+# Candidate dossier — CYG-2026-09-TOI224.01
+
+### CYGNUS CANDIDATE DOSSIER
+
+**Working identifier:** CYG-2026-09-TOI224.01 (local working ID — not an official designation)
+**Evidence level:** unverified_lead
+**Bottom line:** Four deep, equall-depth, equally-shaped dips measured on the target in four TESS sectors form a single data-allowed harmonic family with P = 31.5798 d (n = 23/58/81/91 from the reference); the alias family is one of transit-timing-consistent harmonics and the TOI table's own P = 705.5845 d is incommensurate with the observed train (705.58/31.58 = 22.34, non-integer). A grazing companion (Rp/R* = 0.28) on an M dwarf is favoured over a blended EB (no capable Gaia neighbour, on-target difference images in E1-E3); the period and the planet-vs-EB question are unresolved (RV not tested) — Unverified lead.
+
+#### 1. Provenance
+
+- **archive:** MAST (TESS SPOC 120-s light curves, TPF difference images; NASA Exoplanet Archive TOI table for target metadata)
+- **campaign:** campaigns/toi-224-01.yaml and campaigns/toi-224-01; vetting artifacts campaigns/toi-224-01/../vetting/ (vetting.json, VETTING.md, figures)
+- **position:** RA 1.977969 deg, Dec -29.979603 deg (ICRS; TOI-table position at Gaia DR2 epoch J2015.5 — reports/position-epoch-audit-01)
+- **products:** `tess*-s0002-0000000070797900-*-s_lc.fits`, `...s0029-...`, `...s0069-...`, `...s0096-...`, `...s0106-...` (SHA-256 recorded in the sky record)
+- **sectors:** S2 (reference), S29, S69, S96, S106
+- **target:** TOI-224.01 (TIC 70797900), Tmag 11.14
+- **time_standard:** BJD_TDB (SPOC light-curve timestamps)
+- **vetting:** python -m cygnus.campaign vet, 2026-09-26; per-lead reading in campaigns/tess-{mono-01,periodic-01}/LEAD_VETTING_LOG.md
+- **worktree_commit:** 6a3aa66
+
+Prior-art gate results (ledger-pinned):
+
+- catalog/NASA_Exoplanet_Archive: no match in NASA_Exoplanet_Archive within 30" as of 2026-09-26T09:54:43Z (as of 2026-09-26T09:54:43Z)
+- catalog/SIMBAD: 2 match(es) in SIMBAD within 30" as of 2026-09-26T09:54:45Z: TOI-224.01 (err); G 267-34 (PM*) (as of 2026-09-26T09:54:45Z)
+- catalog/TESS_TOI: 1 match(es) in TESS_TOI within 30" as of 2026-09-26T09:54:44Z: TOI-224.01 (TIC 70797900, disposition APC) (as of 2026-09-26T09:54:44Z)
+- catalog/VSX: no match in VSX within 30" as of 2026-09-26T09:54:45Z (as of 2026-09-26T09:54:45Z)
+
+#### 2. Measured signal
+
+- **E1_S29:** value=BJD 2459092.1803, depth 78141 +/- 927 ppm, 1.25 h
+- **E2_S69:** value=BJD 2460197.4715, depth 77897 +/- 1002 ppm, 1.25 h
+- **E3_S96:** value=BJD 2460923.7950, depth 74302 +/- 1223 ppm, 1.25 h
+- **E4_S106:** value=BJD 2461239.5866, depth 74089 +/- 1009 ppm, 1.25 h
+- **catalogued_period:** value=705.5845 d (TOI table, APC); method=incommensurate: 705.58/31.58 = 22.34, not an integer; the observed 4-event train contradicts it
+- **common_period_data_allowed:** value=31.5798; unit=d; method=harmonic families P = dT/n per event (+/-0.75 h tolerance, coverage + density limits); intersection over n = 23 (E1), 58 (E2), 81 (E3), 91 (E4)
+- **depth_ratios_vs_reference:** value=E1 0.98 +/- 0.02; E2 0.97 +/- 0.02; E3 0.93 +/- 0.02; E4 0.93 +/- 0.02; method=box fits
+- **red_noise_significance_per_event:** value=126.8 / 135.2 / 99.8 / 112.2 robust sigma below the 300-epoch random null (fraction as extreme 0.000)
+- **reference_V_shape_index:** value=1.49; method=box/width profile comparison
+- **reference_depth:** value=79895; unit=ppm; uncertainty=+/-1033; method=median PDCSAP residual in +/-duration/2 vs 2-d running median
+- **reference_duration:** value=1.25; unit=h; method=box fit
+- **reference_transit_S2_bjd:** value=2458365.8438; unit=BJD_TDB; method=box fit of the merged screen candidate
+- **stellar_density_limit:** value=all allowed aliases compatible with a 1.2-h transit on 0.49 Rsun, 0.52 Msun (Gaia colour+parallax, Mamajek dwarf sequence)
+
+#### 3. Artifact audit
+
+| test | state |
+| --- | --- |
+| Gaia neighbours able to mimic the depth (E1-E4) | passed |
+| ZTF independent epochs | not_tested |
+| alternative detrending (E1-E4) | passed |
+| background/centroid/pointing shifts vs random epochs (E1-E4) | failed |
+| box fit with pipeline errors (E1-E4) | inconclusive |
+| difference-image centroid (E1-E3) | passed |
+| difference-image centroid (E4) | inconclusive |
+| future-sector alias test | not_tested |
+| moving objects (650-arcsec, 4 event epochs) | not_tested |
+| quality flags and coverage (E1-E4) | inconclusive |
+| radial velocity (companion mass) | not_tested |
+| red-noise significance (E1-E4) | passed |
+| same-CCD common mode (E2-E4; E1 query failed) | inconclusive |
+| secondary eclipse at phase 0.5, circular aliases | inconclusive |
+| shape vs reference transit (E1-E4) | passed |
+| stellar-density duration limit on aliases (E1-E4) | passed |
+
+(States: passed | failed | inconclusive | not_tested — 'not_tested' never supports an evidence upgrade.)
+
+#### 4. Catalog and literature audit
+
+- **Gaia DR3 cone, 52 arcsec:** 0 sources G<17 capable of the 7.4-8.0 ppt depth
+- **NASA Exoplanet Archive (pscomppars, 30 arcsec):** no match within 30 arcsec (as of 2026-09-26T09:54:43Z)
+- **SIMBAD (30 arcsec):** TOI-224.01 (err); G 267-34 (PM*) — no eclipsing-binary class
+- **TESS_TOI (30 arcsec):** TOI-224.01 (TIC 70797900, disposition APC) — the target itself; the table row carries P 705.5845 d which the observed train contradicts
+- **VSX (30 arcsec):** no match (as of 2026-09-26T09:54:45Z)
+
+#### 5. Competing explanations
+
+- Transiting planet (P ~ 31.58 d, Rp/R* = 0.28 on a 0.49 Rsun M dwarf => Rp ~ 2.2 R_jup if planetary — more likely a low-mass star/brown dwarf companion, or a shallower depth diluted by spot profile aliasing) — unresolved; RV would fix M2 through f(M).
+- Blended eclipsing binary: disfavoured — no Gaia source within 52 arcsec bright enough, difference images on target (E1-E3), same-CCD common mode empty (E2-E4); E4's displaced difference image sits inside a heavily flagged window.
+- Stellar-activity artifact: disfavoured — four independent sectors with equal depth (7.4-8.0 ppt), equal 1.25-h duration, equal shape, 100-135-sigma red-noise significance; spot crossings do not repeat at a single data-allowed period like this.
+- Single-epoch coincidence / red noise: rejected at the calibrated false-alarm level (>99-sigma below the sign-flip null, fraction 0.000).
+
+#### 6. Reproduction
+
+- **code:** cygnus (src/cygnus/), suite gate at commit 6a3aa66: python -m pytest -q (639 passed, 37 deselected)
+- **figures:** vetting/figures/ and vetting/*.png in the campaign directory
+- **package_versions:** python 3.13; astropy/lightkurve/numpy per requirements.txt; candidates rendered by cygnus.reporting.dossier
+- **run:** python -m cygnus.multi run campaigns/toi-224-01.yaml ; python -m cygnus.campaign vet campaigns/toi-224-01.yaml
+
+#### 7. Follow-up
+
+RV on the host (V ~ 11-13 M dwarf): a companion at Rp/R* = 0.28 and P = 31.58 d gives K ~ 8-13 km/s (stellar) down to a planetary floor, decisive over one orbit; ground-based photometry at predicted phases of the next P = 31.5798-d transit after each event (e.g. from E4 = BJD 2461239.5866: next ephemeris transit 2461271.17); any new TESS sector checked against the P = 31.5798-d ephemeris.
+
+---
+*Generated from ledger/candidate records only; any field the evidence does not support renders '(none recorded)' rather than a fabricated value.*
