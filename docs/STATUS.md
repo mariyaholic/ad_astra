@@ -1,6 +1,15 @@
 # Project status and handoff
 
-Last updated: 2026-09-26 (UTC; suite expansion). Read this after `AGENTS.md` when picking the project up. It records the current state, open decisions and known problems that are not obvious from the code. Update it when any of these change.
+Last updated: 2026-09-26 (UTC; lead reconciliation). Read this after `AGENTS.md` when picking the project up. It records the current state, open decisions and known problems that are not obvious from the code. Update it when any of these change.
+
+## Current focus (2026-09-26): verifying leads
+
+Session focus after the 2026-09-26 compaction. Sixty-five **Unverified leads** remain: 8 from the single-transit pool, 57 from the `colab-p01` batch. State and queue:
+
+- **Dossier front-runners (vetting rerun done, reviewer notes written):** TOI-2666.01 (survives every test; possible secondary alias at P 36.53 d fits the EB reading; box-fit χ²ν 21.8 noted) and TOI-3500.02 (E1 survives; E2 suspect; 9 aliases at P = 350.3/n d). Next: dossier decision — the site's `candidate` mechanism requires `publish/candidates/CYG-….json` records.
+- **Batch vetting queue** (`python -m cygnus.campaign vet campaigns/<id>.yaml`, log per the `tess-mono-01` pattern): (1) guard collisions toi-6806-01, toi-630-01; (2) strongest alias structure toi-4381-01 (22), toi-7610-01 (21), toi-1229-01 (18), toi-224-01 (18), toi-1192-01 (14), toi-588-01 (13), toi-5149-01 (7); (3) pilot pendings toi-225-01 (40), toi-7857-01 (34), toi-6667-01 (29), toi-6695-01, toi-1835-02, toi-7399-01; (4) census/blend/injection groups. Machine inventory: scratch `site_collections/leads_inventory.json`; per-lead one-liners in the 2026-09-26 session summary.
+- **Sharpening pass (optional first):** the committed records predate `fetch_independent` (ZTF + Kepler/K2 now wired); a recompute pass would run the independent-epoch checks on every lead. Code fingerprint changes make this a full recompute — batch it.
+- **In flight at compaction:** the Gaia-cone sweep for the explorer (569/1,090 cones; 4 per-target retries pending; the pass is fault-tolerant and resumable — rerun `python design-system/mockups/fetch_sky_data.py --missing` until zero failures, then rebuild explorer + bundle and redeploy).
 
 ## Where things are
 
