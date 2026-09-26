@@ -21,6 +21,15 @@ pytest.importorskip("scipy")
 fits = pytest.importorskip("astropy.io.fits")
 
 
+@pytest.fixture(autouse=True)
+def _isolated_registry(monkeypatch):
+    """Test-registered adapters never leak: the doc-adapter-count test must pass in any file order."""
+    from cygnus.multi.archives import base
+
+    monkeypatch.setattr(base, "_REGISTRY", dict(base._REGISTRY))
+    monkeypatch.setattr(base, "_FACTORIES", dict(base._FACTORIES))
+
+
 def _csv_lc(path: Path, *, dip_at: float, depth: float = 0.03, seed: int = 1) -> None:
     rng = np.random.default_rng(seed)
     n = 6000

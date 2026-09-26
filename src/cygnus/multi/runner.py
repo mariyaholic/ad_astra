@@ -63,7 +63,7 @@ def load_spec(path: str | Path) -> dict:
             problems.append(f"{dep} must come after fetch_products")
     # measure steps read earlier steps' outputs; running them first would silently test nothing
     for later, earlier in (("event_census", "residual_screen"), ("moving_objects", "residual_screen"),
-                           ("alias_cross_instrument", "period_aliases")):
+                           ("alias_cross_instrument", "period_aliases"), ("alias_cross_instrument", "fetch_independent")):
         if later in order and earlier in order and order.index(later) < order.index(earlier):
             problems.append(f"{later} must come after {earlier}")
     if "stellar_context" in order and "period_aliases" in order and order.index("stellar_context") > order.index("period_aliases"):

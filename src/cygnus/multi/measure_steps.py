@@ -390,6 +390,133 @@ def step_variability_guard(ctx, params: dict) -> dict:
 
 
 # ------------------------------------------------------------------ 5, 6: independent instruments at alias epochs
+# Where fetch_independent looks by default. Kepler/K2 files a star under its KIC/EPIC name, so MAST is searched
+# by position; LLC is the 30-min long-cadence light curve (Kepler-10: 15 quarters, 5.9 MB, found in 17 s on
+# 2026-09-26). ZTF (IRSA) has no light curve for stars bright enough to saturate — Kepler-10 (G ≈ 10.6) returned
+# an empty 0-row table at 2″ and at 5″ — which is about half of the TESS TOI hosts: an empty answer is recorded
+# as such, never as a pass. A fainter host (T = 14.1) returned 1,721 catflags-0 points of one star at 3″, whose
+# five oids (fields/CCDs/filters) all sit ≤ 0.06″ from the position; 3″ covers ZTF's ~0.7″ astrometric scatter
+# and the match cut below drops a neighbour's oid.
+INDEPENDENT_SOURCES = (
+    {"label": "Kepler/K2", "archive": "mast",
+     "options": {"collection": "Kepler,K2", "provenance": "", "subgroup": "LLC", "radius_arcsec": 4.0, "limit": 40}},
+    {"label": "ZTF", "archive": "irsa", "options": {"mode": "ztf", "radius_arcsec": 3.0}},
+)
+PALOMAR = (-116.8650, 33.3563, 1712.0)      # ZTF camera on the Samuel Oschin 48-inch: lon, lat (deg), height (m)
+ZTF_EXPOSURE_S = 30.0                       # survey exposure; ZTF ``mjd`` is the exposure start (UTC)
+
+
+def step_fetch_independent(ctx, params: dict) -> dict:
+    """Light curves from instruments other than TESS SPOC, for ``alias_cross_instrument``.
+
+    Each source in ``params['sources']`` (default ``INDEPENDENT_SOURCES``) is queried at every positioned
+    target and whatever it returns is downloaded, checksummed and ledgered like any other product. Nothing
+    fetched here enters the residual screen. Every query's outcome is kept (``answered`` with a product
+    count, ``unavailable`` or ``failed`` with the reason), so a service that could not answer is never read
+    as "no data". Writes ``independent_lightcurves.json``.
+    """
+    from .archives import base as _base
+    from .steps import NOT_FETCHED_NOTE, _fetch_product
+
+    sources = params.get("sources") or [dict(s) for s in INDEPENDENT_SOURCES]
+    products, queries = {}, []
+    for t in _positioned_targets(ctx):
+        target = _base.Target.from_mapping(t)
+        for src in sources:
+            label = src.get("label") or src["archive"]
+            opts = dict(src.get("options") or {})
+            q = {"target": t["name"], "source": label, "archive": src["archive"], "options": opts}
+            try:
+                refs = _base.get(src["archive"]).discover(target, **opts)
+            except _base.AdapterUnavailable as exc:
+                queries.append({**q, "state": "unavailable", "detail": str(exc)[:240]})
+                continue
+            except Exception as exc:  # noqa: BLE001 - a failed query is recorded, never read as 'no data'
+                queries.append({**q, "state": "failed", "detail": f"{type(exc).__name__}: {str(exc)[:240]}"})
+                continue
+            got, errors, skipped = [], [], []
+            for ref in refs:
+                d = ref.as_dict()
+                for k, v in d.pop("extra", {}).items():
+                    d.setdefault(k, v)
+                d.update(target=t["name"], tic=t.get("tic"), archive=ref.archive)
+                n_notes = len(ctx.notes)
+                try:
+                    r = _fetch_product(ctx, d, [ctx.scratch])
+                except Exception as exc:  # noqa: BLE001 - one bad download is recorded, the rest still count
+                    errors.append(f"{ref.product_id}: {type(exc).__name__}: {str(exc)[:160]}")
+                    continue
+                if r:
+                    products[r[0]] = {**r[1], "independent_source": label}
+                    got.append(r[0])
+                else:
+                    # _fetch_product skipped it with a note: the size gate (deliberate) or an adapter that
+                    # could not deliver it (an outage). Kept here so a query that delivered none of what it
+                    # found is never read as a successful empty answer.
+                    prefix = f"{d.get('target') or ref.product_id}/{ref.archive}: "
+                    note = next((n for n in ctx.notes[n_notes:] if n.startswith(prefix)), "")
+                    skipped.append({"product": ref.product_id, **({"detail": note[:240]} if note else {})})
+            undelivered = [s for s in skipped if NOT_FETCHED_NOTE in s.get("detail", "")]
+            queries.append({**q, "state": "answered" if got or not (errors or undelivered) else "failed",
+                            "n_found": len(refs), "products": got,
+                            **({"fetch_errors": errors} if errors else {}),
+                            **({"not_fetched": skipped} if skipped else {})})
+    payload = _clean_json({"queries": queries, "products": products})
+    return {**payload, "file": _write(ctx, "independent_lightcurves.json", payload)}
+
+
+def ztf_series(path: Path, ra_deg: float, dec_deg: float, *, min_points: int = 20,
+               max_offset_arcsec: float | None = 2.0) -> list[dict]:
+    """One relative-flux series per ZTF object id (a single field, CCD quadrant and filter).
+
+    Only ``catflags == 0`` points are kept. Magnitudes become flux relative to the series median, and
+    the time becomes BJD_TDB at mid-exposure: ZTF's ``mjd`` is the UTC exposure start, shifted by half a
+    ``ZTF_EXPOSURE_S`` exposure, then light-travel-corrected from Palomar to the target (against a real
+    2026-09-26 ZTF fetch this tracks the VOTable's supplied ``hjd`` midpoint to a constant ~72 s, the
+    TDB−UTC offset, with ~6 s spread). Series with fewer than ``min_points`` good points are dropped.
+    Mixing ids would mix filters, fields and zero points.
+
+    A ``radius_arcsec`` cone matches every ZTF oid inside it, so a neighbour's light curve can ride in
+    with the target's: the per-point ``ra``/``dec`` decide, and a series whose median position is more
+    than ``max_offset_arcsec`` from the target is dropped with its offset (``None`` when the table
+    carries no positions, which is never read as a match).
+    """
+    import astropy.units as u
+    from astropy.coordinates import EarthLocation, SkyCoord
+    from astropy.io.votable import parse as votable_parse
+    from astropy.time import Time
+
+    tab = votable_parse(str(path)).get_first_table().to_table()
+    if not len(tab):
+        return []
+    mag = np.asarray(tab["mag"], float)
+    ok = (np.asarray(tab["catflags"]) == 0) & np.isfinite(mag) & np.isfinite(np.asarray(tab["mjd"], float))
+    oids = np.asarray(tab["oid"]).astype(str)
+    filters = np.asarray(tab["filtercode"]).astype(str) if "filtercode" in tab.colnames else np.full(len(tab), "?")
+    loc = EarthLocation.from_geodetic(PALOMAR[0] * u.deg, PALOMAR[1] * u.deg, PALOMAR[2] * u.m)
+    coord = SkyCoord(ra_deg * u.deg, dec_deg * u.deg, frame="icrs")
+    has_pos = {"ra", "dec"} <= set(tab.colnames)
+    out = []
+    for oid in sorted(set(oids[ok])):
+        sel = ok & (oids == oid)
+        if sel.sum() < min_points:
+            continue
+        off = None
+        if has_pos:
+            obj = SkyCoord(np.median(np.asarray(tab["ra"], float)[sel]) * u.deg,
+                           np.median(np.asarray(tab["dec"], float)[sel]) * u.deg)
+            off = float(coord.separation(obj).arcsec)
+            if max_offset_arcsec is not None and off > float(max_offset_arcsec):
+                continue
+        tm = Time(np.asarray(tab["mjd"], float)[sel] + ZTF_EXPOSURE_S / 2 / 86400, format="mjd", scale="utc", location=loc)
+        bjd = (tm.tdb + tm.light_travel_time(coord)).jd
+        m = mag[sel]
+        out.append({"oid": oid, "filter": str(filters[sel][0]), "n": int(sel.sum()), "t_bjd": bjd,
+                    "flux": 10 ** (-0.4 * (m - np.median(m))),
+                    **({"offset_arcsec": off} if off is not None else {})})
+    return out
+
+
 def _instrument_of(prod: dict) -> str:
     arch, fmt, pid = (prod.get("archive") or "MAST").upper(), prod.get("format") or "spoc_lc", str(prod.get("product_id", ""))
     if arch == "IRSA" or fmt == "ztf_lc":
@@ -406,41 +533,94 @@ def step_alias_cross_instrument(ctx, params: dict) -> dict:
     from .steps import _read_lc, resolve
 
     cands = ctx.optional_result("period_aliases", {}).get("candidates", [])
-    prods = (ctx.optional_result("fetch_products", {}) or {}).get("products", {})
+    prods = dict((ctx.optional_result("fetch_products", {}) or {}).get("products", {}))
+    indep = ctx.optional_result("fetch_independent", None)
+    prods.update((indep or {}).get("products", {}))
     other = {pid: p for pid, p in prods.items() if p.get("kind") == "lightcurve" and _instrument_of({**p, "product_id": pid}) != "TESS-SPOC"}
     tgt = (_positioned_targets(ctx) or [{}])[0]
     dur_d = float(M._f(tgt.get("duration_h")) or 2.0) / 24
     ref_t0 = (json.loads((ctx.outdir / "period_aliases.json").read_text(encoding="utf-8")).get("reference_epoch_bjd")
               if (ctx.outdir / "period_aliases.json").is_file() else None)
     results = []
-    for pid, p in other.items():
-        inst = _instrument_of({**p, "product_id": pid})
-        try:
-            lc = _read_lc(resolve(p["path"]), p)
-        except Exception as exc:  # noqa: BLE001
-            results.append({"product": pid, "instrument": inst, "error": f"{type(exc).__name__}: {str(exc)[:160]}"})
-            continue
-        tb, y = lc.time_bjd, lc.pdc
-        good = lc.usable if hasattr(lc, "usable") else np.isfinite(y)
+
+    def _test(pid, inst, tb, y, time_note, series=None, observed_offset_arcsec=None):
         for c in cands:
             periods = list(c.get("allowed_periods_days") or [])
             if not periods or ref_t0 is None:
                 continue
-            rows = M.alias_depths_in_series(tb[good], y[good], t0=float(ref_t0), periods=periods, dur_d=dur_d,
+            rows = M.alias_depths_in_series(tb, y, t0=float(ref_t0), periods=periods, dur_d=dur_d,
                                             ref_depth_ppm=float(c["reference_depth_ppm"]),
                                             min_points=int(params.get("min_points", 3)),
                                             excluded_below=float(params.get("excluded_below", 0.3)),
                                             skip=[float(ref_t0), float(c["event_bjd"])])
-            results.append({"product": pid, "instrument": inst, "event_bjd": c["event_bjd"],
-                            "time_note": (lc.primary.get("_channels") or {}).get("time_scale"), "aliases": rows})
-    for check, pick in ((CHECK_REPEAT_OTHER, lambda r: r["instrument"] not in ("ZTF",)), (CHECK_ZTF, lambda r: r["instrument"] == "ZTF")):
-        mine = [r for r in results if pick(r)]
+            results.append({"product": pid, "instrument": inst, "event_bjd": c["event_bjd"], "time_note": time_note,
+                            **({"series": series} if series else {}),
+                            **({"observed_offset_arcsec": observed_offset_arcsec} if observed_offset_arcsec is not None else {}),
+                            "aliases": rows})
+
+    for pid, p in other.items():
+        inst = _instrument_of({**p, "product_id": pid})
+        try:
+            if p.get("format") == "ztf_lc":
+                if tgt.get("ra_deg") is None:
+                    results.append({"product": pid, "instrument": inst,
+                                    "error": "no target position: a ZTF series cannot be tied to the target"})
+                    continue
+                # one series per ZTF object id: pooling ids would mix filters and zero points
+                for s in ztf_series(resolve(p["path"]), float(tgt["ra_deg"]), float(tgt["dec_deg"]),
+                                    min_points=int(params.get("ztf_min_points", 20)),
+                                    max_offset_arcsec=params.get("max_offset_arcsec", 2.0)):
+                    _test(pid, inst, s["t_bjd"], s["flux"],
+                          "BJD_TDB at mid-exposure (from ZTF UTC exposure-start mjd)",
+                          series={"oid": s["oid"], "filter": s["filter"], "n": s["n"],
+                                  **({"offset_arcsec": s["offset_arcsec"]} if "offset_arcsec" in s else {})})
+                continue
+            lc = _read_lc(resolve(p["path"]), p)
+        except Exception as exc:  # noqa: BLE001
+            results.append({"product": pid, "instrument": inst, "error": f"{type(exc).__name__}: {str(exc)[:160]}"})
+            continue
+        good = lc.usable if hasattr(lc, "usable") else np.isfinite(lc.pdc)
+        # Kepler/K2 products are discovered by position, so a close neighbour's light curve can be
+        # returned: the header's observed position decides whose series this is, and a foreign one
+        # never contributes a verdict (a flat neighbour would otherwise "exclude" the alias).
+        off = None
+        ra_o, dec_o = lc.primary.get("RA_OBJ"), lc.primary.get("DEC_OBJ")
+        if ra_o is not None and dec_o is not None and tgt.get("ra_deg") is not None:
+            off = M.sep_arcsec(float(ra_o), float(dec_o), float(tgt["ra_deg"]), float(tgt["dec_deg"]))
+            if off > float(params.get("max_offset_arcsec", 2.0)):
+                results.append({"product": pid, "instrument": inst, "observed_offset_arcsec": off,
+                                "error": f"header position {off:.2f}\" from the target (> "
+                                         f"{float(params.get('max_offset_arcsec', 2.0)):g}\"); not used"})
+                continue
+        _test(pid, inst, lc.time_bjd[good], lc.pdc[good], (lc.primary.get("_channels") or {}).get("time_scale"),
+              **({"observed_offset_arcsec": off} if off is not None else {}))
+
+    def _looked(labels):
+        """What the fetch_independent queries for these sources answered, for a not_tested note."""
+        if indep is None:
+            return None
+        qs = [q for q in indep.get("queries", []) if q["source"] in labels]
+        if not qs:
+            names = sorted({q["source"] for q in indep.get("queries", [])})
+            return (f"fetch_independent ran with sources {', '.join(names)}" if names else
+                    "fetch_independent answered with no positioned target")
+        return "; ".join(f"{q['source']} {q['state']}" + (f", {len(q.get('products', []))} light curve(s) within "
+                                                          f"{q['options'].get('radius_arcsec', '?')}\""
+                                                          if q["state"] == "answered" else f": {q.get('detail', '')[:120]}")
+                         for q in qs)
+
+    for check, pick, labels in ((CHECK_REPEAT_OTHER, lambda r: r["instrument"] not in ("ZTF",), ("Kepler/K2",)),
+                                (CHECK_ZTF, lambda r: r["instrument"] == "ZTF", ("ZTF",))):
+        mine = [r for r in results if pick(r) and "aliases" in r]
         if not cands:
             ctx.check(check, "not_tested", "no repeat candidate with allowed period aliases")
             continue
         if not mine:
-            ctx.check(check, "not_tested", "no light curve from this instrument was fetched"
-                      + ("" if check == CHECK_ZTF else " (add Kepler/K2/HLSP collections to fetch_products)"))
+            looked = _looked(labels)
+            broken = [r for r in results if r.get("error") and pick(r)]
+            extra = (f"; {len(broken)} fetched series unusable: {broken[0]['error'][:140]}" if broken else "")
+            ctx.check(check, "not_tested", f"no usable light curve from this instrument ({looked}){extra}" if looked else
+                      "no light curve from this instrument was fetched (no fetch_independent step in this spec)")
             continue
         verdicts = [a["verdict"] for r in mine for a in r.get("aliases", [])]
         sup = sorted({a["period_days"] for r in mine for a in r.get("aliases", []) if a["verdict"] == "supported"})
@@ -514,6 +694,7 @@ MEASURE_STEPS = {
     "event_census": step_event_census,
     "moving_objects": step_moving_objects,
     "variability_guard": step_variability_guard,
+    "fetch_independent": step_fetch_independent,
     "alias_cross_instrument": step_alias_cross_instrument,
     "rv_bounds": step_rv_bounds,
 }

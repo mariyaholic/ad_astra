@@ -205,6 +205,7 @@ steps:
       duration_frac_err: 0.1
   - moving_objects:
       radius_arcsec: 600
+  - fetch_independent: {{}}
   - alias_cross_instrument: {{}}
 {rv_step}  - variability_guard:
       match_arcsec: 10

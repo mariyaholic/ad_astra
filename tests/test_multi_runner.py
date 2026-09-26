@@ -54,6 +54,8 @@ HEAD = "schema: cygnus.campaign/1\ncampaign_id: ok-id\noutputs: campaigns/ok-id/
     (HEAD + "steps:\n  - known_signal_recovery: {}\n  - fetch_products: {}\n  - calibrate_screen: {}\n",
      "known_signal_recovery must come after fetch_products"),
     (HEAD + "steps:\n  - period_aliases: {}\n  - fetch_products: {}\n", "period_aliases must come after fetch_products"),
+    (HEAD + "steps:\n  - fetch_products: {}\n  - alias_cross_instrument: {}\n  - fetch_independent: {}\n",
+     "alias_cross_instrument must come after fetch_independent"),
     (HEAD + "steps:\n  - fetch_products: {}\n  - residual_screen: {k_mad: calibrated}\n",
      "residual_screen k_mad: calibrated needs a calibrate_screen step"),
     ("schema: cygnus.campaign/1\ncampaign_id: ok-id\nsteps: []\n", "outputs directory required"),
@@ -86,6 +88,12 @@ def test_load_spec_accepts_valid_specs(tmp_path):
     assert spec["_path"] == tmp_path / "s.yaml" and spec["campaign_id"] == "ok-id"
     # no steps at all, and a complete ephemeris veto, are also fine
     assert _load(tmp_path, HEAD + "veto: {kind: ephemeris, period_days: 1, t0_bjd: 2, veto_phase: 0.1, source: s}\n")
+
+
+def test_alias_cross_instrument_may_run_without_fetch_independent(tmp_path):
+    """An older spec that fetches other collections through fetch_products stays valid."""
+    spec = _load(tmp_path, HEAD + "steps:\n  - fetch_products: {}\n  - period_aliases: {}\n  - alias_cross_instrument: {}\n")
+    assert spec["campaign_id"] == "ok-id"
 
 
 # The campaign twin (cygnus.campaign.runner.load_spec) refuses these at load time; the multi copy

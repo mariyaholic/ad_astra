@@ -29,6 +29,15 @@ TARGET = {"name": "TOI-9.01", "tic": 1, "ra_deg": 10.0, "dec_deg": 20.0, "t0_bjd
           "depth_ppm": 30000.0, "duration_h": 2.88, "tmag": 9.0, "position_source": "fixture", "disposition": "PC"}
 
 
+@pytest.fixture(autouse=True)
+def _isolated_registry(monkeypatch):
+    """Test-registered adapters never leak (the doc-adapter-count test must pass in any file order)."""
+    from cygnus.multi.archives import base
+
+    monkeypatch.setattr(base, "_REGISTRY", dict(base._REGISTRY))
+    monkeypatch.setattr(base, "_FACTORIES", dict(base._FACTORIES))
+
+
 def _both(monkeypatch, found):
     from cygnus import priorart
     from cygnus.campaign import steps as cs

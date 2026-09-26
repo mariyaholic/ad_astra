@@ -79,17 +79,32 @@ class MastAdapter(ArchiveAdapter):
         return body
 
     def discover(self, target: Target, *, limit: int = 5, collection: str = "TESS",
-                 provenance: str = "SPOC", subgroup: str = "LC", **opts) -> list[ProductRef]:
+                 provenance: str = "SPOC", subgroup: str = "LC", radius_arcsec: float | None = None,
+                 **opts) -> list[ProductRef]:
+        """Timeseries products by target name (default) or, with ``radius_arcsec``, by position.
+
+        ``collection``, ``provenance`` and ``subgroup`` accept comma-separated lists. The position search
+        is for archives that file a star under another catalogue's name (Kepler: ``kplr<KIC>``, K2:
+        ``ktwo<EPIC>``), which a TOI name or TIC number never matches."""
+        colls = [c.strip() for c in str(collection).split(",") if c.strip()]
         # TESS SPOC timeseries searches need the bare TIC number as target_name.
-        key = str(target.tic) if (collection == "TESS" and target.tic) else target.name
-        # Mast.Caom.Filtered takes column filters; Mast.Caom.Cone takes only ra/dec/radius and
-        # rejects these parameters ("Missing Required Parameter: RA"), so it is not used here.
-        filters = {"target_name": key, "obs_collection": collection, "dataproduct_type": "timeseries"}
+        key = str(target.tic) if (colls == ["TESS"] and target.tic) else target.name
+        # Mast.Caom.Filtered takes column filters; Mast.Caom.Cone takes only ra/dec/radius and rejects them
+        # ("Missing Required Parameter: RA"). Mast.Caom.Filtered.Position takes both (checked 2026-09-26 on
+        # Kepler-10: two Kepler timeseries observations of kplr011904151 within 10").
+        filters: dict[str, list] = {"obs_collection": colls, "dataproduct_type": ["timeseries"]}
+        if radius_arcsec is None:
+            filters["target_name"] = [key]
         if provenance:
-            filters["provenance_name"] = provenance
-        params = {"columns": "*", "filters": [{"paramName": k, "values": [v]} for k, v in filters.items()]}
+            filters["provenance_name"] = [v.strip() for v in str(provenance).split(",") if v.strip()]
+        params = {"columns": "*", "filters": [{"paramName": k, "values": v} for k, v in filters.items()]}
+        service = "Mast.Caom.Filtered"
+        if radius_arcsec is not None:
+            service = "Mast.Caom.Filtered.Position"
+            params["position"] = f"{target.ra_deg:.7f}, {target.dec_deg:.7f}, {float(radius_arcsec) / 3600:.7f}"
+        subgroups = {v.strip() for v in str(subgroup or "").split(",") if v.strip()}
         try:
-            obs = self._mashup("Mast.Caom.Filtered", params)
+            obs = self._mashup(service, params)
         except AdapterUnavailable:
             raise
         except Exception as exc:  # noqa: BLE001
@@ -108,15 +123,16 @@ class MastAdapter(ArchiveAdapter):
             sub = str(p.get("productSubGroupDescription", ""))
             if not fn or fn in seen:
                 continue
-            if subgroup and sub != subgroup:
+            if subgroups and sub not in subgroups:
                 continue
             if "fast" in fn.rsplit("/", 1)[-1].lower():   # 20-s products ('...-a_fast-lc.fits') are not the 120-s screen
                 continue
             seen.add(fn)
-            uri = p.get("dataURI") or f"mast:{collection}/product/{fn}"
+            coll = str(p.get("obs_collection") or colls[0])
+            uri = p.get("dataURI") or f"mast:{coll}/product/{fn}"
             rows.append({"product_id": fn, "url": f"{MAST_DL}?uri={uri}",
-                         "format": self._fmt_for(fn, collection),
-                         "description": f"MAST {collection} {sub} {fn}",
+                         "format": self._fmt_for(fn, coll),
+                         "description": f"MAST {coll} {sub} {fn}",
                          "obsid": p.get("obsID"), "sector": _sector_of(fn), "tic": target.tic,
                          "size_bytes": int(p["size"]) if str(p.get("size") or "").isdigit() else None})
         return as_products(rows[:limit], self.name, "fits_table")

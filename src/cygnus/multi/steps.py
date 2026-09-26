@@ -174,6 +174,74 @@ def _discover_via_adapters(ctx, t: dict, opts: dict) -> list[dict]:
     return out
 
 
+def _fetch_product(ctx, p: dict, dirs: list[Path], max_bytes=None) -> tuple[str, dict] | None:
+    """Locate or download one pinned/discovered product, verify it and register it in the ledger.
+
+    Returns ``(product_id, entry)`` for a step's ``products`` map, or None when the product was skipped
+    with a note (over the size gate, or an adapter that cannot deliver it). Shared by ``fetch_products``
+    and ``fetch_independent``."""
+    from cygnus.ingest.netio import fetch_to_file
+
+    from .archives import base as _base
+
+    pid = p["product_id"]
+    archive = p.get("archive") or "MAST"
+    if max_bytes and p.get("size_bytes") and int(p["size_bytes"]) > int(max_bytes):
+        ctx.note(f"{p.get('target') or pid}/{archive}: {pid} skipped before download — archive states "
+                 f"{int(p['size_bytes'])} bytes > max_product_bytes {int(max_bytes)}.")
+        return None
+    fmt = p.get("format") or "spoc_lc"
+    # namespace scratch file names by archive so same-named products cannot collide
+    fname = pid if archive == "MAST" else f"{archive}__{pid}"
+    # an inline product is a query result carried by discovery: always rewrite it, so a cached file from an
+    # earlier (different or truncated) query is never reused under the same name
+    path = None if p.get("inline") else next((d / fname for d in dirs if (d / fname).is_file()), None)
+    fetched = False
+    if path is None:
+        path = ctx.scratch / fname
+        url = p.get("url")
+        if archive.upper() == "MAST" and not url:
+            url = MAST_DOWNLOAD.format(pid=pid)
+        try:
+            adapter = _base.get(archive.lower() if archive.lower() in _base.available() else archive)
+        except KeyError:
+            adapter = None
+        # a bare MAST product with no explicit URL keeps the original downloader
+        if url and (archive.upper() == "MAST" or adapter is None):
+            fetch_to_file(url, path, timeout_s=120)
+        elif adapter is not None:
+            extra = {k: v for k, v in p.items()
+                     if k not in ("product_id", "url", "format", "expected_sha256", "description", "target")}
+            try:
+                adapter.fetch(_base.ProductRef(archive=archive, product_id=pid, url=url, format=fmt,
+                                               expected_sha256=p.get("expected_sha256"), extra=extra),
+                              path, timeout_s=120)
+            except _base.AdapterUnavailable as exc:
+                # e.g. observing routes (a request queue, nothing archived yet): a note, not a crash
+                ctx.note(f"{p.get('target') or pid}/{archive}: {NOT_FETCHED_NOTE} — {exc}")
+                return None
+        else:
+            raise RuntimeError(f"{pid}: no URL and no adapter for archive {archive!r}")
+        fetched = True
+    digest, size = _sha256(path), path.stat().st_size
+    if p.get("expected_sha256") and (digest != p["expected_sha256"] or
+                                     (p.get("expected_bytes") and size != int(p["expected_bytes"]))):
+        raise RuntimeError(f"{pid}: checksum/size mismatch (sha256 {digest}, {size} bytes); refusing to analyse")
+    if not ctx.ledger_has_product(archive, pid):
+        ledger_url = p.get("url") or (MAST_DOWNLOAD.format(pid=pid) if archive.upper() == "MAST" else None)
+        ctx.ledger.add_product(archive, pid, url=ledger_url, local_path=path,
+                               checksum=digest, license_=p.get("license", "see DATA_SOURCES.md"),
+                               extra={"campaign": ctx.campaign_id, "tic": p.get("tic"),
+                                      "sector": p.get("sector"), "format": fmt})
+    return pid, {"path": portable(path), "sha256": digest, "bytes": size, "fetched_now": fetched,
+                "pinned": bool(p.get("expected_sha256")), "target": p.get("target"), "tic": p.get("tic"),
+                "sector": p.get("sector"), "covers_known_epoch": p.get("covers_known_epoch"),
+                "archive": archive, "format": fmt, "url": p.get("url"),
+                "kind": p.get("kind") or _base.kind_for_format(fmt),
+                "description": p.get("description", ""),
+                **({"truncated": p["truncated"]} if p.get("truncated") else {})}
+
+
 def step_fetch_products(ctx, params: dict) -> dict:
     """Locate or download each product, verify it, and register it in the ledger.
 
@@ -182,8 +250,6 @@ def step_fetch_products(ctx, params: dict) -> dict:
     may come from any registered archive (``from_targets.archives``/``from_queue.archives``); MAST
     SPOC light curves keep their original discovery path when no archives are named.
     """
-    from cygnus.ingest.netio import fetch_to_file
-
     from .archives import base as _base
 
     wanted = [dict(p) for p in ctx.spec.get("input", {}).get("products", [])]
@@ -224,62 +290,9 @@ def step_fetch_products(ctx, params: dict) -> dict:
     n_notes_before_fetch = len(ctx.notes)
     max_bytes = params.get("max_product_bytes")      # optional pre-download size gate (archives that state sizes)
     for p in wanted:
-        pid = p["product_id"]
-        archive = p.get("archive") or "MAST"
-        if max_bytes and p.get("size_bytes") and int(p["size_bytes"]) > int(max_bytes):
-            ctx.note(f"{p.get('target') or pid}/{archive}: {pid} skipped before download — archive states "
-                     f"{int(p['size_bytes'])} bytes > max_product_bytes {int(max_bytes)}.")
-            continue
-        fmt = p.get("format") or "spoc_lc"
-        # namespace scratch file names by archive so same-named products cannot collide
-        fname = pid if archive == "MAST" else f"{archive}__{pid}"
-        # an inline product is a query result carried by discovery: always rewrite it, so a cached file from an
-        # earlier (different or truncated) query is never reused under the same name
-        path = None if p.get("inline") else next((d / fname for d in dirs if (d / fname).is_file()), None)
-        fetched = False
-        if path is None:
-            path = ctx.scratch / fname
-            url = p.get("url")
-            if archive.upper() == "MAST" and not url:
-                url = MAST_DOWNLOAD.format(pid=pid)
-            try:
-                adapter = _base.get(archive.lower() if archive.lower() in _base.available() else archive)
-            except KeyError:
-                adapter = None
-            # a bare MAST product with no explicit URL keeps the original downloader
-            if url and (archive.upper() == "MAST" or adapter is None):
-                fetch_to_file(url, path, timeout_s=120)
-            elif adapter is not None:
-                extra = {k: v for k, v in p.items()
-                         if k not in ("product_id", "url", "format", "expected_sha256", "description", "target")}
-                try:
-                    adapter.fetch(_base.ProductRef(archive=archive, product_id=pid, url=url, format=fmt,
-                                                   expected_sha256=p.get("expected_sha256"), extra=extra),
-                                  path, timeout_s=120)
-                except _base.AdapterUnavailable as exc:
-                    # e.g. observing routes (a request queue, nothing archived yet): a note, not a crash
-                    ctx.note(f"{p.get('target') or pid}/{archive}: {NOT_FETCHED_NOTE} — {exc}")
-                    continue
-            else:
-                raise RuntimeError(f"{pid}: no URL and no adapter for archive {archive!r}")
-            fetched = True
-        digest, size = _sha256(path), path.stat().st_size
-        if p.get("expected_sha256") and (digest != p["expected_sha256"] or
-                                         (p.get("expected_bytes") and size != int(p["expected_bytes"]))):
-            raise RuntimeError(f"{pid}: checksum/size mismatch (sha256 {digest}, {size} bytes); refusing to analyse")
-        if not ctx.ledger_has_product(archive, pid):
-            ledger_url = p.get("url") or (MAST_DOWNLOAD.format(pid=pid) if archive.upper() == "MAST" else None)
-            ctx.ledger.add_product(archive, pid, url=ledger_url, local_path=path,
-                                   checksum=digest, license_=p.get("license", "see DATA_SOURCES.md"),
-                                   extra={"campaign": ctx.campaign_id, "tic": p.get("tic"),
-                                          "sector": p.get("sector"), "format": fmt})
-        out[pid] = {"path": portable(path), "sha256": digest, "bytes": size, "fetched_now": fetched,
-                    "pinned": bool(p.get("expected_sha256")), "target": p.get("target"), "tic": p.get("tic"),
-                    "sector": p.get("sector"), "covers_known_epoch": p.get("covers_known_epoch"),
-                    "archive": archive, "format": fmt, "url": p.get("url"),
-                    "kind": p.get("kind") or _base.kind_for_format(fmt),
-                    "description": p.get("description", ""),
-                    **({"truncated": p["truncated"]} if p.get("truncated") else {})}
+        got = _fetch_product(ctx, p, dirs, max_bytes)
+        if got:
+            out[got[0]] = got[1]
     if not out:
         detail = "; ".join(ctx.notes[-4:]) if ctx.notes else "no archives produced a product"
         # every archive answered and none holds a product: a documented exclusion. An archive that

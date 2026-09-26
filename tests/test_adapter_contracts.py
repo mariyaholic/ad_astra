@@ -618,7 +618,7 @@ def _mast_http(products, *, obs=({"obsid": 11}, {"obsid": 12}), status="COMPLETE
     def respond(url, data=None, params=None):
         req = json.loads(data["request"])
         calls.append(req)
-        if req["service"] == "Mast.Caom.Filtered":
+        if req["service"].startswith("Mast.Caom.Filtered"):
             return _Resp(payload={"status": status, "data": list(obs)})
         return _Resp(payload={"status": "COMPLETE", "data": products})
 
@@ -660,6 +660,32 @@ def test_mast_non_tess_collection_uses_the_target_name_and_no_subgroup():
     filters = {f["paramName"]: f["values"] for f in calls[0]["params"]["filters"]}
     assert filters == {"target_name": ["Test Star"], "obs_collection": ["Kepler"], "dataproduct_type": ["timeseries"]}
     assert [r.format for r in refs] == ["kepler_lc", "kepler_lc"] and all(r.extra["sector"] is None for r in refs)
+
+
+def test_mast_position_search_finds_kepler_and_k2_collections():
+    """Kepler/K2 file their products under kplr/ktwo names, which a TOI name or TIC never matches, so the
+    filter+position service is used (verified live on Kepler-10, 2026-09-26: 15 long-cadence quarters)."""
+    prods = [
+        {"productFilename": "kplr000757076-2009131105131_llc.fits", "productSubGroupDescription": "LLC",
+         "dataURI": "mast:Kepler/product/kplr000757076-2009131105131_llc.fits", "obsID": 21,
+         "obs_collection": "Kepler", "size": "1000"},
+        {"productFilename": "ktwo201367065-c01_llc.fits", "productSubGroupDescription": "LLC", "obsID": 22},
+        {"productFilename": "kplr000757076-2009259160929_tp.fits", "productSubGroupDescription": "TP", "obsID": 23},
+    ]
+    http, calls = _mast_http(prods, obs=({"obsid": 21}, {"obsid": 22}))
+    refs = base.get("mast", http=http).discover(T, collection="Kepler,K2", provenance="", subgroup="LLC",
+                                                radius_arcsec=4.0, limit=40)
+    req = calls[0]
+    assert req["service"] == "Mast.Caom.Filtered.Position"
+    filters = {f["paramName"]: f["values"] for f in req["params"]["filters"]}
+    assert filters == {"obs_collection": ["Kepler", "K2"], "dataproduct_type": ["timeseries"]}   # no target_name
+    assert req["params"]["position"] == "139.4808650, -3.3875250, 0.0011111"   # ra, dec, radius in degrees
+    assert [r.product_id for r in refs] == ["kplr000757076-2009131105131_llc.fits", "ktwo201367065-c01_llc.fits"]
+    assert [r.format for r in refs] == ["kepler_lc", "kepler_lc"] and all(r.kind == "lightcurve" for r in refs)
+    # a row's own obs_collection decides the default URI; a silent row falls back to the first collection
+    assert refs[0].url == f"{astronomy.MAST_DL}?uri=mast:Kepler/product/kplr000757076-2009131105131_llc.fits"
+    assert refs[1].url == f"{astronomy.MAST_DL}?uri=mast:Kepler/product/ktwo201367065-c01_llc.fits"
+    assert refs[0].size_bytes == 1000              # the size gate can skip huge Kepler quarters before download
 
 
 def test_mast_drops_real_fast_cadence_filenames():

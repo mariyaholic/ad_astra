@@ -7,6 +7,7 @@ synthetic and seeded.
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -20,6 +21,7 @@ fits = pytest.importorskip("astropy.io.fits")
 
 from cygnus.ledger import Ledger
 from cygnus.multi import measures as M
+from cygnus.multi.measure_steps import ztf_series
 
 from _multi_fixtures import make_ctx, product_entry, write_spoc
 
@@ -297,9 +299,54 @@ def fakes(monkeypatch):
     return table
 
 
+class _EmptyDiscover:
+    """A healthy independent source that holds nothing for this target (an honest empty answer)."""
+
+    def __init__(self):
+        self.calls = []
+
+    def discover(self, target, **opts):
+        self.calls.append((target.name, opts))
+        return []
+
+
+class _StagedDiscover:
+    """A faked independent source: discover returns staged refs, fetch calls the ref's writer."""
+
+    def __init__(self, refs=()):
+        self.refs, self.calls = list(refs), []
+
+    def discover(self, target, **opts):
+        from cygnus.multi.archives.base import ProductRef
+
+        self.calls.append((target.name, opts))
+        return [ProductRef(archive=arch, product_id=pid, url=None, format=fmt, kind=kind,
+                           extra={"write": writer})
+                for arch, pid, fmt, kind, writer in self.refs]
+
+    def fetch(self, ref, dest, *, timeout_s=120.0):
+        Path(dest).parent.mkdir(parents=True, exist_ok=True)
+        ref.extra["write"](Path(dest))
+        return Path(dest)
+
+
 PID = "tess-fixture-s0007-0000000000000001-s_lc.fits"
 TARGET = {"name": "TOI-9.01", "tic": 1, "ra_deg": 10.0, "dec_deg": 20.0, "t0_bjd": 2458505.0, "period_days": None,
           "depth_ppm": 30000.0, "duration_h": 2.88, "tmag": 9.0, "position_source": "fixture", "disposition": "PC"}
+
+
+@pytest.fixture(autouse=True)
+def _no_network(monkeypatch):
+    """A real network call anywhere in this module fails the test (the guard used by the adapter tests)."""
+    import urllib.request
+
+    import requests
+
+    def boom(*a, **k):
+        raise AssertionError(f"real network call attempted: {a[:2]!r}")
+
+    monkeypatch.setattr(requests.sessions.Session, "request", boom)
+    monkeypatch.setattr(urllib.request, "urlopen", boom)
 
 
 def _lc_with_engineering(path: Path, *, shift_at: float | None = None):
@@ -359,6 +406,7 @@ def test_measure_steps_on_a_known_object_with_a_repeat(tmp_path, monkeypatch, fa
     fakes["simbad"] = _FakeAdapter([{"main_id": "TYC 1", "otype": "PM*", "ra": 10.0, "dec": 20.0}])
     fakes["skybot"] = _FakeAdapter([{"Name": "(9) Metis", "V": "11.5", "centerdist": "20.0 arcsec"},
                                     {"Name": "far", "V": "9.0", "centerdist": "300 arcsec", "RA_rate": "30 arcsec / h"}])
+    fakes["mast"], fakes["irsa"] = _EmptyDiscover(), _EmptyDiscover()   # healthy sources, nothing for this target
     out, checks, rec = _run_known_object(tmp_path, monkeypatch)
     assert rec["outcome"] == "lead" and rec["evidence"] == "Unverified lead"       # nothing raises it further
     assert checks["Target-to-Gaia identification (proper motion propagated)"]["state"] == "passed"
@@ -384,11 +432,20 @@ def test_measure_steps_on_a_known_object_with_a_repeat(tmp_path, monkeypatch, fa
     assert checks["Variable-catalogue collision (VSX)"]["state"] == "inconclusive"
     assert checks["Object-class guard (SIMBAD)"]["state"] == "passed"
     assert checks["Independent repetition (other MAST collections)"]["state"] == "not_tested"
+    assert "Kepler/K2 answered" in checks["Independent repetition (other MAST collections)"]["note"]
     assert checks["Independent-epoch confirmation (ZTF)"]["state"] == "not_tested"
+    assert "ZTF answered" in checks["Independent-epoch confirmation (ZTF)"]["note"]
+    # fetch_independent queried both sources by position and recorded the empty answers
+    indep = json.loads((out / "independent_lightcurves.json").read_text(encoding="utf-8"))
+    assert [(q["source"], q["state"], q["n_found"]) for q in indep["queries"]] == \
+        [("Kepler/K2", "answered", 0), ("ZTF", "answered", 0)]
+    assert fakes["mast"].calls[0][1]["collection"] == "Kepler,K2" and fakes["mast"].calls[0][1]["radius_arcsec"] == 4.0
+    assert fakes["irsa"].calls[0][1]["mode"] == "ztf" and fakes["irsa"].calls[0][1]["radius_arcsec"] == 3.0
+    assert not rec["products"] or all(p["archive"] == "MAST" for p in rec["products"])
 
 
 def test_measure_steps_report_outages_as_not_tested_and_flag_a_centroid_shift(tmp_path, monkeypatch, fakes):
-    for name in ("gaia", "vizier", "simbad", "skybot"):
+    for name in ("gaia", "vizier", "simbad", "skybot", "mast", "irsa"):
         fakes[name] = _FakeAdapter(error="HTTP 503")
     out, checks, _ = _run_known_object(tmp_path, monkeypatch, shift_at=1511.0)
     for c in ("Target-to-Gaia identification (proper motion propagated)", "Stellar priors (Gaia colour and parallax)",
@@ -399,6 +456,281 @@ def test_measure_steps_report_outages_as_not_tested_and_flag_a_centroid_shift(tm
     assert "duration_likelihood" not in json.loads((out / "period_aliases.json").read_text(encoding="utf-8"))["candidates"][0]
     assert checks["Pointing and quality census per event"]["state"] == "failed"
     assert "MOM_CENTR1" in checks["Pointing and quality census per event"]["note"]
+    # the independent sources went down as well: a failed query is recorded as such, never as 'no data'
+    indep = json.loads((out / "independent_lightcurves.json").read_text(encoding="utf-8"))
+    assert [(q["source"], q["state"]) for q in indep["queries"]] == [("Kepler/K2", "unavailable"), ("ZTF", "unavailable")]
+    assert all("503" in q["detail"] for q in indep["queries"])
+    assert "Kepler/K2 unavailable" in checks["Independent repetition (other MAST collections)"]["note"]
+    assert "ZTF unavailable" in checks["Independent-epoch confirmation (ZTF)"]["note"]
+
+
+def _kepler_llc(path: Path, *, dip_at: float | None = None, n_days: float = 90.0, seed: int = 2) -> Path:
+    """A Kepler-shaped 30-min product (TIME/SAP/PDCSAP/QUALITY, BJDREFI, RA_OBJ/DEC_OBJ) at the fixture target.
+
+    The 90-d series is centred on ``dip_at`` so the planted 3% transit sits mid-series.
+    """
+    rng = np.random.default_rng(seed)
+    cad = 30 / 86400
+    n = int(n_days / cad)
+    bjdrefi = 2454000
+    start_bjd = (dip_at or 2458517.0) - n_days / 2
+    t = start_bjd - bjdrefi + np.arange(n) * cad
+    flux = 1.0 + rng.normal(0, 0.0005, n)
+    if dip_at is not None:
+        # the 6-d alias predicts a transit every 6 d: an independent confirmation needs the dip at every
+        # covered predicted epoch, not only one (the flat epochs would rightly exclude the alias)
+        for epoch in dip_at + 6.0 * np.arange(-7, 8):
+            flux[np.abs(t + bjdrefi - epoch) < 0.048] *= 1 - 0.03
+    hdu0 = fits.PrimaryHDU()
+    hdu0.header.update({"OBJECT": "KIC FIXTURE", "KEPLERID": 1, "QUARTER": 4, "TIMEDEL": cad,
+                        "RA_OBJ": 10.0, "DEC_OBJ": 20.0})
+    tab = fits.BinTableHDU.from_columns([fits.Column(name=k, format="D", array=v) for k, v in
+                                         (("TIME", t), ("SAP_FLUX", flux * 1.01), ("PDCSAP_FLUX", flux))]
+                                        + [fits.Column(name="QUALITY", format="J", array=np.zeros(n, int))])
+    tab.header.update({"BJDREFI": 2454000, "BJDREFF": 0.0, "TIMESYS": "TDB", "TIMEUNIT": "d"})
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fits.HDUList([hdu0, tab]).writeto(path, overwrite=True)
+    return path
+
+
+def test_independent_lightcurves_reach_the_alias_checks(tmp_path, monkeypatch, fakes):
+    """The scaffold's fetch_independent step feeds alias_cross_instrument on a full known-object run."""
+    import shutil
+
+    fakes["gaia"] = _FakeAdapter(_gaia_field())
+    fakes["vizier"] = _FakeAdapter([{"Name": "V9", "Type": "ROT", "Period": "3.0", "RAJ2000": 10.0, "DEJ2000": 20.0}])
+    fakes["simbad"] = _FakeAdapter([{"main_id": "TYC 1", "otype": "PM*", "ra": 10.0, "dec": 20.0}])
+    fakes["skybot"] = _FakeAdapter([{"Name": "far", "V": "21.0", "centerdist": "300 arcsec"}])
+    # the repeat is at BJD 2458511; its 6-d alias predicts a third transit at 2458517, past the TESS data:
+    # both independent instruments see it, so both independent checks pass
+    kep = _kepler_llc(tmp_path / "kep" / "kplrfixture-2009131105131_llc.fits", dip_at=2458517.0)
+    vot = _ztf_votable(tmp_path / "ztf" / "ztffixture_toi-9-01.vot", dip_at=2458517.0)
+    fakes["mast"] = _StagedDiscover([("mast", "kplrfixture-2009131105131_llc.fits", "kepler_lc", "lightcurve",
+                                      lambda p: shutil.copyfile(kep, p))])
+    fakes["irsa"] = _StagedDiscover([("irsa", "ztffixture_toi-9-01.vot", "ztf_lc", "lightcurve",
+                                      lambda p: shutil.copyfile(vot, p))])
+    _patch_fetch_to_file(monkeypatch, {"kplrfixture-2009131105131_llc.fits": kep})
+    out, checks, rec = _run_known_object(tmp_path, monkeypatch)
+    assert rec["outcome"] == "lead" and rec["evidence"] == "Unverified lead"
+    assert checks["Independent repetition (other MAST collections)"]["state"] == "passed"
+    assert checks["Independent-epoch confirmation (ZTF)"]["state"] == "passed"
+    rows = json.loads((out / "alias_cross_instrument.json").read_text(encoding="utf-8"))
+    kep_rows = [r for r in rows if r["instrument"] == "MAST:kepler_lc"]
+    assert any(a["verdict"] == "supported" and a["period_days"] == 6.0 for r in kep_rows for a in r["aliases"])
+    ztf_rows = [r for r in rows if r["instrument"] == "ZTF"]
+    assert ztf_rows and all(r["time_note"].startswith("BJD_TDB at mid-exposure") for r in ztf_rows)
+    assert any(a["verdict"] == "supported" for r in ztf_rows for a in r["aliases"])
+    assert ztf_rows[0]["series"]["n"] >= 20 and ztf_rows[0]["series"]["offset_arcsec"] < 1
+    indep = json.loads((out / "independent_lightcurves.json").read_text(encoding="utf-8"))
+    assert [(q["source"], q["state"], len(q["products"])) for q in indep["queries"]] == [("Kepler/K2", "answered", 1),
+                                                                                         ("ZTF", "answered", 1)]
+
+
+def test_a_foreign_kepler_neighbour_never_vets_the_alias(tmp_path, monkeypatch, fakes):
+    """A Kepler product whose header position is not the target's is recorded and contributes no verdict."""
+    import shutil
+
+    fakes["gaia"] = _FakeAdapter(_gaia_field())
+    fakes["vizier"] = _FakeAdapter([{"Name": "V9", "Type": "ROT", "Period": "3.0", "RAJ2000": 10.0, "DEJ2000": 20.0}])
+    fakes["simbad"] = _FakeAdapter([{"main_id": "TYC 1", "otype": "PM*", "ra": 10.0, "dec": 20.0}])
+    fakes["skybot"] = _FakeAdapter([])
+    kep = _kepler_llc(tmp_path / "kep" / "kplrfixture-2009131105131_llc.fits", dip_at=2458517.0)
+    with fits.open(kep, mode="update") as h:                    # the neighbour is 30" away
+        h[0].header["RA_OBJ"], h[0].header["DEC_OBJ"] = 10.0 + 30 / 3600, 20.0
+    fakes["mast"] = _StagedDiscover([("mast", "kplrfixture-2009131105131_llc.fits", "kepler_lc", "lightcurve",
+                                      lambda p: shutil.copyfile(kep, p))])
+    fakes["irsa"] = _EmptyDiscover()
+    _patch_fetch_to_file(monkeypatch, {"kplrfixture-2009131105131_llc.fits": kep})
+    out, checks, _ = _run_known_object(tmp_path, monkeypatch)
+    rows = json.loads((out / "alias_cross_instrument.json").read_text(encoding="utf-8"))
+    [row] = [r for r in rows if r.get("instrument") == "MAST:kepler_lc"]
+    assert row["error"].startswith("header position") and row["observed_offset_arcsec"] > 20
+    assert checks["Independent repetition (other MAST collections)"]["state"] == "not_tested"
+    assert "not used" in checks["Independent repetition (other MAST collections)"]["note"]
+
+
+def test_fetch_independent_records_an_empty_answer_and_an_outage_honestly(tmp_path, scratch_env, fakes):
+    from cygnus.multi.measure_steps import step_fetch_independent
+
+    fakes["mast"], fakes["irsa"] = _EmptyDiscover(), _FakeAdapter(error="HTTP 503")
+    ctx = make_ctx(tmp_path, spec={"targets": [dict(TARGET)]})
+    res = step_fetch_independent(ctx, {})
+    assert [(q["source"], q["state"]) for q in res["queries"]] == [("Kepler/K2", "answered"), ("ZTF", "unavailable")]
+    assert res["queries"][0]["n_found"] == 0 and res["products"] == {}
+    assert "503" in res["queries"][1]["detail"] and (tmp_path / "out" / "independent_lightcurves.json").is_file()
+
+
+def _patch_fetch_to_file(monkeypatch, sources: dict[str, Path]):
+    """A MAST product is fetched through the shared resumable downloader; patch it per staged file."""
+    import shutil
+
+    import cygnus.ingest.netio as netio
+
+    def fake_fetch(url, dest, *, timeout_s=None):
+        for key, path in sources.items():
+            if key in url:
+                shutil.copyfile(path, dest)
+                return {}
+        raise AssertionError(f"unexpected download URL {url}")
+
+    monkeypatch.setattr(netio, "fetch_to_file", fake_fetch)
+
+
+def test_fetch_independent_downloads_checksums_and_ledgers_lightcurves(tmp_path, scratch_env, fakes, monkeypatch):
+    import shutil
+
+    from cygnus.multi.measure_steps import step_fetch_independent
+
+    kep = write_spoc(scratch_env / "stage" / "k.fits", n=2000, dips=(17.0,), seed=2)
+    vot = _ztf_votable(scratch_env / "stage" / "z.vot", dip_at=2458517.0)
+    fakes["mast"] = _StagedDiscover([("mast", "kplrfixture-2009131105131_llc.fits", "kepler_lc", "lightcurve",
+                                      lambda p: shutil.copyfile(kep, p))])
+    fakes["irsa"] = _StagedDiscover([("irsa", "ztffixture_toi-9-01.vot", "ztf_lc", "lightcurve",
+                                      lambda p: shutil.copyfile(vot, p))])
+    _patch_fetch_to_file(monkeypatch, {"kplrfixture-2009131105131_llc.fits": kep})
+    ctx = make_ctx(tmp_path, spec={"targets": [dict(TARGET)]})
+    res = step_fetch_independent(ctx, {})
+    assert [(q["source"], q["state"], q["n_found"]) for q in res["queries"]] == [("Kepler/K2", "answered", 1),
+                                                                                 ("ZTF", "answered", 1)]
+    kp = res["products"]["kplrfixture-2009131105131_llc.fits"]
+    assert kp["archive"] == "mast" and kp["format"] == "kepler_lc" and kp["kind"] == "lightcurve"
+    assert kp["independent_source"] == "Kepler/K2" and res["products"]["ztffixture_toi-9-01.vot"]["independent_source"] == "ZTF"
+    assert kp["sha256"] == hashlib.sha256(kep.read_bytes()).hexdigest()      # checksummed like any other product
+    # files live in the campaign's scratch subfolder, namespaced by archive so names cannot collide
+    assert (scratch_env / "campaign_unit-ctx" / "mast__kplrfixture-2009131105131_llc.fits").is_file()
+    assert (scratch_env / "campaign_unit-ctx" / "irsa__ztffixture_toi-9-01.vot").is_file()
+    assert ctx.ledger_has_product("mast", "kplrfixture-2009131105131_llc.fits")
+    assert ctx.ledger_has_product("irsa", "ztffixture_toi-9-01.vot")
+
+
+def test_fetch_independent_undelivered_products_never_read_as_no_data(tmp_path, scratch_env, fakes):
+    from cygnus.multi.measure_steps import step_fetch_independent
+
+    class _HalfDelivery(_StagedDiscover):
+        """Discovery answers but every download fails through AdapterUnavailable."""
+
+        def fetch(self, ref, dest, *, timeout_s=120.0):
+            from cygnus.multi.archives.base import AdapterUnavailable
+
+            raise AdapterUnavailable("storage offline")
+
+    fakes["mast"] = _EmptyDiscover()
+    fakes["irsa"] = _HalfDelivery([("irsa", "ztffixture_toi-9-01.vot", "ztf_lc", "lightcurve", lambda p: p)])
+    ctx = make_ctx(tmp_path, spec={"targets": [dict(TARGET)]})
+    res = step_fetch_independent(ctx, {})
+    [q] = [x for x in res["queries"] if x["source"] == "ZTF"]
+    assert q["state"] == "failed" and q["n_found"] == 1 and q["products"] == []
+    assert "not fetched" in q["not_fetched"][0]["detail"]
+
+
+def test_ztf_series_splits_by_oid_drops_a_neighbour_and_converts_time(tmp_path):
+    p = _ztf_votable(tmp_path / "z.vot", neighbour=True)
+    got = ztf_series(p, 10.0, 20.0, min_points=20)
+    assert [s["oid"] for s in got] == ["100"]                       # the neighbour (5″ south) is dropped
+    assert got[0]["offset_arcsec"] < 0.5 and got[0]["filter"] == "zr" and got[0]["n"] == 600
+    # with the cut disabled both oids come back, each its own series
+    both = ztf_series(p, 10.0, 20.0, min_points=20, max_offset_arcsec=None)
+    assert [s["oid"] for s in both] == ["100", "200"] and both[1]["offset_arcsec"] > 4
+    # catflags != 0 points are excluded from the good set
+    p_flagged = _ztf_votable(tmp_path / "zf.vot", flagged=True)
+    assert ztf_series(p_flagged, 10.0, 20.0, min_points=20)[0]["n"] == 500
+    # the mjd exposure-start column becomes BJD_TDB at mid-exposure: compared against the VOTable's own
+    # heliocentric midpoint (the survey's independent time), the difference is the TDB−UTC offset (69 s)
+    from astropy.io.votable import parse as votable_parse
+
+    tab = votable_parse(str(p)).get_first_table().to_table()
+    oids = np.asarray(tab["oid"]).astype(str)
+    sel = (oids == "100") & (np.asarray(tab["catflags"], int) == 0)
+    dt = (np.asarray(got[0]["t_bjd"]) - np.asarray(tab["hjd"], float)[sel]) * 86400
+    assert abs(float(np.median(dt)) - 69.2) < 10 and float(np.ptp(dt)) < 10
+
+
+def test_fetch_independent_ignores_a_target_without_a_position(tmp_path, scratch_env, fakes):
+    from cygnus.multi.measure_steps import step_fetch_independent
+
+    fakes["mast"], fakes["irsa"] = _EmptyDiscover(), _EmptyDiscover()
+    ctx = make_ctx(tmp_path, spec={"targets": [{"name": "Unpositioned", "tic": 5}]})
+    res = step_fetch_independent(ctx, {})
+    assert res["queries"] == [] and res["products"] == {}
+
+
+def _ztf_votable(path: Path, *, dip_at: float | None = None, neighbour: bool = False, flagged: bool = False,
+                 n: int = 600, seed: int = 3) -> Path:
+    """A ZTF-CGI-shaped VOTable: one pooled table with per-point oid, ra/dec, catflags, mjd and mag.
+
+    ``dip_at`` (a BJD_TDB) adds a dense in-transit + baseline cluster around the dip epoch for the
+    target's oid, so a series has enough points for the alias test.
+    """
+    from astropy.table import Table
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rng = np.random.default_rng(seed)
+    mjd = np.sort(rng.uniform(59300.0, 59900.0, n))
+    mag = 13.0 + rng.normal(0, 0.005, n)
+    oid = np.full(n, "100")
+    ra = 10.0 + rng.normal(0, 0.2 / 3600, n)
+    dec = 20.0 + rng.normal(0, 0.2 / 3600, n)
+    catflags = np.zeros(n, int)
+    if flagged:
+        catflags[:100] = 256
+    if neighbour:
+        oid = np.concatenate([oid, np.full(n, "200")])
+        ra = np.concatenate([ra, 10.0 + rng.normal(0, 0.2 / 3600, n)])
+        dec = np.concatenate([dec, 20.0 - 5.0 / 3600 + rng.normal(0, 0.2 / 3600, n)])
+        mjd = np.concatenate([mjd, mjd + 0.01])
+        mag = np.concatenate([mag, 13.5 + rng.normal(0, 0.005, n)])
+        catflags = np.concatenate([catflags, np.zeros(n, int)])
+    if dip_at is not None:
+        start = _mjd_for_bjd(dip_at, 10.0, 20.0)
+        in_mjd = start + np.linspace(-0.02, 0.02, 30)              # inside ±0.4 × the 2.88-h duration
+        base_mjd = np.concatenate([start + np.linspace(0.1, 1.9, 40), start - np.linspace(0.1, 1.9, 40)])
+        mjd = np.concatenate([mjd, in_mjd, base_mjd])
+        mag = np.concatenate([mag, 13.033 + rng.normal(0, 0.003, 30), 13.0 + rng.normal(0, 0.003, 80)])
+        oid = np.concatenate([oid, np.full(110, "100")])
+        ra = np.concatenate([ra, np.full(110, 10.0)])
+        dec = np.concatenate([dec, np.full(110, 20.0)])
+        catflags = np.concatenate([catflags, np.zeros(110, int)])
+    tab = Table({"oid": oid, "ra": np.asarray(ra, float), "dec": np.asarray(dec, float), "mjd": np.asarray(mjd, float),
+                 "mag": np.asarray(mag, float), "catflags": catflags, "filtercode": np.full(len(oid), "zr")})
+    tab = _add_hjd_column(tab)                                     # the heliocentric midpoint the CGI supplies
+    tab.write(path, format="votable", overwrite=True)
+    return path
+
+
+def _add_hjd_column(tab):
+    """Fill the ``hjd`` column: the heliocentric exposure midpoint in UTC JD, as IRSA computes it."""
+    import astropy.units as u
+    from astropy.coordinates import EarthLocation, SkyCoord
+    from astropy.time import Time
+
+    from cygnus.multi.measure_steps import PALOMAR, ZTF_EXPOSURE_S
+
+    loc = EarthLocation.from_geodetic(PALOMAR[0] * u.deg, PALOMAR[1] * u.deg, PALOMAR[2] * u.m)
+    c = SkyCoord(10.0 * u.deg, 20.0 * u.deg, frame="icrs")
+    mid = Time(np.asarray(tab["mjd"], float) + ZTF_EXPOSURE_S / 2 / 86400, format="mjd", scale="utc", location=loc)
+    tab["hjd"] = (mid.tdb + mid.light_travel_time(c, kind="heliocentric")).utc.jd
+    return tab
+
+
+def _mjd_for_bjd(bjd_tdb: float, ra_deg: float, dec_deg: float) -> float:
+    """The ZTF exposure-start mjd whose mid-exposure BJD_TDB equals ``bjd_tdb`` (numeric inversion)."""
+    import astropy.units as u
+    from astropy.coordinates import EarthLocation, SkyCoord
+    from astropy.time import Time
+
+    from cygnus.multi.measure_steps import PALOMAR
+
+    loc = EarthLocation.from_geodetic(PALOMAR[0] * u.deg, PALOMAR[1] * u.deg, PALOMAR[2] * u.m)
+    c = SkyCoord(ra_deg * u.deg, dec_deg * u.deg, frame="icrs")
+
+    def bjd_of(mjd: float) -> float:
+        tm = Time(mjd, format="mjd", scale="utc", location=loc)
+        return float((tm.tdb + tm.light_travel_time(c)).jd)
+
+    mjd = bjd_tdb - 2400000.5
+    for _ in range(4):                                     # d(BJD)/dmjd ≈ 1; a few Newton steps converge
+        mjd += bjd_tdb - bjd_of(mjd)
+    return mjd
 
 
 def test_alias_cross_instrument_uses_a_ztf_series(tmp_path, scratch_env, fakes):
@@ -476,9 +808,11 @@ def test_generated_specs_carry_the_measure_steps(tmp_path):
     (tmp_path / "campaigns").mkdir()
     spec = load_spec(scaffold.write_spec(tmp_path, dict(TARGET, epoch="J2015.5"), parent=None, origin="fixture", seed=1))
     order = [next(iter(s)) for s in spec["steps"]]
-    for step in ("stellar_context", "event_census", "moving_objects", "alias_cross_instrument", "variability_guard"):
+    for step in ("stellar_context", "event_census", "moving_objects", "variability_guard", "fetch_independent",
+                 "alias_cross_instrument"):
         assert step in order
     assert "rv_bounds" not in order
+    assert order.index("fetch_independent") < order.index("alias_cross_instrument")   # the alias step reads its fetch
     spec2 = scaffold.spec_for(dict(TARGET, name="TOI-8.01"), parent=None, origin="f", seed=1, archives="mast,eso")
     assert "  - rv_bounds: {}" in spec2
 
