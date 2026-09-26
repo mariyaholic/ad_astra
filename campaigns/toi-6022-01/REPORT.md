@@ -323,3 +323,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-6022-01.yaml
 python -m cygnus.multi report campaigns/toi-6022-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the catalogued signal's own transits.** The TIC carries TOI-6022.01 (PC, P 1.9281 d) and TOI-6022.02 (PC, P 1.5454 d); the events match 6022.01's ephemeris exactly. No new signal.
+
+Source: `campaigns/toi-6022-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

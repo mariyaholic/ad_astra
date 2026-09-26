@@ -232,3 +232,36 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 Vetting rerun 2026-09-26 with the final code. E1 survives every test run (difference image 0.3", 0.7 sigma; 237/237 usable cadences, no flags; red noise 36 sigma below the null; the only inconclusive is the unresolved Gaia neighbour 3.7" away, Delta-G 2.72, which could host the signal). E2 remains suspect: the detrending alternatives disagree (depth 1614-7796 ppm across six detrendings vs box fit 7767 ppm). Timing: reference -> E1 700.62 d, E1 -> E2 350.32 d; nine periods P = 350.3/n d stay data-allowed. Record stays lead (Unverified lead); dossier decision pending.
 
 Source: `campaigns/toi-3500-02/vetting/VETTING.md` (regenerated 2026-09-26 with the final code) and `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`.
+
+## Reviewer notes (2026-09-26, meticulous difference-image + blend vetting)
+
+**Evidence level unchanged: Unverified lead; the lead now rests on two clean on-target events, not three.**
+
+1. **E2 (S101) is rejected.** Its difference-image centroid sits **6.74″ from the out-of-transit centroid at
+   11.5σ** (E1: 0.35″ at 0.7σ) — the deficit is not on the stamp's flux core. The event carries POS_CORR2
+   +28.9σ and MOM_CENTR2 +19.2σ excursions, its depth swings 1,614-7,796 ppm across detrendings, and its
+   duration ratio is 0.80. The coherent reading is an aperture-loss artifact: the spacecraft pointing slid
+   during the event and the flux loss mimics a transit. No Gaia source capable of a 7.7 ppt depth exists near
+   the deficit's ~7″ offset (nothing capable between 4″ and 43″). **E2 supports no period.**
+2. **The E1 "secondary-eclipse" failure was E2 contamination, not a detection.** The phase-0.5 windows of the
+   aliases P = 700.62/n (odd multiples of 350.31 d) all land on E2's epoch, so those rows re-measure E2's dip.
+   With E2 excluded the covered aliases are clean (P 35.03: −80 ± 186; 50.04: 313 ± 167; 58.39: 24 ± 167;
+   87.58: 208 ± 167; 18.44: 206 ± 74 ppm) — no ≥4σ secondary at any alias.
+3. **The 3.7″ blend candidate is excluded as E1's source.** The neighbour (G 14.07, ΔG 2.72) shares the host's
+   Gaia parallax (5.21 mas — a co-moving companion) and maps through the S90 TPF WCS to 0.182 px from the placed
+   host **opposite** the measured deficit centroid; the deficit sits at the stamp's flux centroid, which a
+   12.5:1 host/neighbour flux ratio pins to the host. The 43.2″ neighbour (ΔG 3.88) is a different pixel region
+   and shows no deep ZTF dips (154 usable points, ±0.05 mag).
+4. **ZTF (IRSA, 2026-09-26):** host (G 11.35): 70 catflags-0 zg points, but 0-1 points within ±2 h of any
+   alias-predicted phase — no coverage, not a pass; the 3.71″ neighbour has **no ZTF light curve** (0 rows —
+   not_tested).
+5. **E1 (S90) passes every check** (χ²ν 1.19; shape 1.08 ± 0.06; detrending stable; red noise 36σ; 237/237
+   cadences; density limit 16 of 17 aliases compatible, shortest 35.03 d — 18.44 d excluded).
+
+**Verdict: lead retained (Unverified lead).** The alias family widens from the 9 "joint" periods (built on the
+now-rejected E2) back to the 16 data-allowed aliases of ΔT(ref→E1) = 700.6242 d compatible with the density
+limit: P = 700.62, 350.31, 233.54, 175.16, 140.12, 116.77, 100.09, 87.58, 77.85, 70.06, 63.69, 58.39, 53.89,
+50.04, 36.88, 35.03 d. The 2:1 spacing (ref→E1 = 2 × 350.31 d) makes P = 350.31 d the most economical single
+reading, but two events cannot fix a period; EB secondaries could still hide in the seasonal gaps for the long
+aliases. Next test: RV on the host (G 11.35, measurable), ground photometry at predicted alias phases, and the
+P = 350.31 ephemeris against future TESS sectors.

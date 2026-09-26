@@ -107,15 +107,27 @@ def fetch_fields(prov: dict, targets: dict, only: set[str]) -> None:
     for name, t in targets.items():
         if only and name not in only:
             continue
-        r = FIELD_RADIUS.get(name, DEFAULT_RADIUS)
-        g = FIELD_GMAX.get(name, DEFAULT_GMAX)
-        q = ("SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, "
-             "teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), "
-             f"CIRCLE('ICRS', {t['ra_deg']:.8f}, {t['dec_deg']:.8f}, {r})) AND phot_g_mean_mag < {g} "
-             "ORDER BY phot_g_mean_mag")
-        b = tap(GAIA_TAP, q)
         fn = f"field_{slug(name)}.csv"
+        fail_key = f"FAILED:field:{name}"
+        try:
+            r = FIELD_RADIUS.get(name, DEFAULT_RADIUS)
+            g = FIELD_GMAX.get(name, DEFAULT_GMAX)
+            q = ("SELECT TOP 6000 source_id, ra, dec, phot_g_mean_mag AS g, bp_rp, parallax, pmra, pmdec, "
+                 "teff_gspphot FROM gaiadr3.gaia_source WHERE 1 = CONTAINS(POINT('ICRS', ra, dec), "
+                 f"CIRCLE('ICRS', {t['ra_deg']:.8f}, {t['dec_deg']:.8f}, {r})) AND phot_g_mean_mag < {g} "
+                 "ORDER BY phot_g_mean_mag")
+            try:
+                b = tap(GAIA_TAP, q)
+            except Exception:
+                time.sleep(15)  # Gaia TAP sync intermittently answers 408/reset under load; retry once
+                b = tap(GAIA_TAP, q)
+        except Exception as e:  # one flaky cone must not abort a 1,000-target pass
+            prov[fail_key] = {"when": now(), "error": repr(e)[:500]}
+            PROV.write_text(json.dumps(prov, indent=1, ensure_ascii=False), encoding="utf-8")
+            print("FAILED field", name, repr(e)[:200])
+            continue
         (OUT / fn).write_bytes(b)
+        prov.pop(fail_key, None)  # a successful re-fetch supersedes an earlier per-target failure
         record(prov, fn, source="Gaia DR3 gaia_source (ESA/Gaia/DPAC)", endpoint=GAIA_TAP, query=q,
                rows=b.count(b"\n") - 1, sha256=sha(b), radius_deg=r, g_max=g,
                terms="ESA Gaia data: CC BY-SA 3.0 IGO; acknowledge ESA/Gaia/DPAC")

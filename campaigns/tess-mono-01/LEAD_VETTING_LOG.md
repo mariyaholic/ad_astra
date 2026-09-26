@@ -55,6 +55,95 @@ possible additional transit at TBJD 1525.648.
 - Then write each report's Reviewer notes from `vetting/VETTING.md` and decide which leads get dossiers.
   TOI-2666.01 and TOI-3500.02 are the current front-runners.
 
+## 2026-09-26: meticulous vetting of the two dossier front-runners
+
+Beyond the `vet` tool (whose states are in each campaign's `vetting/VETTING.md`), the SPOC DV products,
+parity tests, raw-data dips and ZTF were checked by hand. Products live in scratch
+`lead_vetting_2026-09-26/` (scripts + JSONs); the readings below cite them.
+
+### TOI-2666.01 (TIC 170889511, HD 80133): lead retained; period unresolved; EB reading at P 36.53 d refuted
+
+SPOC DV products exist for three sector combinations (fetched to scratch `campaign_toi-2666-01/`):
+
+- **S35 DV:** TCE fitted P = 13.92639 ± 0.00045 d, T0 = 2459259.1591 (the catalogued transit), depth 18,377 ppm.
+  Its 2nd modelled transit (2459273.0855) falls **inside S35 data and is absent**: box fit −180 ± 96 ppm.
+  Two observed events (S35 only) cannot fix a period; the fit is a two-event artifact.
+- **S35+S61 DV (file named `...s0065...dvt.fits`):** TCE 1 P = 34.36669 ± 0.00003 d (NTRANS 2), TCE 2
+  P = 720.93 d, depth 579 ± 100 ppm, MES 10.1. The S61 sector **contains no transit at all** — the deepest
+  3σ-grouped dips are 1-5 ppt spot crossings, and the box fits at the TCE 1 model's S61 epoch (2459980.860,
+  −254 ± 87 ppm), at the 13.93-d model's S61 epoch (2459966.459: −223 ± 65 ppm) and at the 7.50-d model's
+  S61 epoch (2459987.750: −766 ± 460 ppm) are all nulls. Both SPOC periods are refuted by their own
+  predicted transits landing on covered, dipless data.
+- **S99 DV:** TCE P = 7.50451 ± 0.0017 d, T0 = 2461049.1611 (the lead event E1), depth 286 ± 83 ppm,
+  TSNR 4.28, NTRANS 3, bootstrap odd/even **not computed** (value 0.0, significance −1.0). The period is the
+  E1-to-2461064.170 interval halved; the k=2 dip at 2461064.170 is measured here at 251 ± 80 ppm (3.1σ within
+  its window, χ²ν 1.04) and k=3 (2461071.675) is a null (−336 ± 105 ppm, 13 cadences). Another two-event artifact.
+
+Parity test on the P 36.53 d secondary-eclipse alias (the vet's only ≥4σ phase-0.5 dip, 316 ± 62 ppm over 3
+epochs): 36.53 d = ΔT(ref→E1)/49, and 49 is **odd**, so the two measured deep events would alternate primary and
+secondary if P = 36.53 d were the period of an EB — both are measured ~12-15 ppt deep (depth ratio 1.02 ± 0.02),
+which refutes an EB with a 316-ppm secondary at that alias. The 316-ppm phase-0.5 dip is therefore not the
+companion's secondary; the host's strong spot variability (1-3.4 ppt dips lasting 2-61 h in every sector,
+local robust σ 500-680 ppm — also the reason the box-fit χ²ν reads 21.8) is the more plausible source.
+
+Independent epochs: Kepler/K2 has no coverage at the target position (MAST discovery: 0 products — recorded);
+ZTF has one OID at 3″ whose VOTable carries **no points** (host G 7.5, saturated); Gaia DR3 has **no** radial
+velocity for the host (G 7.54, above the RVS bright limit) and no NSS solution (earlier NSS campaign);
+ESO TAP timed out (known 2026-09-26 outage) so archival-RV bounds are **not tested** today.
+
+**Reading: the lead survives as a real, on-target, deep (12-15 ppt) grazing eclipse pair on HD 80133 whose
+period is unresolved.** All short-period interpretations (13.93, 34.37, 7.50 d — SPOC's own fits — and the
+vet's excluded aliases) are refuted by absent predicted transits; what remains are the 52 data-allowed aliases,
+all P ≥ 12.79 d by the density limit, most with phase-0.5 windows landing in the 683-d and 58-d seasonal gaps
+(so a grazing EB's secondary can hide there). Equal depths (1.02 ± 0.02), equal durations (1.00), the
+difference images on target for both events and no capable Gaia neighbour within 52.5″ (ΔG limit 4.53 for the
+12.5 ppt depth; G<17 census) leave a grazing planet (R_p ≈ 1.1-1.4 R_Jup for b near 1 at these depths) or an
+equal-depth grazing EB. Both surviving interpretations need RV: a stellar companion gives K ~ km/s at every
+surviving alias; a planet gives ≲ 100 m/s. Next test: archival or new RV (not_tested today: ESO outage, Gaia
+RVS absent), ground photometry at the predicted phases of the shortest surviving aliases (12.79-40 d), and
+future TESS sectors against the alias ephemerides.
+
+### TOI-3500.02 (TIC 443666343): E2 rejected as an off-target/pointing artifact; E1 fully clean; period P = 700.62/n unresolved
+
+- **E2 (S101) is rejected.** Its difference-image centroid is **6.74″ from the out-of-transit centroid at
+  11.5σ** (E1: 0.35″ at 0.7σ), i.e. the deficit does not sit on the stamp's flux core; the event carries
+  POS_CORR2 +28.9σ and MOM_CENTR2 +19.2σ excursions (aperture-loss signature), its depth is detrending-unstable
+  (1,614-7,796 ppm) and its duration ratio is 0.80. A pointing excursion during the event makes a transit-shaped
+  false dip; no Gaia source capable of the depth exists at the deficit's ~7″ offset (the capable list has
+  nothing between 4″ and 43″). **E2 does not support any period.**
+- **The E1 "secondary-eclipse" failure was E2 contamination.** The phase-0.5 windows of the aliases
+  P = 700.62/n (odd multiples of 350.31 d) all land on t_ref + 1050.94 d = E2's epoch, so those rows measure
+  E2's dip (7,491 ± 186 ppm). With E2 excluded, the remaining covered aliases are clean: P 35.03 (−80 ± 186),
+  50.04 (313 ± 167), 58.39 (24 ± 167), 87.58 (208 ± 167), 18.44 (206 ± 74 over 7 epochs) — no ≥4σ secondary
+  anywhere. Planet-consistent for the short aliases; EB secondaries could still hide in the seasonal gaps for
+  the long ones (140-700 d).
+- **E1 (S90) passes every check** (weighted fit χ²ν 1.19, shape ratio 1.08 ± 0.06, duration ratio 1.00,
+  detrending stable 7,480-7,885 ppm, red noise 36σ, 237/237 cadences, common mode clean, density limit
+  16 of 17 aliases compatible, shortest 35.03 d; 18.44 d excluded).
+- **The capable blends are excluded as the E1 dip source.** The 3.71″ neighbour (G 14.07, **same Gaia parallax
+  as the host, 5.21 mas** — a co-moving companion) maps through the S90 TPF WCS to 0.182 px from the placed host
+  in the direction **opposite** the measured deficit centroid; the deficit (0.35″, 0.7σ) sits at the stamp's
+  flux centroid, which a 12.5:1 host/blend ratio pins within ~0.3-0.4″ of the host. The 43.2″ neighbour (ΔG 3.88)
+  is a different pixel region and shows no deep ZTF dips (154 usable points, range ±0.05 mag).
+- **ZTF (IRSA, 2026-09-26):** host G 11.35: 70 catflags-0 zg points (mag 11.812-11.923), 0-1 points within ±2 h
+  of any joint-alias predicted phase — no coverage to test; the 3.71″ neighbour: **no ZTF light curve exists**
+  (0 rows — not_tested, not a pass).
+- The alias family after E2's rejection widens from the 9 "joint" periods back to the 17 data-allowed aliases
+  of ΔT(ref→E1) = 700.6242 d (P = 700.62, 350.31, 233.54, …, 35.03 d compatible). The 2:1 spacing structure
+  (ref→E1 = 2 × 350.31) makes P = 350.31 d the most economical single reading, but two events cannot fix a period.
+
+**Reading: lead retained (Unverified lead), now resting on two clean on-target events.** Next test: RV on the
+host (G 11.35, measurable), ground photometry at the predicted phases of the compatible aliases, and the
+P = 350.31 ephemeris against future TESS sectors (next predicted transit 2027-08, sector coverage permitting).
+
+| toi-1835-02 | E1 (S23) | Sibling ephemerides failed: the known sibling TOI-1835.01 (P 5.6420 d, 544 ppm) predicted -0.27 +/- 0.06 h at the event | **Rejected: a transit of the sibling planet TOI-1835.01.** |
+| toi-225.01 | E1 (S96) | Box fit finds no dip (799 +/- 331 ppm); scattered-light flags on 502 cadences, SAP_BKG +42.6 sigma | **Rejected: systematics.** |
+| toi-6667.01 | E1 (S104) | Difference image 108.7 arcsec from the OOT centroid (34 sigma) - the deficit is not on the target; detrending depth 2,914-9,410 ppm | **Rejected: the deficit is elsewhere.** |
+
+| toi-6695.01 | E1 (S61), E2 (S88) | E1 passes every check (diff image 0.8 arcsec on target, no secondary at 14 covered aliases); E2 rejected (diff image 12.0 arcsec off at 14.7 sigma, pointing excursions) | **Survives via E1 (Unverified lead): 26 data-allowed aliases of DeltaT 723.995 d; next tests ZTF/ground photometry at alias phases, future sectors, RV.** |
+| toi-7399.01 | E1 (S20) | Shape mismatch (depth ratio 0.49 +/- 0.15, duration 0.65); red noise 4.4 sigma; MOM_CENTR2 +14.7 sigma / POS_CORR2 +10.2 sigma; 39% of deficit in aperture | **Rejected: shape mismatch + pointing systematics.** |
+| toi-7857.01 | E1 (S55) | Shape mismatch: depth ratio 5.15 +/- 0.58, duration ratio 3.00 (23.9 ppt, 3.8 h vs the 4.6 ppt, 1.27 h reference) | **Rejected: not the same signal** (consistent with an EB eclipse on a possible circumbinary host, not the TOI's transit). |
+
 ## Erratum 2026-09-26: difference-image rule
 
 Until 2026-09-26 `cygnus.campaign vet` marked the difference-image centroid check `passed` whenever the offset was not significant, however large it was. The rule is now: `passed` only for an offset below 0.25 TESS pixel; a larger offset that is not significant is `inconclusive` (the image cannot place the dip). Two readings above used the old rule: TOI-2065.01 E1 (offset 27.7″, 1.0σ) and TOI-2318.01 E1 (20.5″, 2.4σ) were recorded `passed` and would now be `inconclusive`. Both leads were rejected on other tests (scattered light; systematics), so neither conclusion changes. Their generated `vetting/VETTING.md` files are left as produced; a rerun with the current code regenerates them. See `docs/SUITE_EXPANSION.md` §7.1, item 12.

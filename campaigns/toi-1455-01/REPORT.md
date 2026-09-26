@@ -229,3 +229,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-1455-01.yaml
 python -m cygnus.multi report campaigns/toi-1455-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits** (521-522 periods before the reference). The phase-0.5 dips at P 3.62 d (504 +/- 58 ppm) and P 10.87 d (477 +/- 105 ppm) are the catalogued EB's own secondary/harmonic structure. No new signal.
+
+Source: `campaigns/toi-1455-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

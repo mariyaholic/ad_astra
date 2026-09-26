@@ -272,3 +272,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-1059-01.yaml
 python -m cygnus.multi report campaigns/toi-1059-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** The joint period of the two events equals the catalogued P 9.4497 d exactly, with predicted-transit offsets -0.06 and +0.01 h (sigma 0.01 h). E1's difference image is additionally 11.7 arcsec off the OOT centroid (3.2 sigma) and the window carries heavy quality flags — consistent with the events being the recurring catalogued signal. No new signal.
+
+Source: `campaigns/toi-1059-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

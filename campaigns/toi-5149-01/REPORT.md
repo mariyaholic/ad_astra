@@ -167,3 +167,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-5149-01.yaml
 python -m cygnus.multi report campaigns/toi-5149-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** Every event lands within <= 0.18 h (sigma <= 0.04 h) of a predicted TOI-5149.01 transit at the catalogued P 27.3715 d. No new signal.
+
+Source: `campaigns/toi-5149-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

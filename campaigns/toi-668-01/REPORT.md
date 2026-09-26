@@ -332,3 +332,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-668-01.yaml
 python -m cygnus.multi report campaigns/toi-668-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead event is the target's own catalogued ephemeris transit.** The joint period (4.3786 d) is the catalogued period (4.3787 d); the phase-0.5 dip at P 4.38 d is the catalogued EB's secondary eclipse. No new signal.
+
+Source: `campaigns/toi-668-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

@@ -167,3 +167,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-585-01.yaml
 python -m cygnus.multi report campaigns/toi-585-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** Both events land -0.16 h (sigma 0.35-0.36 h) from predicted TOI-585.01 transits at the catalogued P 5.5473 d. The phase-0.5 'secondary' detections at P 5.55/31.84/43-46 d are the catalogued EB's own harmonic structure in a variable light curve. No new signal.
+
+Source: `campaigns/toi-585-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

@@ -271,3 +271,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: shape mismatch + pointing systematics.** The event is half the reference's depth and 0.65x its duration (not the same signal), carries +10-15 sigma centroid/pointing excursions, and the difference image places only 39% of the deficit in the optimal aperture. No new signal.
+
+Source: `campaigns/toi-7399-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

@@ -230,3 +230,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-706-01.yaml
 python -m cygnus.multi report campaigns/toi-706-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**The lead event E1 is rejected as a self-match** (it is the catalogued PC signal's own next transit at P 719.0381 d, offset -0.01 +/- 0.04 h). **E2 (S97, BJD 2460951.5448) is a real event of the same object**: depth ratio 1.002 vs the reference, duration ratio 1.00, difference image on target (2.5 arcsec, 1.6 sigma), and it sits at 3.5 x P_cat = exactly 7 x 359.52 d — the catalogued period's even alias. The six joint periods (359.52, 179.76, 119.84, 89.88, 71.90, 59.92 d = 719.04/m, m even) all satisfy both events; if P = 359.52 d is the true period, the catalogue's 719.04 d misses every second transit. Disposition: the events belong to the catalogued object (its period is likely P_cat/2); no new candidate. Gaia neighbours not_tested (cone pending) — re-check after the cone sweep.
+
+Source: `campaigns/toi-706-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

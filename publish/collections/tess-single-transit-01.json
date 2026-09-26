@@ -4,9 +4,9 @@
  "type": "campaign",
  "status": "published",
  "published": "2026-09-26",
- "summary": "The known-object test queue: 76 TOIs searched for isolated transits and period aliases, plus two Gaia DR3 NSS astrometric companion checks. Every campaign completed and was leaf-verified against its previous run; outcomes per item.",
- "description_md": "All 78 campaigns ran through the multi-archive runner (`cygnus.multi`) on this workstation (batch `suite2-2026-09-26`, 78/78 ok) and every committed record was verified leaf-by-leaf against the previous pass: no science value changed. Target positions are Gaia epoch J2015.5 (TOI-6663.01 at J2015.0), audited in `reports/position-epoch-audit-01/`. Lead-level campaigns carry per-lead vetting where it has run; evidence levels are copied verbatim from each record. Run logs live in the local ledger and batch journal (`state/batches/suite2-2026-09-26/`); TOI-2065.01 is a known VSX eclipsing binary (KELT, P = 71.96 d; SIMBAD classifies the host HD 111605 as a spectroscopic binary) and stays rejected.",
- "research_status": "Completed · per-campaign outcomes · partly vetted",
+ "summary": "The known-object test queue: 76 TOIs searched for isolated transits and period aliases, plus two Gaia DR3 NSS astrometric companion checks. Every campaign completed; all leads vetted on 2026-09-26 — 3 unverified leads survive, 5 original leads retracted.",
+ "description_md": "All 78 campaigns ran through the multi-archive runner (`cygnus.multi`) on this workstation (batch `suite2-2026-09-26`, 78/78 ok) and every committed record was verified leaf-by-leaf against the previous pass: no science value changed. Target positions are Gaia epoch J2015.5 (TOI-6663.01 at J2015.0), audited in `reports/position-epoch-audit-01/`.\n\n**Lead vetting 2026-09-26 (complete).** All 13 lead campaigns were vetted (per-campaign `vetting/` artifacts; readings in `campaigns/tess-mono-01/LEAD_VETTING_LOG.md`). Five were rejected earlier (sibling/systematics/scattered light/pointing). Of the remaining, **TOI-1835.02 is the sibling planet TOI-1835.01’s transit**; TOI-225.01 finds no dip (scattered light); TOI-6667.01’s deficit sits 108.7 arcsec off-target; TOI-7399.01 fails shape (+ pointing excursions); TOI-7857.01’s event is 5× deeper and 3× longer than the catalogued transit (an EB-consistent signal, not the TOI). **Three leads survive with complete audits**: TOI-2666.01 (SPOC’s own DV periods are two-event artifacts refuted by absent predicted transits; the P 36.53 d \"secondary\" is parity-inconsistent; a grazing planet or equal-depth grazing EB — RV is decisive), TOI-3500.02 (E2 rejected as an aperture-loss artifact; E1 clean; the 3.7-arcsec co-moving neighbour excluded by the deficit direction; no secondary once E2’s contamination is removed) and TOI-6695.01 (E1 clean; E2 rejected, its deficit 12.0 arcsec off-target). All remain **Unverified leads**; no candidate dossier is published. TOI-2065.01 is a known VSX eclipsing binary (KELT, P = 71.96 d; SIMBAD classifies the host HD 111605 as a spectroscopic binary) and stays rejected.",
+ "research_status": "Completed · per-campaign outcomes · all leads vetted",
  "license": "Apache-2.0",
  "citation": "Project Cygnus / Astraea, TESS single-transit queue tests (2026).",
  "related": [
@@ -139,11 +139,11 @@
    "kind": "campaign",
    "source": "campaigns/toi-1835-02.yaml",
    "title": "Known-object test, TOI-1835.02",
-   "description": "Known-object test on TOI-1835.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 20%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 589 threshold entries outside the known-signal veto across 2 light curve(s), forming 230 distinct event(s), 21 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458938.4279 (ΔT 0.54 d); 0 period aliases remain. Unverified lead until vetted.",
+   "description": "Known-object test on TOI-1835.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 20%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 589 threshold entries outside the known-signal veto across 2 light curve(s), forming 230 distinct event(s), 21 persistent in SAP and PDCSAP at two or more baselines.",
    "origin": "project",
    "download": true,
    "params": {
-    "status": "completed · lead (Unverified lead)"
+    "status": "completed · pipeline_check"
    }
   },
   {
@@ -439,11 +439,11 @@
    "kind": "campaign",
    "source": "campaigns/toi-225-01.yaml",
    "title": "Known-object test, TOI-225.01",
-   "description": "Known-object test on TOI-225.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 91 threshold entries outside the known-signal veto across 4 light curve(s), forming 38 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460909.5212 (ΔT 2554.40 d); 40 period aliases remain. Unverified lead until vetted.",
+   "description": "Known-object test on TOI-225.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 91 threshold entries outside the known-signal veto across 4 light curve(s), forming 38 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines.",
    "origin": "project",
    "download": true,
    "params": {
-    "status": "completed · lead (Unverified lead)"
+    "status": "completed · pipeline_check"
    }
   },
   {
@@ -1849,11 +1849,11 @@
    "kind": "campaign",
    "source": "campaigns/toi-6667-01.yaml",
    "title": "Known-object test, TOI-6667.01",
-   "description": "Known-object test on TOI-6667.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3, 3.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 93 threshold entries outside the known-signal veto across 6 light curve(s), forming 31 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461197.3537 (ΔT 2114.03 d); 29 period aliases remain. Unverified lead until vetted.",
+   "description": "Known-object test on TOI-6667.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3, 3.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 93 threshold entries outside the known-signal veto across 6 light curve(s), forming 31 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines.",
    "origin": "project",
    "download": true,
    "params": {
-    "status": "completed · lead (Unverified lead)"
+    "status": "completed · pipeline_check"
    }
   },
   {
@@ -2239,11 +2239,11 @@
    "kind": "campaign",
    "source": "campaigns/toi-7399-01.yaml",
    "title": "Known-object test, TOI-7399.01",
-   "description": "Known-object test on TOI-7399.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3.5, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 287 threshold entries outside the known-signal veto across 6 light curve(s), forming 119 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458842.6365 (ΔT 72.09 d); 0 period aliases remain. Unverified lead until vetted.",
+   "description": "Known-object test on TOI-7399.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3.5, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 287 threshold entries outside the known-signal veto across 6 light curve(s), forming 119 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines.",
    "origin": "project",
    "download": true,
    "params": {
-    "status": "completed · lead (Unverified lead)"
+    "status": "completed · pipeline_check"
    }
   },
   {
@@ -2269,11 +2269,11 @@
    "kind": "campaign",
    "source": "campaigns/toi-7857-01.yaml",
    "title": "Known-object test, TOI-7857.01",
-   "description": "Known-object test on TOI-7857.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 48 threshold entries outside the known-signal veto across 2 light curve(s), forming 9 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459800.0638 (ΔT 743.14 d); 34 period aliases remain. Unverified lead until vetted.",
+   "description": "Known-object test on TOI-7857.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 48 threshold entries outside the known-signal veto across 2 light curve(s), forming 9 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines.",
    "origin": "project",
    "download": true,
    "params": {
-    "status": "completed · lead (Unverified lead)"
+    "status": "completed · pipeline_check"
    }
   },
   {

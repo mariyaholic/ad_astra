@@ -1,0 +1,4050 @@
+{
+ "campaign_id": "toi-4543-01",
+ "target": "TOI-4543.01",
+ "tic": 435336785,
+ "events": [
+  {
+   "label": "E1",
+   "product": "tess2023263165758-s0070-0000000435336785-0265-s_lc.fits",
+   "sector": 70,
+   "camera": 4,
+   "ccd": 2,
+   "given_by_hand": false,
+   "screen_candidates": 1,
+   "screen_span_h": 0.0,
+   "max_aliases_allowed": 1,
+   "fit": {
+    "mid_bjd": 2460218.0192948086,
+    "duration_h": 3.6408000000000005,
+    "depth_ppm": 3407.715345433715,
+    "depth_err_ppm": 75.1466308508127,
+    "delta_chi2": 2056.399983958848,
+    "n_in": 109,
+    "vshape_index": 1.2855947058059631,
+    "sigma_ppm": 680.206372773053,
+    "weighted": {
+     "depth_ppm": 3408.0497854728715,
+     "depth_err_formal_ppm": 21.60255549666698,
+     "depth_err_scaled_ppm": 49.91611335072667,
+     "chi2_reduced": 5.339139467079343,
+     "scatter_over_quoted_error": 2.014965213402123,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "inconclusive",
+     "weighted depth 3408 \u00b1 50 ppm (\u03c7\u00b2\u03bd 5.34) vs unweighted 3408 \u00b1 75 ppm; residual scatter / quoted error 2.01; the pipeline errors do not describe the scatter"
+    ],
+    "Sibling TOI ephemerides": [
+     "failed",
+     "TOI-4543.01 (PC, P 5.7740 d, 4820 ppm) predicted -0.06 h \u00b1 0.01 h"
+    ],
+    "Shape matches reference transit": [
+     "passed",
+     "depth ratio 0.97 \u00b1 0.03, duration ratio 1.00 (box fits; duration grid step ~25%)"
+    ],
+    "Detrending alternatives": [
+     "passed",
+     "PDCSAP depth 3100\u20133410 ppm across 6 detrendings (box fit 3408); SAP poly2 3433 ppm"
+    ],
+    "Red-noise significance": [
+     "passed",
+     "box statistic at the event is 11.6 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.000"
+    ],
+    "Background / centroid / pointing": [
+     "passed",
+     "SAP_BKG +1.6\u03c3; MOM_CENTR1 +1.2\u03c3; MOM_CENTR2 -1.0\u03c3; POS_CORR1 +0.9\u03c3; POS_CORR2 -0.2\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "passed",
+     "109/109 usable in-transit cadences; flags within \u00b10.5 d: none; nearest momentum dump 78.2 h"
+    ],
+    "Gaia neighbours able to mimic the depth": [
+     "passed",
+     "0 Gaia source(s) G<17 within 52\u2033; 0 bright enough (\u0394G \u2264 6.17)"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S70 cam 4 CCD 2; 0 dip \u2265 4\u03c3 at the event"
+    ],
+    "Secondary eclipse (circular aliases)": [
+     "passed",
+     "phase 0.5 covered for 1 of 1 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 111 ppm"
+    ],
+    "Difference-image centroid": [
+     "passed",
+     "difference-image centroid 0.5\u2033 from the out-of-transit centroid (0.2\u03c3 bootstrap); 1.9\u2033 from the catalogue position; 95% of the deficit in the optimal aperture"
+    ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2460212.2481342778,
+    "delta_t_days": 5.771160530857742,
+    "n_aliases": 5,
+    "n_allowed": 1,
+    "allowed_periods_days": [
+     5.7712
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
+   },
+   "ephemerides": [
+    {
+     "toi": "4543.01",
+     "disposition": "PC",
+     "period_days": 5.7740318,
+     "depth_ppm": 4820.0,
+     "duration_h": 4.551,
+     "predicted_bjd": 2460218.0218368,
+     "offset_h": -0.0610077939927578,
+     "ephemeris_sigma_h": 0.014312091671031178,
+     "coincides": true
+    }
+   ],
+   "shape_vs_reference": {
+    "depth_ratio": 0.9685333814580944,
+    "depth_ratio_err": 0.030536320768645167,
+    "duration_ratio": 1.0,
+    "ref_vshape": 1.2802712240351743,
+    "event_vshape": 1.2855947058059631
+   },
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 3125.9313573554405,
+    "PDCSAP poly2": 3409.527528766457,
+    "PDCSAP poly3": 3409.5249641323753,
+    "PDCSAP median 0.5 d": 3247.564216893798,
+    "PDCSAP median 1 d": 3099.7522106859205,
+    "PDCSAP median 2 d": 3137.921103072668,
+    "SAP poly1": 3150.2212545371244,
+    "SAP poly2": 3433.18504560601,
+    "SAP poly3": 3433.182376649998,
+    "SAP median 0.5 d": 3253.841205851876,
+    "SAP median 1 d": 3124.7346579089153,
+    "SAP median 2 d": 3112.1699300465984
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": -0.00341032963862114,
+     "z": -11.559154861697898,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP": {
+     "event": -0.0034347311883218524,
+     "z": -10.490052432223706,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP_BKG": {
+     "event": 2.8179556448630545,
+     "z": 1.5892009402564677,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.20666666666666667
+    },
+    "MOM_CENTR1": {
+     "event": 0.00018953645647743877,
+     "z": 1.202704588750476,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.2966666666666667
+    },
+    "MOM_CENTR2": {
+     "event": -0.0001585761428420124,
+     "z": -1.0441650184899716,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.3333333333333333
+    },
+    "POS_CORR1": {
+     "event": 0.0001621007240397843,
+     "z": 0.9291986600634323,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.37
+    },
+    "POS_CORR2": {
+     "event": -5.0988398800109805e-05,
+     "z": -0.20078297552484584,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.8066666666666666
+    }
+   },
+   "quality": {
+    "flags_within_pad": {},
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 78.16871926188469,
+    "usable_in_box": 109,
+    "expected_in_box": 109
+   },
+   "gaia_neighbours": {
+    "state": "done",
+    "target_gaia": "41107205006988800",
+    "target_g": 7.5885453,
+    "radius_arcsec": 52.5,
+    "max_delta_g_for_depth": 6.17,
+    "neighbours": [],
+    "capable": [],
+    "g_limit_of_field": "G < 17 (explorer field); fainter blends not listed",
+    "source_file": "design-system/mockups/data/field_toi-4543-01.csv"
+   },
+   "neighbours": [
+    {
+     "product": "tess2023263165758-s0070-0000000435339558-0265-s_lc.fits",
+     "tic": "435339558",
+     "tmag": 11.22350025,
+     "sep_deg": 0.117,
+     "pdcsap_shift_ppm": -1.5444466490522084,
+     "pdcsap_z": -0.02404910252208407,
+     "sap_z": 0.381388480841559
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435332114-0265-s_lc.fits",
+     "tic": "435332114",
+     "tmag": 8.36408997,
+     "sep_deg": 0.365,
+     "pdcsap_shift_ppm": 38.92768400338097,
+     "pdcsap_z": 0.6059115125105647,
+     "sap_z": 0.2721560655819653
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435335988-0265-s_lc.fits",
+     "tic": "435335988",
+     "tmag": 9.53619957,
+     "sep_deg": 0.367,
+     "pdcsap_shift_ppm": -3343.7333225309094,
+     "pdcsap_z": -0.3427614172843795,
+     "sap_z": -0.2714300352671546
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435339661-0265-s_lc.fits",
+     "tic": "435339661",
+     "tmag": 10.03059959,
+     "sep_deg": 0.413,
+     "pdcsap_shift_ppm": -346.6730926747784,
+     "pdcsap_z": -0.835583623675107,
+     "sap_z": -0.7012404699786278
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435333192-0265-s_lc.fits",
+     "tic": "435333192",
+     "tmag": 5.87820005,
+     "sep_deg": 0.46,
+     "pdcsap_shift_ppm": 86.7571273004989,
+     "pdcsap_z": 1.2023497085822106,
+     "sap_z": 1.2564501305174784
+    }
+   ],
+   "secondary_red_noise_ppm": {
+    "70": 329.80221546757355,
+    "71": 301.11450554800035
+   },
+   "secondary_eclipse": [
+    {
+     "period_days": 5.771160530857742,
+     "n_epochs": 8,
+     "secondary_depth_ppm": -70.39124898961595,
+     "err_ppm": 111.1859010327022
+    }
+   ],
+   "difference_image": {
+    "state": "done",
+    "in_cadences": 87,
+    "flank_cadences": 330,
+    "diff_centroid_xy": [
+     4.678371563410709,
+     5.90454110265265
+    ],
+    "oot_centroid_xy": [
+     4.70167794483092,
+     5.8954158362034335
+    ],
+    "offset_from_target_pix": [
+     0.05045970234077757,
+     0.0742387300386067
+    ],
+    "offset_from_target_arcsec": 1.8850434036771313,
+    "bootstrap_sigma_pix": [
+     0.154039771793998,
+     0.0626765867973207
+    ],
+    "offset_over_sigma": 0.5397623894134135,
+    "offset_from_oot_centroid_pix": [
+     -0.023306381420211686,
+     0.009125266449216518
+    ],
+    "offset_from_oot_centroid_arcsec": 0.5256119624580962,
+    "oot_offset_over_sigma": 0.1505034675632584,
+    "fraction_of_positive_difference_in_optimal_aperture": 0.9547360059643099,
+    "peak_pixel": [
+     5,
+     6
+    ],
+    "image": [
+     [
+      -0.08278018665114217,
+      -0.17536767688658905,
+      0.15952181929196918,
+      0.006497009327848247,
+      0.07709628526775347,
+      0.3832028126710867,
+      0.02284017594323018,
+      -0.10850304158810786,
+      0.34815984245821063,
+      -0.06142950482080245,
+      0.07503862788101179
+     ],
+     [
+      0.07020064675587534,
+      -0.029028099996442513,
+      0.13684355209969112,
+      0.04832098619273495,
+      -0.024054775332643885,
+      0.41456009203032806,
+      -0.34986553107202667,
+      -0.24197558219678328,
+      -0.11973609499082194,
+      -0.031547755354374374,
+      -0.19532871446377342
+     ],
+     [
+      -0.2219433760000875,
+      -0.010497714132363,
+      -0.07366282591941342,
+      0.8764334254870505,
+      0.9321992161497974,
+      0.7010344462666467,
+      1.0708468747132827,
+      0.5012843988078686,
+      -0.007862637768258907,
+      0.23297236124705734,
+      -0.08586299875746306
+     ],
+     [
+      0.01749788112794093,
+      0.12062761823126777,
+      0.8021690808796507,
+      1.7224583537782792,
+      3.2521995540025728,
+      4.030401280322053,
+      2.3469248116878134,
+      1.265816178266789,
+      0.3205190608858999,
+      0.06896100286400753,
+      -0.014841455208841836
+     ],
+     [
+      0.2802846377629251,
+      0.6898120220423607,
+      1.839549536220943,
+      3.798319919355322,
+      16.386741621056444,
+      21.014848402559437,
+      13.184119575973,
+      3.195721490305232,
+      0.7567097395463236,
+      0.17928590910695164,
+      -0.18455331776207373
+     ],
+     [
+      -0.18523072962727838,
+      1.2886679284274578,
+      3.14083224943829,
+      12.964021508743826,
+      89.05336948027616,
+      135.30382443077542,
+      35.8821477712263,
+      8.494503701136637,
+      1.444954858279516,
+      0.28933139764313864,
+      0.1273782029766295
+     ],
+     [
+      0.3351890101563555,
+      1.2099907108702723,
+      4.145480312417817,
+      20.621384050073175,
+      251.51020197022444,
+      264.04731442693446,
+      51.48485693265502,
+      7.612015317724399,
+      1.4027554466985634,
+      0.18175022796427243,
+      -0.04698984721884614
+     ],
+     [
+      0.28552386160873766,
+      1.5578175992142747,
+      4.38572599851193,
+      21.682815506666884,
+      83.23003664585849,
+      65.11338636801156,
+      17.128729168689006,
+      4.574640742522547,
+      1.6090188820825801,
+      -0.07413925578707392,
+      -0.02172386996608111
+     ],
+     [
+      0.38403309642748695,
+      1.293165622707221,
+      3.3277520128141305,
+      8.393242241857024,
+      7.693380320663664,
+      7.578245555510421,
+      3.8827220171035606,
+      1.676836308219606,
+      1.015444885682598,
+      -0.08672432505521499,
+      0.25936329788314083
+     ],
+     [
+      -0.12262235616471173,
+      0.45292989365376,
+      1.6621771183791338,
+      3.0025037618345323,
+      2.3779554882356706,
+      2.693115381405505,
+      1.6728556174509208,
+      1.2287626991035268,
+      0.6773712312425317,
+      0.2068319446708955,
+      -0.25359152421989073
+     ],
+     [
+      0.11679493243733408,
+      0.09247246257278618,
+      0.5773371092016646,
+      0.771153298660721,
+      0.6887471570169055,
+      1.0509714323738422,
+      0.6997250114653184,
+      0.4251925515281698,
+      0.11379859848509,
+      0.2802656690145966,
+      -0.03914567418920001
+     ],
+     [
+      -0.2959224270979994,
+      0.01194350954994583,
+      0.045357916948582044,
+      0.16453897060233658,
+      0.30541925206618714,
+      0.5503417264873605,
+      0.4581462977712363,
+      0.14090616730946692,
+      0.237582480514817,
+      0.18325353199925232,
+      0.15286299924867475
+     ],
+     [
+      0.030829018243971884,
+      -0.05917814969421187,
+      0.04990625246581715,
+      0.084556682899672,
+      -0.050037312658036015,
+      0.21493625929449323,
+      0.06433839721582402,
+      0.038310363605079445,
+      -0.20233097160057945,
+      -0.04364646604787392,
+      -0.018969901644294296
+     ]
+    ],
+    "target_pixel_xy": [
+     4.627911861069931,
+     5.830302372614043
+    ],
+    "aperture": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "joint_periods_days": [
+    5.7712
+   ]
+  },
+  {
+   "label": "E2",
+   "product": "tess2023263165758-s0070-0000000435336785-0265-s_lc.fits",
+   "sector": 70,
+   "camera": 4,
+   "ccd": 2,
+   "given_by_hand": false,
+   "screen_candidates": 1,
+   "screen_span_h": 0.0,
+   "max_aliases_allowed": 2,
+   "fit": {
+    "mid_bjd": 2460223.7946929266,
+    "duration_h": 3.6408000000000005,
+    "depth_ppm": 3803.6412871213383,
+    "depth_err_ppm": 82.36357004191608,
+    "delta_chi2": 2132.6951440157654,
+    "n_in": 109,
+    "vshape_index": 1.170918697427661,
+    "sigma_ppm": 745.5320958333319,
+    "weighted": {
+     "depth_ppm": 3803.9076991195284,
+     "depth_err_formal_ppm": 21.582176412463507,
+     "depth_err_scaled_ppm": 50.792249899412816,
+     "chi2_reduced": 5.538656420079207,
+     "scatter_over_quoted_error": 2.127388624541179,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "inconclusive",
+     "weighted depth 3804 \u00b1 51 ppm (\u03c7\u00b2\u03bd 5.54) vs unweighted 3804 \u00b1 82 ppm; residual scatter / quoted error 2.13; the pipeline errors do not describe the scatter"
+    ],
+    "Sibling TOI ephemerides": [
+     "failed",
+     "TOI-4543.01 (PC, P 5.7740 d, 4820 ppm) predicted -0.03 h \u00b1 0.01 h"
+    ],
+    "Shape matches reference transit": [
+     "passed",
+     "depth ratio 1.08 \u00b1 0.03, duration ratio 1.00 (box fits; duration grid step ~25%)"
+    ],
+    "Detrending alternatives": [
+     "passed",
+     "PDCSAP depth 3524\u20133802 ppm across 6 detrendings (box fit 3804); SAP poly2 3778 ppm"
+    ],
+    "Red-noise significance": [
+     "passed",
+     "box statistic at the event is 12.4 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.000"
+    ],
+    "Background / centroid / pointing": [
+     "passed",
+     "SAP_BKG -1.7\u03c3; MOM_CENTR1 +1.2\u03c3; MOM_CENTR2 +0.1\u03c3; POS_CORR1 +0.8\u03c3; POS_CORR2 +0.4\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "passed",
+     "109/109 usable in-transit cadences; flags within \u00b10.5 d: none; nearest momentum dump 58.8 h"
+    ],
+    "Gaia neighbours able to mimic the depth": [
+     "passed",
+     "0 Gaia source(s) G<17 within 52\u2033; 0 bright enough (\u0394G \u2264 6.05)"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S70 cam 4 CCD 2; 0 dip \u2265 4\u03c3 at the event"
+    ],
+    "Secondary eclipse (circular aliases)": [
+     "passed",
+     "phase 0.5 covered for 1 of 2 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 111 ppm"
+    ],
+    "Difference-image centroid": [
+     "passed",
+     "difference-image centroid 0.7\u2033 from the out-of-transit centroid (0.2\u03c3 bootstrap); 1.9\u2033 from the catalogue position; 96% of the deficit in the optimal aperture"
+    ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2460212.2481342778,
+    "delta_t_days": 11.546558648813516,
+    "n_aliases": 11,
+    "n_allowed": 2,
+    "allowed_periods_days": [
+     11.5466,
+     5.7733
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
+   },
+   "ephemerides": [
+    {
+     "toi": "4543.01",
+     "disposition": "PC",
+     "period_days": 5.7740318,
+     "depth_ppm": 4820.0,
+     "duration_h": 4.551,
+     "predicted_bjd": 2460223.7958686,
+     "offset_h": -0.028216157108545303,
+     "ephemeris_sigma_h": 0.014549721646821976,
+     "coincides": true
+    }
+   ],
+   "shape_vs_reference": {
+    "depth_ratio": 1.0810625842342403,
+    "depth_ratio_err": 0.03378462230691568,
+    "duration_ratio": 1.0,
+    "ref_vshape": 1.2802712240351743,
+    "event_vshape": 1.170918697427661
+   },
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 3653.520723214629,
+    "PDCSAP poly2": 3802.263840760878,
+    "PDCSAP poly3": 3802.2631167309623,
+    "PDCSAP median 0.5 d": 3591.4256712374813,
+    "PDCSAP median 1 d": 3659.874043950485,
+    "PDCSAP median 2 d": 3523.877649146433,
+    "SAP poly1": 3668.5453416672067,
+    "SAP poly2": 3778.476773309233,
+    "SAP poly3": 3778.476100377983,
+    "SAP median 0.5 d": 3580.4936963831865,
+    "SAP median 1 d": 3639.4980851169116,
+    "SAP median 2 d": 3528.080567106021
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": -0.00380314129549356,
+     "z": -12.443817131104323,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP": {
+     "event": -0.0037789102607437624,
+     "z": -10.759602972675061,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP_BKG": {
+     "event": -3.0361598610709843,
+     "z": -1.696537664312726,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.20666666666666667
+    },
+    "MOM_CENTR1": {
+     "event": 0.00017057221661591462,
+     "z": 1.2220176285837316,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.3233333333333333
+    },
+    "MOM_CENTR2": {
+     "event": -2.044960490678965e-05,
+     "z": 0.05599974205648996,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.9366666666666666
+    },
+    "POS_CORR1": {
+     "event": 0.00012275262214434402,
+     "z": 0.8220762007312293,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.4033333333333333
+    },
+    "POS_CORR2": {
+     "event": 6.065338966982224e-05,
+     "z": 0.43737373349041586,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.64
+    }
+   },
+   "quality": {
+    "flags_within_pad": {},
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 58.8004451058805,
+    "usable_in_box": 109,
+    "expected_in_box": 109
+   },
+   "gaia_neighbours": {
+    "state": "done",
+    "target_gaia": "41107205006988800",
+    "target_g": 7.5885453,
+    "radius_arcsec": 52.5,
+    "max_delta_g_for_depth": 6.05,
+    "neighbours": [],
+    "capable": [],
+    "g_limit_of_field": "G < 17 (explorer field); fainter blends not listed",
+    "source_file": "design-system/mockups/data/field_toi-4543-01.csv"
+   },
+   "neighbours": [
+    {
+     "product": "tess2023263165758-s0070-0000000435339558-0265-s_lc.fits",
+     "tic": "435339558",
+     "tmag": 11.22350025,
+     "sep_deg": 0.117,
+     "pdcsap_shift_ppm": -189.30844770701077,
+     "pdcsap_z": -0.6773587087026602,
+     "sap_z": 0.24631063130141279
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435332114-0265-s_lc.fits",
+     "tic": "435332114",
+     "tmag": 8.36408997,
+     "sep_deg": 0.365,
+     "pdcsap_shift_ppm": 10.933180581673899,
+     "pdcsap_z": 0.15657873587649804,
+     "sap_z": 0.696633771352285
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435335988-0265-s_lc.fits",
+     "tic": "435335988",
+     "tmag": 9.53619957,
+     "sep_deg": 0.367,
+     "pdcsap_shift_ppm": 8734.04983590035,
+     "pdcsap_z": 0.9426767326689257,
+     "sap_z": 0.9515677682618388
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435339661-0265-s_lc.fits",
+     "tic": "435339661",
+     "tmag": 10.03059959,
+     "sep_deg": 0.413,
+     "pdcsap_shift_ppm": 391.8301390929759,
+     "pdcsap_z": 0.8273631235965532,
+     "sap_z": 0.5131482042224944
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435333192-0265-s_lc.fits",
+     "tic": "435333192",
+     "tmag": 5.87820005,
+     "sep_deg": 0.46,
+     "pdcsap_shift_ppm": -71.72314796308429,
+     "pdcsap_z": -1.17478563987917,
+     "sap_z": -0.6934237540399549
+    }
+   ],
+   "secondary_red_noise_ppm": {
+    "70": 329.80221546757355,
+    "71": 301.11450554800035
+   },
+   "secondary_eclipse": [
+    {
+     "period_days": 5.773279324406758,
+     "n_epochs": 8,
+     "secondary_depth_ppm": -70.76627437075597,
+     "err_ppm": 111.1859010327022
+    }
+   ],
+   "difference_image": {
+    "state": "done",
+    "in_cadences": 87,
+    "flank_cadences": 330,
+    "diff_centroid_xy": [
+     4.707022351316965,
+     5.872737337364674
+    ],
+    "oot_centroid_xy": [
+     4.721639996403432,
+     5.900037589908567
+    ],
+    "offset_from_target_pix": [
+     0.0791104902470341,
+     0.04243496475063058
+    ],
+    "offset_from_target_arcsec": 1.885233511299431,
+    "bootstrap_sigma_pix": [
+     0.15167533073290487,
+     0.06723948827279348
+    ],
+    "offset_over_sigma": 0.5410905228467181,
+    "offset_from_oot_centroid_pix": [
+     -0.014617645086467235,
+     -0.02730025254389279
+    ],
+    "offset_from_oot_centroid_arcsec": 0.6503152216763051,
+    "oot_offset_over_sigma": 0.18665030151594966,
+    "fraction_of_positive_difference_in_optimal_aperture": 0.956796892023191,
+    "peak_pixel": [
+     5,
+     6
+    ],
+    "image": [
+     [
+      0.05513543359117534,
+      0.08801679374055915,
+      0.1092964637212237,
+      -0.26735651271684624,
+      0.0459678953392757,
+      0.05367081929225037,
+      0.11181689998099387,
+      0.10956556890627311,
+      0.13171318336074922,
+      -0.17490536774926602,
+      -0.08267080814163696
+     ],
+     [
+      0.0945954986258144,
+      0.08581945633517485,
+      0.3187912399104622,
+      0.08926867798343352,
+      -0.053180793908794044,
+      0.13229529908409177,
+      0.4259335624286962,
+      0.041515084597119056,
+      -0.17747829431780282,
+      0.22007179392929288,
+      0.13515754113277723
+     ],
+     [
+      -0.16358310531733355,
+      0.30971853554118667,
+      -0.23238453344011134,
+      0.4099431571795691,
+      0.7383028526715236,
+      1.3433166586563061,
+      0.7753475177979396,
+      0.3900105288538782,
+      -0.22744919763617588,
+      -0.21591085743836658,
+      -0.19834577829492162
+     ],
+     [
+      -0.30808060152669725,
+      -0.006670208777322273,
+      0.6632478452152668,
+      1.5402983951316855,
+      2.8038752117431613,
+      4.885930617440749,
+      3.4814745418789244,
+      1.696208303957178,
+      0.41282869931551147,
+      0.27955874344150544,
+      0.10408449934072905
+     ],
+     [
+      0.4125460687168925,
+      0.5056362332748847,
+      1.2438692235313624,
+      5.035000843755256,
+      16.63976522539133,
+      25.723540377970494,
+      16.73291025814524,
+      4.807757422271493,
+      0.47489273712449176,
+      0.15170691402181546,
+      -0.34149079736302923
+     ],
+     [
+      0.056755477785245034,
+      1.0253473764963132,
+      3.1349676498093686,
+      13.046642614147913,
+      90.81329501393338,
+      170.04200015891547,
+      47.148309038353545,
+      9.762929389261899,
+      1.9493930465449125,
+      0.8084154183921441,
+      0.3148371061209474
+     ],
+     [
+      0.17000528609871424,
+      1.2793079179573397,
+      3.0925343403225725,
+      22.40935400181479,
+      252.38140466631012,
+      271.1518962060218,
+      54.888043103479504,
+      8.50365289325282,
+      1.7191647600737383,
+      0.6625852390157974,
+      -0.18954377669263067
+     ],
+     [
+      0.39714914249886135,
+      1.1997707530134676,
+      4.036816639026256,
+      22.809461630310125,
+      87.05367506702169,
+      68.32671778609438,
+      17.77783508127959,
+      3.839619476729581,
+      1.7054486298906113,
+      0.2923773304832764,
+      0.11354142372831433
+     ],
+     [
+      0.12072864218725954,
+      1.1349255113796914,
+      3.3704504672060693,
+      9.12570265934096,
+      8.870965474386821,
+      7.975814857743671,
+      4.6586695268837275,
+      2.2235017603190954,
+      0.8438672700632992,
+      -0.00014306642000860847,
+      -0.08789990055026564
+     ],
+     [
+      -0.10980913413179749,
+      0.3561348056442455,
+      1.8630506437324357,
+      2.83728173160398,
+      3.101191500490245,
+      2.336400525823251,
+      1.797310866956252,
+      1.1260724901878802,
+      0.26673763356063773,
+      -0.1495102664578951,
+      -0.08338969212026903
+     ],
+     [
+      0.2817124113239666,
+      0.22863993563952079,
+      0.29232926497314793,
+      1.043477720325427,
+      1.0767328317841418,
+      1.4982173640314045,
+      0.6167357562252676,
+      0.7883730382581149,
+      0.05449296049386021,
+      0.0763846166340727,
+      0.043468177315258316
+     ],
+     [
+      -0.18961566146928693,
+      -0.009512653296258833,
+      0.08727696907178029,
+      -0.03835467710126039,
+      0.14786687570297374,
+      0.5447435248078705,
+      -0.03845850299394726,
+      0.11854015046468191,
+      0.028243386064730203,
+      -0.01150536883638864,
+      -0.18001329546873768
+     ],
+     [
+      -0.15729507582271096,
+      0.03770564961923739,
+      -0.3818152159498318,
+      -0.06616552977425094,
+      0.1429352938229691,
+      -0.1320921489825686,
+      -0.11319361373670134,
+      -0.405655813813631,
+      -0.20207824833227805,
+      -0.09430109874656556,
+      0.010987728091072624
+     ]
+    ],
+    "target_pixel_xy": [
+     4.627911861069931,
+     5.830302372614043
+    ],
+    "aperture": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "joint_periods_days": [
+    5.7733
+   ]
+  },
+  {
+   "label": "E3",
+   "product": "tess2023263165758-s0070-0000000435336785-0265-s_lc.fits",
+   "sector": 70,
+   "camera": 4,
+   "ccd": 2,
+   "given_by_hand": false,
+   "screen_candidates": 1,
+   "screen_span_h": 0.0,
+   "max_aliases_allowed": 2,
+   "fit": {
+    "mid_bjd": 2460229.5756198657,
+    "duration_h": 3.6408000000000005,
+    "depth_ppm": 3384.84821976249,
+    "depth_err_ppm": 72.32214643605876,
+    "delta_chi2": 2190.462307526526,
+    "n_in": 109,
+    "vshape_index": 1.283546604135723,
+    "sigma_ppm": 654.5398384296775,
+    "weighted": {
+     "depth_ppm": 3385.090557173938,
+     "depth_err_formal_ppm": 21.567338526328843,
+     "depth_err_scaled_ppm": 48.54858454112423,
+     "chi2_reduced": 5.067106523242649,
+     "scatter_over_quoted_error": 1.9422528708974225,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "inconclusive",
+     "weighted depth 3385 \u00b1 49 ppm (\u03c7\u00b2\u03bd 5.07) vs unweighted 3385 \u00b1 72 ppm; residual scatter / quoted error 1.94; the pipeline errors do not describe the scatter"
+    ],
+    "Sibling TOI ephemerides": [
+     "failed",
+     "TOI-4543.01 (PC, P 5.7740 d, 4820 ppm) predicted +0.14 h \u00b1 0.01 h"
+    ],
+    "Shape matches reference transit": [
+     "passed",
+     "depth ratio 0.96 \u00b1 0.03, duration ratio 1.00 (box fits; duration grid step ~25%)"
+    ],
+    "Detrending alternatives": [
+     "passed",
+     "PDCSAP depth 3044\u20133802 ppm across 6 detrendings (box fit 3385); SAP poly2 3383 ppm"
+    ],
+    "Red-noise significance": [
+     "passed",
+     "box statistic at the event is 12.3 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.007"
+    ],
+    "Background / centroid / pointing": [
+     "passed",
+     "SAP_BKG -1.1\u03c3; MOM_CENTR1 -0.2\u03c3; MOM_CENTR2 -0.4\u03c3; POS_CORR1 -0.2\u03c3; POS_CORR2 +0.4\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "passed",
+     "109/109 usable in-transit cadences; flags within \u00b10.5 d: none; nearest momentum dump 46.0 h"
+    ],
+    "Gaia neighbours able to mimic the depth": [
+     "passed",
+     "0 Gaia source(s) G<17 within 52\u2033; 0 bright enough (\u0394G \u2264 6.18)"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S70 cam 4 CCD 2; 0 dip \u2265 4\u03c3 at the event"
+    ],
+    "Secondary eclipse (circular aliases)": [
+     "passed",
+     "phase 0.5 covered for 2 of 2 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 162 ppm"
+    ],
+    "Difference-image centroid": [
+     "passed",
+     "difference-image centroid 1.0\u2033 from the out-of-transit centroid (0.5\u03c3 bootstrap); 4.0\u2033 from the catalogue position; 95% of the deficit in the optimal aperture"
+    ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2460212.2481342778,
+    "delta_t_days": 17.327485587913543,
+    "n_aliases": 17,
+    "n_allowed": 2,
+    "allowed_periods_days": [
+     17.3275,
+     5.7758
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
+   },
+   "ephemerides": [
+    {
+     "toi": "4543.01",
+     "disposition": "PC",
+     "period_days": 5.7740318,
+     "depth_ppm": 4820.0,
+     "duration_h": 4.551,
+     "predicted_bjd": 2460229.5699004,
+     "offset_h": 0.13726717606186867,
+     "ephemeris_sigma_h": 0.014937373263060678,
+     "coincides": true
+    }
+   ],
+   "shape_vs_reference": {
+    "depth_ratio": 0.9620341371534737,
+    "depth_ratio_err": 0.029873890412160577,
+    "duration_ratio": 1.0,
+    "ref_vshape": 1.2802712240351743,
+    "event_vshape": 1.283546604135723
+   },
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 3715.213219495358,
+    "PDCSAP poly2": 3387.037157704128,
+    "PDCSAP poly3": 3387.0358164223453,
+    "PDCSAP median 0.5 d": 3044.084154409721,
+    "PDCSAP median 1 d": 3503.2801047679327,
+    "PDCSAP median 2 d": 3801.533394435142,
+    "SAP poly1": 3738.203561929828,
+    "SAP poly2": 3382.8213955746846,
+    "SAP poly3": 3382.8196803866117,
+    "SAP median 0.5 d": 3059.9944904159925,
+    "SAP median 1 d": 3532.386220388779,
+    "SAP median 2 d": 3843.5460707609013
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": -0.0033852460136379525,
+     "z": -12.261080338467078,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.006666666666666667
+    },
+    "SAP": {
+     "event": -0.003377191961083506,
+     "z": -10.989657808276496,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.006666666666666667
+    },
+    "SAP_BKG": {
+     "event": -2.2650219864841397,
+     "z": -1.1401468878093468,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.2966666666666667
+    },
+    "MOM_CENTR1": {
+     "event": -2.3585276166985075e-05,
+     "z": -0.22283616482762095,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.82
+    },
+    "MOM_CENTR2": {
+     "event": -5.0336246068507015e-05,
+     "z": -0.3607636083567097,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.6933333333333334
+    },
+    "POS_CORR1": {
+     "event": -3.131022988989661e-05,
+     "z": -0.2445147944857772,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.7966666666666666
+    },
+    "POS_CORR2": {
+     "event": 6.1089777502014e-05,
+     "z": 0.3683895567576424,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.67
+    }
+   },
+   "quality": {
+    "flags_within_pad": {},
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 45.9990318864584,
+    "usable_in_box": 109,
+    "expected_in_box": 109
+   },
+   "gaia_neighbours": {
+    "state": "done",
+    "target_gaia": "41107205006988800",
+    "target_g": 7.5885453,
+    "radius_arcsec": 52.5,
+    "max_delta_g_for_depth": 6.18,
+    "neighbours": [],
+    "capable": [],
+    "g_limit_of_field": "G < 17 (explorer field); fainter blends not listed",
+    "source_file": "design-system/mockups/data/field_toi-4543-01.csv"
+   },
+   "neighbours": [
+    {
+     "product": "tess2023263165758-s0070-0000000435339558-0265-s_lc.fits",
+     "tic": "435339558",
+     "tmag": 11.22350025,
+     "sep_deg": 0.117,
+     "pdcsap_shift_ppm": 32.971239094166364,
+     "pdcsap_z": 0.08874122449910876,
+     "sap_z": 0.5691363094193462
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435332114-0265-s_lc.fits",
+     "tic": "435332114",
+     "tmag": 8.36408997,
+     "sep_deg": 0.365,
+     "pdcsap_shift_ppm": -102.63033265842638,
+     "pdcsap_z": -1.613998496351986,
+     "sap_z": -1.1590645887230902
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435335988-0265-s_lc.fits",
+     "tic": "435335988",
+     "tmag": 9.53619957,
+     "sep_deg": 0.367,
+     "pdcsap_shift_ppm": -7088.770273032482,
+     "pdcsap_z": -0.8236539858427855,
+     "sap_z": -0.7870449891543461
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435339661-0265-s_lc.fits",
+     "tic": "435339661",
+     "tmag": 10.03059959,
+     "sep_deg": 0.413,
+     "pdcsap_shift_ppm": 576.5911113436524,
+     "pdcsap_z": 1.2778478413607637,
+     "sap_z": 0.964193901376217
+    },
+    {
+     "product": "tess2023263165758-s0070-0000000435333192-0265-s_lc.fits",
+     "tic": "435333192",
+     "tmag": 5.87820005,
+     "sep_deg": 0.46,
+     "pdcsap_shift_ppm": -1.7059222762275195,
+     "pdcsap_z": -0.06371140517911536,
+     "sap_z": 0.015433288901201641
+    }
+   ],
+   "secondary_red_noise_ppm": {
+    "70": 329.80221546757355,
+    "71": 301.11450554800035
+   },
+   "secondary_eclipse": [
+    {
+     "period_days": 17.327485587913543,
+     "n_epochs": 2,
+     "secondary_depth_ppm": 113.49011186575953,
+     "err_ppm": 212.92010878662532
+    },
+    {
+     "period_days": 5.775828529304515,
+     "n_epochs": 8,
+     "secondary_depth_ppm": -65.01207047507664,
+     "err_ppm": 111.1859010327022
+    }
+   ],
+   "difference_image": {
+    "state": "done",
+    "in_cadences": 87,
+    "flank_cadences": 330,
+    "diff_centroid_xy": [
+     4.738763140590625,
+     5.9871682313034595
+    ],
+    "oot_centroid_xy": [
+     4.704704484445852,
+     6.017839602025885
+    ],
+    "offset_from_target_pix": [
+     0.11085127952069396,
+     0.15686585868941627
+    ],
+    "offset_from_target_arcsec": 4.033689697168169,
+    "bootstrap_sigma_pix": [
+     0.08308946774795246,
+     0.04619822368719416
+    ],
+    "offset_over_sigma": 2.020429805256068,
+    "offset_from_oot_centroid_pix": [
+     0.0340586561447731,
+     -0.030671370722425095
+    ],
+    "offset_from_oot_centroid_arcsec": 0.9625070092252439,
+    "oot_offset_over_sigma": 0.4821089362852604,
+    "fraction_of_positive_difference_in_optimal_aperture": 0.9539252821024559,
+    "peak_pixel": [
+     5,
+     6
+    ],
+    "image": [
+     [
+      0.25008204693988745,
+      -0.1349410447236341,
+      0.15998070248250507,
+      -0.16045249833862485,
+      -0.0007804574836374201,
+      -0.00837434582184926,
+      -0.029958696106476168,
+      -0.224358003089149,
+      0.015679172705640454,
+      -0.008284354124694637,
+      0.05088280675627832
+     ],
+     [
+      0.16499854041422068,
+      -0.19109368566381324,
+      -0.10514426399279575,
+      0.12092025458311184,
+      0.06721935037977289,
+      0.18015500575413057,
+      0.08350888884801577,
+      0.0007912867726851402,
+      -0.49888134453629895,
+      0.1346429308838104,
+      -0.15663719199213233
+     ],
+     [
+      0.1885874972656878,
+      -0.08193408793300172,
+      0.47579787740516366,
+      0.4279242568817665,
+      0.2705707127254726,
+      0.9352890054777276,
+      0.5421241203519003,
+      0.14587973483460814,
+      0.09234937623865136,
+      -0.09455419313506752,
+      -0.0073011483993745685
+     ],
+     [
+      0.1091222939026899,
+      -0.03789839900598224,
+      1.0230242202237605,
+      1.2526173255097888,
+      2.4367651145240075,
+      4.08747342164645,
+      2.8109516949031104,
+      0.608532799111174,
+      0.024764747219521155,
+      0.20903407005308594,
+      -0.08788626507757868
+     ],
+     [
+      0.44655116666735495,
+      0.6442494027474197,
+      1.8196110926008942,
+      3.791461686172738,
+      11.642416937027065,
+      17.824530498633067,
+      12.347120882029685,
+      3.594092828317116,
+      0.758611232186837,
+      0.1744718952881925,
+      0.17686146205483055
+     ],
+     [
+      0.7229544265852468,
+      1.212971956763056,
+      2.817541395011517,
+      10.822987953756183,
+      64.17513649480316,
+      111.16267574202357,
+      40.4625991982939,
+      8.764859625947793,
+      2.1939117541868995,
+      0.1098331453637087,
+      0.19342331245383093
+     ],
+     [
+      0.41723890832328436,
+      1.3707913851056333,
+      3.74045075694994,
+      20.096124815457642,
+      231.64520479115163,
+      290.0036966066982,
+      59.61572597951272,
+      10.917512320385867,
+      1.7975974799049936,
+      0.31077301825561676,
+      -0.049095356588509276
+     ],
+     [
+      0.40724303747391843,
+      1.3423155330931422,
+      3.668410388674033,
+      21.025890637949487,
+      88.15369004694367,
+      92.16436661566331,
+      22.65015935765132,
+      4.9735139135596,
+      1.257003982883873,
+      0.17384855711117098,
+      -0.12932261205660822
+     ],
+     [
+      0.1972685828483307,
+      1.8354604900189884,
+      4.127115724345458,
+      9.66127568399861,
+      9.693688196681705,
+      8.38026563194444,
+      4.416204313613434,
+      2.340076849773766,
+      1.3432769463608452,
+      0.3600137655081852,
+      0.08236463110797843
+     ],
+     [
+      0.24779088233380975,
+      0.5536296852537816,
+      2.0746718538238724,
+      3.136514549306412,
+      2.548368896929901,
+      2.603693060265414,
+      1.981757331895892,
+      1.005800140893541,
+      0.578974065485653,
+      0.00874370534458535,
+      0.15092607222253562
+     ],
+     [
+      0.07580940944813097,
+      -0.2225092912833091,
+      0.740500222593397,
+      0.7078862147521363,
+      1.2748353824371748,
+      0.8021805993536759,
+      0.7662417540417721,
+      0.4814288175178376,
+      0.10570537517938305,
+      0.08520842230471715,
+      0.02960469419167744
+     ],
+     [
+      -0.04934213523655284,
+      0.09489460627193758,
+      0.2091818081071395,
+      0.20096183512715982,
+      0.2957426404524597,
+      0.48913925942083836,
+      0.3071414018051968,
+      0.3898376857129051,
+      0.004470165201908571,
+      -0.13226985924453416,
+      0.19511225183933956
+     ],
+     [
+      -0.05278702481424791,
+      -0.030944219727533806,
+      -0.10177907172148082,
+      -0.19422023955088008,
+      -0.22035801443410818,
+      0.12495567211396974,
+      0.03362400210428973,
+      0.04528912481343106,
+      -0.19326518179847785,
+      -0.26430894636551727,
+      -0.15840538832799855
+     ]
+    ],
+    "target_pixel_xy": [
+     4.627911861069931,
+     5.830302372614043
+    ],
+    "aperture": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "joint_periods_days": [
+    5.7758
+   ]
+  },
+  {
+   "label": "E4",
+   "product": "tess2023289093419-s0071-0000000435336785-0266-s_lc.fits",
+   "sector": 71,
+   "camera": 2,
+   "ccd": 4,
+   "given_by_hand": false,
+   "screen_candidates": 1,
+   "screen_span_h": 0.0,
+   "max_aliases_allowed": 2,
+   "fit": {
+    "mid_bjd": 2460241.1213531643,
+    "duration_h": 3.6408000000000005,
+    "depth_ppm": 3998.0230831746208,
+    "depth_err_ppm": 87.78884095812764,
+    "delta_chi2": 2074.015339006785,
+    "n_in": 109,
+    "vshape_index": 1.2330010306238586,
+    "sigma_ppm": 791.8465367517041,
+    "weighted": {
+     "depth_ppm": 3998.390220359282,
+     "depth_err_formal_ppm": 22.041719465975987,
+     "depth_err_scaled_ppm": 51.52238069610315,
+     "chi2_reduced": 5.463876862699544,
+     "scatter_over_quoted_error": 1.7586566255743015,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "inconclusive",
+     "weighted depth 3998 \u00b1 52 ppm (\u03c7\u00b2\u03bd 5.46) vs unweighted 3998 \u00b1 88 ppm; residual scatter / quoted error 1.76; the pipeline errors do not describe the scatter"
+    ],
+    "Sibling TOI ephemerides": [
+     "failed",
+     "TOI-4543.01 (PC, P 5.7740 d, 4820 ppm) predicted +0.08 h \u00b1 0.02 h"
+    ],
+    "Shape matches reference transit": [
+     "passed",
+     "depth ratio 1.14 \u00b1 0.04, duration ratio 1.00 (box fits; duration grid step ~25%)"
+    ],
+    "Detrending alternatives": [
+     "passed",
+     "PDCSAP depth 3840\u20134032 ppm across 6 detrendings (box fit 3998); SAP poly2 3988 ppm"
+    ],
+    "Red-noise significance": [
+     "passed",
+     "box statistic at the event is 12.7 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.003"
+    ],
+    "Background / centroid / pointing": [
+     "failed",
+     "SAP_BKG -1.4\u03c3; MOM_CENTR1 -5.1\u03c3; MOM_CENTR2 -24.0\u03c3; POS_CORR1 -5.8\u03c3; POS_CORR2 -24.8\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "inconclusive",
+     "109/109 usable in-transit cadences; flags within \u00b10.5 d: {'momentum dump': 4, 'manual exclude': 1}; nearest momentum dump 9.8 h"
+    ],
+    "Gaia neighbours able to mimic the depth": [
+     "passed",
+     "0 Gaia source(s) G<17 within 52\u2033; 0 bright enough (\u0394G \u2264 6.0)"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S71 cam 2 CCD 4; 0 dip \u2265 4\u03c3 at the event"
+    ],
+    "Secondary eclipse (circular aliases)": [
+     "passed",
+     "phase 0.5 covered for 2 of 2 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 167 ppm"
+    ],
+    "Difference-image centroid": [
+     "passed",
+     "difference-image centroid 0.6\u2033 from the out-of-transit centroid (0.5\u03c3 bootstrap); 4.4\u2033 from the catalogue position; 96% of the deficit in the optimal aperture"
+    ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2460212.2481342778,
+    "delta_t_days": 28.87321888655424,
+    "n_aliases": 28,
+    "n_allowed": 2,
+    "allowed_periods_days": [
+     28.8732,
+     5.7746
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
+   },
+   "ephemerides": [
+    {
+     "toi": "4543.01",
+     "disposition": "PC",
+     "period_days": 5.7740318,
+     "depth_ppm": 4820.0,
+     "duration_h": 4.551,
+     "predicted_bjd": 2460241.117964,
+     "offset_h": 0.08133994415402412,
+     "ephemeris_sigma_h": 0.016115316441199658,
+     "coincides": true
+    }
+   ],
+   "shape_vs_reference": {
+    "depth_ratio": 1.1363093519778125,
+    "depth_ratio_err": 0.035751525446288554,
+    "duration_ratio": 1.0,
+    "ref_vshape": 1.2802712240351743,
+    "event_vshape": 1.2330010306238586
+   },
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 4031.786011104246,
+    "PDCSAP poly2": 3998.751400860748,
+    "PDCSAP poly3": 4007.6452178825216,
+    "PDCSAP median 0.5 d": 3839.6155988315913,
+    "PDCSAP median 1 d": 3898.7498636435894,
+    "PDCSAP median 2 d": 3930.462689742024,
+    "SAP poly1": 3912.100490209035,
+    "SAP poly2": 3988.3967197894353,
+    "SAP poly3": 4000.466107602498,
+    "SAP median 0.5 d": 3712.2126473266026,
+    "SAP median 1 d": 3820.9965384763923,
+    "SAP median 2 d": 3730.0199030014915
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": -0.003999591332568411,
+     "z": -12.657823113198782,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0033333333333333335
+    },
+    "SAP": {
+     "event": -0.003992387901276867,
+     "z": -12.805648121779305,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0033333333333333335
+    },
+    "SAP_BKG": {
+     "event": -3.3434846321696394,
+     "z": -1.4485830446693124,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.2833333333333333
+    },
+    "MOM_CENTR1": {
+     "event": -0.0008621773931485923,
+     "z": -5.087111930794677,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.02666666666666667
+    },
+    "MOM_CENTR2": {
+     "event": -0.0053919248239269295,
+     "z": -24.01652598482314,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.01
+    },
+    "POS_CORR1": {
+     "event": -0.0010982343671133799,
+     "z": -5.803856351254765,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.023333333333333334
+    },
+    "POS_CORR2": {
+     "event": -0.005592115101085505,
+     "z": -24.79675905649409,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.006666666666666667
+    }
+   },
+   "quality": {
+    "flags_within_pad": {
+     "momentum dump": 4,
+     "manual exclude": 1
+    },
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 9.813354682177305,
+    "usable_in_box": 109,
+    "expected_in_box": 109
+   },
+   "gaia_neighbours": {
+    "state": "done",
+    "target_gaia": "41107205006988800",
+    "target_g": 7.5885453,
+    "radius_arcsec": 52.5,
+    "max_delta_g_for_depth": 6.0,
+    "neighbours": [],
+    "capable": [],
+    "g_limit_of_field": "G < 17 (explorer field); fainter blends not listed",
+    "source_file": "design-system/mockups/data/field_toi-4543-01.csv"
+   },
+   "neighbours": [
+    {
+     "product": "tess2023289093419-s0071-0000000435339558-0266-s_lc.fits",
+     "tic": "435339558",
+     "tmag": 11.22350025,
+     "sep_deg": 0.117,
+     "pdcsap_shift_ppm": 154.21596368120953,
+     "pdcsap_z": 0.4969376156856922,
+     "sap_z": 0.7363659644383873
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435332114-0266-s_lc.fits",
+     "tic": "435332114",
+     "tmag": 8.36408997,
+     "sep_deg": 0.365,
+     "pdcsap_shift_ppm": -62.47333896925399,
+     "pdcsap_z": -1.1368748561369726,
+     "sap_z": -0.39695450247640207
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435335988-0266-s_lc.fits",
+     "tic": "435335988",
+     "tmag": 9.53619957,
+     "sep_deg": 0.367,
+     "pdcsap_shift_ppm": 2360.9553215544984,
+     "pdcsap_z": -0.17171758218631708,
+     "sap_z": -0.1705005635607869
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435339661-0266-s_lc.fits",
+     "tic": "435339661",
+     "tmag": 10.03059959,
+     "sep_deg": 0.413,
+     "pdcsap_shift_ppm": -463.89314073866524,
+     "pdcsap_z": -0.8433536781974381,
+     "sap_z": -0.9773108196386049
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435333192-0266-s_lc.fits",
+     "tic": "435333192",
+     "tmag": 5.87820005,
+     "sep_deg": 0.46,
+     "pdcsap_shift_ppm": 27.76710945298811,
+     "pdcsap_z": 0.31659327929723696,
+     "sap_z": 0.30329187128689766
+    }
+   ],
+   "secondary_red_noise_ppm": {
+    "70": 329.80221546757355,
+    "71": 301.11450554800035
+   },
+   "secondary_eclipse": [
+    {
+     "period_days": 28.87321888655424,
+     "n_epochs": 2,
+     "secondary_depth_ppm": 115.34373556782137,
+     "err_ppm": 222.3718020654044
+    },
+    {
+     "period_days": 5.774643777310848,
+     "n_epochs": 8,
+     "secondary_depth_ppm": -66.84499414505449,
+     "err_ppm": 111.1859010327022
+    }
+   ],
+   "difference_image": {
+    "state": "done",
+    "in_cadences": 88,
+    "flank_cadences": 330,
+    "diff_centroid_xy": [
+     5.291230731604364,
+     6.870539428882268
+    ],
+    "oot_centroid_xy": [
+     5.277693392244883,
+     6.8452214346871205
+    ],
+    "offset_from_target_pix": [
+     -0.03142197490617349,
+     0.20594821625358062
+    ],
+    "offset_from_target_arcsec": 4.374961217393908,
+    "bootstrap_sigma_pix": [
+     0.04688118733345991,
+     0.03942531100600442
+    ],
+    "offset_over_sigma": 3.401041040714815,
+    "offset_from_oot_centroid_pix": [
+     0.013537339359481315,
+     0.025317994195147797
+    ],
+    "offset_from_oot_centroid_arcsec": 0.6029086420567308,
+    "oot_offset_over_sigma": 0.4686937628804944,
+    "fraction_of_positive_difference_in_optimal_aperture": 0.95668762562514,
+    "peak_pixel": [
+     5,
+     7
+    ],
+    "image": [
+     [
+      -0.019082292553576963,
+      0.33568809796674515,
+      0.06191947220627991,
+      -0.23176653831733862,
+      -0.1728967111539741,
+      0.13522357773785565,
+      0.09062737178483538,
+      0.06833112851023238,
+      0.12552021641695266,
+      0.09487525663017315,
+      -0.16851973464334993
+     ],
+     [
+      -0.18096589424041554,
+      0.04018487231432388,
+      -0.0394824850994735,
+      0.037653216944617485,
+      -0.4039753456171562,
+      0.07251987960614059,
+      0.06456482658953888,
+      0.34464343040872336,
+      -0.08346322390880268,
+      -0.0920182271459562,
+      -0.2506821606503651
+     ],
+     [
+      -0.2835403220382595,
+      0.13501634584765476,
+      -0.03378308846370137,
+      -0.20018667994982042,
+      0.2569822906981436,
+      -0.052531032083145135,
+      0.27082740941023076,
+      0.3529065734599257,
+      -0.16334581985175234,
+      -0.0627574022986277,
+      -0.20547937283130757
+     ],
+     [
+      -0.20943431378288757,
+      -0.17999763923140888,
+      -0.22721952520889843,
+      -0.20325509199819614,
+      -0.07376545539344193,
+      0.24408480306968272,
+      0.33184786083438667,
+      0.45430303436292263,
+      0.24749914184504007,
+      -0.12017278381748397,
+      -0.05840236143473376
+     ],
+     [
+      0.10695191540017213,
+      -0.07636572420609866,
+      -5.8430549124466324e-05,
+      0.40641293872229767,
+      0.734014216136103,
+      1.6588690485405664,
+      2.5624935604993198,
+      2.6097414110432737,
+      0.536815609975406,
+      -0.043066532065275,
+      -0.28438271442384533
+     ],
+     [
+      0.03622804479130082,
+      0.48273273115390225,
+      0.6729472525679228,
+      1.718047191490939,
+      3.2026715039736473,
+      12.622054956153988,
+      26.06710464198659,
+      9.446546978147126,
+      1.9411800963958967,
+      0.27877313014904814,
+      0.10483323043109039
+     ],
+     [
+      0.2990155047453342,
+      1.0043536799844048,
+      1.531083444875378,
+      3.1228433467199466,
+      19.800797706086996,
+      166.02116183233738,
+      135.18724658960127,
+      29.89767326488891,
+      2.909397820235654,
+      0.594523409754089,
+      0.058986844795114735
+     ],
+     [
+      0.1849153732496731,
+      1.0265058527165536,
+      1.907269780138165,
+      7.949308268886625,
+      67.19927020412979,
+      282.693042799001,
+      216.13944250477653,
+      43.15440623424911,
+      2.758859780980515,
+      0.8440810280659434,
+      0.0784985897382029
+     ],
+     [
+      -0.010159820191567803,
+      0.3069878456956019,
+      1.4711285039512632,
+      4.348399078270404,
+      23.5641956682166,
+      88.24378799525948,
+      70.73258650072603,
+      20.37694218294928,
+      3.484491946335197,
+      1.4112465795505784,
+      0.24744136475064238
+     ],
+     [
+      0.022672524515446213,
+      0.28201758711769287,
+      0.8465129735394328,
+      2.252084844904971,
+      8.480670811495429,
+      12.948003997033993,
+      13.588174795064333,
+      8.57133560511511,
+      2.8581709390466585,
+      1.0596228914670291,
+      0.43266870032528004
+     ],
+     [
+      0.08096867178494271,
+      0.2777389319855246,
+      1.056197333160668,
+      2.32652228163721,
+      4.480893772539957,
+      3.4365438937650197,
+      3.535103123275917,
+      2.9598662297928513,
+      1.7463963070156865,
+      0.8857030485387725,
+      -0.04679819310344158
+     ],
+     [
+      -0.12516027352692127,
+      0.06981903344034279,
+      0.16111068174345178,
+      0.9173331672677989,
+      1.511656930016386,
+      1.3657909563115709,
+      1.1173219660554423,
+      1.4640046415620702,
+      0.3949829024314795,
+      0.23625217270395638,
+      0.35477300657002786
+     ],
+     [
+      -0.17023416861914636,
+      0.21051560882367681,
+      0.11592923545200051,
+      0.12218471448169055,
+      0.4992963103648407,
+      0.4935707987685589,
+      0.7610545938657651,
+      0.5928053532841062,
+      0.47846237272375447,
+      0.43471264557081213,
+      0.2708085139451697
+     ]
+    ],
+    "target_pixel_xy": [
+     5.322652706510538,
+     6.664591212628688
+    ],
+    "aperture": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "joint_periods_days": [
+    5.7746
+   ]
+  },
+  {
+   "label": "E5",
+   "product": "tess2023289093419-s0071-0000000435336785-0266-s_lc.fits",
+   "sector": 71,
+   "camera": 2,
+   "ccd": 4,
+   "given_by_hand": false,
+   "screen_candidates": 1,
+   "screen_span_h": 0.0,
+   "max_aliases_allowed": 2,
+   "fit": {
+    "mid_bjd": 2460252.6724292138,
+    "duration_h": 3.6408000000000005,
+    "depth_ppm": 3685.263764602374,
+    "depth_err_ppm": 91.27368268112568,
+    "delta_chi2": 1630.2192107889095,
+    "n_in": 109,
+    "vshape_index": 1.2880199061476991,
+    "sigma_ppm": 824.3592055466527,
+    "weighted": {
+     "depth_ppm": 3685.7449140036397,
+     "depth_err_formal_ppm": 22.009740601746486,
+     "depth_err_scaled_ppm": 52.81338652504073,
+     "chi2_reduced": 5.757821333854101,
+     "scatter_over_quoted_error": 2.118744069215477,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "inconclusive",
+     "weighted depth 3686 \u00b1 53 ppm (\u03c7\u00b2\u03bd 5.76) vs unweighted 3685 \u00b1 91 ppm; residual scatter / quoted error 2.12; the pipeline errors do not describe the scatter"
+    ],
+    "Sibling TOI ephemerides": [
+     "failed",
+     "TOI-4543.01 (PC, P 5.7740 d, 4820 ppm) predicted +0.15 h \u00b1 0.02 h"
+    ],
+    "Shape matches reference transit": [
+     "passed",
+     "depth ratio 1.05 \u00b1 0.04, duration ratio 1.00 (box fits; duration grid step ~25%)"
+    ],
+    "Detrending alternatives": [
+     "passed",
+     "PDCSAP depth 3420\u20133687 ppm across 6 detrendings (box fit 3685); SAP poly2 3245 ppm"
+    ],
+    "Red-noise significance": [
+     "passed",
+     "box statistic at the event is 11.8 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.000"
+    ],
+    "Background / centroid / pointing": [
+     "inconclusive",
+     "SAP_BKG -3.8\u03c3; MOM_CENTR1 -0.6\u03c3; MOM_CENTR2 -1.9\u03c3; POS_CORR1 +2.8\u03c3; POS_CORR2 -0.7\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "inconclusive",
+     "109/109 usable in-transit cadences; flags within \u00b10.5 d: {'manual exclude': 32, 'impulsive outlier': 1}; nearest momentum dump 21.9 h"
+    ],
+    "Gaia neighbours able to mimic the depth": [
+     "passed",
+     "0 Gaia source(s) G<17 within 52\u2033; 0 bright enough (\u0394G \u2264 6.08)"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S71 cam 2 CCD 4; 0 dip \u2265 4\u03c3 at the event"
+    ],
+    "Secondary eclipse (circular aliases)": [
+     "passed",
+     "phase 0.5 covered for 2 of 2 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 220 ppm"
+    ],
+    "Difference-image centroid": [
+     "inconclusive",
+     "difference-image centroid 11.6\u2033 from the out-of-transit centroid (0.7\u03c3 bootstrap); 12.1\u2033 from the catalogue position; 94% of the deficit in the optimal aperture"
+    ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2460212.2481342778,
+    "delta_t_days": 40.424294936005026,
+    "n_aliases": 40,
+    "n_allowed": 2,
+    "allowed_periods_days": [
+     40.4243,
+     5.7749
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
+   },
+   "ephemerides": [
+    {
+     "toi": "4543.01",
+     "disposition": "PC",
+     "period_days": 5.7740318,
+     "depth_ppm": 4820.0,
+     "duration_h": 4.551,
+     "predicted_bjd": 2460252.6660276,
+     "offset_h": 0.15363873168826103,
+     "ephemeris_sigma_h": 0.017736146142834974,
+     "coincides": true
+    }
+   ],
+   "shape_vs_reference": {
+    "depth_ratio": 1.0474175844171174,
+    "depth_ratio_err": 0.035071578834023134,
+    "duration_ratio": 1.0,
+    "ref_vshape": 1.2802712240351743,
+    "event_vshape": 1.2880199061476991
+   },
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 3589.6294926330834,
+    "PDCSAP poly2": 3685.5614871743987,
+    "PDCSAP poly3": 3686.636524119259,
+    "PDCSAP median 0.5 d": 3419.8112495857476,
+    "PDCSAP median 1 d": 3607.590073872882,
+    "PDCSAP median 2 d": 3548.91278000966,
+    "SAP poly1": 3547.6144153629753,
+    "SAP poly2": 3245.3407245963062,
+    "SAP poly3": 3234.925836852048,
+    "SAP median 0.5 d": 3053.4586968696544,
+    "SAP median 1 d": 3260.4055071881494,
+    "SAP median 2 d": 3890.1303145267007
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": -0.0036864600212543224,
+     "z": -11.779958612221181,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP": {
+     "event": -0.0032414728108443158,
+     "z": -9.436453769719222,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0033333333333333335
+    },
+    "SAP_BKG": {
+     "event": -7.538038540377258,
+     "z": -3.7667846597234207,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.17666666666666667
+    },
+    "MOM_CENTR1": {
+     "event": -8.276910089893586e-05,
+     "z": -0.5887486721916373,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.53
+    },
+    "MOM_CENTR2": {
+     "event": -0.0003905880253724601,
+     "z": -1.9240732100129052,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.13666666666666666
+    },
+    "POS_CORR1": {
+     "event": 0.0005505876889811348,
+     "z": 2.8471434931137733,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.06333333333333334
+    },
+    "POS_CORR2": {
+     "event": -0.00013539890042156867,
+     "z": -0.7060650058975948,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.47
+    }
+   },
+   "quality": {
+    "flags_within_pad": {
+     "manual exclude": 32,
+     "impulsive outlier": 1
+    },
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 21.937597922980785,
+    "usable_in_box": 109,
+    "expected_in_box": 109
+   },
+   "gaia_neighbours": {
+    "state": "done",
+    "target_gaia": "41107205006988800",
+    "target_g": 7.5885453,
+    "radius_arcsec": 52.5,
+    "max_delta_g_for_depth": 6.08,
+    "neighbours": [],
+    "capable": [],
+    "g_limit_of_field": "G < 17 (explorer field); fainter blends not listed",
+    "source_file": "design-system/mockups/data/field_toi-4543-01.csv"
+   },
+   "neighbours": [
+    {
+     "product": "tess2023289093419-s0071-0000000435339558-0266-s_lc.fits",
+     "tic": "435339558",
+     "tmag": 11.22350025,
+     "sep_deg": 0.117,
+     "pdcsap_shift_ppm": 307.16087468852396,
+     "pdcsap_z": 1.2761604871847725,
+     "sap_z": 5.786373304503162
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435332114-0266-s_lc.fits",
+     "tic": "435332114",
+     "tmag": 8.36408997,
+     "sep_deg": 0.365,
+     "pdcsap_shift_ppm": 3.7685066429343514,
+     "pdcsap_z": 0.04413056536471902,
+     "sap_z": 6.697163603599367
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435335988-0266-s_lc.fits",
+     "tic": "435335988",
+     "tmag": 9.53619957,
+     "sep_deg": 0.367,
+     "pdcsap_shift_ppm": -342.78227102227464,
+     "pdcsap_z": -0.3327529876904817,
+     "sap_z": -0.35755907245746416
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435339661-0266-s_lc.fits",
+     "tic": "435339661",
+     "tmag": 10.03059959,
+     "sep_deg": 0.413,
+     "pdcsap_shift_ppm": 894.7979040577402,
+     "pdcsap_z": 1.6937862269980313,
+     "sap_z": 3.3538833719979424
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435333192-0266-s_lc.fits",
+     "tic": "435333192",
+     "tmag": 5.87820005,
+     "sep_deg": 0.46,
+     "pdcsap_shift_ppm": -4.29713875294105,
+     "pdcsap_z": -0.04396111049093543,
+     "sap_z": 2.6615436850154004
+    }
+   ],
+   "secondary_red_noise_ppm": {
+    "70": 329.80221546757355,
+    "71": 301.11450554800035
+   },
+   "secondary_eclipse": [
+    {
+     "period_days": 40.424294936005026,
+     "n_epochs": 1,
+     "secondary_depth_ppm": -200.51805027909606,
+     "err_ppm": 329.80221546757355
+    },
+    {
+     "period_days": 5.774899276572147,
+     "n_epochs": 8,
+     "secondary_depth_ppm": -65.51504155632465,
+     "err_ppm": 111.1859010327022
+    }
+   ],
+   "difference_image": {
+    "state": "done",
+    "in_cadences": 87,
+    "flank_cadences": 325,
+    "diff_centroid_xy": [
+     5.757323240256332,
+     7.043823697068515
+    ],
+    "oot_centroid_xy": [
+     5.275126841579739,
+     6.775694268313085
+    ],
+    "offset_from_target_pix": [
+     0.4346705337457939,
+     0.37923248443982693
+    ],
+    "offset_from_target_arcsec": 12.113846863037121,
+    "bootstrap_sigma_pix": [
+     0.46294911902573693,
+     0.5871339615128214
+    ],
+    "offset_over_sigma": 0.771503973648156,
+    "offset_from_oot_centroid_pix": [
+     0.48219639867659225,
+     0.26812942875542944
+    ],
+    "offset_from_oot_centroid_arcsec": 11.58634455039518,
+    "oot_offset_over_sigma": 0.7379085241668164,
+    "fraction_of_positive_difference_in_optimal_aperture": 0.9434240744016131,
+    "peak_pixel": [
+     6,
+     7
+    ],
+    "image": [
+     [
+      -0.7197405154193746,
+      -0.2658945854410675,
+      0.0797540830760175,
+      0.069174150196464,
+      -0.29563817937594106,
+      -0.41889906978351554,
+      -0.31143386580297516,
+      -0.43447396628394586,
+      0.018433719110320546,
+      -0.06578845582722792,
+      0.15384613194003538
+     ],
+     [
+      0.11494827840685673,
+      -0.09167139346372366,
+      -0.009587333439761814,
+      0.16522303620539977,
+      -0.04320744933478515,
+      -0.2745539027260584,
+      -0.0349539084137902,
+      -0.10502796493640432,
+      -0.3626834975518438,
+      -0.2804421482034045,
+      -0.32588001341665895
+     ],
+     [
+      -0.15094613828377845,
+      0.09741734040455263,
+      -0.19004143411640095,
+      -0.27274038918160004,
+      -0.3352609033349925,
+      0.2829732022319824,
+      0.21182832998065493,
+      -0.01261064645752441,
+      0.02981989531469864,
+      -0.11983892808266461,
+      -0.25639318590284077
+     ],
+     [
+      -0.12879343046114045,
+      -0.11218588358982373,
+      -0.027675128296488438,
+      0.30274261827402427,
+      0.2477897991751874,
+      0.3861733230527804,
+      1.1463654213183645,
+      0.4824539105002259,
+      -0.13587539670221105,
+      -0.2817807722009249,
+      -0.05977029436545678
+     ],
+     [
+      -0.20798180938407285,
+      0.049666975566509564,
+      0.4353587598783193,
+      0.5767316707301262,
+      1.3991603822750278,
+      5.018584087644172,
+      7.187735279903222,
+      0.5326342579780885,
+      0.2277829745618476,
+      -0.10870640680001742,
+      0.19479281452291985
+     ],
+     [
+      -0.12994292236454186,
+      0.5356008199921405,
+      0.894805993744626,
+      2.010301094432293,
+      9.322684936439032,
+      70.40485781934376,
+      15.799095481350378,
+      9.457895022282173,
+      1.1948166383854755,
+      0.3388727405704799,
+      -0.2267419822985488
+     ],
+     [
+      0.18035740768681308,
+      0.9695479673933107,
+      2.1829710793734307,
+      8.003951762673296,
+      120.3916252658837,
+      120.77577606875275,
+      77.04944286329919,
+      7.625982418086096,
+      3.867182865243876,
+      0.8685652796271768,
+      -0.029311242198772902
+     ],
+     [
+      0.037199338222286826,
+      0.6515612079632547,
+      2.0216301481496544,
+      8.077767019941803,
+      27.395209860798786,
+      86.48928541353962,
+      141.64449848028744,
+      65.15714443653997,
+      5.323559229298894,
+      0.7998429729170766,
+      0.05783649607793251
+     ],
+     [
+      0.10201033571475193,
+      0.7669949683359789,
+      1.1123594061937183,
+      3.5569418457077973,
+      16.860396850858706,
+      82.45049539654974,
+      117.06671879585338,
+      38.20874142861794,
+      4.2817473411256515,
+      1.4584143588314191,
+      0.43441613700049686
+     ],
+     [
+      0.07103748841118573,
+      0.4923876416028321,
+      1.3992728348096364,
+      2.466008146887077,
+      3.157648977158942,
+      20.136842771766396,
+      19.578638085095463,
+      14.077430798205796,
+      3.8456908760324495,
+      1.6064541377039063,
+      0.24289994137367898
+     ],
+     [
+      0.0780830061168114,
+      0.17360650891732377,
+      0.5453738101043939,
+      1.2094555235843814,
+      2.6746279279524288,
+      3.3040092638169654,
+      3.484849645266536,
+      3.530658545616177,
+      1.9390307953519255,
+      1.1030323461827436,
+      0.38760344396104074
+     ],
+     [
+      -0.09650228146552653,
+      -0.04001679724636631,
+      0.5067335234001291,
+      0.563182896101381,
+      1.2208745039320092,
+      1.3736697790122605,
+      1.3202343067477216,
+      0.9583287153259619,
+      0.6551111368717386,
+      -0.20779357732047288,
+      0.053520522669145976
+     ],
+     [
+      -0.28778002374988315,
+      -0.1437056894175317,
+      0.26837855118181864,
+      0.07405624246676723,
+      0.6037499041481453,
+      0.9101458619708893,
+      0.6723010121117738,
+      0.1850902084646009,
+      0.28627985813540135,
+      0.45122188859012624,
+      -0.004375606797843545
+     ]
+    ],
+    "target_pixel_xy": [
+     5.322652706510538,
+     6.664591212628688
+    ],
+    "aperture": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "joint_periods_days": [
+    5.7749
+   ]
+  },
+  {
+   "label": "E6",
+   "product": "tess2023289093419-s0071-0000000435336785-0266-s_lc.fits",
+   "sector": 71,
+   "camera": 2,
+   "ccd": 4,
+   "given_by_hand": false,
+   "screen_candidates": 1,
+   "screen_span_h": 0.0,
+   "max_aliases_allowed": 4,
+   "fit": {
+    "mid_bjd": 2460258.443363924,
+    "duration_h": 3.6408000000000005,
+    "depth_ppm": 4124.1842064547245,
+    "depth_err_ppm": 90.65828937630394,
+    "delta_chi2": 2069.4792169821694,
+    "n_in": 109,
+    "vshape_index": 1.2025264299356335,
+    "sigma_ppm": 820.6135946235374,
+    "weighted": {
+     "depth_ppm": 4124.660892228846,
+     "depth_err_formal_ppm": 21.972545938130548,
+     "depth_err_scaled_ppm": 54.22892558894245,
+     "chi2_reduced": 6.09117725614518,
+     "scatter_over_quoted_error": 2.016190060279074,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "inconclusive",
+     "weighted depth 4125 \u00b1 54 ppm (\u03c7\u00b2\u03bd 6.09) vs unweighted 4124 \u00b1 91 ppm; residual scatter / quoted error 2.02; the pipeline errors do not describe the scatter"
+    ],
+    "Sibling TOI ephemerides": [
+     "failed",
+     "TOI-4543.01 (PC, P 5.7740 d, 4820 ppm) predicted +0.08 h \u00b1 0.02 h"
+    ],
+    "Shape matches reference transit": [
+     "passed",
+     "depth ratio 1.17 \u00b1 0.04, duration ratio 1.00 (box fits; duration grid step ~25%)"
+    ],
+    "Detrending alternatives": [
+     "passed",
+     "PDCSAP depth 3940\u20134166 ppm across 6 detrendings (box fit 4124); SAP poly2 4150 ppm"
+    ],
+    "Red-noise significance": [
+     "passed",
+     "box statistic at the event is 14.4 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.000"
+    ],
+    "Background / centroid / pointing": [
+     "passed",
+     "SAP_BKG -1.7\u03c3; MOM_CENTR1 +1.2\u03c3; MOM_CENTR2 -0.4\u03c3; POS_CORR1 +1.1\u03c3; POS_CORR2 +0.4\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "passed",
+     "109/109 usable in-transit cadences; flags within \u00b10.5 d: none; nearest momentum dump 116.5 h"
+    ],
+    "Gaia neighbours able to mimic the depth": [
+     "passed",
+     "0 Gaia source(s) G<17 within 52\u2033; 0 bright enough (\u0394G \u2264 5.96)"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S71 cam 2 CCD 4; 0 dip \u2265 4\u03c3 at the event"
+    ],
+    "Secondary eclipse (circular aliases)": [
+     "passed",
+     "phase 0.5 covered for 1 of 4 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 111 ppm"
+    ],
+    "Difference-image centroid": [
+     "passed",
+     "difference-image centroid 0.6\u2033 from the out-of-transit centroid (0.1\u03c3 bootstrap); 2.7\u2033 from the catalogue position; 96% of the deficit in the optimal aperture"
+    ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2460212.2481342778,
+    "delta_t_days": 46.19522964628413,
+    "n_aliases": 46,
+    "n_allowed": 4,
+    "allowed_periods_days": [
+     46.1952,
+     23.0976,
+     11.5488,
+     5.7744
+    ],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
+   },
+   "ephemerides": [
+    {
+     "toi": "4543.01",
+     "disposition": "PC",
+     "period_days": 5.7740318,
+     "depth_ppm": 4820.0,
+     "duration_h": 4.551,
+     "predicted_bjd": 2460258.4400593997,
+     "offset_h": 0.07930858433246613,
+     "ephemeris_sigma_h": 0.018677875682207544,
+     "coincides": true
+    }
+   ],
+   "shape_vs_reference": {
+    "depth_ratio": 1.1721665897317712,
+    "depth_ratio_err": 0.036899377627265674,
+    "duration_ratio": 1.0,
+    "ref_vshape": 1.2802712240351743,
+    "event_vshape": 1.2025264299356335
+   },
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 4165.550058070053,
+    "PDCSAP poly2": 4123.220026986731,
+    "PDCSAP poly3": 4123.219712826711,
+    "PDCSAP median 0.5 d": 3939.596222317194,
+    "PDCSAP median 1 d": 4132.330082946124,
+    "PDCSAP median 2 d": 4125.504622888573,
+    "SAP poly1": 4111.262629395501,
+    "SAP poly2": 4149.704932114593,
+    "SAP poly3": 4149.704975312096,
+    "SAP median 0.5 d": 3885.721876271008,
+    "SAP median 1 d": 4095.3452949520606,
+    "SAP median 2 d": 4061.6042919694337
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": -0.004124404414244525,
+     "z": -14.366354450776232,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP": {
+     "event": -0.004146869966442118,
+     "z": -15.22770626199597,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP_BKG": {
+     "event": -3.761346987446246,
+     "z": -1.6691000102807805,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.25
+    },
+    "MOM_CENTR1": {
+     "event": 0.00023096232222513107,
+     "z": 1.1959878333735985,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.22333333333333333
+    },
+    "MOM_CENTR2": {
+     "event": -8.550655994542818e-05,
+     "z": -0.3624435558547174,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.7033333333333334
+    },
+    "POS_CORR1": {
+     "event": 0.00022411057183222265,
+     "z": 1.1011501836058715,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.2833333333333333
+    },
+    "POS_CORR2": {
+     "event": 8.733524094479583e-05,
+     "z": 0.3720302811022378,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.7233333333333334
+    }
+   },
+   "quality": {
+    "flags_within_pad": {},
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 116.46483283862472,
+    "usable_in_box": 109,
+    "expected_in_box": 109
+   },
+   "gaia_neighbours": {
+    "state": "done",
+    "target_gaia": "41107205006988800",
+    "target_g": 7.5885453,
+    "radius_arcsec": 52.5,
+    "max_delta_g_for_depth": 5.96,
+    "neighbours": [],
+    "capable": [],
+    "g_limit_of_field": "G < 17 (explorer field); fainter blends not listed",
+    "source_file": "design-system/mockups/data/field_toi-4543-01.csv"
+   },
+   "neighbours": [
+    {
+     "product": "tess2023289093419-s0071-0000000435339558-0266-s_lc.fits",
+     "tic": "435339558",
+     "tmag": 11.22350025,
+     "sep_deg": 0.117,
+     "pdcsap_shift_ppm": 90.82403786180956,
+     "pdcsap_z": 0.26129467847835086,
+     "sap_z": -0.021635136361438705
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435332114-0266-s_lc.fits",
+     "tic": "435332114",
+     "tmag": 8.36408997,
+     "sep_deg": 0.365,
+     "pdcsap_shift_ppm": 32.66016725713918,
+     "pdcsap_z": 0.47057988420243263,
+     "sap_z": 0.37004494703462937
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435335988-0266-s_lc.fits",
+     "tic": "435335988",
+     "tmag": 9.53619957,
+     "sep_deg": 0.367,
+     "pdcsap_shift_ppm": -3410.7203648227496,
+     "pdcsap_z": -0.43855533731925,
+     "sap_z": -0.4467867858087337
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435339661-0266-s_lc.fits",
+     "tic": "435339661",
+     "tmag": 10.03059959,
+     "sep_deg": 0.413,
+     "pdcsap_shift_ppm": 563.378500639336,
+     "pdcsap_z": 0.9916186469170384,
+     "sap_z": 0.08257553622203029
+    },
+    {
+     "product": "tess2023289093419-s0071-0000000435333192-0266-s_lc.fits",
+     "tic": "435333192",
+     "tmag": 5.87820005,
+     "sep_deg": 0.46,
+     "pdcsap_shift_ppm": 14.050980575945527,
+     "pdcsap_z": 0.1378127825754556,
+     "sap_z": 0.13206572000441122
+    }
+   ],
+   "secondary_red_noise_ppm": {
+    "70": 329.80221546757355,
+    "71": 301.11450554800035
+   },
+   "secondary_eclipse": [
+    {
+     "period_days": 5.774403705785517,
+     "n_epochs": 8,
+     "secondary_depth_ppm": -67.39718091886354,
+     "err_ppm": 111.1859010327022
+    }
+   ],
+   "difference_image": {
+    "state": "done",
+    "in_cadences": 87,
+    "flank_cadences": 330,
+    "diff_centroid_xy": [
+     5.256311683574757,
+     6.772754994138522
+    ],
+    "oot_centroid_xy": [
+     5.28153063549113,
+     6.785064717997742
+    ],
+    "offset_from_target_pix": [
+     -0.06634102293578081,
+     0.10816378150983397
+    ],
+    "offset_from_target_arcsec": 2.6646455514778595,
+    "bootstrap_sigma_pix": [
+     0.08899614372318815,
+     0.17183538244683683
+    ],
+    "offset_over_sigma": 0.655703508549205,
+    "offset_from_oot_centroid_pix": [
+     -0.025218951916373022,
+     -0.01230972385922069
+    ],
+    "offset_from_oot_centroid_arcsec": 0.5893203315918392,
+    "oot_offset_over_sigma": 0.14501718957323792,
+    "fraction_of_positive_difference_in_optimal_aperture": 0.9605454050072232,
+    "peak_pixel": [
+     5,
+     7
+    ],
+    "image": [
+     [
+      -0.08187416860084795,
+      -0.29403474496209725,
+      0.020954329773211988,
+      -0.042306024577507984,
+      -0.2882754084234991,
+      -0.10341399857960099,
+      -0.10651169639730895,
+      -0.22720708022059277,
+      -0.2713041175265589,
+      -0.2944784504629201,
+      -0.09513358827072194
+     ],
+     [
+      -0.3440776142140578,
+      0.018709762931159446,
+      -0.2746111024974367,
+      0.01219075694856031,
+      0.2153311965454554,
+      0.06105581731873855,
+      0.030052163534215026,
+      -0.3167384906057542,
+      0.37320454374847856,
+      -0.18556929691526625,
+      -0.19363640520784564
+     ],
+     [
+      0.029625178925911655,
+      -0.030788076866304692,
+      -0.4351325600304694,
+      -0.20004139188626313,
+      -0.17993110167785353,
+      -0.3300602471156182,
+      0.24008182867561345,
+      -0.25801349214403757,
+      0.057880223555851984,
+      0.004691557864212825,
+      0.18622673446148852
+     ],
+     [
+      -0.09894636638541066,
+      0.1655632732828285,
+      -0.11527081063489675,
+      -0.31667600507332594,
+      -0.02970635849321468,
+      -0.09815174721187958,
+      0.6102499844183029,
+      0.47556031931588905,
+      -0.027313344724248623,
+      -0.24218473364076942,
+      -0.40305812695966026
+     ],
+     [
+      0.05803716657696789,
+      0.0051334910425318014,
+      0.1441851995867367,
+      0.522413402954129,
+      0.37741971146505193,
+      1.5718362834137452,
+      3.8146285314444413,
+      2.6453682025912713,
+      0.5418212159274844,
+      0.2745686389476987,
+      0.1531120696466317
+     ],
+     [
+      0.15030377219447644,
+      0.545510847825696,
+      0.9522205582790093,
+      1.7233835455645021,
+      4.19835055191129,
+      21.54432712929247,
+      34.56956513188288,
+      10.339971381913074,
+      2.2976169712778756,
+      0.30728150747437155,
+      -0.077542584482579
+     ],
+     [
+      0.07725324005486556,
+      0.7122893710982794,
+      1.5164927045493073,
+      3.7869894438005076,
+      36.59742484524395,
+      214.8522042160912,
+      146.11302926953795,
+      29.1372222186028,
+      3.5946005875048286,
+      1.0360362837797652,
+      0.28878042712359786
+     ],
+     [
+      -0.018859196675734324,
+      0.6106220822724424,
+      2.5257658929677405,
+      8.814848423012108,
+      79.65158491290094,
+      245.2782621161241,
+      214.1402796836992,
+      40.25422648009226,
+      3.6429497222325153,
+      0.8964517811625683,
+      0.07891443874482462
+     ],
+     [
+      0.25773403132966166,
+      0.5226537068587618,
+      2.0648036180037366,
+      5.03177533048995,
+      25.18975006530036,
+      65.49036465698919,
+      59.83386962586701,
+      21.453178549883887,
+      3.6845910336103316,
+      0.763364312235467,
+      0.5714629331222056
+     ],
+     [
+      -0.001383462824115611,
+      0.365106942998338,
+      0.9882001910446547,
+      3.061203015147669,
+      8.211925280932974,
+      10.855298618260349,
+      12.65682486616015,
+      7.48073107893174,
+      2.4701262815460723,
+      0.9740424779041916,
+      0.22275737351679936
+     ],
+     [
+      0.10637718379944872,
+      -0.07566015917444702,
+      0.8957963900077743,
+      1.8478727287961192,
+      3.381976135250852,
+      3.216941340885228,
+      2.324348707935087,
+      1.789167866473008,
+      1.1138113604205273,
+      0.635170713100365,
+      0.41325874690627984
+     ],
+     [
+      -0.3316216814083468,
+      -0.1737163337277856,
+      0.696370379462607,
+      0.924151795854101,
+      1.4903277579247174,
+      1.002232251074048,
+      1.1256407160080641,
+      1.2084540310820557,
+      0.7346271829509305,
+      0.1526706599386216,
+      0.1944984175669333
+     ],
+     [
+      -0.29105544339379874,
+      -0.1497593982486496,
+      -0.04820930127724665,
+      -0.24562846151094675,
+      0.501076330702503,
+      0.12117106230343211,
+      0.3859504111093628,
+      0.5664494894940901,
+      0.34959134928169533,
+      0.32331442656818865,
+      0.03694860534153577
+     ]
+    ],
+    "target_pixel_xy": [
+     5.322652706510538,
+     6.664591212628688
+    ],
+    "aperture": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   },
+   "joint_periods_days": [
+    5.7744
+   ]
+  }
+ ],
+ "reference": {
+  "product": "tess2023263165758-s0070-0000000435336785-0265-s_lc.fits",
+  "sector": 70,
+  "fit": {
+   "mid_bjd": 2460212.2481342778,
+   "duration_h": 3.6408000000000005,
+   "depth_ppm": 3518.4283894309497,
+   "depth_err_ppm": 79.28215526386214,
+   "delta_chi2": 1969.457153164939,
+   "n_in": 109,
+   "vshape_index": 1.2802712240351743,
+   "sigma_ppm": 720.6348782897751,
+   "weighted": {
+    "depth_ppm": 3518.7196906768263,
+    "depth_err_formal_ppm": 21.505834668306417,
+    "depth_err_scaled_ppm": 50.33364179117069,
+    "chi2_reduced": 5.477773903185363,
+    "scatter_over_quoted_error": 2.240992653312264,
+    "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+   }
+  },
+  "difference_image": {
+   "state": "done",
+   "in_cadences": 87,
+   "flank_cadences": 330,
+   "diff_centroid_xy": [
+    4.428870791242287,
+    5.868288904954995
+   ],
+   "oot_centroid_xy": [
+    4.713050533857695,
+    5.816455242080753
+   ],
+   "offset_from_target_pix": [
+    -0.19904106982764436,
+    0.03798653234095184
+   ],
+   "offset_from_target_arcsec": 4.255302919391722,
+   "bootstrap_sigma_pix": [
+    0.14482006707239287,
+    0.06395374804442065
+   ],
+   "offset_over_sigma": 1.2799565698010384,
+   "offset_from_oot_centroid_pix": [
+    -0.28417974261540824,
+    0.05183366287424196
+   ],
+   "offset_from_oot_centroid_arcsec": 6.06623284514243,
+   "oot_offset_over_sigma": 1.8246678864386943,
+   "fraction_of_positive_difference_in_optimal_aperture": 0.9546063114955627,
+   "peak_pixel": [
+    4,
+    6
+   ],
+   "image": [
+    [
+     -0.23525980496040688,
+     -0.19436889068916408,
+     -0.12547689955077157,
+     0.3196633012628478,
+     -0.014374338261038844,
+     -0.05004200724607699,
+     0.038985365000925754,
+     0.12623005433589896,
+     -0.10936416226238688,
+     -0.2663003085118847,
+     0.042868893781448314
+    ],
+    [
+     -0.12230075682253627,
+     -0.45373234717961175,
+     -0.1952001284982945,
+     0.07603499273129799,
+     0.23893909481925846,
+     0.05902301396763221,
+     0.4867033562976104,
+     0.0988759125816614,
+     -0.174943306466238,
+     -0.07038813220456674,
+     0.18662751958974155
+    ],
+    [
+     0.10977684290400092,
+     0.08177405008862593,
+     0.3094838353388951,
+     0.552530619518663,
+     1.3235117800904845,
+     0.9315888985593119,
+     0.5904891153329004,
+     0.06776866052548769,
+     -0.3848479762537309,
+     -0.008287247392196662,
+     0.038462233521059375
+    ],
+    [
+     0.09234125914989377,
+     0.4209525009234625,
+     1.1788830966502815,
+     2.041292430650344,
+     2.877881222096107,
+     5.143609800235254,
+     3.9451105981121373,
+     1.171731247923617,
+     0.15977329408727314,
+     0.0414052314903941,
+     0.19163869339138273
+    ],
+    [
+     0.0424901721946469,
+     0.7674441316009393,
+     2.2639068943046823,
+     4.808707645070172,
+     19.299055841497648,
+     28.459649692270432,
+     15.843851757198536,
+     4.36296259566393,
+     1.4346388701325736,
+     -0.18541319310725157,
+     -0.13234007507040246
+    ],
+    [
+     0.37937611612889555,
+     1.330702304785575,
+     3.3813237695403586,
+     13.395275510704323,
+     102.60816897237964,
+     168.3358140057244,
+     39.21985901575499,
+     8.608920140655755,
+     2.0759042305703588,
+     0.27641327759920387,
+     0.3118216761933752
+    ],
+    [
+     0.331934556108024,
+     1.505101922685867,
+     3.607428430998766,
+     20.282086158005768,
+     266.86678070711787,
+     247.79730014287634,
+     41.46214564407819,
+     7.525207418677837,
+     1.505462141444923,
+     0.514700638054606,
+     -0.13365222089462492
+    ],
+    [
+     0.2674562000156868,
+     0.8538930623336114,
+     5.206855795954766,
+     19.07113975160928,
+     81.9831708235306,
+     54.84261286643414,
+     14.001600168384812,
+     3.2998959136921258,
+     0.846105422418475,
+     0.34597210949003454,
+     0.19158892092321267
+    ],
+    [
+     0.2700773310806852,
+     0.8515686670219225,
+     2.8123375745964267,
+     8.167415799514629,
+     7.903979243945059,
+     6.29612298969073,
+     3.4344278699264805,
+     2.4119771389597986,
+     1.2485115686581878,
+     0.44408510436365134,
+     -0.18615573735905677
+    ],
+    [
+     0.31849611537264977,
+     0.2968847600786546,
+     2.239816502775682,
+     2.2366024090708834,
+     1.9985815680612973,
+     2.2150505412518555,
+     1.4610415742223495,
+     1.3071569300591932,
+     0.11462764242205026,
+     -0.18871663395849225,
+     -0.03215593447049514
+    ],
+    [
+     -0.06277419016883323,
+     0.09405150935069173,
+     0.4733941390756087,
+     1.234502803918474,
+     1.0229872237666484,
+     1.0114237885400996,
+     0.6459398655698294,
+     0.4785259551569965,
+     0.4295150056974819,
+     -0.02372076149777058,
+     -0.0452149198328069
+    ],
+    [
+     -0.17174474633160908,
+     0.1310191003733987,
+     0.27673690299619835,
+     0.17243196795838855,
+     0.23331229698477074,
+     0.2590876346054216,
+     0.3703397981382466,
+     -0.08278573005048173,
+     -0.0815117515227044,
+     -0.13978417847543412,
+     -0.3780467772373157
+    ],
+    [
+     -0.19975442791145914,
+     -0.031258351780575566,
+     -0.10377080963071705,
+     -0.2334041749227218,
+     0.09060745609758847,
+     0.017305626211477687,
+     -0.17563419827647664,
+     0.04000965163895387,
+     0.003520467304817032,
+     -0.06575260650054604,
+     -0.030915325408951033
+    ]
+   ]
+  }
+ },
+ "siblings": {
+  "query": "SELECT toi, tid, tfopwg_disp, pl_orbper, pl_orbpererr1, pl_tranmid, pl_tranmiderr1, pl_trandurh, pl_trandep, st_rad, st_logg, rowupdate FROM toi WHERE tid = 435336785 ORDER BY toi",
+  "service": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
+  "rows": [
+   {
+    "toi": "4543.01",
+    "tid": "435336785",
+    "tfopwg_disp": "PC",
+    "pl_orbper": "5.7740318",
+    "pl_orbpererr1": "0.0000630",
+    "pl_tranmid": "2460212.2478050",
+    "pl_tranmiderr1": "0.000593",
+    "pl_trandurh": "4.5510000",
+    "pl_trandep": "4820.0000000",
+    "st_rad": "3.1900000",
+    "st_logg": "",
+    "rowupdate": "2024-11-15 16:02:02"
+   }
+  ]
+ },
+ "star": {
+  "radius_rsun": 3.19,
+  "logg_cgs": null,
+  "mass_msun_from_logg": null,
+  "source": "NASA Exoplanet Archive toi table"
+ },
+ "joint_periods_days": {
+  "tolerance_h": 0.75,
+  "events": [
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6"
+  ],
+  "periods": [
+   5.7712
+  ],
+  "note": "aliases of the reference-to-E1 interval allowed by the data that also put every other listed event within 0.75 h of a predicted transit"
+ }
+}

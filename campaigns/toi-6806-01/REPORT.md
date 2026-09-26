@@ -204,3 +204,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-6806-01.yaml
 python -m cygnus.multi report campaigns/toi-6806-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits, not new signals.** Every event (E1-E5, S68/S96/S103/S104/S105) lands within 0.01-0.34 h (sigma <= 0.22-0.59 h) of a predicted TOI-6806.01 transit at the catalogued P 23.2491 d; the VSX guard's KELT EA entry (P 23.249 d) is the same object. E5 additionally carries a +54-108 sigma pointing/centroid excursion and a 9.6-arcsec difference-image offset at 22 sigma. The runner flagged them because the spec was generated with `period_days: null` (the queue carried no period column) while the TOI table already held the period; see the vetting log's systemic note.
+
+Source: `campaigns/toi-6806-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

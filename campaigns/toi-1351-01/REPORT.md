@@ -214,3 +214,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-1351-01.yaml
 python -m cygnus.multi report campaigns/toi-1351-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** The joint period equals the catalogued P 5.9294 d; three same-CCD neighbours also dip at the event (common-mode systematic). No new signal.
+
+Source: `campaigns/toi-1351-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

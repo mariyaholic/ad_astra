@@ -242,3 +242,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-173-01.yaml
 python -m cygnus.multi report campaigns/toi-173-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** E1 (BJD 2458660.7014) and E2 (2459047.4937) land within 0.00-0.15 h (sigma 0.01 h) of predicted TOI-173.01 transits at the catalogued P 29.7537 d. (The TIC also carries TOI-173.02, P 9.1702 d, PC — the vet matched the events to 173.01's ephemeris.) No new signal.
+
+Source: `campaigns/toi-173-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

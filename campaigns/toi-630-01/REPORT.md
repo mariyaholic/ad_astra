@@ -187,3 +187,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-630-01.yaml
 python -m cygnus.multi report campaigns/toi-630-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead events are the target's own catalogued ephemeris transits.** All seventeen events land within <= 0.26 h of predicted TOI-630.01 transits at the catalogued P 4.9092 d; the reference depth (13,022 ppm) equals the catalogue depth (13,100 ppm) and the SIMBAD guard already classifies the host as EB* at 0.1 arcsec. The vet's detrending/pointing failures on E1 are secondary. See the vetting log's systemic note on the period-free spec generation.
+
+Source: `campaigns/toi-630-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

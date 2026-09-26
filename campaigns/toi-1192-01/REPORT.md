@@ -146,3 +146,9 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.multi run campaigns/toi-1192-01.yaml
 python -m cygnus.multi report campaigns/toi-1192-01.yaml
 ```
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the lead event is the catalogued signal's own transit.** BJD 2459422.3355 is exactly 24 x P 45.9403 d before the reference epoch (predicted-transit offset -0.06 +/- 0.02 h); the event's depth matches the catalogue (10,252 vs 14,807 ppm measured/catalogued on a diluted reference). No new signal.
+
+Source: `campaigns/toi-1192-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.

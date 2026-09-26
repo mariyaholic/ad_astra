@@ -217,3 +217,9 @@ Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EX
 | Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
 
 `failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.
+
+## Reviewer notes (2026-09-26, lead vetting)
+
+**Rejected: the deficit is elsewhere.** The difference image places the event 108.7 arcsec (5 TESS pixels) from the stamp's flux centroid at 34 sigma, with no Gaia source capable of the depth there; the detrending depth swings 2,914-9,410 ppm. The 29-alias family does not apply. No new signal.
+
+Source: `campaigns/toi-6667-01/vetting/VETTING.md` and `campaigns/tess-periodic-01/LEAD_VETTING_LOG.md`.
