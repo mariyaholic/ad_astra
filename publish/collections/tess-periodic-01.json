@@ -1,0 +1,3018 @@
+{
+ "id": "tess-periodic-01",
+ "title": "TESS periodic-candidate screen, batch colab-p01 (100 of 1,000 targets)",
+ "type": "campaign",
+ "status": "published",
+ "published": "2026-09-26",
+ "summary": "First 100 of 1,000 queued periodic PC/APC TOIs processed end to end on a Google Colab CPU runtime (batch colab-p01, pinned commit 2b65d44). Outcomes: 57 unverified leads and 43 pipeline checks; 0 failed runs.",
+ "description_md": "Runs executed on Colab (CPU High-RAM, 8 vCPU) at `--jobs 7`, pinned to commit `2b65d44`; the checkpoint shipped to Drive under `Cygnus/colab_runs/colab-p01/` (3,330 objects) and was verified intact: all 3,327 manifest-listed files hash-match, all 100 specs byte-match the committed specs, and all 387 product SHA-256s inside the records match the Drive files.\n\n**Evidence discipline.** Every lead here is an **Unverified lead**: vetting (`python -m cygnus.campaign vet`) has not run yet, and no candidate dossier is published for this batch. Reports and search logs below carry their generated-draft markers (pending review). Catalogue guards flagged: VSX collisions (toi-6806-01, toi-3157-01, toi-3241-01, toi-621-01), a SIMBAD EB* match (toi-630-01, 0.1 arcsec), a moving-object failure (toi-2782-01), positive-control failures (toi-340-01, toi-1149-01, toi-1986-01, toi-3157-01, toi-6568-01), and 8 no-data campaigns. The per-event pointing/quality census failed in 85/100 records — a systematic check-health finding under investigation, not 85 science signals.\n\n**Provenance limits, stated honestly.** The run-level ledger for this batch is a companion Colab ledger (archived beside the batch; SHA-256 recorded in `docs/STATUS.md`), which is **never merged** into the local ledger, so these runs have no rows on the site log page; the sites log mechanism keys on exact script names and does not fit batch runs. Runner products stay on Drive, indexed in `storage/locations.jsonl` (`colab_runs/colab-p01`). The remaining 900 queued targets have specs and draft records but have **not** been run yet.",
+ "research_status": "Completed runs · 57 unverified leads · vetting pending",
+ "license": "Apache-2.0",
+ "citation": "Project Cygnus / Astraea, TESS periodic-candidate screen batch colab-p01 (2026).",
+ "related": [
+  "campaign:tess-mono-01",
+  "collection:tier1-baseline-pack-2026-09"
+ ],
+ "items": [
+  {
+   "id": "toi-1019-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1019-01.yaml",
+   "title": "Known-object test, TOI-1019.01",
+   "description": "Known-object test on TOI-1019.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3.5, 3.5, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 10%, 10%, 0%, 10%, 20%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 247 threshold entries outside the known-signal veto across 6 light curve(s), forming 45 distinct event(s), 36 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459237.6809 (ΔT 5.20 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1019-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1019-01/REPORT.md",
+   "title": "Report: toi-1019-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1019-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1019-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1019-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1059-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1059-01.yaml",
+   "title": "Known-object test, TOI-1059.01",
+   "description": "Known-object test on TOI-1059.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3, 3, 4.5, 5.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 1%, 2%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 10%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 318 threshold entries outside the known-signal veto across 6 light curve(s), forming 128 distinct event(s), 23 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460833.9619 (ΔT 18.90 d); 2 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1059-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1059-01/REPORT.md",
+   "title": "Report: toi-1059-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1059-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1059-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1059-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1114-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1114-01.yaml",
+   "title": "Known-object test, TOI-1114.01",
+   "description": "Known-object test on TOI-1114.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 3, 3.5, 4.5, 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 10%, 20%, 10%, 10%, 20%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 1032 threshold entries outside the known-signal veto across 6 light curve(s), forming 180 distinct event(s), 123 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460830.5397 (ΔT 19.91 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1114-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1114-01/REPORT.md",
+   "title": "Report: toi-1114-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1114-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1114-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1114-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1124-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1124-01.yaml",
+   "title": "Known-object test, TOI-1124.01",
+   "description": "Known-object test on TOI-1124.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3.5, ≤2.5, ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 10%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 819 threshold entries outside the known-signal veto across 5 light curve(s), forming 299 distinct event(s), 58 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460128.2759 (ΔT 21.11 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1124-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1124-01/REPORT.md",
+   "title": "Report: toi-1124-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1124-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1124-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1124-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1149-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1149-01.yaml",
+   "title": "Known-object test, TOI-1149.01",
+   "description": "Known-object test on TOI-1149.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 110 threshold entries outside the known-signal veto across 4 light curve(s), forming 55 distinct event(s), 3 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-1149-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1149-01/REPORT.md",
+   "title": "Report: toi-1149-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1149-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1149-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1149-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1192-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1192-01.yaml",
+   "title": "Known-object test, TOI-1192.01",
+   "description": "Known-object test on TOI-1192.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3.5, ≤2.5, 3, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 45 threshold entries outside the known-signal veto across 6 light curve(s), forming 18 distinct event(s), 3 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459422.3379 (ΔT 1102.62 d); 14 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1192-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1192-01/REPORT.md",
+   "title": "Report: toi-1192-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1192-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1192-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1192-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-121-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-121-01.yaml",
+   "title": "Known-object test, TOI-121.01",
+   "description": "Known-object test on TOI-121.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, 5, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 0.5%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 10%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 297 threshold entries outside the known-signal veto across 6 light curve(s), forming 91 distinct event(s), 30 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-121-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-121-01/REPORT.md",
+   "title": "Report: toi-121-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-121-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-121-01/SEARCH_LOG.md",
+   "title": "Search log: toi-121-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1229-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1229-01.yaml",
+   "title": "Known-object test, TOI-1229.01",
+   "description": "Known-object test on TOI-1229.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, 3.5, 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 10%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 130 threshold entries outside the known-signal veto across 6 light curve(s), forming 22 distinct event(s), 14 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458602.5208 (ΔT 1367.97 d); 18 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1229-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1229-01/REPORT.md",
+   "title": "Report: toi-1229-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1229-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1229-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1229-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1351-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1351-01.yaml",
+   "title": "Known-object test, TOI-1351.01",
+   "description": "Known-object test on TOI-1351.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, 4, 3.5, ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 10%, 0%, 0%, 0%, 0%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 342 threshold entries outside the known-signal veto across 6 light curve(s), forming 60 distinct event(s), 38 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460636.7790 (ΔT 17.79 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1351-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1351-01/REPORT.md",
+   "title": "Report: toi-1351-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1351-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1351-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1351-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1356-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1356-01.yaml",
+   "title": "Known-object test, TOI-1356.01",
+   "description": "Known-object test on TOI-1356.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3.5, 3, ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 245 threshold entries outside the known-signal veto across 6 light curve(s), forming 85 distinct event(s), 16 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459800.7338 (ΔT 48.51 d); 2 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1356-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1356-01/REPORT.md",
+   "title": "Report: toi-1356-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1356-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1356-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1356-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1379-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1379-01.yaml",
+   "title": "Known-object test, TOI-1379.01",
+   "description": "Known-object test on TOI-1379.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 56 threshold entries outside the known-signal veto across 3 light curve(s), forming 11 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-1379-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1379-01/REPORT.md",
+   "title": "Report: toi-1379-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1379-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1379-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1379-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1433-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1433-01.yaml",
+   "title": "Known-object test, TOI-1433.01",
+   "description": "Known-object test on TOI-1433.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* —, 6, —, 5.5, 8, 4.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 71 threshold entries outside the known-signal veto across 6 light curve(s), forming 11 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458719.8830 (ΔT 24.87 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1433-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1433-01/REPORT.md",
+   "title": "Report: toi-1433-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1433-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1433-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1433-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1455-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1455-01.yaml",
+   "title": "Known-object test, TOI-1455.01",
+   "description": "Known-object test on TOI-1455.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3, 3.5, 3, 4; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 324 threshold entries outside the known-signal veto across 6 light curve(s), forming 58 distinct event(s), 50 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460645.5292 (ΔT 10.87 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1455-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1455-01/REPORT.md",
+   "title": "Report: toi-1455-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1455-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1455-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1455-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1457-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1457-01.yaml",
+   "title": "Known-object test, TOI-1457.01",
+   "description": "Known-object test on TOI-1457.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 20%, 10%, 80%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 613 threshold entries outside the known-signal veto across 3 light curve(s), forming 205 distinct event(s), 38 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460590.0929 (ΔT 12.80 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1457-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1457-01/REPORT.md",
+   "title": "Report: toi-1457-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1457-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1457-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1457-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1461-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1461-01.yaml",
+   "title": "Known-object test, TOI-1461.01",
+   "description": "Known-object test on TOI-1461.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 131 threshold entries outside the known-signal veto across 2 light curve(s), forming 35 distinct event(s), 16 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458770.8840 (ΔT 3.57 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1461-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1461-01/REPORT.md",
+   "title": "Report: toi-1461-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1461-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1461-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1461-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1528-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1528-01.yaml",
+   "title": "Known-object test, TOI-1528.01",
+   "description": "Known-object test on TOI-1528.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 4, 4.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 110 threshold entries outside the known-signal veto across 3 light curve(s), forming 18 distinct event(s), 13 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459895.1592 (ΔT 9.88 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1528-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1528-01/REPORT.md",
+   "title": "Report: toi-1528-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1528-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1528-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1528-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-162-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-162-01.yaml",
+   "title": "Known-object test, TOI-162.01",
+   "description": "Known-object test on TOI-162.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2% (completeness for 2000 ppm: 0%). The null result excludes only dips deeper than that. Residual screen: 33 threshold entries outside the known-signal veto across 1 light curve(s), forming 11 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-162-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-162-01/REPORT.md",
+   "title": "Report: toi-162-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-162-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-162-01/SEARCH_LOG.md",
+   "title": "Search log: toi-162-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1656-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1656-01.yaml",
+   "title": "Known-object test, TOI-1656.01",
+   "description": "Known-object test on TOI-1656.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 118 threshold entries outside the known-signal veto across 2 light curve(s), forming 60 distinct event(s), 0 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-1656-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1656-01/REPORT.md",
+   "title": "Report: toi-1656-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1656-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1656-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1656-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1709-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1709-01.yaml",
+   "title": "Known-object test, TOI-1709.01",
+   "description": "Known-object test on TOI-1709.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 79 threshold entries outside the known-signal veto across 2 light curve(s), forming 25 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459581.9385 (ΔT 15.26 d); 2 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1709-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1709-01/REPORT.md",
+   "title": "Report: toi-1709-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1709-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1709-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1709-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-173-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-173-01.yaml",
+   "title": "Known-object test, TOI-173.01",
+   "description": "Known-object test on TOI-173.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5, 3.5, ≤2.5, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 340 threshold entries outside the known-signal veto across 6 light curve(s), forming 89 distinct event(s), 30 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458660.6336 (ΔT 327.23 d); 3 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-173-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-173-01/REPORT.md",
+   "title": "Report: toi-173-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-173-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-173-01/SEARCH_LOG.md",
+   "title": "Search log: toi-173-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1861-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1861-01.yaml",
+   "title": "Known-object test, TOI-1861.01",
+   "description": "Known-object test on TOI-1861.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, ≤2.5, 3, 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 0.5%, 0.5%, 1%, 0.5% (completeness for 2000 ppm: 10%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 93 threshold entries outside the known-signal veto across 6 light curve(s), forming 35 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-1861-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1861-01/REPORT.md",
+   "title": "Report: toi-1861-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1861-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1861-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1861-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1949-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1949-01.yaml",
+   "title": "Known-object test, TOI-1949.01",
+   "description": "Known-object test on TOI-1949.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-1949.01: no SPOC 120-s light curve found at MAST for TIC 334125713. no products to analyse: none pinned and none found for the requested targets (TOI-1949.01: no SPOC 120-s light curve found at MAST for TIC 334125713.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-1949-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1949-01/REPORT.md",
+   "title": "Report: toi-1949-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1949-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1949-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1949-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1976-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1976-01.yaml",
+   "title": "Known-object test, TOI-1976.01",
+   "description": "Known-object test on TOI-1976.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 10%, 20%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 674 threshold entries outside the known-signal veto across 4 light curve(s), forming 229 distinct event(s), 48 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459336.9369 (ΔT 23.09 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-1976-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1976-01/REPORT.md",
+   "title": "Report: toi-1976-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1976-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1976-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1976-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1986-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-1986-01.yaml",
+   "title": "Known-object test, TOI-1986.01",
+   "description": "Known-object test on TOI-1986.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 4, ≤2.5, 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 194 threshold entries outside the known-signal veto across 6 light curve(s), forming 60 distinct event(s), 28 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-1986-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-1986-01/REPORT.md",
+   "title": "Report: toi-1986-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-1986-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-1986-01/SEARCH_LOG.md",
+   "title": "Search log: toi-1986-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2031-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2031-01.yaml",
+   "title": "Known-object test, TOI-2031.01",
+   "description": "Known-object test on TOI-2031.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 10%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 205 threshold entries outside the known-signal veto across 6 light curve(s), forming 43 distinct event(s), 29 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459891.7642 (ΔT 5.75 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-2031-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2031-01/REPORT.md",
+   "title": "Report: toi-2031-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2031-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2031-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2031-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2108-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2108-01.yaml",
+   "title": "Known-object test, TOI-2108.01",
+   "description": "Known-object test on TOI-2108.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, ≤2.5, 4; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, none on grid, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 264 threshold entries outside the known-signal veto across 4 light curve(s), forming 63 distinct event(s), 24 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459719.3550 (ΔT 20.38 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-2108-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2108-01/REPORT.md",
+   "title": "Report: toi-2108-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2108-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2108-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2108-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2137-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2137-01.yaml",
+   "title": "Known-object test, TOI-2137.01",
+   "description": "Known-object test on TOI-2137.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, 2%, 2% (completeness for 2000 ppm: 0%, 10%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 132 threshold entries outside the known-signal veto across 5 light curve(s), forming 30 distinct event(s), 19 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459025.1798 (ΔT 14.15 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-2137-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2137-01/REPORT.md",
+   "title": "Report: toi-2137-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2137-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2137-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2137-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2183-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2183-01.yaml",
+   "title": "Known-object test, TOI-2183.01",
+   "description": "Known-object test on TOI-2183.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-2183.01: no SPOC 120-s light curve found at MAST for TIC 1715469662. no products to analyse: none pinned and none found for the requested targets (TOI-2183.01: no SPOC 120-s light curve found at MAST for TIC 1715469662.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-2183-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2183-01/REPORT.md",
+   "title": "Report: toi-2183-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2183-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2183-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2183-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-224-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-224-01.yaml",
+   "title": "Known-object test, TOI-224.01",
+   "description": "Known-object test on TOI-224.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 10, 8, —, 4.5, —; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, 2%, 2%, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 24 threshold entries outside the known-signal veto across 5 light curve(s), forming 4 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459092.1803 (ΔT 726.34 d); 18 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-224-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-224-01/REPORT.md",
+   "title": "Report: toi-224-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-224-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-224-01/SEARCH_LOG.md",
+   "title": "Search log: toi-224-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2349-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2349-01.yaml",
+   "title": "Known-object test, TOI-2349.01",
+   "description": "Known-object test on TOI-2349.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2% (completeness for 2000 ppm: 0%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 153 threshold entries outside the known-signal veto across 3 light curve(s), forming 20 distinct event(s), 19 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460009.3791 (ΔT 11.47 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-2349-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2349-01/REPORT.md",
+   "title": "Report: toi-2349-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2349-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2349-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2349-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2613-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2613-01.yaml",
+   "title": "Known-object test, TOI-2613.01",
+   "description": "Known-object test on TOI-2613.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 10%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 374 threshold entries outside the known-signal veto across 4 light curve(s), forming 52 distinct event(s), 46 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460170.2953 (ΔT 15.03 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-2613-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2613-01/REPORT.md",
+   "title": "Report: toi-2613-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2613-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2613-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2613-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2645-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2645-01.yaml",
+   "title": "Known-object test, TOI-2645.01",
+   "description": "Known-object test on TOI-2645.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, ≤2.5, 3, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 20%, 0%, 30%, 0%, 0%, 20%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 674 threshold entries outside the known-signal veto across 6 light curve(s), forming 115 distinct event(s), 111 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-2645-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2645-01/REPORT.md",
+   "title": "Report: toi-2645-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2645-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2645-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2645-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2782-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-2782-01.yaml",
+   "title": "Known-object test, TOI-2782.01",
+   "description": "Known-object test on TOI-2782.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 4, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid (completeness for 2000 ppm: 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 642 threshold entries outside the known-signal veto across 2 light curve(s), forming 112 distinct event(s), 105 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-2782-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-2782-01/REPORT.md",
+   "title": "Report: toi-2782-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-2782-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-2782-01/SEARCH_LOG.md",
+   "title": "Search log: toi-2782-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3012-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3012-01.yaml",
+   "title": "Known-object test, TOI-3012.01",
+   "description": "Known-object test on TOI-3012.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit partial (1 covered epoch). Residual screen: 423 threshold entries outside the known-signal veto across 4 light curve(s), forming 90 distinct event(s), 69 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3012-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3012-01/REPORT.md",
+   "title": "Report: toi-3012-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3012-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3012-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3012-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3048-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3048-01.yaml",
+   "title": "Known-object test, TOI-3048.01",
+   "description": "Known-object test on TOI-3048.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 10%, 0%). The null result excludes only dips deeper than that. Residual screen: 811 threshold entries outside the known-signal veto across 4 light curve(s), forming 152 distinct event(s), 54 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3048-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3048-01/REPORT.md",
+   "title": "Report: toi-3048-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3048-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3048-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3048-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3098-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3098-01.yaml",
+   "title": "Known-object test, TOI-3098.01",
+   "description": "Known-object test on TOI-3098.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 10%, 30%, 0%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 281 threshold entries outside the known-signal veto across 5 light curve(s), forming 50 distinct event(s), 34 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3098-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3098-01/REPORT.md",
+   "title": "Report: toi-3098-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3098-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3098-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3098-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3157-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3157-01.yaml",
+   "title": "Known-object test, TOI-3157.01",
+   "description": "Known-object test on TOI-3157.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, ≤2.5, 3, 3.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 330 threshold entries outside the known-signal veto across 6 light curve(s), forming 83 distinct event(s), 45 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3157-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3157-01/REPORT.md",
+   "title": "Report: toi-3157-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3157-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3157-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3157-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-316-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-316-01.yaml",
+   "title": "Known-object test, TOI-316.01",
+   "description": "Known-object test on TOI-316.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, ≤2.5, 4; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 73 threshold entries outside the known-signal veto across 4 light curve(s), forming 14 distinct event(s), 9 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-316-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-316-01/REPORT.md",
+   "title": "Report: toi-316-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-316-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-316-01/SEARCH_LOG.md",
+   "title": "Search log: toi-316-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3223-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3223-01.yaml",
+   "title": "Known-object test, TOI-3223.01",
+   "description": "Known-object test on TOI-3223.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5, 4; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 851 threshold entries outside the known-signal veto across 3 light curve(s), forming 189 distinct event(s), 110 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3223-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3223-01/REPORT.md",
+   "title": "Report: toi-3223-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3223-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3223-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3223-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3241-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3241-01.yaml",
+   "title": "Known-object test, TOI-3241.01",
+   "description": "Known-object test on TOI-3241.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, ≤2.5, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, none on grid, none on grid (completeness for 2000 ppm: 0%, 10%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 790 threshold entries outside the known-signal veto across 6 light curve(s), forming 297 distinct event(s), 36 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3241-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3241-01/REPORT.md",
+   "title": "Report: toi-3241-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3241-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3241-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3241-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3312-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3312-01.yaml",
+   "title": "Known-object test, TOI-3312.01",
+   "description": "Known-object test on TOI-3312.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 10%, 0%). The null result excludes only dips deeper than that. Residual screen: 658 threshold entries outside the known-signal veto across 3 light curve(s), forming 144 distinct event(s), 66 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3312-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3312-01/REPORT.md",
+   "title": "Report: toi-3312-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3312-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3312-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3312-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-340-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-340-01.yaml",
+   "title": "Known-object test, TOI-340.01",
+   "description": "Known-object test on TOI-340.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, 4, 3.5, 7, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 433 threshold entries outside the known-signal veto across 6 light curve(s), forming 164 distinct event(s), 32 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-340-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-340-01/REPORT.md",
+   "title": "Report: toi-340-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-340-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-340-01/SEARCH_LOG.md",
+   "title": "Search log: toi-340-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3460-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3460-01.yaml",
+   "title": "Known-object test, TOI-3460.01",
+   "description": "Known-object test on TOI-3460.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 20%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 913 threshold entries outside the known-signal veto across 4 light curve(s), forming 308 distinct event(s), 24 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459369.5177 (ΔT 4.63 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-3460-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3460-01/REPORT.md",
+   "title": "Report: toi-3460-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3460-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3460-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3460-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3487-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3487-01.yaml",
+   "title": "Known-object test, TOI-3487.01",
+   "description": "Known-object test on TOI-3487.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 10%). The null result excludes only dips deeper than that. Residual screen: 404 threshold entries outside the known-signal veto across 6 light curve(s), forming 149 distinct event(s), 29 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3487-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3487-01/REPORT.md",
+   "title": "Report: toi-3487-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3487-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3487-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3487-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3491-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3491-01.yaml",
+   "title": "Known-object test, TOI-3491.01",
+   "description": "Known-object test on TOI-3491.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, 3.5, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 50%, 30%, 10%, 10%). The null result excludes only dips deeper than that. Residual screen: 786 threshold entries outside the known-signal veto across 5 light curve(s), forming 205 distinct event(s), 73 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3491-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3491-01/REPORT.md",
+   "title": "Report: toi-3491-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3491-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3491-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3491-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3501-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3501-01.yaml",
+   "title": "Known-object test, TOI-3501.01",
+   "description": "Known-object test on TOI-3501.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 125 threshold entries outside the known-signal veto across 4 light curve(s), forming 44 distinct event(s), 7 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459328.8217 (ΔT 15.33 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-3501-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3501-01/REPORT.md",
+   "title": "Report: toi-3501-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3501-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3501-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3501-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-352-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-352-01.yaml",
+   "title": "Known-object test, TOI-352.01",
+   "description": "Known-object test on TOI-352.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 59 threshold entries outside the known-signal veto across 3 light curve(s), forming 17 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-352-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-352-01/REPORT.md",
+   "title": "Report: toi-352-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-352-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-352-01/SEARCH_LOG.md",
+   "title": "Search log: toi-352-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3531-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3531-01.yaml",
+   "title": "Known-object test, TOI-3531.01",
+   "description": "Known-object test on TOI-3531.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, ≤2.5, 3, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 10%, 10%, 20%). The null result excludes only dips deeper than that. Positive control: catalogued transit partial (1 covered epoch). Residual screen: 280 threshold entries outside the known-signal veto across 6 light curve(s), forming 53 distinct event(s), 38 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3531-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3531-01/REPORT.md",
+   "title": "Report: toi-3531-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3531-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3531-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3531-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3586-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3586-01.yaml",
+   "title": "Known-object test, TOI-3586.01",
+   "description": "Known-object test on TOI-3586.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, ≤2.5, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 216 threshold entries outside the known-signal veto across 6 light curve(s), forming 48 distinct event(s), 24 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3586-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3586-01/REPORT.md",
+   "title": "Report: toi-3586-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3586-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3586-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3586-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3716-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3716-01.yaml",
+   "title": "Known-object test, TOI-3716.01",
+   "description": "Known-object test on TOI-3716.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 517 threshold entries outside the known-signal veto across 2 light curve(s), forming 99 distinct event(s), 36 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-3716-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3716-01/REPORT.md",
+   "title": "Report: toi-3716-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3716-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3716-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3716-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3972-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-3972-01.yaml",
+   "title": "Known-object test, TOI-3972.01",
+   "description": "Known-object test on TOI-3972.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 2%, 1% (completeness for 2000 ppm: 0%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 48 threshold entries outside the known-signal veto across 3 light curve(s), forming 12 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459892.7292 (ΔT 10.51 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-3972-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-3972-01/REPORT.md",
+   "title": "Report: toi-3972-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-3972-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-3972-01/SEARCH_LOG.md",
+   "title": "Search log: toi-3972-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4381-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-4381-01.yaml",
+   "title": "Known-object test, TOI-4381.01",
+   "description": "Known-object test on TOI-4381.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, 8, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 530 threshold entries outside the known-signal veto across 5 light curve(s), forming 92 distinct event(s), 40 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461074.4717 (ΔT 1711.53 d); 22 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-4381-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-4381-01/REPORT.md",
+   "title": "Report: toi-4381-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4381-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-4381-01/SEARCH_LOG.md",
+   "title": "Search log: toi-4381-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4398-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-4398-01.yaml",
+   "title": "Known-object test, TOI-4398.01",
+   "description": "Known-object test on TOI-4398.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 679 threshold entries outside the known-signal veto across 4 light curve(s), forming 160 distinct event(s), 22 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460835.0445 (ΔT 17.35 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-4398-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-4398-01/REPORT.md",
+   "title": "Report: toi-4398-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4398-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-4398-01/SEARCH_LOG.md",
+   "title": "Search log: toi-4398-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4422-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-4422-01.yaml",
+   "title": "Known-object test, TOI-4422.01",
+   "description": "Known-object test on TOI-4422.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 10%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 1268 threshold entries outside the known-signal veto across 4 light curve(s), forming 293 distinct event(s), 100 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460831.1928 (ΔT 14.77 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-4422-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-4422-01/REPORT.md",
+   "title": "Report: toi-4422-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4422-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-4422-01/SEARCH_LOG.md",
+   "title": "Search log: toi-4422-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4427-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-4427-01.yaml",
+   "title": "Known-object test, TOI-4427.01",
+   "description": "Known-object test on TOI-4427.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 10%, 0%, 0%, 0%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 164 threshold entries outside the known-signal veto across 5 light curve(s), forming 37 distinct event(s), 22 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459945.0832 (ΔT 4.60 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-4427-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-4427-01/REPORT.md",
+   "title": "Report: toi-4427-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4427-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-4427-01/SEARCH_LOG.md",
+   "title": "Search log: toi-4427-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-447-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-447-01.yaml",
+   "title": "Known-object test, TOI-447.01",
+   "description": "Known-object test on TOI-447.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 30%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 309 threshold entries outside the known-signal veto across 4 light curve(s), forming 115 distinct event(s), 35 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459181.8469 (ΔT 5.53 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-447-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-447-01/REPORT.md",
+   "title": "Report: toi-447-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-447-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-447-01/SEARCH_LOG.md",
+   "title": "Search log: toi-447-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4494-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-4494-01.yaml",
+   "title": "Known-object test, TOI-4494.01",
+   "description": "Known-object test on TOI-4494.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.2%, 0.2% (completeness for 2000 ppm: 90%, 100%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 208 threshold entries outside the known-signal veto across 2 light curve(s), forming 79 distinct event(s), 13 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460350.7444 (ΔT 32.53 d); 1 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-4494-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-4494-01/REPORT.md",
+   "title": "Report: toi-4494-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4494-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-4494-01/SEARCH_LOG.md",
+   "title": "Search log: toi-4494-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-450-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-450-01.yaml",
+   "title": "Known-object test, TOI-450.01",
+   "description": "Known-object test on TOI-450.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, —, 5, 7, —; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 147 threshold entries outside the known-signal veto across 5 light curve(s), forming 38 distinct event(s), 17 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459193.2015 (ΔT 10.68 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-450-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-450-01/REPORT.md",
+   "title": "Report: toi-450-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-450-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-450-01/SEARCH_LOG.md",
+   "title": "Search log: toi-450-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4543-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-4543-01.yaml",
+   "title": "Known-object test, TOI-4543.01",
+   "description": "Known-object test on TOI-4543.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 30%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 133 threshold entries outside the known-signal veto across 2 light curve(s), forming 50 distinct event(s), 9 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460218.0188 (ΔT 5.77 d); 1 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-4543-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-4543-01/REPORT.md",
+   "title": "Report: toi-4543-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4543-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-4543-01/SEARCH_LOG.md",
+   "title": "Search log: toi-4543-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4597-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-4597-01.yaml",
+   "title": "Known-object test, TOI-4597.01",
+   "description": "Known-object test on TOI-4597.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 19 threshold entries outside the known-signal veto across 2 light curve(s), forming 4 distinct event(s), 3 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459476.5408 (ΔT 46.68 d); 4 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-4597-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-4597-01/REPORT.md",
+   "title": "Report: toi-4597-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-4597-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-4597-01/SEARCH_LOG.md",
+   "title": "Search log: toi-4597-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5149-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-5149-01.yaml",
+   "title": "Known-object test, TOI-5149.01",
+   "description": "Known-object test on TOI-5149.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, ≤2.5, 3, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 10%, 10%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 122 threshold entries outside the known-signal veto across 6 light curve(s), forming 33 distinct event(s), 12 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459431.6755 (ΔT 383.20 d); 7 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-5149-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-5149-01/REPORT.md",
+   "title": "Report: toi-5149-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5149-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-5149-01/SEARCH_LOG.md",
+   "title": "Search log: toi-5149-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-527-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-527-01.yaml",
+   "title": "Known-object test, TOI-527.01",
+   "description": "Known-object test on TOI-527.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 3, 3, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.2%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 10%, 40%, 100%, 30%, 10%, 40%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 156 threshold entries outside the known-signal veto across 6 light curve(s), forming 57 distinct event(s), 10 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458488.8270 (ΔT 18.09 d); 1 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-527-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-527-01/REPORT.md",
+   "title": "Report: toi-527-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-527-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-527-01/SEARCH_LOG.md",
+   "title": "Search log: toi-527-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5379-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-5379-01.yaml",
+   "title": "Known-object test, TOI-5379.01",
+   "description": "Known-object test on TOI-5379.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 81 threshold entries outside the known-signal veto across 2 light curve(s), forming 29 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459955.2889 (ΔT 12.74 d); 1 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-5379-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-5379-01/REPORT.md",
+   "title": "Report: toi-5379-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5379-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-5379-01/SEARCH_LOG.md",
+   "title": "Search log: toi-5379-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5394-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-5394-01.yaml",
+   "title": "Known-object test, TOI-5394.01",
+   "description": "Known-object test on TOI-5394.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 3.5, 3.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 1%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 96 threshold entries outside the known-signal veto across 4 light curve(s), forming 35 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459576.8229 (ΔT 15.20 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-5394-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-5394-01/REPORT.md",
+   "title": "Report: toi-5394-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5394-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-5394-01/SEARCH_LOG.md",
+   "title": "Search log: toi-5394-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5575-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-5575-01.yaml",
+   "title": "Known-object test, TOI-5575.01",
+   "description": "Known-object test on TOI-5575.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, 3, ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 72 threshold entries outside the known-signal veto across 5 light curve(s), forming 16 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-5575-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-5575-01/REPORT.md",
+   "title": "Report: toi-5575-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5575-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-5575-01/SEARCH_LOG.md",
+   "title": "Search log: toi-5575-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5670-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-5670-01.yaml",
+   "title": "Known-object test, TOI-5670.01",
+   "description": "Known-object test on TOI-5670.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-5670.01: no SPOC 120-s light curve found at MAST for TIC 860207014. no products to analyse: none pinned and none found for the requested targets (TOI-5670.01: no SPOC 120-s light curve found at MAST for TIC 860207014.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-5670-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-5670-01/REPORT.md",
+   "title": "Report: toi-5670-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5670-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-5670-01/SEARCH_LOG.md",
+   "title": "Search log: toi-5670-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-573-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-573-01.yaml",
+   "title": "Known-object test, TOI-573.01",
+   "description": "Known-object test on TOI-573.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 4.5, 4, 3.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 10%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 83 threshold entries outside the known-signal veto across 4 light curve(s), forming 28 distinct event(s), 7 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458538.2090 (ΔT 13.58 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-573-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-573-01/REPORT.md",
+   "title": "Report: toi-573-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-573-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-573-01/SEARCH_LOG.md",
+   "title": "Search log: toi-573-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-585-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-585-01.yaml",
+   "title": "Known-object test, TOI-585.01",
+   "description": "Known-object test on TOI-585.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 20%, 0%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 117 threshold entries outside the known-signal veto across 3 light curve(s), forming 37 distinct event(s), 12 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459992.9755 (ΔT 16.64 d); 2 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-585-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-585-01/REPORT.md",
+   "title": "Report: toi-585-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-585-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-585-01/SEARCH_LOG.md",
+   "title": "Search log: toi-585-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5861-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-5861-01.yaml",
+   "title": "Known-object test, TOI-5861.01",
+   "description": "Known-object test on TOI-5861.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid (completeness for 2000 ppm: 0%). The null result excludes only dips deeper than that. Residual screen: 70 threshold entries outside the known-signal veto across 1 light curve(s), forming 13 distinct event(s), 7 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-5861-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-5861-01/REPORT.md",
+   "title": "Report: toi-5861-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-5861-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-5861-01/SEARCH_LOG.md",
+   "title": "Search log: toi-5861-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-588-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-588-01.yaml",
+   "title": "Known-object test, TOI-588.01",
+   "description": "Known-object test on TOI-588.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, ≤2.5, 6, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.2%, 0.2%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 100%, 100%, 60%, 60%, 80%, 80%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 675 threshold entries outside the known-signal veto across 6 light curve(s), forming 314 distinct event(s), 7 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459231.7592 (ΔT 749.98 d); 13 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-588-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-588-01/REPORT.md",
+   "title": "Report: toi-588-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-588-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-588-01/SEARCH_LOG.md",
+   "title": "Search log: toi-588-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6022-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6022-01.yaml",
+   "title": "Known-object test, TOI-6022.01",
+   "description": "Known-object test on TOI-6022.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, —, ≤2.5, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 0%, 10%, 0%, 20%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 609 threshold entries outside the known-signal veto across 5 light curve(s), forming 108 distinct event(s), 93 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459856.5187 (ΔT 1.93 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-6022-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6022-01/REPORT.md",
+   "title": "Report: toi-6022-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6022-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6022-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6022-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6036-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6036-01.yaml",
+   "title": "Known-object test, TOI-6036.01",
+   "description": "Known-object test on TOI-6036.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1% (completeness for 2000 ppm: 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 147 threshold entries outside the known-signal veto across 1 light curve(s), forming 26 distinct event(s), 23 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460616.4167 (ΔT 6.62 d); 1 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-6036-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6036-01/REPORT.md",
+   "title": "Report: toi-6036-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6036-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6036-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6036-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6106-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6106-01.yaml",
+   "title": "Known-object test, TOI-6106.01",
+   "description": "Known-object test on TOI-6106.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 195 threshold entries outside the known-signal veto across 2 light curve(s), forming 24 distinct event(s), 22 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459971.0381 (ΔT 6.39 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-6106-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6106-01/REPORT.md",
+   "title": "Report: toi-6106-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6106-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6106-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6106-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6137-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6137-01.yaml",
+   "title": "Known-object test, TOI-6137.01",
+   "description": "Known-object test on TOI-6137.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-6137.01: no SPOC 120-s light curve found at MAST for TIC 44295981. no products to analyse: none pinned and none found for the requested targets (TOI-6137.01: no SPOC 120-s light curve found at MAST for TIC 44295981.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-6137-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6137-01/REPORT.md",
+   "title": "Report: toi-6137-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6137-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6137-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6137-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-621-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-621-01.yaml",
+   "title": "Known-object test, TOI-621.01",
+   "description": "Known-object test on TOI-621.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 0%, 30%). The null result excludes only dips deeper than that. Residual screen: 141 threshold entries outside the known-signal veto across 2 light curve(s), forming 28 distinct event(s), 16 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-621-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-621-01/REPORT.md",
+   "title": "Report: toi-621-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-621-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-621-01/SEARCH_LOG.md",
+   "title": "Search log: toi-621-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-630-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-630-01.yaml",
+   "title": "Known-object test, TOI-630.01",
+   "description": "Known-object test on TOI-630.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, 4, 4; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1% (completeness for 2000 ppm: 10%, 20%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 218 threshold entries outside the known-signal veto across 3 light curve(s), forming 38 distinct event(s), 33 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459201.8718 (ΔT 24.49 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-630-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-630-01/REPORT.md",
+   "title": "Report: toi-630-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-630-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-630-01/SEARCH_LOG.md",
+   "title": "Search log: toi-630-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6564-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6564-01.yaml",
+   "title": "Known-object test, TOI-6564.01",
+   "description": "Known-object test on TOI-6564.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3, 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 1% (completeness for 2000 ppm: 20%, 10%, 10%, 20%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 389 threshold entries outside the known-signal veto across 5 light curve(s), forming 137 distinct event(s), 34 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460075.3542 (ΔT 4.03 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-6564-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6564-01/REPORT.md",
+   "title": "Report: toi-6564-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6564-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6564-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6564-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6568-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6568-01.yaml",
+   "title": "Known-object test, TOI-6568.01",
+   "description": "Known-object test on TOI-6568.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 400 threshold entries outside the known-signal veto across 5 light curve(s), forming 149 distinct event(s), 7 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-6568-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6568-01/REPORT.md",
+   "title": "Report: toi-6568-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6568-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6568-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6568-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6650-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6650-01.yaml",
+   "title": "Known-object test, TOI-6650.01",
+   "description": "Known-object test on TOI-6650.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 6, 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 134 threshold entries outside the known-signal veto across 4 light curve(s), forming 37 distinct event(s), 13 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460562.3867 (ΔT 20.33 d); 1 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-6650-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6650-01/REPORT.md",
+   "title": "Report: toi-6650-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6650-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6650-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6650-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-668-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-668-01.yaml",
+   "title": "Known-object test, TOI-668.01",
+   "description": "Known-object test on TOI-668.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid, none on grid, none on grid (completeness for 2000 ppm: 10%, 10%, 10%, 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 735 threshold entries outside the known-signal veto across 5 light curve(s), forming 179 distinct event(s), 37 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459287.4436 (ΔT 4.38 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-668-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-668-01/REPORT.md",
+   "title": "Report: toi-668-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-668-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-668-01/SEARCH_LOG.md",
+   "title": "Search log: toi-668-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-671-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-671-01.yaml",
+   "title": "Known-object test, TOI-671.01",
+   "description": "Known-object test on TOI-671.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 387 threshold entries outside the known-signal veto across 5 light curve(s), forming 166 distinct event(s), 24 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-671-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-671-01/REPORT.md",
+   "title": "Report: toi-671-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-671-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-671-01/SEARCH_LOG.md",
+   "title": "Search log: toi-671-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6798-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6798-01.yaml",
+   "title": "Known-object test, TOI-6798.01",
+   "description": "Known-object test on TOI-6798.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 10%, 0%, 0%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 907 threshold entries outside the known-signal veto across 6 light curve(s), forming 185 distinct event(s), 73 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-6798-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6798-01/REPORT.md",
+   "title": "Report: toi-6798-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6798-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6798-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6798-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6806-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6806-01.yaml",
+   "title": "Known-object test, TOI-6806.01",
+   "description": "Known-object test on TOI-6806.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5, ≤2.5, 3, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 1%, 1%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 10%, 10%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 229 threshold entries outside the known-signal veto across 6 light curve(s), forming 69 distinct event(s), 19 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460156.3648 (ΔT 46.50 d); 2 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-6806-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6806-01/REPORT.md",
+   "title": "Report: toi-6806-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6806-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6806-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6806-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6815-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-6815-01.yaml",
+   "title": "Known-object test, TOI-6815.01",
+   "description": "Known-object test on TOI-6815.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid (completeness for 2000 ppm: 0%, 10%). The null result excludes only dips deeper than that. Residual screen: 58 threshold entries outside the known-signal veto across 2 light curve(s), forming 17 distinct event(s), 9 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-6815-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-6815-01/REPORT.md",
+   "title": "Report: toi-6815-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-6815-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-6815-01/SEARCH_LOG.md",
+   "title": "Search log: toi-6815-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7018-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7018-01.yaml",
+   "title": "Known-object test, TOI-7018.01",
+   "description": "Known-object test on TOI-7018.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-7018.01: no SPOC 120-s light curve found at MAST for TIC 156512187. no products to analyse: none pinned and none found for the requested targets (TOI-7018.01: no SPOC 120-s light curve found at MAST for TIC 156512187.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-7018-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7018-01/REPORT.md",
+   "title": "Report: toi-7018-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7018-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7018-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7018-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-706-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-706-01.yaml",
+   "title": "Known-object test, TOI-706.01",
+   "description": "Known-object test on TOI-706.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5, ≤2.5, 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 10%, 10%, 10%, 10%, 40%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 224 threshold entries outside the known-signal veto across 6 light curve(s), forming 99 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459153.8804 (ΔT 718.98 d); 5 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-706-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-706-01/REPORT.md",
+   "title": "Report: toi-706-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-706-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-706-01/SEARCH_LOG.md",
+   "title": "Search log: toi-706-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7388-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7388-01.yaml",
+   "title": "Known-object test, TOI-7388.01",
+   "description": "Known-object test on TOI-7388.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, none on grid (completeness for 2000 ppm: 0%, 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 1283 threshold entries outside the known-signal veto across 3 light curve(s), forming 236 distinct event(s), 201 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-7388-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7388-01/REPORT.md",
+   "title": "Report: toi-7388-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7388-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7388-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7388-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7420-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7420-01.yaml",
+   "title": "Known-object test, TOI-7420.01",
+   "description": "Known-object test on TOI-7420.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-7420.01: no SPOC 120-s light curve found at MAST for TIC 259188347. no products to analyse: none pinned and none found for the requested targets (TOI-7420.01: no SPOC 120-s light curve found at MAST for TIC 259188347.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-7420-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7420-01/REPORT.md",
+   "title": "Report: toi-7420-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7420-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7420-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7420-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7464-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7464-01.yaml",
+   "title": "Known-object test, TOI-7464.01",
+   "description": "Known-object test on TOI-7464.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 30 threshold entries outside the known-signal veto across 2 light curve(s), forming 5 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459600.8470 (ΔT 20.03 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-7464-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7464-01/REPORT.md",
+   "title": "Report: toi-7464-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7464-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7464-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7464-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-760-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-760-01.yaml",
+   "title": "Known-object test, TOI-760.01",
+   "description": "Known-object test on TOI-760.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3, ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 10%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 209 threshold entries outside the known-signal veto across 6 light curve(s), forming 65 distinct event(s), 14 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458591.0129 (ΔT 12.25 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-760-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-760-01/REPORT.md",
+   "title": "Report: toi-760-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-760-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-760-01/SEARCH_LOG.md",
+   "title": "Search log: toi-760-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7610-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7610-01.yaml",
+   "title": "Known-object test, TOI-7610.01",
+   "description": "Known-object test on TOI-7610.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 39 threshold entries outside the known-signal veto across 2 light curve(s), forming 9 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461066.2847 (ΔT 365.31 d); 21 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-7610-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7610-01/REPORT.md",
+   "title": "Report: toi-7610-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7610-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7610-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7610-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-764-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-764-01.yaml",
+   "title": "Known-object test, TOI-764.01",
+   "description": "Known-object test on TOI-764.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3, ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2%, 1%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 20%, 10%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 321 threshold entries outside the known-signal veto across 6 light curve(s), forming 60 distinct event(s), 36 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458580.2155 (ΔT 5.75 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-764-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-764-01/REPORT.md",
+   "title": "Report: toi-764-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-764-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-764-01/SEARCH_LOG.md",
+   "title": "Search log: toi-764-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-768-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-768-01.yaml",
+   "title": "Known-object test, TOI-768.01",
+   "description": "Known-object test on TOI-768.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2% (completeness for 2000 ppm: 10%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 96 threshold entries outside the known-signal veto across 3 light curve(s), forming 16 distinct event(s), 11 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459327.7342 (ΔT 11.49 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-768-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-768-01/REPORT.md",
+   "title": "Report: toi-768-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-768-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-768-01/SEARCH_LOG.md",
+   "title": "Search log: toi-768-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7714-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7714-01.yaml",
+   "title": "Known-object test, TOI-7714.01",
+   "description": "Known-object test on TOI-7714.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 2% (completeness for 2000 ppm: 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 82 threshold entries outside the known-signal veto across 3 light curve(s), forming 33 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461027.4163 (ΔT 24.73 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-7714-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7714-01/REPORT.md",
+   "title": "Report: toi-7714-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7714-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7714-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7714-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7780-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7780-01.yaml",
+   "title": "Known-object test, TOI-7780.01",
+   "description": "Known-object test on TOI-7780.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-7780.01: no SPOC 120-s light curve found at MAST for TIC 437346961. no products to analyse: none pinned and none found for the requested targets (TOI-7780.01: no SPOC 120-s light curve found at MAST for TIC 437346961.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-7780-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7780-01/REPORT.md",
+   "title": "Report: toi-7780-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7780-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7780-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7780-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7814-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-7814-01.yaml",
+   "title": "Known-object test, TOI-7814.01",
+   "description": "Known-object test on TOI-7814.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-7814.01: no SPOC 120-s light curve found at MAST for TIC 279356. no products to analyse: none pinned and none found for the requested targets (TOI-7814.01: no SPOC 120-s light curve found at MAST for TIC 279356.)",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-7814-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-7814-01/REPORT.md",
+   "title": "Report: toi-7814-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-7814-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-7814-01/SEARCH_LOG.md",
+   "title": "Search log: toi-7814-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-830-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-830-01.yaml",
+   "title": "Known-object test, TOI-830.01",
+   "description": "Known-object test on TOI-830.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, ≤2.5, ≤2.5, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 2%, 1%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 264 threshold entries outside the known-signal veto across 6 light curve(s), forming 110 distinct event(s), 15 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-830-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-830-01/REPORT.md",
+   "title": "Report: toi-830-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-830-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-830-01/SEARCH_LOG.md",
+   "title": "Search log: toi-830-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-850-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-850-01.yaml",
+   "title": "Known-object test, TOI-850.01",
+   "description": "Known-object test on TOI-850.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2% (completeness for 2000 ppm: 0%). The null result excludes only dips deeper than that. Residual screen: 0 threshold entries outside the known-signal veto across 1 light curve(s).",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-850-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-850-01/REPORT.md",
+   "title": "Report: toi-850-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-850-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-850-01/SEARCH_LOG.md",
+   "title": "Search log: toi-850-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-890-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-890-01.yaml",
+   "title": "Known-object test, TOI-890.01",
+   "description": "Known-object test on TOI-890.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid (completeness for 2000 ppm: 0%, 20%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 79 threshold entries outside the known-signal veto across 2 light curve(s), forming 14 distinct event(s), 13 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459204.3228 (ΔT 22.42 d); 0 period aliases remain. Unverified lead until vetted.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · lead (Unverified lead)"
+   }
+  },
+  {
+   "id": "toi-890-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-890-01/REPORT.md",
+   "title": "Report: toi-890-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-890-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-890-01/SEARCH_LOG.md",
+   "title": "Search log: toi-890-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-911-01-spec",
+   "kind": "campaign",
+   "source": "campaigns/toi-911-01.yaml",
+   "title": "Known-object test, TOI-911.01",
+   "description": "Known-object test on TOI-911.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 1%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 10%, 0%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap (1 covered epoch). Residual screen: 1221 threshold entries outside the known-signal veto across 4 light curve(s), forming 493 distinct event(s), 23 persistent in SAP and PDCSAP at two or more baselines.",
+   "origin": "project",
+   "download": true,
+   "params": {
+    "status": "completed · pipeline_check"
+   }
+  },
+  {
+   "id": "toi-911-01-report",
+   "kind": "document",
+   "source": "campaigns/toi-911-01/REPORT.md",
+   "title": "Report: toi-911-01",
+   "description": "Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.",
+   "origin": "project",
+   "download": true
+  },
+  {
+   "id": "toi-911-01-search-log",
+   "kind": "document",
+   "source": "campaigns/toi-911-01/SEARCH_LOG.md",
+   "title": "Search log: toi-911-01",
+   "description": "Exact products, checksums, queries, exclusions and untested checks.",
+   "origin": "project",
+   "download": true
+  }
+ ]
+}
