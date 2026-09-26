@@ -65,3 +65,15 @@ def test_central_duration_scales_as_period_to_one_third():
     d8 = vet.max_central_duration_h(80, 1.0, 1.0, 0.1)
     assert 4.0 < d1 < 4.6            # ~4.3 h (T14, k = 0.1) for a Sun-like star at 10 d
     assert math.isclose(d8 / d1, 2.0, rel_tol=0.02)
+
+
+def test_weighted_box_fit_cross_checks_the_pipeline_errors():
+    rng = np.random.default_rng(3)
+    t = np.arange(0, 3, 2 / 1440)
+    y = (1 + rng.normal(0, 1e-3, t.size)) * _transit(t, 1.5, 3 / 24, 3e-3)
+    good = vet.box_fit(t, y, 1.5, 3 / 24, 1.0, yerr=np.full(t.size, 1e-3))["weighted"]
+    assert 0.8 < good["scatter_over_quoted_error"] < 1.25 and 0.8 < good["chi2_reduced"] < 1.25
+    assert abs(good["depth_ppm"] - 3000) < 4 * good["depth_err_formal_ppm"]
+    low = vet.box_fit(t, y, 1.5, 3 / 24, 1.0, yerr=np.full(t.size, 2.5e-4))["weighted"]   # errors understated 4x
+    assert low["scatter_over_quoted_error"] > 3 and low["depth_err_scaled_ppm"] > 3 * low["depth_err_formal_ppm"]
+    assert "weighted" not in vet.box_fit(t, y, 1.5, 3 / 24, 1.0)

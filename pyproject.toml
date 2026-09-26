@@ -26,10 +26,13 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "cygnus.publish" = ["templates/*.j2", "static/*"]
+"cygnus.multi" = ["data/*.csv"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = [
     "network: requires live internet access to public archives (not run by default)",
+    "slow: seeded synthetic calibration runs (L1); run with -m slow",
+    "replay: checksum-pinned replay of committed campaigns from local scratch (L2); run with -m replay",
 ]
-addopts = "-m 'not network' --strict-markers"
+addopts = "-m 'not network and not slow and not replay' --strict-markers"

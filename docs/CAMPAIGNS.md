@@ -68,7 +68,7 @@ Not built yet (designed in `ANALYSIS_STACK.md`): alternative detrending families
 
 - Equivalence with the original scripts on the real WASP-12 products: `normalized_series.csv` byte-identical in both sectors; all 835 and 464 screen entries identical; recovery `results.json` identical apart from its run timestamp (same seed 20260925).
 - Ledger repair: ten `cygnus.ingest.tier1` runs left `open` by crashed processes were closed as `aborted` with an explanatory note (`python -m cygnus.cli close-stale-runs`); `tier1` now uses `recorded_run`.
-- `python -m pytest -q`: 156 passed, 2 deselected at the time of this record; 188 after the 2026-09-25 audit fixes; **241 passed, 2 deselected** after the multi-archive runner merged into production (`src/cygnus/multi/`); **243 passed, 2 deselected** on 2026-09-26 after `experimental/` was retired (its separate 36-test suite no longer exists; every one of those tests has a counterpart in `tests/`).
+- `python -m pytest -q`: 156 passed, 2 deselected at the time of this record; 188 after the 2026-09-25 audit fixes; **241 passed, 2 deselected** after the multi-archive runner merged into production (`src/cygnus/multi/`); **243 passed, 2 deselected** on 2026-09-26 after `experimental/` was retired (its separate 36-test suite no longer exists; every one of those tests has a counterpart in `tests/`). The batch-driver additions of the same day made it **254 passed, 2 deselected**; after the suite expansion (`docs/SUITE_EXPANSION.md` §7) the offline gate is **590 passed, 37 deselected** (93 s), the 37 being the opt-in `network` (26), `slow` (7) and `replay` (4) lanes.
 
 ## Automation
 

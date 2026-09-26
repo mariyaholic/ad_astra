@@ -136,6 +136,7 @@ def spec_for(t: dict, *, parent: str | None, origin: str, seed: int, archives: s
     else:
         fetch = "  - fetch_products:\n      from_targets: {max_products_per_target: 6}"
         arch_comment = ""
+    rv_step = "  - rv_bounds: {}\n" if archives and "eso" in archives else ""
     return _yaml_nulls(f"""# CYGNUS known-object test for {t['name']}, generated {now_utc()[:10]} by `python -m cygnus.multi new`.
 {arch_comment}# Target values are copied from: {origin}. Run with
 #   python -m cygnus.multi run {out.rstrip('/')}.yaml
@@ -185,16 +186,28 @@ steps:
   - known_signal_recovery:
       k_mad: calibrated
       epoch_tolerance_hours: 2.0
+  - stellar_context:
+      radius_arcsec: 63
+      aperture_arcsec: 52.5
   - residual_screen:
       windows_days: [1.0, 2.0, 3.0]
       k_mad: calibrated
       min_cadences: 2
       series_window_days: 2.0
+  - event_census:
+      pad_days: 0.25
+      z_max: 5.0
   - period_aliases:
       depth_ratio: [0.5, 2.0]
       min_period_days: 1.0
       min_coverage: 0.5
       excluded_below: 0.3
+      duration_frac_err: 0.1
+  - moving_objects:
+      radius_arcsec: 600
+  - alias_cross_instrument: {{}}
+{rv_step}  - variability_guard:
+      match_arcsec: 10
   - prior_art:
       radius_arcsec: 30
 

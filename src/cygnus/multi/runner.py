@@ -56,15 +56,33 @@ def load_spec(path: str | Path) -> dict:
         problems.append(f"runner is {spec['runner']!r}; this runner is cygnus.multi")
     order = [next(iter(s)) for s in steps if isinstance(s, dict) and len(s) == 1]
     for dep in ("context_products", "source_checks", "calibrate_screen", "residual_screen", "known_signal_recovery",
-                "bls_recovery", "period_aliases"):
+                "bls_recovery", "period_aliases", "event_census", "alias_cross_instrument", "rv_bounds"):
         if dep in order and "fetch_products" not in order:
             problems.append(f"{dep} needs a fetch_products step before it")
         elif dep in order and order.index(dep) < order.index("fetch_products"):
             problems.append(f"{dep} must come after fetch_products")
+    # measure steps read earlier steps' outputs; running them first would silently test nothing
+    for later, earlier in (("event_census", "residual_screen"), ("moving_objects", "residual_screen"),
+                           ("alias_cross_instrument", "period_aliases")):
+        if later in order and earlier in order and order.index(later) < order.index(earlier):
+            problems.append(f"{later} must come after {earlier}")
+    if "stellar_context" in order and "period_aliases" in order and order.index("stellar_context") > order.index("period_aliases"):
+        problems.append("stellar_context must come before period_aliases (its priors give the alias duration likelihood)")
     for s in steps:
-        if isinstance(s, dict) and len(s) == 1 and next(iter(s)) == "residual_screen":
-            if (next(iter(s.values())) or {}).get("k_mad") == "calibrated" and "calibrate_screen" not in order:
-                problems.append("residual_screen k_mad: calibrated needs a calibrate_screen step")
+        if not (isinstance(s, dict) and len(s) == 1):
+            continue
+        name, params = next(iter(s.items()))
+        params = params if isinstance(params, dict) else {}
+        if name in ("residual_screen", "known_signal_recovery"):
+            # known_signal_recovery defaults to the calibrated threshold (steps.step_known_signal_recovery)
+            k = params.get("k_mad", "calibrated" if name == "known_signal_recovery" else None)
+            if str(k).lower() == "calibrated":
+                if "calibrate_screen" not in order:
+                    problems.append(f"{name} k_mad: calibrated needs a calibrate_screen step")
+                elif order.index("calibrate_screen") > order.index(name):
+                    problems.append(f"{name}: calibrate_screen must come before it to provide k*")
+    if "fetch_products" in order and "target_queue" in order and order.index("target_queue") > order.index("fetch_products"):
+        problems.append("target_queue must come before fetch_products")
     if "outputs" not in spec:
         problems.append("outputs directory required")
     veto = spec.get("veto")

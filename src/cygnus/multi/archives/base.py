@@ -77,6 +77,7 @@ KIND_BY_FORMAT = {
     "fits_image": "image", "coadd_image": "image", "fits_cube": "image",
     "csv": "table", "votable": "table", "table": "table", "json": "table",
     "text": "text",
+    "rv_table": "table", "eso_spectrum": "spectrum",
 }
 
 
@@ -269,8 +270,10 @@ class ArchiveAdapter(ABC):
         r = self.http_post(url, data={"REQUEST": "doQuery", "LANG": "ADQL", "FORMAT": "csv", "QUERY": adql},
                            timeout=timeout)
         r.raise_for_status()
-        if r.text.lstrip().startswith("<"):
-            raise AdapterError(f"TAP error from {url}: {r.text[:300]}")
+        body = r.text.lstrip()
+        # a TAP service reports errors in a VOTable or as plain text with HTTP 200; a CSV answer always has a header
+        if not body or body.startswith("<") or body[:6].upper().startswith(("ERROR", "FATAL")):
+            raise AdapterError(f"TAP error from {url}: {body[:300] or 'empty response body'}")
         return list(csv.DictReader(io.StringIO(r.text)))
 
 

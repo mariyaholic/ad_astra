@@ -110,14 +110,15 @@ class MastAdapter(ArchiveAdapter):
                 continue
             if subgroup and sub != subgroup:
                 continue
-            if fn.endswith("fast") or "-fast" in fn:
+            if "fast" in fn.rsplit("/", 1)[-1].lower():   # 20-s products ('...-a_fast-lc.fits') are not the 120-s screen
                 continue
             seen.add(fn)
             uri = p.get("dataURI") or f"mast:{collection}/product/{fn}"
             rows.append({"product_id": fn, "url": f"{MAST_DL}?uri={uri}",
                          "format": self._fmt_for(fn, collection),
                          "description": f"MAST {collection} {sub} {fn}",
-                         "obsid": p.get("obsID"), "sector": _sector_of(fn), "tic": target.tic})
+                         "obsid": p.get("obsID"), "sector": _sector_of(fn), "tic": target.tic,
+                         "size_bytes": int(p["size"]) if str(p.get("size") or "").isdigit() else None})
         return as_products(rows[:limit], self.name, "fits_table")
 
     @staticmethod
@@ -142,7 +143,7 @@ def _sector_of(fn: str) -> int | None:
 
 # --------------------------------------------------------------------------- Gaia
 GAIA_TAP = "https://gea.esac.esa.int/tap-server/tap"
-_GAIA_COLS = ("source_id, ra, dec, parallax, pmra, pmdec, phot_g_mean_mag, bp_rp, ruwe, "
+_GAIA_COLS = ("source_id, ra, dec, parallax, parallax_error, pmra, pmdec, phot_g_mean_mag, bp_rp, ruwe, "
               "radial_velocity, non_single_star")
 
 
@@ -220,7 +221,8 @@ class SkyViewAdapter(ArchiveAdapter):
             pid = f"skyview_{target.name.replace(' ', '_')}_{sv.replace(' ', '')}_0.fits"
             rows.append({"product_id": pid, "url": None, "format": "fits_image",
                          "description": f"SkyView {sv} cutout {size_deg} deg",
-                         "survey": sv, "size_deg": size_deg, "pixels": pixels})
+                         "survey": sv, "size_deg": size_deg, "pixels": pixels,
+                         "position": f"{target.ra_deg:.6f},{target.dec_deg:.6f}"})
         return as_products(rows, self.name, "fits_image")
 
     def fetch(self, ref: ProductRef, dest: Path, *, timeout_s: float = 180.0) -> Path:
@@ -229,7 +231,7 @@ class SkyViewAdapter(ArchiveAdapter):
                   "Return": "FITS", "coordinates": "J2000", "projection": "Tan", "scaling": "Linear"}
         r = self.http_get(SKYVIEW_CGI, params=params, timeout=timeout_s)
         r.raise_for_status()
-        if r.content[:6] not in (b"SIMPLE", b"\x00\x00\x00\x00") and not r.content.startswith(b"SIMPLE"):
+        if not r.content.startswith(b"SIMPLE"):
             raise AdapterError(f"SkyView returned non-FITS content for {ref.product_id}: {r.content[:80]!r}")
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_bytes(r.content)
@@ -357,8 +359,11 @@ class EsoAdapter(ArchiveAdapter):
             rows = self.tap_csv(ESO_OBS_TAP, adql)
         except Exception as exc:  # noqa: BLE001
             raise AdapterUnavailable(f"ESO TAP failed: {type(exc).__name__}: {exc}") from exc
+        # ObsCore dataproduct_type decides the reader: spectra carry pipeline RVs and are never light curves
+        fk = {"image": ("fits_image", "image"), "cube": ("fits_cube", "image"), "spectrum": ("eso_spectrum", "spectrum")}
         out = [{"product_id": str(x.get("dp_id") or f"eso_{i}"), "url": x.get("access_url"),
-                "format": "fits_image" if x.get("dataproduct_type") == "image" else "fits_table",
+                "format": fk.get(str(x.get("dataproduct_type")), ("fits_table", "table"))[0],
+                "kind": fk.get(str(x.get("dataproduct_type")), ("fits_table", "table"))[1],
                 "description": f"ESO {x.get('obs_collection')} {x.get('instrument_name')}",
                 "obs_collection": x.get("obs_collection"), "instrument": x.get("instrument_name")} for i, x in enumerate(rows)]
         return as_products(out[:limit], self.name, "fits_table")
@@ -441,7 +446,11 @@ class LegacySurveyAdapter(ArchiveAdapter):
         return as_products(rows, self.name, "fits_image")
 
     def fetch(self, ref: ProductRef, dest: Path, *, timeout_s: float = 180.0) -> Path:
-        params = {"ra": ref.extra["ra"], "dec": ref.extra["dec"], "size": ref.extra["size_arcsec"],
+        # the viewer's ``size`` is an integer number of pixels (a float such as "60.0" is an HTTP 500, checked
+        # 2026-09-26); convert the requested width at an explicit pixel scale
+        pixscale = float(ref.extra.get("pixscale", 0.262))
+        params = {"ra": ref.extra["ra"], "dec": ref.extra["dec"],
+                  "size": max(1, int(round(float(ref.extra["size_arcsec"]) / pixscale))), "pixscale": pixscale,
                   "layer": ref.extra["layer"], "fits": "1"}
         r = self.http_get(f"{LS_VIEWER}/cutout.fits", params=params, timeout=timeout_s)
         r.raise_for_status()

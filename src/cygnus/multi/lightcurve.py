@@ -62,8 +62,8 @@ def read_campaign_lc(path: str | Path, *, fmt: str = "spoc_lc") -> SpocLightCurv
         cadence_source = "median time step (no cadence metadata)"
     centroids = {}
     for n in ("MOM_CENTR1", "MOM_CENTR2", "POS_CORR1", "POS_CORR2"):
-        if n in lc.fluxes:
-            centroids[n] = np.asarray(lc.fluxes[n], float)
+        if n in lc.engineering:          # the reader keeps engineering series apart from the flux channels
+            centroids[n] = np.asarray(lc.engineering[n], float)
     primary = dict(lc.primary)
     primary["_channels"] = {"sap": sap, "pdc": pdc, "all": chans, "archive_format": fmt,
                             "independent": pair is not None, "converted": converted,

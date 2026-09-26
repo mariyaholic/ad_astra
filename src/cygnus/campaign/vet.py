@@ -67,18 +67,31 @@ class LC:
             self.ra, self.dec, self.tmag = hd0.get("RA_OBJ"), hd0.get("DEC_OBJ"), hd0.get("TESSMAG")
         self.ok = np.isfinite(self.t) & (self.q == 0) & np.isfinite(self.col["PDCSAP_FLUX"]) & np.isfinite(self.col["SAP_FLUX"])
         for n in ("SAP_FLUX", "PDCSAP_FLUX"):
-            self.col[n] = self.col[n] / np.nanmedian(self.col[n][self.ok])
+            scale = np.nanmedian(self.col[n][self.ok])
+            self.col[n] = self.col[n] / scale
+            if n == "PDCSAP_FLUX" and "PDCSAP_FLUX_ERR" in self.col:
+                self.col["PDCSAP_FLUX_ERR"] = self.col["PDCSAP_FLUX_ERR"] / scale   # errors in the same normalised units
 
 
 def _box(t, tmid, dur):
     return np.abs(t - tmid) <= dur / 2
 
 
-def box_fit(t, y, tguess, dur_guess, half_window, search_hours=None):
+def box_fit(t, y, tguess, dur_guess, half_window, search_hours=None, yerr=None):
     """Grid search over mid-time and duration; per grid point a linear least-squares fit of
     quadratic baseline + box depth. Returns depth (positive = dip), its error, mid, duration,
-    χ² improvement over the baseline-only fit, and a V-shape index."""
+    χ² improvement over the baseline-only fit, and a V-shape index.
+
+    With per-cadence errors ``yerr`` (e.g. PDCSAP_FLUX_ERR) the best box is refitted by weighted
+    least squares and ``weighted`` reports that depth, its formal error, the reduced χ², and the
+    ratio of the robust residual scatter to the median quoted error (1 when the pipeline errors
+    describe the scatter; > 1 when they understate it). The unweighted fit is unchanged.
+    """
     sel = np.isfinite(y) & (np.abs(t - tguess) <= half_window)
+    if yerr is not None:
+        yerr = np.asarray(yerr, float)
+        sel &= np.isfinite(yerr) & (yerr > 0)
+        yerr = yerr[sel]
     t, y = t[sel], y[sel]
     if t.size < 20:
         return None
@@ -109,9 +122,23 @@ def box_fit(t, y, tguess, dur_guess, half_window, search_hours=None):
     outer = inb & ~inner
     vshape = (float(-np.median(resid[inner])) / float(-np.median(resid[outer]))
               if inner.sum() >= 2 and outer.sum() >= 2 and np.median(resid[outer]) < 0 else None)
-    return {"mid_bjd": float(tm), "duration_h": float(dur * 24), "depth_ppm": float(c[3] * 1e6),
-            "depth_err_ppm": float(math.sqrt(cov[3, 3]) * 1e6), "delta_chi2": float(chi0 - chi),
-            "n_in": int(inb.sum()), "vshape_index": vshape, "sigma_ppm": float(sig * 1e6)}
+    out = {"mid_bjd": float(tm), "duration_h": float(dur * 24), "depth_ppm": float(c[3] * 1e6),
+           "depth_err_ppm": float(math.sqrt(cov[3, 3]) * 1e6), "delta_chi2": float(chi0 - chi),
+           "n_in": int(inb.sum()), "vshape_index": vshape, "sigma_ppm": float(sig * 1e6)}
+    if yerr is not None and yerr.size == y.size:
+        w = 1 / yerr ** 2
+        Aw = A * np.sqrt(w)[:, None]
+        cw, *_ = np.linalg.lstsq(Aw, y * np.sqrt(w), rcond=None)
+        covw = np.linalg.pinv(Aw.T @ Aw)
+        rw = y - A @ cw
+        dof = max(1, y.size - A.shape[1])
+        chi2r = float(np.sum(w * rw ** 2) / dof)
+        out["weighted"] = {"depth_ppm": float(cw[3] * 1e6), "depth_err_formal_ppm": float(math.sqrt(covw[3, 3]) * 1e6),
+                           "depth_err_scaled_ppm": float(math.sqrt(covw[3, 3] * max(1.0, chi2r)) * 1e6),
+                           "chi2_reduced": chi2r,
+                           "scatter_over_quoted_error": float(robust_sigma(rw) / np.median(yerr)),
+                           "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"}
+    return out
 
 
 def alt_depths(lc: LC, tmid, dur, half_window):
@@ -450,6 +477,53 @@ def data_aliases(lcs: dict, t_ref: float, t_ev: float, dur_d: float, depth: floa
     return rows
 
 
+def _cadence_s(lc: "LC") -> float:
+    dt = np.diff(lc.t[np.isfinite(lc.t)])
+    dt = dt[dt > 0]
+    return float(np.median(dt) * 86400) if dt.size else 120.0
+
+
+def secondary_eclipse_rows(lcs: dict, t_ref: float, periods, dur: float, sib_t=(), n_red: int = 200, seed: int = 1):
+    """Weighted mean box depth at phase 0.5 of each circular period alias, with red-noise errors.
+
+    The error of one box measurement is the robust spread of the same statistic at ``n_red`` random
+    epochs of that light curve. Phase-0.5 windows with under half their cadences usable (at the
+    product's own cadence), or where a sibling TOI transits, are skipped. Returns (rows, red_sigma).
+    """
+    hw_ = max(1.5 * dur, dur / 2 + 0.6)
+    red = {}
+    for pid, lc in lcs.items():
+        rng = np.random.default_rng(seed)
+        span = lc.t[lc.ok]
+        vals = []
+        for tc in rng.uniform(span.min() + hw_, span.max() - hw_, n_red):
+            v = _shift(lc.t, lc.col["PDCSAP_FLUX"], lc.ok, tc, dur, hw_)
+            if v is not None:
+                vals.append(v)
+        red[pid] = robust_sigma(vals) if len(vals) >= 30 else None
+    rows = []
+    for P in periods:
+        meas = []
+        for pid, lc in lcs.items():
+            span = lc.t[lc.ok]
+            need = 0.5 * dur * 86400 / _cadence_s(lc)
+            for k in range(math.ceil((span.min() - t_ref - P / 2) / P), math.floor((span.max() - t_ref - P / 2) / P) + 1):
+                ts = t_ref + (k + 0.5) * P
+                if (lc.ok & _box(lc.t, ts, dur)).sum() < need:
+                    continue
+                if any(abs(((ts - T0) / Ps) - round((ts - T0) / Ps)) * Ps < (dur + ds) / 2 + 0.1 for T0, Ps, ds in sib_t):
+                    continue   # a sibling TOI transits here
+                sh = _shift(lc.t, lc.col["PDCSAP_FLUX"], lc.ok, ts, dur, hw_)
+                if sh is not None and red.get(pid):
+                    meas.append((-sh, red[pid]))
+        if meas:
+            w = np.array([1 / e_ ** 2 for _, e_ in meas])
+            d = float(np.sum(w * np.array([m for m, _ in meas])) / w.sum())
+            rows.append({"period_days": P, "n_epochs": len(meas), "secondary_depth_ppm": d * 1e6,
+                         "err_ppm": float(w.sum() ** -0.5) * 1e6})
+    return rows, red
+
+
 def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True, extra_events=(), echo=print) -> dict:
     from ..config import scratch_dir
 
@@ -494,7 +568,8 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
     ref_fit = None
     if ref:
         lc = lcs[ref[0]]
-        ref_fit = box_fit(lc.t[lc.ok], lc.col["PDCSAP_FLUX"][lc.ok], ref[1], dur_cat_h / 24, half(dur_cat_h / 24))
+        ref_fit = box_fit(lc.t[lc.ok], lc.col["PDCSAP_FLUX"][lc.ok], ref[1], dur_cat_h / 24, half(dur_cat_h / 24),
+                          yerr=lc.col["PDCSAP_FLUX_ERR"][lc.ok] if "PDCSAP_FLUX_ERR" in lc.col else None)
         report["reference"] = {"product": ref[0], "sector": lc.sector, "fit": ref_fit}
     dur_ref_d = (ref_fit["duration_h"] if ref_fit else dur_cat_h) / 24
     t_ref = ref_fit["mid_bjd"] if ref_fit else None
@@ -517,7 +592,8 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
         echo(f"[vet] {cid} {label} S{lc.sector} BJD {e['guess_bjd']:.3f} ({len(e['members'])} screen candidates)")
         hw = half(dur_ref_d)
         fit = box_fit(lc.t[lc.ok], lc.col["PDCSAP_FLUX"][lc.ok], e["guess_bjd"], dur_ref_d, hw,
-                      search_hours=max(1.0, e["span_h"] / 2 + dur_ref_d * 12))
+                      search_hours=max(1.0, e["span_h"] / 2 + dur_ref_d * 12),
+                      yerr=lc.col["PDCSAP_FLUX_ERR"][lc.ok] if "PDCSAP_FLUX_ERR" in lc.col else None)
         ev = {"label": label, "product": e["product"], "sector": lc.sector, "camera": lc.camera, "ccd": lc.ccd,
               "given_by_hand": bool(e.get("given_by_hand")),
               "screen_candidates": len(e["members"]), "screen_span_h": e["span_h"], "max_aliases_allowed": e["max_allowed"],
@@ -530,6 +606,18 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
         hw = half(dur)
         dip = fit["depth_ppm"] > 3 * fit["depth_err_ppm"]
         ev["significant_dip"] = dip
+        wf = fit.get("weighted")
+        if wf is None:
+            ev["checks"]["Error-weighted box fit"] = ("not_tested", "no PDCSAP_FLUX_ERR column")
+        else:
+            ratio = wf["scatter_over_quoted_error"]
+            agree = abs(wf["depth_ppm"] - fit["depth_ppm"]) <= 2 * math.hypot(fit["depth_err_ppm"], wf["depth_err_scaled_ppm"])
+            ev["checks"]["Error-weighted box fit"] = (
+                "passed" if agree and 0.7 <= ratio <= 1.5 else "inconclusive",
+                f"weighted depth {wf['depth_ppm']:.0f} ± {wf['depth_err_scaled_ppm']:.0f} ppm (χ²ν {wf['chi2_reduced']:.2f}) vs "
+                f"unweighted {fit['depth_ppm']:.0f} ± {fit['depth_err_ppm']:.0f} ppm; residual scatter / quoted error "
+                f"{ratio:.2f}" + ("" if agree else "; the two depths disagree")
+                + ("" if 0.7 <= ratio <= 1.5 else "; the pipeline errors do not describe the scatter"))
         if not dip:
             ev["checks"]["Box fit finds a dip"] = (
                 "failed", f"best box depth {fit['depth_ppm']:.0f} ± {fit['depth_err_ppm']:.0f} ppm: no significant dip near the "
@@ -678,39 +766,11 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
         allowed = e.get("allowed") or []
         if not allowed:
             continue
-        rows = []
         dur = f["duration_h"] / 24
-        hw_ = max(1.5 * dur, dur / 2 + 0.6)
-        red = {}   # red-noise error of the box statistic, per light curve, from random epochs
-        for pid, lc in lcs.items():
-            rng = np.random.default_rng(1)
-            span = lc.t[lc.ok]
-            vals = []
-            for tc in rng.uniform(span.min() + hw_, span.max() - hw_, 200):
-                v = _shift(lc.t, lc.col["PDCSAP_FLUX"], lc.ok, tc, dur, hw_)
-                if v is not None:
-                    vals.append(v)
-            red[pid] = robust_sigma(vals) if len(vals) >= 30 else None
         sib_t = [(_f(x["pl_tranmid"]), _f(x["pl_orbper"]), (_f(x["pl_trandurh"]) or 3) / 24) for x in sibs
                  if _f(x.get("pl_orbper")) and _f(x.get("pl_tranmid"))]
+        rows, red = secondary_eclipse_rows(lcs, t_ref, allowed, dur, sib_t)
         ev["secondary_red_noise_ppm"] = {str(lcs[k].sector): (v * 1e6 if v else None) for k, v in red.items()}
-        for P in allowed:
-            meas = []
-            for pid, lc in lcs.items():
-                span = lc.t[lc.ok]
-                for k in range(math.ceil((span.min() - t_ref - P / 2) / P), math.floor((span.max() - t_ref - P / 2) / P) + 1):
-                    ts = t_ref + (k + 0.5) * P
-                    if (lc.ok & _box(lc.t, ts, dur)).sum() < 0.5 * dur * 86400 / 120:
-                        continue
-                    if any(abs(((ts - T0) / Ps) - round((ts - T0) / Ps)) * Ps < (dur + ds) / 2 + 0.1 for T0, Ps, ds in sib_t):
-                        continue   # a sibling TOI transits here
-                    sh = _shift(lc.t, lc.col["PDCSAP_FLUX"], lc.ok, ts, dur, hw_)
-                    if sh is not None and red.get(pid):
-                        meas.append((-sh, red[pid]))
-            if meas:
-                w = np.array([1 / e_ ** 2 for _, e_ in meas])
-                d = float(np.sum(w * np.array([m for m, _ in meas])) / w.sum())
-                rows.append({"period_days": P, "n_epochs": len(meas), "secondary_depth_ppm": d * 1e6, "err_ppm": float(w.sum() ** -0.5) * 1e6})
         ev["secondary_eclipse"] = rows
         sig = [r_ for r_ in rows if r_["secondary_depth_ppm"] > 4 * r_["err_ppm"]]
         ev["checks"]["Secondary eclipse (circular aliases)"] = (
@@ -743,7 +803,9 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
             if off is None:
                 ev["checks"]["Difference-image centroid"] = ("inconclusive", "no out-of-transit centroid")
                 continue
-            state = ("passed" if off < 0.25 * TESS_PIX_ARCSEC or (s is not None and s < 3)
+            # a small offset passes; a large one fails only when the bootstrap makes it significant; a large but
+            # insignificant offset (a noisy stamp) is inconclusive, not passed
+            state = ("passed" if off < 0.25 * TESS_PIX_ARCSEC
                      else "failed" if s and s >= 3 and off >= 0.5 * TESS_PIX_ARCSEC else "inconclusive")
             refd = (report.get("reference") or {}).get("difference_image") or di["events"].get("REF") or {}
             ev["checks"]["Difference-image centroid"] = (

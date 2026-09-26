@@ -49,7 +49,21 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def _excluded(ctx) -> dict | None:
+    """The ``fetch_products`` result when it found nothing (a documented exclusion), else None.
+
+    A target whose archives answered but hold no product is a recorded null, not a red run: steps
+    that need products leave their checks ``not_tested`` with the exclusion note instead of raising
+    (as the ``cygnus.campaign`` twin does). An archive that could not be queried is not an exclusion.
+    """
+    res = ctx.optional_result("fetch_products", {}) or {}
+    return res if res.get("excluded") else None
+
+
 # ------------------------------------------------------------------ products
+# note markers that mean an archive could not answer (an outage or a misconfiguration), never "no data"
+UNAVAILABLE_NOTE, DISCOVERY_FAILED_NOTE, NOT_FETCHED_NOTE = "archive unavailable", "discovery failed", "not fetched"
+NOT_REGISTERED_NOTE = "is not registered"
 MAST_TIMEOUT_S = 120   # per MAST request; a hung service fails the step (retryable) instead of stalling it
 
 def _discover_spoc_lcs(tic: int, max_products: int, t0_bjd: float | None = None) -> list[dict]:
@@ -121,7 +135,7 @@ def _discover_via_adapters(ctx, t: dict, opts: dict) -> list[dict]:
         try:
             adapter = _base.get(name)
         except KeyError:
-            ctx.note(f"{t['name']}: archive adapter {name!r} is not registered; skipped.")
+            ctx.note(f"{t['name']}: archive adapter {name!r} {NOT_REGISTERED_NOTE}; skipped.")
             continue
         per = dict(opts.get("options", {}).get(name, {}))
         if not adapter.row_limited:
@@ -130,10 +144,10 @@ def _discover_via_adapters(ctx, t: dict, opts: dict) -> list[dict]:
         try:
             refs = adapter.discover(target, **per)
         except _base.AdapterUnavailable as exc:
-            ctx.note(f"{t['name']}/{name}: archive unavailable — {exc}")
+            ctx.note(f"{t['name']}/{name}: {UNAVAILABLE_NOTE} — {exc}")
             continue
         except Exception as exc:  # noqa: BLE001
-            ctx.note(f"{t['name']}/{name}: discovery failed — {type(exc).__name__}: {exc}")
+            ctx.note(f"{t['name']}/{name}: {DISCOVERY_FAILED_NOTE} — {type(exc).__name__}: {exc}")
             continue
         row_cap = None
         if adapter.row_limited:
@@ -204,9 +218,15 @@ def step_fetch_products(ctx, params: dict) -> dict:
     dirs = [ctx.scratch] + [scratch_dir(d[8:]) if str(d).startswith("scratch:") else Path(d)
                             for d in params.get("search_dirs", [])]
     out = {}
+    n_notes_before_fetch = len(ctx.notes)
+    max_bytes = params.get("max_product_bytes")      # optional pre-download size gate (archives that state sizes)
     for p in wanted:
         pid = p["product_id"]
         archive = p.get("archive") or "MAST"
+        if max_bytes and p.get("size_bytes") and int(p["size_bytes"]) > int(max_bytes):
+            ctx.note(f"{p.get('target') or pid}/{archive}: {pid} skipped before download — archive states "
+                     f"{int(p['size_bytes'])} bytes > max_product_bytes {int(max_bytes)}.")
+            continue
         fmt = p.get("format") or "spoc_lc"
         # namespace scratch file names by archive so same-named products cannot collide
         fname = pid if archive == "MAST" else f"{archive}__{pid}"
@@ -235,7 +255,7 @@ def step_fetch_products(ctx, params: dict) -> dict:
                                   path, timeout_s=120)
                 except _base.AdapterUnavailable as exc:
                     # e.g. observing routes (a request queue, nothing archived yet): a note, not a crash
-                    ctx.note(f"{p.get('target') or pid}/{archive}: not fetched — {exc}")
+                    ctx.note(f"{p.get('target') or pid}/{archive}: {NOT_FETCHED_NOTE} — {exc}")
                     continue
             else:
                 raise RuntimeError(f"{pid}: no URL and no adapter for archive {archive!r}")
@@ -259,7 +279,16 @@ def step_fetch_products(ctx, params: dict) -> dict:
                     **({"truncated": p["truncated"]} if p.get("truncated") else {})}
     if not out:
         detail = "; ".join(ctx.notes[-4:]) if ctx.notes else "no archives produced a product"
-        raise RuntimeError(f"no products to analyse (none pinned, none discovered) — {detail}")
+        # every archive answered and none holds a product: a documented exclusion. An archive that
+        # could not be queried or fetched (an outage) is a failure, so a retry can still find data.
+        outage = any(m in n for n in ctx.notes for m in (UNAVAILABLE_NOTE, DISCOVERY_FAILED_NOTE, NOT_FETCHED_NOTE, NOT_REGISTERED_NOTE))
+        if outage or not pool or len(ctx.notes) > n_notes_before_fetch:
+            raise RuntimeError(f"no products to analyse (none pinned, none discovered) — {detail}")
+        note = "no products to analyse: none pinned and none found for the requested targets (" + detail + ")"
+        ctx.note(note)
+        ctx.check("Product integrity (SHA-256)", "not_tested", note)
+        ctx.outcome = ("pipeline_check", None)   # a no-data target is a pipeline outcome, not a bound
+        return {"products": {}, "lightcurve_products": [], "excluded": True, "exclusion": note}
     archives = sorted({v["archive"] for v in out.values()})
     # the residual screen needs a densely sampled series: an empty or sparse/irregular light curve
     # (e.g. a ZTF magnitude series of a bright star) stays a fetched product but is not screened
@@ -294,7 +323,9 @@ def step_fetch_products(ctx, params: dict) -> dict:
               if any(v["pinned"] for v in out.values())
               else f"{len(out)} product(s) from {', '.join(archives)} checksummed at first retrieval")
     if not lightcurves:
-        ctx.note("No light-curve product was retrieved; only image/table/text products are available to screen.")
+        ctx.note("No light-curve product was retrieved; only image/table/text products are available to screen."
+                 if not any(v["kind"] == "lightcurve" for v in out.values()) else
+                 "Every retrieved light curve was unsuitable for the residual screen (reasons above); none was screened.")
     return {"products": out, "lightcurve_products": lightcurves}
 
 
@@ -422,6 +453,11 @@ def _threshold(ctx, pid: str, k_param) -> tuple[float, str]:
 def step_residual_screen(ctx, params: dict) -> dict:
     """Negative excursions ≥ k robust-MAD, ≥ min_cadences, SAP and PDCSAP, several baselines,
     outside the known-signal veto. Writes screen.json and normalized_series.csv per product."""
+    if (ex := _excluded(ctx)):
+        ctx.check("Calibrated false-alarm threshold (sign-flip null)", "not_tested", ex["exclusion"])
+        ctx.check("Synthetic signal injection–recovery", "not_tested", ex["exclusion"])
+        return {"per_product": {}, "entries_outside_veto_total": 0, "distinct_events_outside_veto_total": 0,
+                "persistent_events_outside_veto_total": 0, "excluded": True}
     veto = ctx.spec.get("veto")
     windows = tuple(params.get("windows_days", (1.0, 2.0, 3.0)))
     k_decl = params.get("k_mad", 5.0)
@@ -560,6 +596,9 @@ def step_bls_recovery(ctx, params: dict) -> dict:
     import astropy
     from astropy.timeseries import BoxLeastSquares
 
+    if (ex := _excluded(ctx)):
+        ctx.note(ex["exclusion"])
+        return {"excluded": True, "exclusion": ex["exclusion"]}
     pid = params["product"]
     prod = ctx.result("fetch_products")["products"][pid]
     lc = _read_lc(resolve(prod["path"]), prod)
@@ -638,6 +677,10 @@ def step_calibrate_screen(ctx, params: dict) -> dict:
       PDCSAP at random usable times outside the veto (seeded), recovered if a persistent dip interval
       overlaps the box. Completeness is reported at the declared threshold and at k*.
     """
+    if (ex := _excluded(ctx)):
+        ctx.check("Calibrated false-alarm threshold (sign-flip null)", "not_tested", ex["exclusion"])
+        ctx.check("Synthetic signal injection–recovery", "not_tested", ex["exclusion"])
+        return {"per_product": {}, "declared_k": float(params.get("declared_k", 5.0)), "excluded": True}
     veto = ctx.spec.get("veto")
     window = float(params.get("window_days", 2.0))
     grid = [float(x) for x in params.get("k_grid", [4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 8.0])]
@@ -862,8 +905,11 @@ def step_period_aliases(ctx, params: dict) -> dict:
     measured catalogued transit. For each, P_n = ΔT/n (``min_period_days`` ≤ P_n); an alias is
     *excluded* when a predicted transit falls on usable data (≥ ``min_coverage`` of the transit
     window) and the mean residual there is shallower than ``excluded_below`` × the catalogued depth.
-    Aliases whose predicted transits all fall in gaps stay allowed. This constrains the period only
-    within the retrieved sectors; it is not a posterior (no stellar density, no priors).
+    Aliases whose predicted transits all fall in gaps stay allowed. The exclusion constrains the
+    period only within the retrieved sectors and uses no priors. When ``stellar_context`` ran first
+    with usable Gaia priors, each candidate also carries ``duration_likelihood``: how well each allowed
+    alias's circular-orbit transit duration matches the catalogued one, given the stellar density
+    (``measures.alias_duration_likelihood``; its assumptions are listed beside the numbers).
     """
     known = ctx.result("known_signal_recovery")["per_product"]
     screen = ctx.result("residual_screen")["per_product"]
@@ -881,10 +927,11 @@ def step_period_aliases(ctx, params: dict) -> dict:
     cover = float(params.get("min_coverage", 0.5))
     below = float(params.get("excluded_below", 0.3))
     # light curves and residuals once
-    series = {}
+    series, cadence_s = {}, {}
     for pid, prod in _lightcurve_products(ctx).items():
         lc = _read_lc(resolve(prod["path"]), prod)
         series[pid] = (lc.time_bjd, lc.usable, local_resid(lc.pdc, lc.usable, lc.cadence_s, 2.0))
+        cadence_s[pid] = float(lc.cadence_s) if lc.cadence_s and lc.cadence_s > 0 else 120.0
     cands = []
     for pid, v in screen.items():
         for ev in v.get("distinct_events_outside_veto", []):
@@ -911,7 +958,8 @@ def step_period_aliases(ctx, params: dict) -> dict:
                             continue   # the two observed transits themselves
                         w = np.abs(tq - tp) <= dur_d / 2
                         n_w, n_u = int(w.sum()), int((w & uq).sum())
-                        if n_w == 0 or n_u < cover * max(n_w, dur_d * 86400 / 120):
+                        # coverage relative to the cadences a full transit window holds at this product's cadence
+                        if n_w == 0 or n_u < cover * max(n_w, dur_d * 86400 / cadence_s[qid]):
                             continue
                         d = -float(np.nanmedian(rq[w & uq]))
                         evidence.append({"product": qid, "predicted_bjd": tp, "usable_cadences": n_u, "depth_ppm": d * 1e6})
@@ -928,6 +976,12 @@ def step_period_aliases(ctx, params: dict) -> dict:
                           "reference_depth_ppm": rep["measured_depth_ppm"], "delta_t_days": dT,
                           "n_aliases": len(aliases), "n_allowed": len(allowed),
                           "allowed_periods_days": [round(a["period_days"], 4) for a in allowed], "aliases": aliases})
+            if ctx.optional_result("stellar_context", None) is not None:
+                from .measure_steps import duration_likelihood_for
+
+                dl = duration_likelihood_for(ctx, tgt or {}, [a["period_days"] for a in allowed], params)
+                if dl is not None:
+                    cands[-1]["duration_likelihood"] = dl
             ctx.measure("repeat_event_delta_t", dT, unit="d", method="catalogued transit to persistent screen event of matching depth",
                         products=[rpid, pid])
             ctx.measure("allowed_period_aliases", len(allowed), unit="count",
@@ -937,9 +991,13 @@ def step_period_aliases(ctx, params: dict) -> dict:
     if cands:
         c = cands[0]
         shown = ", ".join(f"{p:g}" for p in c["allowed_periods_days"][:12]) + (" …" if c["n_allowed"] > 12 else "")
+        dl = c.get("duration_likelihood")
+        best = (max(dl["aliases"], key=lambda a: a["weight_likelihood_only"] or 0) if dl and dl["aliases"] else None)
         ctx.check("Period aliases (repeat events)", "inconclusive",
                   f"{len(cands)} repeat-candidate event(s); first at BJD {c['event_bjd']:.4f}, ΔT = {c['delta_t_days']:.3f} d, "
-                  f"{c['n_allowed']} of {c['n_aliases']} aliases P = ΔT/n ≥ {pmin:g} d allowed by the retrieved data ({shown} d)")
+                  f"{c['n_allowed']} of {c['n_aliases']} aliases P = ΔT/n ≥ {pmin:g} d allowed by the retrieved data ({shown} d)"
+                  + (f"; duration likelihood under Gaia priors (circular orbits) peaks at {best['period_days']:.3g} d "
+                     f"(weight {best['weight_likelihood_only']:.2f})" if best and best["weight_likelihood_only"] else ""))
         ctx.flag_lead(f"Repeat candidate: a persistent event matching the catalogued depth at BJD {c['event_bjd']:.4f} "
                  f"(ΔT {c['delta_t_days']:.2f} d); {c['n_allowed']} period aliases remain. Unverified lead until vetted.")
     else:
@@ -1012,6 +1070,14 @@ def step_context_products(ctx, params: dict) -> dict:
                               "columns": [str(c) for c in obj.get("columns", [])][:20]})
             elif isinstance(obj, dict) and "shape" in obj:
                 entry.update({"image_shape": [int(s) for s in obj["shape"]]})
+                phot = _cutout_photometry(ctx, pid, obj, float(params.get("aperture_arcsec", 5.0)))
+                if phot:
+                    entry["photometry"] = phot
+                    for b in phot.get("bands", []):
+                        if b.get("mag") is not None:
+                            ctx.measure("cutout_aperture_mag", b["mag"], unit="mag",
+                                        method=f"{b['band']}: {phot['aperture_arcsec']:g}\" aperture, annulus sky; {b['zeropoint']}",
+                                        products=[pid])
             elif isinstance(obj, dict) and "text" in obj:
                 entry.update({"text_bytes": len(obj["text"])})
             else:
@@ -1031,6 +1097,48 @@ def step_context_products(ctx, params: dict) -> dict:
     else:
         ctx.check("Context products read", "not_tested", "the campaign fetched no non-light-curve products")
     return {"products": out, "file": ctx.rel(ctx.outdir / "context.json")}
+
+
+def _cutout_photometry(ctx, pid: str, img: dict, aperture_arcsec: float) -> dict | None:
+    """Aperture photometry of the target on an image cutout with a celestial WCS.
+
+    Magnitudes only where the header states a zero point (Legacy Survey/SDSS nanomaggies, 2MASS
+    MAGZP); otherwise instrumental counts. A 3-D cutout (one plane per band, as Legacy Survey
+    returns) is measured plane by plane, named from ``BAND<i>`` keywords when present. Colours are
+    formed only between calibrated bands of the same product.
+    """
+    from . import measures as _m
+
+    wcs, data, hdr = img.get("wcs"), np.asarray(img["data"], float), img["header"]
+    tgt = _target_for(ctx, pid) or next((t for t in ctx.spec.get("targets", []) if t.get("ra_deg") is not None), None)
+    if tgt is None:
+        return None
+    if wcs is None:
+        return {"measured": False, "reason": img.get("wcs_note") or "no celestial WCS"}
+    x, y = (float(v) for v in wcs.celestial.world_to_pixel_values(float(tgt["ra_deg"]), float(tgt["dec_deg"])))
+    try:
+        from astropy.wcs.utils import proj_plane_pixel_scales
+
+        scale = float(np.mean(np.abs(proj_plane_pixel_scales(wcs.celestial))) * 3600)   # arcsec per pixel (plain degrees)
+    except Exception:  # noqa: BLE001
+        return {"measured": False, "reason": "pixel scale unreadable from the WCS"}
+    r = aperture_arcsec / scale
+    zp, zp_note = _m.image_zeropoint(hdr)
+    planes = [data] if data.ndim == 2 else list(data) if data.ndim == 3 else []
+    bands = []
+    for i, plane in enumerate(planes):
+        name = str(hdr.get(f"BAND{i}", "")).strip() or (str(hdr.get("FILTER", "")).strip() if len(planes) == 1 else f"plane{i}")
+        ph = _m.aperture_photometry(plane, x, y, r, 2.5 * r, 4 * r)
+        b = {"band": name or "unnamed", **ph, "zeropoint": zp_note, "mag": None}
+        if ph.get("measured") and zp is not None and ph["flux"] > 0:
+            b["mag"] = zp - 2.5 * math.log10(ph["flux"])
+            b["mag_err"] = 1.0857 * ph["flux_err_sky"] / ph["flux"] if ph["flux_err_sky"] else None
+        bands.append(b)
+    cal = [b for b in bands if b["mag"] is not None]
+    colours = {f"{a['band']}-{c['band']}": a["mag"] - c["mag"] for i, a in enumerate(cal) for c in cal[i + 1:]}
+    return {"measured": any(b.get("measured") for b in bands), "target_pixel_xy": [x, y], "pixel_scale_arcsec": scale,
+            "aperture_arcsec": aperture_arcsec, "bands": bands, "colours": colours,
+            "caveat": "blended light inside the aperture is included; no aperture correction"}
 
 
 # ------------------------------------------------------------------ per-source checks
@@ -1164,3 +1272,7 @@ STEPS: dict[str, Callable[[Any, dict], dict]] = {
     "period_aliases": step_period_aliases,
     "prior_art": step_prior_art,
 }
+
+from .measure_steps import MEASURE_STEPS  # noqa: E402 - the measure steps import helpers defined above
+
+STEPS.update(MEASURE_STEPS)

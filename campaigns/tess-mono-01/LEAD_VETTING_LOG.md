@@ -54,3 +54,7 @@ possible additional transit at TBJD 1525.648.
   are cached, so each rerun is quick.
 - Then write each report's Reviewer notes from `vetting/VETTING.md` and decide which leads get dossiers.
   TOI-2666.01 and TOI-3500.02 are the current front-runners.
+
+## Erratum 2026-09-26: difference-image rule
+
+Until 2026-09-26 `cygnus.campaign vet` marked the difference-image centroid check `passed` whenever the offset was not significant, however large it was. The rule is now: `passed` only for an offset below 0.25 TESS pixel; a larger offset that is not significant is `inconclusive` (the image cannot place the dip). Two readings above used the old rule: TOI-2065.01 E1 (offset 27.7″, 1.0σ) and TOI-2318.01 E1 (20.5″, 2.4σ) were recorded `passed` and would now be `inconclusive`. Both leads were rejected on other tests (scattered light; systematics), so neither conclusion changes. Their generated `vetting/VETTING.md` files are left as produced; a rerun with the current code regenerates them. See `docs/SUITE_EXPANSION.md` §7.1, item 12.

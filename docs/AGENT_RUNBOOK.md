@@ -124,8 +124,18 @@ Do not change code in `src/`, thresholds in a generated spec, or anyone else's c
 | `residual_screen` | dips outside the catalogued transit, grouped into distinct events, persistent or not | (updates the threshold checks) |
 | `period_aliases` | repeat candidates and the periods ΔT/n not excluded by the data (`period_aliases.json`) | Period aliases (repeat events) |
 | `prior_art` | NASA Exoplanet Archive, TOI, VSX and SIMBAD cone searches, dated, into the ledger | Catalogue cross-match |
+| `stellar_context` | Gaia DR3 cone: proper-motion-propagated identification, Teff/R*/M*/ρ* from colour and parallax (Mamajek dwarf table), dilution cap per neighbour (`stellar_context.json`) | Target-to-Gaia identification; Stellar priors; Blend and dilution census |
+| `event_census` | quality bits in and near each screen event, pointing/centroid shifts | Pointing and quality census per event |
+| `moving_objects` | SkyBoT at each event epoch (600″) | Moving objects at screen-event epochs |
+| `variability_guard` | VSX type/period collision with the aliases; SIMBAD object class | Variable-catalogue collision (VSX); Object-class guard (SIMBAD) |
+| `alias_cross_instrument` | depths at predicted alias epochs in other MAST collections and ZTF | Independent repetition; Independent-epoch confirmation (ZTF) |
+| `rv_bounds` (only with `eso`) | archival RVs → per-alias companion mass upper bound | Stellar-companion exclusion (archival RVs) |
 
-The following checks stay `not_tested`: detrending alternatives, difference-image centroids, pointing correlation and ADS. They are designed in `ANALYSIS_STACK.md` but not built.
+With `stellar_context` in the spec, `period_aliases` also writes a per-alias duration likelihood (circular orbits; a ranking aid, not a period). A failed VSX or SIMBAD guard escalates in `cygnus.batch` triage. `inconclusive` from these steps usually means a service did not answer (e.g. SkyBoT server errors at some epochs): record it, do not re-run in a loop.
+
+Still `not_tested` in the runner (vet covers them for leads): detrending alternatives, difference-image centroids and ADS.
+
+**Test lanes.** `python -m pytest -q` is the offline gate (run it before committing). Opt-in: `python -m pytest -o addopts= -m slow` (seeded calibration, minutes), `-m replay` (re-runs four committed campaigns from scratch copies; skips if the products are not local) and `-m network` (live archives). `python -m cygnus.multi archives --check all` prints a status table of every archive; `unavailable` is an outage, only `error` is a code problem.
 
 ## Operational notes (added 2026-09-25)
 

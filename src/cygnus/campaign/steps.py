@@ -642,10 +642,11 @@ def step_period_aliases(ctx, params: dict) -> dict:
     cover = float(params.get("min_coverage", 0.5))
     below = float(params.get("excluded_below", 0.3))
     # light curves and residuals once
-    series = {}
+    series, cadence_s = {}, {}
     for pid, prod in ctx.result("fetch_products")["products"].items():
         lc = read_spoc(resolve(prod["path"]))
         series[pid] = (lc.time_bjd, lc.usable, local_resid(lc.pdc, lc.usable, lc.cadence_s, 2.0))
+        cadence_s[pid] = float(lc.cadence_s) if lc.cadence_s and lc.cadence_s > 0 else 120.0
     cands = []
     for pid, v in screen.items():
         for ev in v.get("distinct_events_outside_veto", []):
@@ -672,7 +673,8 @@ def step_period_aliases(ctx, params: dict) -> dict:
                             continue   # the two observed transits themselves
                         w = np.abs(tq - tp) <= dur_d / 2
                         n_w, n_u = int(w.sum()), int((w & uq).sum())
-                        if n_w == 0 or n_u < cover * max(n_w, dur_d * 86400 / 120):
+                        # coverage relative to the cadences a full transit window holds at this product's cadence
+                        if n_w == 0 or n_u < cover * max(n_w, dur_d * 86400 / cadence_s[qid]):
                             continue
                         d = -float(np.nanmedian(rq[w & uq]))
                         evidence.append({"product": qid, "predicted_bjd": tp, "usable_cadences": n_u, "depth_ppm": d * 1e6})

@@ -25,6 +25,8 @@ LIGHTCURVE_FORMATS = ("fits_table", "spoc_lc", "kepler_lc", "tess_lc", "ztf_lc",
 IMAGE_FORMATS = ("fits_image", "fits_cube", "coadd_image")
 TABLE_FORMATS = ("csv", "votable", "table", "json")
 TEXT_FORMATS = ("text",)
+RV_FORMATS = ("rv_table", "eso_spectrum")
+ENGINEERING_COLUMNS = ("MOM_CENTR1", "MOM_CENTR2", "POS_CORR1", "POS_CORR2", "SAP_BKG")
 
 #: candidate flux columns in priority order, with the channel name we give them
 _FLUX_COLUMNS = (
@@ -60,6 +62,8 @@ class LightCurve:
     primary: dict[str, Any] = field(default_factory=dict)
     table_header: dict[str, Any] = field(default_factory=dict)
     channels_order: tuple[str, ...] = ()
+    #: engineering series (centroids, pointing, background) when the product carries them
+    engineering: dict[str, np.ndarray] = field(default_factory=dict)
 
     @property
     def time_bjd(self) -> np.ndarray:
@@ -103,6 +107,9 @@ def read_product(path: str | Path, *, fmt: str | None = None, ref: Any = None) -
         return read_table(path, fmt=fmt)
     if fmt in TEXT_FORMATS:
         return {"text": path.read_text(encoding="utf-8", errors="replace")}
+    if fmt in RV_FORMATS:
+        rv = read_rv(path, fmt=fmt)
+        return {"rows": len(rv["bjd"]), "columns": ["bjd", "rv_ms", "err_ms"], "source": rv["source"]}
     raise ReaderError(f"unknown product format {fmt!r} for {path.name}")
 
 
@@ -194,6 +201,7 @@ def _read_fits_lightcurve(path: Path) -> LightCurve:
                     errs[chan] = _as_float(tab[f"{col}_ERR"])
         if not fluxes:
             raise ReaderError(f"{path.name}: no recognised flux column (looked for {', '.join(c for c, _ in _FLUX_COLUMNS)})")
+        engineering = {c: _as_float(tab[c]) for c in ENGINEERING_COLUMNS if c in names}
         bjdref = float(hdr1.get("BJDREFI", 0)) + float(hdr1.get("BJDREFF", 0))
         cadence = float(hdr0.get("TIMEDEL", hdr1.get("TIMEDEL", 120 / 86400))) * 86400
         primary = {k: hdr0.get(k) for k in
@@ -202,7 +210,8 @@ def _read_fits_lightcurve(path: Path) -> LightCurve:
         table_header = {k: hdr1.get(k) for k in ("BJDREFI", "BJDREFF", "TIMEZERO", "TIMESYS", "TIMEUNIT", "TIMEDEL")}
         return LightCurve(path=path, time=time, fluxes=fluxes, quality=quality, flux_errs=errs,
                           bjdref=bjdref, cadence_s=cadence, time_scale=hdr1.get("TIMESYS"), time_unit=hdr1.get("TIMEUNIT"),
-                          primary=primary, table_header=table_header, channels_order=tuple(order))
+                          primary=primary, table_header=table_header, channels_order=tuple(order),
+                          engineering=engineering)
 
 
 def _read_csv_lightcurve(path: Path) -> LightCurve:
@@ -269,8 +278,17 @@ def read_image(path: str | Path) -> dict[str, Any]:
                 break
         if hdu is None:
             raise ReaderError(f"{path.name}: no 2-D image HDU")
+        wcs, wcs_note = None, None
+        try:
+            from astropy.wcs import WCS
+
+            w = WCS(hdu.header, naxis=2)
+            wcs = w if w.has_celestial else None
+            wcs_note = None if wcs is not None else "header has no celestial WCS"
+        except Exception as exc:  # noqa: BLE001 - an image without a usable WCS is still an image
+            wcs_note = f"WCS unreadable: {type(exc).__name__}: {str(exc)[:120]}"
         return {"path": path, "data": np.asarray(hdu.data), "header": hdu.header,
-                "shape": tuple(hdu.data.shape), "n_hdus": len(hdul)}
+                "shape": tuple(hdu.data.shape), "n_hdus": len(hdul), "wcs": wcs, "wcs_note": wcs_note}
 
 
 def read_table(path: str | Path, *, fmt: str = "csv") -> dict[str, Any]:
@@ -295,6 +313,44 @@ def read_table(path: str | Path, *, fmt: str = "csv") -> dict[str, Any]:
     with path.open(encoding="utf-8-sig", newline="") as fh:
         reader = csv.DictReader(fh)
         return {"path": path, "columns": list(reader.fieldnames or []), "rows": list(reader)}
+
+
+# ESO pipeline radial-velocity keywords: (RV, RV error, BJD), RVs in km/s. HARPS/HARPS-N DRS, then ESPRESSO/NIRPS DRS.
+ESO_RV_KEYWORDS = (
+    ("HIERARCH ESO DRS CCF RVC", "HIERARCH ESO DRS CCF NOISE", "HIERARCH ESO DRS BJD"),
+    ("HIERARCH ESO QC CCF RV", "HIERARCH ESO QC CCF RV ERROR", "HIERARCH ESO QC BJD"),
+)
+
+
+def read_rv(path: str | Path, *, fmt: str | None = None) -> dict[str, Any]:
+    """Radial velocities as ``{bjd, rv_ms, err_ms, source}``.
+
+    ``rv_table``: a CSV with a BJD column (``bjd``/``bjd_tdb``/``time``), an RV column (``rv_ms`` in
+    m/s or ``rv_kms`` in km/s) and its error (``err_ms``/``rv_err_ms`` or ``err_kms``/``rv_err_kms``).
+    A FITS product: one RV from the ESO pipeline keywords in :data:`ESO_RV_KEYWORDS`. Anything else
+    raises :class:`ReaderError`; units are never guessed.
+    """
+    path = Path(path)
+    if (fmt or "").lower() == "rv_table" or path.suffix.lower() == ".csv":
+        tab = read_table(path, fmt="csv")
+        cols = {c.lower(): c for c in tab["columns"]}
+        tcol = next((cols[c] for c in ("bjd", "bjd_tdb", "time") if c in cols), None)
+        for rc, ec, scale in (("rv_ms", "err_ms", 1.0), ("rv_ms", "rv_err_ms", 1.0), ("rv_kms", "err_kms", 1e3),
+                              ("rv_kms", "rv_err_kms", 1e3)):
+            if tcol and rc in cols and ec in cols:
+                rows = [r for r in tab["rows"] if all(np.isfinite(_to_f(r[x])) for x in (tcol, cols[rc], cols[ec]))]
+                return {"bjd": [_to_f(r[tcol]) for r in rows], "rv_ms": [_to_f(r[cols[rc]]) * scale for r in rows],
+                        "err_ms": [_to_f(r[cols[ec]]) * scale for r in rows], "source": f"{path.name} columns {tcol}/{rc}/{ec}"}
+        raise ReaderError(f"{path.name}: no BJD + RV + RV-error columns with stated units")
+    from astropy.io import fits
+
+    with fits.open(path, memmap=False) as hdul:
+        hdr = hdul[0].header
+        for rk, ek, tk in ESO_RV_KEYWORDS:
+            if rk in hdr and ek in hdr and tk in hdr:
+                return {"bjd": [float(hdr[tk])], "rv_ms": [float(hdr[rk]) * 1e3], "err_ms": [float(hdr[ek]) * 1e3],
+                        "source": f"{path.name} header {rk}"}
+    raise ReaderError(f"{path.name}: no ESO pipeline RV keywords")
 
 
 def _scalar(v):

@@ -43,6 +43,8 @@ from .config import WORKTREE, ledger_path
 
 CHECK_KNOWN = "Known-signal recovery (positive control)"
 CHECK_XMATCH = "Catalogue cross-match"
+# catalogue guards whose failure says the target itself may not be what the TOI table assumes
+CHECK_GUARDS = ("Variable-catalogue collision (VSX)", "Object-class guard (SIMBAD)")
 TRANSIENT = ("502", "503", "504", "Bad Gateway", "Service Unavailable", "timed out", "Timeout", "ReadTimeout",
              "ConnectTimeout", "ConnectionError", "Connection reset", "RemoteDisconnected", "ProxyError",
              "Temporary failure", "Max retries exceeded", "IncompleteRead", "database is locked")
@@ -163,6 +165,10 @@ def triage(root: Path, spec: str) -> dict:
         why.append("positive control failed on data covering the epoch")
     if xm.get("state") == "inconclusive" and "; 0 answered" in (xm.get("note") or ""):
         why.append("every catalogue service errored")
+    for g in CHECK_GUARDS:
+        c = checks.get(g) or {}
+        if c.get("state") == "failed":
+            why.append(f"{g} failed: {(c.get('note') or '')[:160]}")
     if rec.get("status") != "completed":
         why.append(f"record status {rec.get('status')}")
     return {"campaign": cid, "record": True, "status": rec.get("status"), "outcome": rec.get("outcome"),

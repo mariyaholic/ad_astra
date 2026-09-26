@@ -53,6 +53,17 @@ def _ledger_path(explicit: str | None) -> Path:
 def _cmd_archives(a) -> int:
     from .archives import base
 
+    if a.check == "all":
+        from .probes import PROBE_NAMES, run_probe
+
+        results = []
+        for name in PROBE_NAMES:
+            r = run_probe(name)
+            results.append(r)
+            print(f"{r['state']:>11}  {name:<17} {r['seconds']:>6}s  {r['detail'][:150]}", file=sys.stderr)
+        print(json.dumps(results, indent=1))
+        # an outage is inconclusive, never a failure; only an adapter raising something unexpected fails the probe run
+        return 1 if any(r["state"] == "error" for r in results) else 0
     if a.check:
         from .archives.base import Target
 
@@ -82,7 +93,8 @@ def main(argv=None) -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     ar = sub.add_parser("archives", help="list registered archive adapters")
-    ar.add_argument("--check", metavar="NAME", help="live-probe one adapter's discovery path")
+    ar.add_argument("--check", metavar="NAME", help="live-probe one adapter's discovery path ('all': every adapter, "
+                                                    "with a known-answer probe each)")
     ar.add_argument("--target", default="test", help="target name for --check")
     ar.add_argument("--ra", type=float, default=10.0)
     ar.add_argument("--dec", type=float, default=20.0)

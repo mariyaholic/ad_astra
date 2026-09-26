@@ -33,9 +33,28 @@ class _ContextAdapter(ArchiveAdapter):
     def fetch(self, ref: ProductRef, dest, *, timeout_s: float = 120.0):
         if ref.extra.get("inline"):
             dest.parent.mkdir(parents=True, exist_ok=True)
+            if "rows" in ref.extra:          # a tabular answer (SkyBoT) is written as CSV, not as empty text
+                import csv
+
+                rows = list(ref.extra.get("rows") or [])
+                with Path(dest).open("w", encoding="utf-8", newline="") as fh:
+                    w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()) if rows else [])
+                    w.writeheader()
+                    w.writerows(rows)
+                return dest
             dest.write_text(str(ref.extra.get("text", "")), encoding="utf-8")
             return dest
         return super().fetch(ref, dest, timeout_s=timeout_s)
+
+
+def _n_obs(v) -> int:
+    """Observation entries in an MPC field: list items, optical/radar elements of an ADES XML string, or the
+    non-blank lines of an OBS80 string (one 80-column record per line; verified 2026-09-26: 1260 each for 1998 SF36)."""
+    if isinstance(v, str):
+        if "<" in v:
+            return v.count("<optical") + v.count("<radar")
+        return sum(1 for line in v.splitlines() if line.strip())
+    return len(v or [])
 
 
 @register
@@ -46,9 +65,16 @@ class HorizonsAdapter(_ContextAdapter):
     capabilities = ("ephemeris", "context")
     verified = "[K]"
 
-    def discover(self, target: Target, *, limit: int = 1, command: str | None = None, **opts) -> list[ProductRef]:
+    def discover(self, target: Target, *, limit: int = 1, command: str | None = None, epochs_jd: list[float] | None = None,
+                 center: str = "500@399", **opts) -> list[ProductRef]:
+        """Object data for a named body; with ``epochs_jd`` (UTC JDs) also an observer ephemeris at exactly those
+        times (geocentric by default; ``center='C57'`` is TESS's MPC code where Horizons supports it)."""
         try:
             params = {"format": "text", "COMMAND": command or f"'{target.name}'", "OBJ_DATA": "'YES'", "MAKE_EPHEM": "'NO'"}
+            if epochs_jd:
+                params.update({"MAKE_EPHEM": "'YES'", "EPHEM_TYPE": "'OBSERVER'", "CENTER": f"'{center}'",
+                               "TLIST": " ".join(f"'{float(t):.6f}'" for t in epochs_jd), "TIME_TYPE": "'UT'",
+                               "QUANTITIES": "'1,9,20,23,24'", "ANG_FORMAT": "'DEG'"})
             r = self.http_get(HORIZONS_API, params=params, timeout=60.0)
             r.raise_for_status()
             txt = r.text
@@ -93,10 +119,13 @@ class MpcAdapter(_ContextAdapter):
     capabilities = ("known_objects", "context")
     verified = "[V 2026-09-25]"
 
-    def discover(self, target: Target, *, limit: int = 1, desig: str | None = None, **opts) -> list[ProductRef]:
+    def discover(self, target: Target, *, limit: int = 1, desig: str | None = None, output_format: list[str] | None = None,
+                 **opts) -> list[ProductRef]:
+        """``output_format`` (e.g. ``["OBS80"]``) is passed to the API; its default answer is ADES XML only."""
         desig = desig or target.name
+        body = {"desigs": [desig], **({"output_format": list(output_format)} if output_format else {})}
         try:
-            r = self.http_get_body(f"{MPC_DATA}/api/get-obs", {"desigs": [desig]}, timeout=60.0)
+            r = self.http_get_body(f"{MPC_DATA}/api/get-obs", body, timeout=60.0)
             r.raise_for_status()
             txt = r.text
         except Exception as exc:  # noqa: BLE001
@@ -120,7 +149,7 @@ class MpcAdapter(_ContextAdapter):
         try:
             data = json.loads(Path(path).read_text(encoding="utf-8"))
             rows = data if isinstance(data, list) else [data]
-            n_obs = sum(len(r.get("OBS80") or r.get("OBS_DF") or r.get("XML") or []) if isinstance(r, dict) else 0 for r in rows)
+            n_obs = sum(_n_obs(r.get("OBS80") or r.get("OBS_DF") or r.get("XML")) if isinstance(r, dict) else 0 for r in rows)
             checks.append(SourceCheck("MPC observation records", "passed" if rows else "inconclusive",
                                       f"{len(rows)} object record(s), {n_obs} observation entr(ies) via the data API"))
         except Exception as exc:  # noqa: BLE001
