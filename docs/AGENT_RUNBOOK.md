@@ -128,7 +128,8 @@ Do not change code in `src/`, thresholds in a generated spec, or anyone else's c
 | `event_census` | quality bits in and near each screen event, pointing/centroid shifts | Pointing and quality census per event |
 | `moving_objects` | SkyBoT at each event epoch (600″) | Moving objects at screen-event epochs |
 | `variability_guard` | VSX type/period collision with the aliases; SIMBAD object class | Variable-catalogue collision (VSX); Object-class guard (SIMBAD) |
-| `alias_cross_instrument` | depths at predicted alias epochs in other MAST collections and ZTF | Independent repetition; Independent-epoch confirmation (ZTF) |
+| `fetch_independent` | Kepler/K2 long-cadence products (MAST, searched by position) and ZTF light curves (IRSA), fetched, checksummed and ledgered like any other product; empty answers and outages are recorded, never read as "no data" | — |
+| `alias_cross_instrument` | depths at predicted alias epochs in the independent light curves (`fetch_independent`) and in other collections fetched by `fetch_products` | Independent repetition; Independent-epoch confirmation (ZTF) |
 | `rv_bounds` (only with `eso`) | archival RVs → per-alias companion mass upper bound | Stellar-companion exclusion (archival RVs) |
 
 With `stellar_context` in the spec, `period_aliases` also writes a per-alias duration likelihood (circular orbits; a ranking aid, not a period). A failed VSX or SIMBAD guard escalates in `cygnus.batch` triage. `inconclusive` from these steps usually means a service did not answer (e.g. SkyBoT server errors at some epochs): record it, do not re-run in a loop.

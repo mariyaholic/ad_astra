@@ -166,7 +166,7 @@ Pure functions in `src/cygnus/multi/measures.py`, steps in `src/cygnus/multi/mea
 | 11 | Epoch-propagated Gaia match | `stellar_context` → `Target-to-Gaia identification (proper motion propagated)` | Gaia epoch 2016.0 → observation epoch |
 | 12 | ESO RV reader + bounds | `rv_bounds` → `Stellar-companion exclusion (archival RVs)` | `readers.read_rv`: CSV or ESO DRS/QC CCF keywords; sinusoid fit per alias; mass-function upper bound by bisection |
 
-Also landed: a `max_product_bytes` pre-download size gate.
+Also landed: a `max_product_bytes` pre-download size gate. **Landed later the same day (uncommitted):** a `fetch_independent` step, now in every generated spec before `alias_cross_instrument`, which fetches Kepler/K2 long-cadence products from MAST (`Mast.Caom.Filtered.Position`, collections Kepler,K2, subgroup LLC) and ZTF light curves from IRSA (3″ cone, per-oid series with a ≤ 2″ match cut) so measures 5 and 6 run instead of staying `not_tested`; shared `_fetch_product` helper (behaviour-preserving split out of `fetch_products`); a neighbour's light curve is excluded from the verdicts by its recorded position (Kepler header, per-oid ZTF rows).
 
 **Not implemented (deferred; no test gap created):** AllWISE W1−W2/W2−W3 colours (§2 row 2) and NEOWISE variability (no adapter); a NED class guard (SIMBAD only); auto-populating veto/alias inputs from exoarchive rows (row 11); Gaia `radial_velocity` outliers vs NSS (row 1c); TPF custom-aperture photometry (row 5); hygiene items `Target.mag` and non-SPOC `TSTART/TSTOP`.
 

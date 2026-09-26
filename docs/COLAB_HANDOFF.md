@@ -39,7 +39,7 @@ Let `python -m cygnus.batch` run campaigns on a **Google Colab** runtime so that
    - (b) build a tested import tool that copies runs, measurements and products with their IDs remapped and provenance kept.
    Records cite ledger `run_id`s, so whichever you choose must keep every committed `run_id` resolvable. Tests first.
 5. **Session limits.** Colab sessions end on idle and at a maximum lifetime. The batch driver is resumable (journal plus runner step reuse). Make the notebook re-entrant: clone or pull, restore the batch state and ledger from Drive, run, and push the state back at intervals, not only at the end.
-6. **Rate limits.** There is no shared rate limiter. Do not run Colab and a local batch against the same archives at the same time, and keep `--jobs` at 3 or less until a limiter exists.
+6. **Rate limits.** *Resolved 2026-09-26: a cross-process rate limiter (one limit per archive host) is wired into the adapters and the product download path (commit `8cf091b`).* Colab and a local batch may overlap within its limits; the Colab stress run used `--jobs 7` on 8 vCPU without throttle errors. Keep `--jobs` near the core count and watch for `AdapterUnavailable`/timeout bursts.
 
 ## Suggested shape (adjust as you see fit)
 

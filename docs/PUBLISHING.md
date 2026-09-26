@@ -167,15 +167,25 @@ Serve `404.html` for missing paths. The pages load no third-party resources.
 **The published site (since 2026-09-25)** is the bundle from `tools/build_pages_bundle.py`: the sky
 explorer (`design-system/mockups/explorer/`) is the home page at `/`, and every other path is this
 generator's output, whose own home page is also written to `/about/`. Old `/preview/…` links
-redirect to `/` (`_redirects`). Build and deploy by hand (not connected to git):
+redirect to `/` (`_redirects`). Build, then publish through git (since 2026-09-26):
 
 ```bash
 python design-system/mockups/fetch_sky_data.py --missing   # Gaia field + survey image for new targets (network)
 python design-system/mockups/build_explorer.py
 python -m cygnus.publish check && python -m cygnus.publish build
 python tools/build_pages_bundle.py                          # leak-scans the whole bundle
-npx wrangler@4 pages deploy build/pages --project-name cygnus-sky --branch main
+python tools/push_site_branch.py                            # commit build/pages to the `site` branch and push
 ```
+
+`push_site_branch.py` rebuilds the `site` branch (in a temporary worktree; the main checkout is not
+touched) with `public/` = the bundle, `public/SITE_BUILD.json` naming the main commit it was built from,
+and `.github/workflows/deploy-site.yml` (source: `tools/site_branch/`). The push runs that GitHub Actions
+workflow, which deploys `public/` to the Cloudflare Pages project `cygnus-sky` with wrangler, using the
+repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (set by the user in GitHub; no agent
+reads or handles them). The project is a Direct Upload project, which Cloudflare cannot convert to a
+git-connected one; this workflow is the git route. Check the run in the repository's Actions tab. The
+manual fallback, from a machine with wrangler logged in, is unchanged:
+`npx wrangler@4 pages deploy build/pages --project-name cygnus-sky --branch main`.
 
 ## Storage, backup, retention
 
