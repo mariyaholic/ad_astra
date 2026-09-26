@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "lead",
  "evidence": "Unverified lead",
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Known-object test on TOI-1835.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5% (completeness for 2000 ppm: 20%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 589 threshold entries outside the known-signal veto across 2 light curve(s), forming 230 distinct event(s), 21 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458938.4279 (ΔT 0.54 d); 0 period aliases remain. Unverified lead until vetted.",
  "spec": "campaigns/toi-1835-02.yaml",
  "report": "campaigns/toi-1835-02/REPORT.md",
@@ -93,8 +93,62 @@
    "state": "passed",
    "note": "2 light curve(s) screenable",
    "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-1835.02: Gaia DR3 3948424496764080640 at 0.00\" (propagated 2016.0 → J2015.5; 0.07\" unpropagated, proper-motion shift 0.07\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "passed",
+   "note": "TOI-1835.02: Teff 5299 K, R* 0.80 ± 0.06, M* 0.86 ± 0.09, ρ* 1.69 ± 0.44 ρ☉ (dwarf sequence, M_G 5.64, no extinction)",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "passed",
+   "note": "TOI-1835.02: 3 Gaia neighbour(s) within 52.5\", contamination 0.00%; depth 589 ppm (measured depth of the recovered catalogued transit); none bright enough to produce it alone",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "failed",
+   "note": "21 persistent event(s), 11 clean; BJD 2458938.4279 caution: manual exclude (within ±0.25 d); BJD 2458940.5695 suspect: manual exclude (in event), MOM_CENTR1 z=+7.7, MOM_CENTR2 z=+12.5, POS_CORR1 z=+6.4, POS_CORR2 z=+13.3, SAP_BKG z=-7.8; BJD 2458946.3825 suspect: manual exclude (within ±0.25 d), SAP_BKG z=+43.3; BJD 2458946.4242 suspect: manual exclude (in event), MOM_CENTR1 z=+5.3, POS_CORR1 z=+5.2, SAP_BKG z=+11.0",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "inconclusive",
+   "note": "21 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin); 2 epoch(s) not answered",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no light curve from this instrument was fetched (add Kepler/K2/HLSP collections to fetch_products)",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no light curve from this instrument was fetched",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-1835.02: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-1835.02: HD 110067 otype PM* (star_or_other) at 2.1\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T23:29:09Z"
+ "generated_utc": "2026-09-26T08:56:57Z"
 }

@@ -1,23 +1,23 @@
 {
   "step": "prior_art",
-  "run_id": 1900,
-  "config_hash": "399bfc41ec2c6762",
-  "finished_utc": "2026-09-25T23:28:55Z",
+  "run_id": 3319,
+  "config_hash": "a5f2dba77e730576",
+  "finished_utc": "2026-09-26T08:09:07Z",
   "result": {
     "targets": {
       "TOI-2300.03": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T23:28:49Z",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-26T08:08:54Z",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 297.4161870, 68.8833540, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:28:49Z",
+          "retrieved_utc": "2026-09-26T08:08:54Z",
           "matches": []
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "3 match(es) in TESS_TOI within 30\" as of 2026-09-25T23:28:51Z: TOI-2300.01 (TIC 280031353, disposition PC); TOI-2300.02 (TIC 280031353, disposition PC); TOI-2300.03 (TIC 280031353, disposition PC)",
+          "result": "3 match(es) in TESS_TOI within 30\" as of 2026-09-26T08:08:58Z: TOI-2300.01 (TIC 280031353, disposition PC); TOI-2300.02 (TIC 280031353, disposition PC); TOI-2300.03 (TIC 280031353, disposition PC)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 297.3930561 AND 297.4393179 AND dec BETWEEN 68.8750207 AND 68.8916873",
-          "retrieved_utc": "2026-09-25T23:28:51Z",
+          "retrieved_utc": "2026-09-26T08:08:58Z",
           "matches": [
             "TOI-2300.01 (TIC 280031353, disposition PC)",
             "TOI-2300.02 (TIC 280031353, disposition PC)",
@@ -26,18 +26,18 @@
         },
         "VSX": {
           "state": "done",
-          "result": "1 match(es) in VSX within 30\" as of 2026-09-25T23:28:53Z: Gaia DR3 2250961264271388672 (type ROT, P \u2014 d)",
+          "result": "1 match(es) in VSX within 30\" as of 2026-09-26T08:09:00Z: Gaia DR3 2250961264271388672 (type ROT, P \u2014 d)",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 297.4161870, 68.8833540, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:28:53Z",
+          "retrieved_utc": "2026-09-26T08:09:00Z",
           "matches": [
             "Gaia DR3 2250961264271388672 (type ROT, P \u2014 d)"
           ]
         },
         "SIMBAD": {
           "state": "done",
-          "result": "4 match(es) in SIMBAD within 30\" as of 2026-09-25T23:28:54Z: TOI-2300.01 (Pl?); TOI-2300.02 (Pl?); TOI-2300 (*); TOI-2300.03 (Pl?)",
+          "result": "4 match(es) in SIMBAD within 30\" as of 2026-09-26T08:09:03Z: TOI-2300.01 (Pl?); TOI-2300.02 (Pl?); TOI-2300 (*); TOI-2300.03 (Pl?)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 297.4161870, 68.8833540, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:28:54Z",
+          "retrieved_utc": "2026-09-26T08:09:03Z",
           "matches": [
             "TOI-2300.01 (Pl?)",
             "TOI-2300.02 (Pl?)",

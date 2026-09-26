@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "pipeline_check",
  "evidence": null,
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Known-object test on TOI-6671.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered (1 covered epoch). Residual screen: 161 threshold entries outside the known-signal veto across 3 light curve(s), forming 91 distinct event(s), 0 persistent in SAP and PDCSAP at two or more baselines.",
  "spec": "campaigns/toi-6671-01.yaml",
  "report": "campaigns/toi-6671-01/REPORT.md",
@@ -99,8 +99,62 @@
    "state": "passed",
    "note": "3 light curve(s) screenable",
    "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-6671.01: Gaia DR3 6810533734371193216 at 0.00\" (propagated 2016.0 → J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "passed",
+   "note": "TOI-6671.01: Teff 4797 K, R* 0.76 ± 0.06, M* 0.78 ± 0.08, ρ* 1.81 ± 0.47 ρ☉ (dwarf sequence, M_G 6.18, no extinction)",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "passed",
+   "note": "TOI-6671.01: 2 Gaia neighbour(s) within 52.5\", contamination 0.02%; depth 1567 ppm (catalogue depth); none bright enough to produce it alone",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-6671.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-6671.01: TYC 6956-758-1 otype * (star_or_other) at 0.3\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T23:38:28Z"
+ "generated_utc": "2026-09-26T09:00:44Z"
 }

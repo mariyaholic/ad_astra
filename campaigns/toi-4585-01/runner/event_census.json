@@ -1,0 +1,150 @@
+{
+  "step": "event_census",
+  "run_id": 3589,
+  "config_hash": "50799e0e3e2cccce",
+  "finished_utc": "2026-09-26T08:21:54Z",
+  "result": {
+    "events": [
+      {
+        "t_mid": 2458730.909319693,
+        "window_days": 0.041666666666666664,
+        "pad_days": 0.25,
+        "quality_bits_near": {},
+        "quality_bits_in_event": {},
+        "artifact_bits_near": [],
+        "artifact_bits_in_event": [],
+        "series": {
+          "MOM_CENTR1": {
+            "tested": true,
+            "shift": 0.0013817120613452971,
+            "baseline_robust_sigma": 0.003304023424057399,
+            "z": 2.290525116938861,
+            "n_in": 30,
+            "flagged": false
+          },
+          "MOM_CENTR2": {
+            "tested": true,
+            "shift": 0.0005578113003537055,
+            "baseline_robust_sigma": 0.004768697692876822,
+            "z": 0.6406902926377344,
+            "n_in": 30,
+            "flagged": false
+          },
+          "POS_CORR1": {
+            "tested": true,
+            "shift": 0.00141840148717165,
+            "baseline_robust_sigma": 0.0037091834608465432,
+            "z": 2.0945054304363753,
+            "n_in": 30,
+            "flagged": false
+          },
+          "POS_CORR2": {
+            "tested": true,
+            "shift": 0.0010172035545110703,
+            "baseline_robust_sigma": 0.007781423389166593,
+            "z": 0.7159941112519524,
+            "n_in": 30,
+            "flagged": false
+          },
+          "SAP_BKG": {
+            "tested": true,
+            "shift": 131.1561279296875,
+            "baseline_robust_sigma": 328.63316667480467,
+            "z": 2.1859379121404645,
+            "n_in": 30,
+            "flagged": false
+          }
+        },
+        "flagged_series": [],
+        "clean": true,
+        "suspect": false,
+        "tested_series": [
+          "MOM_CENTR1",
+          "MOM_CENTR2",
+          "POS_CORR1",
+          "POS_CORR2",
+          "SAP_BKG"
+        ],
+        "product": "tess2019226182529-s0015-0000000233529335-0151-s_lc.fits"
+      },
+      {
+        "t_mid": 2458762.4736928456,
+        "window_days": 0.041666666666666664,
+        "pad_days": 0.25,
+        "quality_bits_near": {
+          "insufficient targets": 193
+        },
+        "quality_bits_in_event": {
+          "insufficient targets": 13
+        },
+        "artifact_bits_near": [],
+        "artifact_bits_in_event": [],
+        "series": {
+          "MOM_CENTR1": {
+            "tested": true,
+            "shift": -0.0005653808059378207,
+            "baseline_robust_sigma": 0.002362086148742719,
+            "z": -1.015503863931832,
+            "n_in": 18,
+            "flagged": false
+          },
+          "MOM_CENTR2": {
+            "tested": true,
+            "shift": -0.002679908193883307,
+            "baseline_robust_sigma": 0.003539882332037385,
+            "z": -3.2119394021127583,
+            "n_in": 18,
+            "flagged": false
+          },
+          "POS_CORR1": {
+            "tested": true,
+            "shift": -0.0011715578148141503,
+            "baseline_robust_sigma": 0.002764926108252257,
+            "z": -1.797696812803792,
+            "n_in": 18,
+            "flagged": false
+          },
+          "POS_CORR2": {
+            "tested": true,
+            "shift": -0.0028774887323379517,
+            "baseline_robust_sigma": 0.0043299125924706455,
+            "z": -2.819491274205682,
+            "n_in": 18,
+            "flagged": false
+          },
+          "SAP_BKG": {
+            "tested": true,
+            "shift": 719.5052490234375,
+            "baseline_robust_sigma": 469.3178263183593,
+            "z": 6.504339006360292,
+            "n_in": 18,
+            "flagged": true
+          }
+        },
+        "flagged_series": [
+          "SAP_BKG"
+        ],
+        "clean": false,
+        "suspect": true,
+        "tested_series": [
+          "MOM_CENTR1",
+          "MOM_CENTR2",
+          "POS_CORR1",
+          "POS_CORR2",
+          "SAP_BKG"
+        ],
+        "product": "tess2019253231442-s0016-0000000233529335-0152-s_lc.fits"
+      }
+    ],
+    "file": "campaigns/toi-4585-01/event_census.json"
+  },
+  "checks": {
+    "Pointing and quality census per event": {
+      "state": "failed",
+      "note": "2 persistent event(s), 1 clean; BJD 2458762.4737 suspect: SAP_BKG z=+6.5",
+      "step": "event_census"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

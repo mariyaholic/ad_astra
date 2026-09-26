@@ -194,3 +194,21 @@ To advance: compare the two transit shapes, check difference-image centroids and
 python -m cygnus.campaign run campaigns/toi-225-01.yaml
 python -m cygnus.campaign report campaigns/toi-225-01.yaml
 ```
+
+## Addendum 2026-09-26: suite-expansion checks
+
+Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EXPANSION.md` §7.3) and the corrected moving-object check (TESS-centred SkyBoT positions, distance-aware). The earlier science outputs (screen, calibration, positive control, aliases, cross-match) were compared leaf by leaf and are unchanged apart from timestamps. States and notes below are copied from `sky_record.json`; the review above is not changed by them unless a note says so.
+
+| Check | State | Note |
+|---|---|---|
+| Target-to-Gaia identification (proper motion propagated) | passed | TOI-225.01: Gaia DR3 2383924277704397056 at 0.00" (propagated 2016.0 → J2015.5; 0.07" unpropagated, proper-motion shift 0.07") |
+| Stellar priors (Gaia colour and parallax) | inconclusive | TOI-225.01: dwarf priors not applied — RUWE 1.7112788 ≥ 1.4 (or missing): astrometry may be perturbed |
+| Blend and dilution census (Gaia DR3 cone) | passed | TOI-225.01: 2 Gaia neighbour(s) within 52.5", contamination 0.35%; depth 4431 ppm (measured depth of the recovered catalogued transit); none bright enough to produce it alone |
+| Pointing and quality census per event | failed | 5 persistent event(s), 1 clean; BJD 2460909.5212 suspect: scattered light 2 (in event), MOM_CENTR1 z=+12.9, MOM_CENTR2 z=+8.0, POS_CORR1 z=+11.4, POS_CORR2 z=+8.8, SAP_BKG z=+1002.5; BJD 2460909.5337 suspect: scattered light 2 (within ±0.25 d), MOM_CENTR1 z=+15.2, MOM_CENTR2 z=+9.9, POS_CORR1 z=+13.9, POS_CORR2 z=+10.5… |
+| Moving objects at screen-event epochs | inconclusive | 5 event epoch(s) queried in SkyBoT (observer C57, r=600"); no known object bright enough within 63" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin); 2 epoch(s) not answered |
+| Variable-catalogue collision (VSX) | passed | TOI-225.01: no VSX entry within 10" |
+| Object-class guard (SIMBAD) | passed | TOI-225.01: CD-25 16182 otype PM* (star_or_other) at 2.2" |
+| Independent repetition (other MAST collections) | not_tested | no light curve from this instrument was fetched (add Kepler/K2/HLSP collections to fetch_products) |
+| Independent-epoch confirmation (ZTF) | not_tested | no light curve from this instrument was fetched |
+
+`failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.

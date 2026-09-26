@@ -4,8 +4,13 @@
     "fetch_products",
     "calibrate_screen",
     "known_signal_recovery",
+    "stellar_context",
     "residual_screen",
+    "event_census",
     "period_aliases",
+    "moving_objects",
+    "alias_cross_instrument",
+    "variability_guard",
     "prior_art"
   ],
   "complete": true,
@@ -35,10 +40,55 @@
       "note": "BJD 2459633.0251: not recovered, depth 365 \u00b1 61 ppm (catalogue 512 ppm)",
       "step": "known_signal_recovery"
     },
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-5719.01: Gaia DR3 744610375504790912 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-5719.01: Teff 6312 K, R* 1.17 \u00b1 0.09, M* 1.13 \u00b1 0.11, \u03c1* 0.70 \u00b1 0.18 \u03c1\u2609 (dwarf sequence, M_G 4.09, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "passed",
+      "note": "TOI-5719.01: 1 Gaia neighbour(s) within 52.5\", contamination 0.01%; depth 512 ppm (catalogue depth); none bright enough to produce it alone",
+      "step": "stellar_context"
+    },
+    "Pointing and quality census per event": {
+      "state": "not_tested",
+      "note": "no persistent screen event outside the veto",
+      "step": "event_census"
+    },
     "Period aliases (repeat events)": {
       "state": "not_tested",
       "note": "catalogued transit not recovered; no reference depth",
       "step": "period_aliases"
+    },
+    "Moving objects at screen-event epochs": {
+      "state": "not_tested",
+      "note": "no persistent screen event outside the veto",
+      "step": "moving_objects"
+    },
+    "Independent repetition (other MAST collections)": {
+      "state": "not_tested",
+      "note": "no repeat candidate with allowed period aliases",
+      "step": "alias_cross_instrument"
+    },
+    "Independent-epoch confirmation (ZTF)": {
+      "state": "not_tested",
+      "note": "no repeat candidate with allowed period aliases",
+      "step": "alias_cross_instrument"
+    },
+    "Variable-catalogue collision (VSX)": {
+      "state": "passed",
+      "note": "TOI-5719.01: no VSX entry within 10\"",
+      "step": "variability_guard"
+    },
+    "Object-class guard (SIMBAD)": {
+      "state": "passed",
+      "note": "TOI-5719.01: TYC 2502-23-1 otype Em* (star_or_other) at 0.2\"",
+      "step": "variability_guard"
     },
     "Catalogue cross-match": {
       "state": "passed",
@@ -52,5 +102,5 @@
     "Residual screen: 34 threshold entries outside the known-signal veto across 2 light curve(s), forming 20 distinct event(s), 0 persistent in SAP and PDCSAP at two or more baselines."
   ],
   "record": "campaigns/toi-5719-01/sky_record.json",
-  "finished_utc": "2026-09-25T23:35:51Z"
+  "finished_utc": "2026-09-26T08:59:47Z"
 }

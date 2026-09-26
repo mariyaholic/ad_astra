@@ -90,6 +90,9 @@ def fetch_to_file(
     dest.parent.mkdir(parents=True, exist_ok=True)
     part = dest.parent / (dest.name + ".part")
     sess = sess or session()
+    from ..throttle import wait
+
+    wait(url)                      # parallel batch jobs share a per-host request rate
 
     headers = dict(headers or {})
     resumed = part.exists() and part.stat().st_size > 0 and method.upper() == "GET"

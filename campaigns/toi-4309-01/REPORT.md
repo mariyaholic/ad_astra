@@ -196,3 +196,21 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 python -m cygnus.campaign run campaigns/toi-4309-01.yaml
 python -m cygnus.campaign report campaigns/toi-4309-01.yaml
 ```
+
+## Addendum 2026-09-26: suite-expansion checks
+
+Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EXPANSION.md` §7.3) and the corrected moving-object check (TESS-centred SkyBoT positions, distance-aware). The earlier science outputs (screen, calibration, positive control, aliases, cross-match) were compared leaf by leaf and are unchanged apart from timestamps. States and notes below are copied from `sky_record.json`; the review above is not changed by them unless a note says so.
+
+| Check | State | Note |
+|---|---|---|
+| Target-to-Gaia identification (proper motion propagated) | passed | TOI-4309.01: Gaia DR3 3762126059756436480 at 0.00" (propagated 2016.0 → J2015.5; 0.10" unpropagated, proper-motion shift 0.10") |
+| Stellar priors (Gaia colour and parallax) | passed | TOI-4309.01: Teff 5180 K, R* 0.81 ± 0.06, M* 0.87 ± 0.09, ρ* 1.65 ± 0.43 ρ☉ (dwarf sequence, M_G 5.58, no extinction) |
+| Blend and dilution census (Gaia DR3 cone) | passed | TOI-4309.01: 1 Gaia neighbour(s) within 52.5", contamination 0.01%; depth 661 ppm (catalogue depth); none bright enough to produce it alone |
+| Pointing and quality census per event | passed | 1 persistent event(s), 1 clean; no artifact quality bit within ±0.25 d and no centroid, pointing or background shift beyond 5σ |
+| Moving objects at screen-event epochs | passed | 1 event epoch(s) queried in SkyBoT (observer C57, r=600"); no known object bright enough within 63" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin) |
+| Variable-catalogue collision (VSX) | passed | TOI-4309.01: no VSX entry within 10" |
+| Object-class guard (SIMBAD) | passed | TOI-4309.01: BD-08  2955 otype PM* (star_or_other) at 3.1" |
+| Independent repetition (other MAST collections) | not_tested | no repeat candidate with allowed period aliases |
+| Independent-epoch confirmation (ZTF) | not_tested | no repeat candidate with allowed period aliases |
+
+`failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.

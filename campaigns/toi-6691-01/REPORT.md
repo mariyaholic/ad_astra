@@ -208,3 +208,21 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 python -m cygnus.campaign run campaigns/toi-6691-01.yaml
 python -m cygnus.campaign report campaigns/toi-6691-01.yaml
 ```
+
+## Addendum 2026-09-26: suite-expansion checks
+
+Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EXPANSION.md` §7.3) and the corrected moving-object check (TESS-centred SkyBoT positions, distance-aware). The earlier science outputs (screen, calibration, positive control, aliases, cross-match) were compared leaf by leaf and are unchanged apart from timestamps. States and notes below are copied from `sky_record.json`; the review above is not changed by them unless a note says so.
+
+| Check | State | Note |
+|---|---|---|
+| Target-to-Gaia identification (proper motion propagated) | passed | TOI-6691.01: Gaia DR3 4767020077694168576 at 0.00" (propagated 2016.0 → J2015.5; 0.02" unpropagated, proper-motion shift 0.02") |
+| Stellar priors (Gaia colour and parallax) | passed | TOI-6691.01: Teff 6485 K, R* 1.72 ± 0.14, M* 1.59 ± 0.16, ρ* 0.31 ± 0.08 ρ☉ (dwarf sequence, M_G 2.54, no extinction) |
+| Blend and dilution census (Gaia DR3 cone) | inconclusive | TOI-6691.01: 5 Gaia neighbour(s) within 52.5", contamination 0.34%; depth 184 ppm (catalogue depth); 1 could produce it if fully eclipsed (brightest 4767020112053906688, 45.2", ΔG 6.31); a centroid test is needed |
+| Pointing and quality census per event | failed | 6 persistent event(s), 0 clean; BJD 2458491.7265 suspect: argabrightening (within ±0.25 d), earth point (within ±0.25 d), manual exclude (within ±0.25 d), momentum dump (within ±0.25 d), MOM_CENTR1 z=+25.8, MOM_CENTR2 z=-18.2, POS_CORR1 z=+27.3, POS_CORR2 z=-18.2, SAP_BKG z=+1197.7; BJD 2458491.7320 suspect: argabright… |
+| Moving objects at screen-event epochs | passed | 6 event epoch(s) queried in SkyBoT (observer C57, r=600"); no known object bright enough within 63" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin) |
+| Variable-catalogue collision (VSX) | passed | TOI-6691.01: no VSX entry within 10" |
+| Object-class guard (SIMBAD) | passed | TOI-6691.01: HD  36765 otype * (star_or_other) at 0.5" |
+| Independent repetition (other MAST collections) | not_tested | no repeat candidate with allowed period aliases |
+| Independent-epoch confirmation (ZTF) | not_tested | no repeat candidate with allowed period aliases |
+
+`failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.

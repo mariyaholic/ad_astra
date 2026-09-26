@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "pipeline_check",
  "evidence": null,
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Known-object test on TOI-2007.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, 3.5, 3, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit partial (1 covered epoch). Residual screen: 53 threshold entries outside the known-signal veto across 6 light curve(s), forming 23 distinct event(s), 0 persistent in SAP and PDCSAP at two or more baselines.",
  "spec": "campaigns/toi-2007-01.yaml",
  "report": "campaigns/toi-2007-01/REPORT.md",
@@ -117,8 +117,62 @@
    "state": "passed",
    "note": "6 light curve(s) screenable",
    "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-2007.01: Gaia DR3 1711633081221292800 at 0.00\" (propagated 2016.0 → J2015.5; 0.05\" unpropagated, proper-motion shift 0.05\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "passed",
+   "note": "TOI-2007.01: Teff 5202 K, R* 0.84 ± 0.07, M* 0.89 ± 0.09, ρ* 1.52 ± 0.39 ρ☉ (dwarf sequence, M_G 5.42, no extinction)",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "inconclusive",
+   "note": "TOI-2007.01: 4 Gaia neighbour(s) within 52.5\", contamination 7.26%; depth 912 ppm (catalogue depth); 2 could produce it if fully eclipsed (brightest 1711633016797799296, 46.5\", ΔG 2.86); a centroid test is needed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-2007.01: Gaia DR3 1711633081221292800   ROT                            P=None at 1.7\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-2007.01: TOI-2007 otype PM* (star_or_other) at 1.4\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T23:29:10Z"
+ "generated_utc": "2026-09-26T08:57:11Z"
 }

@@ -1,0 +1,137 @@
+{
+  "step": "stellar_context",
+  "run_id": 3895,
+  "config_hash": "b2aa5a9ef2d970a2",
+  "finished_utc": "2026-09-26T08:38:56Z",
+  "result": {
+    "targets": {
+      "TOI-7399.01": {
+        "cone_radius_arcsec": 63.0,
+        "n_rows": 7,
+        "rows_sha256": "d88334788fbe072754e5f409e1debd5a8d2b7964b1e6a2d477652d9237a71a12",
+        "position_epoch": "J2015.5",
+        "match": {
+          "source_id": "1633938329724999680",
+          "sep_arcsec": 0.0,
+          "sep_unpropagated_arcsec": 0.014416392116521405,
+          "pm_shift_arcsec": 0.012842215171584641,
+          "phot_g_mean_mag": 9.042988,
+          "propagated_to": 2015.5,
+          "high_proper_motion": false,
+          "next": {
+            "source_id": "1633938329723777792",
+            "sep_arcsec": 16.012734581135266,
+            "delta_g": 11.968756
+          }
+        },
+        "priors": {
+          "source_id": "1633938329724999680",
+          "phot_g_mean_mag": 9.042988,
+          "bp_rp": 0.6001024,
+          "parallax_mas": 4.871822890238685,
+          "parallax_error_mas": 0.0120723955,
+          "ruwe": 0.92545265,
+          "usable": true,
+          "assumptions": [
+            "main-sequence dwarf",
+            "no extinction",
+            "single star",
+            "fractional floors R 0.08, M 0.1 (declared)"
+          ],
+          "table": "Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "teff_k": 6500.556981132076,
+          "teff_note": "interpolated in Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "abs_g": 2.481445458068527,
+          "abs_g_err": 0.005380916822231584,
+          "sequence_abs_g_at_colour": 3.334164528301887,
+          "offset_from_sequence_mag": -0.85271907023336,
+          "radius_rsun": 1.7318752592621285,
+          "radius_err_rsun": 0.13855194526829256,
+          "mass_msun": 1.6385545419314729,
+          "mass_err_msun": 0.16394378345850863,
+          "density_rho_sun": 0.3154358698862022,
+          "density_err_rho_sun": 0.08202083833517586
+        },
+        "dilution": {
+          "computed": true,
+          "aperture_arcsec": 52.5,
+          "depth_ppm": 381.21881453218043,
+          "n_neighbours": 5,
+          "neighbours": [
+            {
+              "source_id": "1633936920975698432",
+              "sep_arcsec": 49.95369209218679,
+              "phot_g_mean_mag": 17.10073,
+              "flux_ratio_to_target": 0.000598278229821529,
+              "max_depth_ppm_if_fully_eclipsed": 597.839651174429,
+              "could_mimic_depth": true
+            },
+            {
+              "source_id": "1633936920976460416",
+              "sep_arcsec": 41.62586823176429,
+              "phot_g_mean_mag": 19.329893,
+              "flux_ratio_to_target": 7.677821304102166e-05,
+              "max_depth_ppm_if_fully_eclipsed": 76.72192938715659,
+              "could_mimic_depth": false
+            },
+            {
+              "source_id": "1633936920973998464",
+              "sep_arcsec": 31.920197154588493,
+              "phot_g_mean_mag": 20.611826,
+              "flux_ratio_to_target": 2.3575711047328225e-05,
+              "max_depth_ppm_if_fully_eclipsed": 23.55842844712624,
+              "could_mimic_depth": false
+            },
+            {
+              "source_id": "1633938398444114944",
+              "sep_arcsec": 37.33785397505282,
+              "phot_g_mean_mag": 20.865591,
+              "flux_ratio_to_target": 1.866202642312965e-05,
+              "max_depth_ppm_if_fully_eclipsed": 18.648345888066153,
+              "could_mimic_depth": false
+            },
+            {
+              "source_id": "1633938329723777792",
+              "sep_arcsec": 16.017381047812794,
+              "phot_g_mean_mag": 21.011744,
+              "flux_ratio_to_target": 1.631163895058125e-05,
+              "max_depth_ppm_if_fully_eclipsed": 16.299681409446812,
+              "could_mimic_depth": false
+            }
+          ],
+          "neighbours_without_g": [],
+          "contamination_fraction": 0.0007330680363061282,
+          "depth_dilution_factor": 1.0007336058192835,
+          "n_could_mimic": 1,
+          "assumptions": [
+            "Gaia G as a proxy for the TESS band",
+            "circular aperture of the stated radius",
+            "Gaia DR3 2016.0 positions",
+            "unresolved companions not counted"
+          ],
+          "depth_source": "measured depth of the recovered catalogued transit"
+        }
+      }
+    },
+    "file": "campaigns/toi-7399-01/stellar_context.json"
+  },
+  "checks": {
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-7399.01: Gaia DR3 1633938329724999680 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-7399.01: Teff 6501 K, R* 1.73 \u00b1 0.14, M* 1.64 \u00b1 0.16, \u03c1* 0.32 \u00b1 0.08 \u03c1\u2609 (dwarf sequence, M_G 2.48, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-7399.01: 5 Gaia neighbour(s) within 52.5\", contamination 0.07%; depth 381 ppm (measured depth of the recovered catalogued transit); 1 could produce it if fully eclipsed (brightest 1633936920975698432, 50.0\", \u0394G 8.06); a centroid test is needed",
+      "step": "stellar_context"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

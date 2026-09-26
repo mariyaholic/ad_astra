@@ -4,8 +4,13 @@
     "fetch_products",
     "calibrate_screen",
     "known_signal_recovery",
+    "stellar_context",
     "residual_screen",
+    "event_census",
     "period_aliases",
+    "moving_objects",
+    "alias_cross_instrument",
+    "variability_guard",
     "prior_art"
   ],
   "complete": true,
@@ -35,10 +40,55 @@
       "note": "BJD 2458770.6899: recovered, depth 381 \u00b1 29 ppm (catalogue 375 ppm)",
       "step": "known_signal_recovery"
     },
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-7399.01: Gaia DR3 1633938329724999680 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-7399.01: Teff 6501 K, R* 1.73 \u00b1 0.14, M* 1.64 \u00b1 0.16, \u03c1* 0.32 \u00b1 0.08 \u03c1\u2609 (dwarf sequence, M_G 2.48, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-7399.01: 5 Gaia neighbour(s) within 52.5\", contamination 0.07%; depth 381 ppm (measured depth of the recovered catalogued transit); 1 could produce it if fully eclipsed (brightest 1633936920975698432, 50.0\", \u0394G 8.06); a centroid test is needed",
+      "step": "stellar_context"
+    },
+    "Pointing and quality census per event": {
+      "state": "failed",
+      "note": "4 persistent event(s), 0 clean; BJD 2458764.9752 caution: manual exclude (within \u00b10.25 d); BJD 2458765.8731 suspect: manual exclude (in event); BJD 2458768.5793 suspect: coarse point (in event), manual exclude (in event), momentum dump (in event); BJD 2458842.6365 suspect: manual exclude (in event), earth point (within \u00b10.25 d), momentum dump (within \u00b10.25 d)",
+      "step": "event_census"
+    },
     "Period aliases (repeat events)": {
       "state": "inconclusive",
       "note": "1 repeat-candidate event(s); first at BJD 2458842.6365, \u0394T = 72.086 d, 0 of 72 aliases P = \u0394T/n \u2265 1 d allowed by the retrieved data ( d)",
       "step": "period_aliases"
+    },
+    "Moving objects at screen-event epochs": {
+      "state": "inconclusive",
+      "note": "4 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin); 1 epoch(s) not answered",
+      "step": "moving_objects"
+    },
+    "Independent repetition (other MAST collections)": {
+      "state": "not_tested",
+      "note": "no light curve from this instrument was fetched (add Kepler/K2/HLSP collections to fetch_products)",
+      "step": "alias_cross_instrument"
+    },
+    "Independent-epoch confirmation (ZTF)": {
+      "state": "not_tested",
+      "note": "no light curve from this instrument was fetched",
+      "step": "alias_cross_instrument"
+    },
+    "Variable-catalogue collision (VSX)": {
+      "state": "passed",
+      "note": "TOI-7399.01: no VSX entry within 10\"",
+      "step": "variability_guard"
+    },
+    "Object-class guard (SIMBAD)": {
+      "state": "passed",
+      "note": "TOI-7399.01: BD+66  1036 otype * (star_or_other) at 0.4\"",
+      "step": "variability_guard"
     },
     "Catalogue cross-match": {
       "state": "passed",
@@ -53,5 +103,5 @@
     "Repeat candidate: a persistent event matching the catalogued depth at BJD 2458842.6365 (\u0394T 72.09 d); 0 period aliases remain. Unverified lead until vetted."
   ],
   "record": "campaigns/toi-7399-01/sky_record.json",
-  "finished_utc": "2026-09-25T23:42:47Z"
+  "finished_utc": "2026-09-26T09:01:47Z"
 }

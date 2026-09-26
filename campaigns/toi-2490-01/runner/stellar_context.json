@@ -1,0 +1,113 @@
+{
+  "step": "stellar_context",
+  "run_id": 3388,
+  "config_hash": "1a340d231e4a50c4",
+  "finished_utc": "2026-09-26T08:11:55Z",
+  "result": {
+    "targets": {
+      "TOI-2490.01": {
+        "cone_radius_arcsec": 63.0,
+        "n_rows": 5,
+        "rows_sha256": "b6c0b61d550d2ebfca94b0d55c8b5161653ece01ce2334c3eb52031b3006ff44",
+        "position_epoch": "J2015.5",
+        "match": {
+          "source_id": "4818818585874648320",
+          "sep_arcsec": 0.0,
+          "sep_unpropagated_arcsec": 0.01267271612591058,
+          "pm_shift_arcsec": 0.011589211473958914,
+          "phot_g_mean_mag": 11.756224,
+          "propagated_to": 2015.5,
+          "high_proper_motion": false,
+          "next": {
+            "source_id": "4818818512858550912",
+            "sep_arcsec": 34.400754835653636,
+            "delta_g": 6.296665000000001
+          }
+        },
+        "priors": {
+          "source_id": "4818818585874648320",
+          "phot_g_mean_mag": 11.756224,
+          "bp_rp": 0.9156933,
+          "parallax_mas": 3.7361687059139497,
+          "parallax_error_mas": 0.0135832215,
+          "ruwe": 1.1018556,
+          "usable": true,
+          "assumptions": [
+            "main-sequence dwarf",
+            "no extinction",
+            "single star",
+            "fractional floors R 0.08, M 0.1 (declared)"
+          ],
+          "table": "Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "teff_k": 5448.6134,
+          "teff_note": "interpolated in Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "abs_g": 4.618356392385121,
+          "abs_g_err": 0.007894608900532176,
+          "sequence_abs_g_at_colour": 5.173955572,
+          "offset_from_sequence_mag": -0.5555991796148785,
+          "radius_rsun": 1.016617879569446,
+          "radius_err_rsun": 0.08135892174236588,
+          "mass_msun": 1.002886174730904,
+          "mass_err_msun": 0.10029796097486951,
+          "density_rho_sun": 0.9545054531394304,
+          "density_err_rho_sun": 0.24825151796491732
+        },
+        "dilution": {
+          "computed": true,
+          "aperture_arcsec": 52.5,
+          "depth_ppm": 7064.191012968513,
+          "n_neighbours": 2,
+          "neighbours": [
+            {
+              "source_id": "4818818482795434112",
+              "sep_arcsec": 50.01976083500889,
+              "phot_g_mean_mag": 13.679006,
+              "flux_ratio_to_target": 0.17017164614539468,
+              "max_depth_ppm_if_fully_eclipsed": 145049.0259887812,
+              "could_mimic_depth": true
+            },
+            {
+              "source_id": "4818818512858550912",
+              "sep_arcsec": 34.39085893604555,
+              "phot_g_mean_mag": 18.052889,
+              "flux_ratio_to_target": 0.003029242211873996,
+              "max_depth_ppm_if_fully_eclipsed": 2582.0319792934874,
+              "could_mimic_depth": false
+            }
+          ],
+          "neighbours_without_g": [],
+          "contamination_fraction": 0.14763105796807474,
+          "depth_dilution_factor": 1.1732008883572687,
+          "n_could_mimic": 1,
+          "assumptions": [
+            "Gaia G as a proxy for the TESS band",
+            "circular aperture of the stated radius",
+            "Gaia DR3 2016.0 positions",
+            "unresolved companions not counted"
+          ],
+          "depth_source": "measured depth of the recovered catalogued transit"
+        }
+      }
+    },
+    "file": "campaigns/toi-2490-01/stellar_context.json"
+  },
+  "checks": {
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-2490.01: Gaia DR3 4818818585874648320 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-2490.01: Teff 5449 K, R* 1.02 \u00b1 0.08, M* 1.00 \u00b1 0.10, \u03c1* 0.95 \u00b1 0.25 \u03c1\u2609 (dwarf sequence, M_G 4.62, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-2490.01: 2 Gaia neighbour(s) within 52.5\", contamination 14.76%; depth 7064 ppm (measured depth of the recovered catalogued transit); 1 could produce it if fully eclipsed (brightest 4818818482795434112, 50.0\", \u0394G 1.92); a centroid test is needed",
+      "step": "stellar_context"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

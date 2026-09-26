@@ -357,7 +357,8 @@ def test_measure_steps_on_a_known_object_with_a_repeat(tmp_path, monkeypatch, fa
     fakes["gaia"] = _FakeAdapter(_gaia_field())
     fakes["vizier"] = _FakeAdapter([{"Name": "V9", "Type": "ROT", "Period": "3.0", "RAJ2000": 10.0, "DEJ2000": 20.0}])
     fakes["simbad"] = _FakeAdapter([{"main_id": "TYC 1", "otype": "PM*", "ra": 10.0, "dec": 20.0}])
-    fakes["skybot"] = _FakeAdapter([{"Name": "(9) Metis", "V": "11.5", "centerdist": "300"}])
+    fakes["skybot"] = _FakeAdapter([{"Name": "(9) Metis", "V": "11.5", "centerdist": "20.0 arcsec"},
+                                    {"Name": "far", "V": "9.0", "centerdist": "300 arcsec", "RA_rate": "30 arcsec / h"}])
     out, checks, rec = _run_known_object(tmp_path, monkeypatch)
     assert rec["outcome"] == "lead" and rec["evidence"] == "Unverified lead"       # nothing raises it further
     assert checks["Target-to-Gaia identification (proper motion propagated)"]["state"] == "passed"
@@ -547,3 +548,21 @@ def test_moving_objects_with_some_epochs_unanswered_is_inconclusive(tmp_path, fa
     step_moving_objects(ctx, {})
     c = ctx.checks["Moving objects at screen-event epochs"]
     assert c["state"] == "inconclusive" and "1 epoch(s) not answered" in c["note"]
+
+
+def test_moving_objects_count_only_what_can_reach_the_aperture():
+    rows = [{"Name": "near", "V": "12", "centerdist": "40.0 arcsec", "RA_rate": "-10 arcsec / h", "DEC_rate": "0"},
+            {"Name": "fast", "V": "12", "centerdist": "150 arcsec", "RA_rate": "-60 arcsec / h", "DEC_rate": "80 arcsec / h"},
+            {"Name": "far", "V": "12", "centerdist": "297.8 arcsec", "RA_rate": "-36.2 arcsec / h", "DEC_rate": "-9.2 arcsec / h"},
+            {"Name": "nodist", "V": "12"}, {"Name": "dim", "V": "21", "centerdist": "5 arcsec"}]
+    h = M.moving_object_hits(rows, target_mag=10.0, depth_ppm=10000, near_arcsec=63, window_h=1.0)
+    assert [x["name"] for x in h["bright_enough"]] == ["near", "fast"]      # fast: 63 + 100" of motion reaches 150"
+    assert h["bright_enough"][0]["dist_arcsec"] == 40.0                      # units parsed, not dropped
+    assert h["too_far"] == 1 and h["too_faint"] == 1 and [x["name"] for x in h["unknown_distance"]] == ["nodist"]
+    # without a reach (legacy call) distance is not used
+    assert len(M.moving_object_hits(rows, target_mag=10.0, depth_ppm=10000)["bright_enough"]) == 4
+
+
+def test_quantities_with_units_parse():
+    assert M._q("297.8 arcsec") == 297.8 and M._q("-36.15 arcsec / h") == -36.15 and M._q("1e2 deg") == 100.0
+    assert M._q(None) is None and M._q("n/a") is None and M._q(7) == 7.0

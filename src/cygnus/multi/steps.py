@@ -80,6 +80,9 @@ def _discover_spoc_lcs(tic: int, max_products: int, t0_bjd: float | None = None)
     from astroquery.mast import Observations, conf
 
     conf.timeout = MAST_TIMEOUT_S   # astroquery's default is 600 s per request
+    from ..throttle import wait
+
+    wait("mast.stsci.edu")
     obs = Observations.query_criteria(target_name=str(tic), obs_collection="TESS", provenance_name="SPOC",
                                       dataproduct_type="timeseries")
     if len(obs) == 0:

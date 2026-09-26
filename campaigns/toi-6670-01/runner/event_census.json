@@ -1,0 +1,92 @@
+{
+  "step": "event_census",
+  "run_id": 3762,
+  "config_hash": "b4751819f1d528d4",
+  "finished_utc": "2026-09-26T08:28:17Z",
+  "result": {
+    "events": [
+      {
+        "t_mid": 2460746.9170440314,
+        "window_days": 0.041666666666666664,
+        "pad_days": 0.25,
+        "quality_bits_near": {
+          "manual exclude": 4
+        },
+        "quality_bits_in_event": {
+          "manual exclude": 2
+        },
+        "artifact_bits_near": [
+          "manual exclude"
+        ],
+        "artifact_bits_in_event": [
+          "manual exclude"
+        ],
+        "series": {
+          "MOM_CENTR1": {
+            "tested": true,
+            "shift": -0.0013881121374197392,
+            "baseline_robust_sigma": 0.002562185897104291,
+            "z": -2.866770527176512,
+            "n_in": 28,
+            "flagged": false
+          },
+          "MOM_CENTR2": {
+            "tested": true,
+            "shift": 0.004952966183736862,
+            "baseline_robust_sigma": 0.006168139541652908,
+            "z": 4.249033824798572,
+            "n_in": 28,
+            "flagged": false
+          },
+          "POS_CORR1": {
+            "tested": true,
+            "shift": -0.0019797998902504332,
+            "baseline_robust_sigma": 0.0033431741115055045,
+            "z": -3.1335838221819707,
+            "n_in": 28,
+            "flagged": false
+          },
+          "POS_CORR2": {
+            "tested": true,
+            "shift": 0.005919028073549271,
+            "baseline_robust_sigma": 0.007568181426823139,
+            "z": 4.1384516048513245,
+            "n_in": 28,
+            "flagged": false
+          },
+          "SAP_BKG": {
+            "tested": true,
+            "shift": 177.47412109375,
+            "baseline_robust_sigma": 63.45933398437499,
+            "z": 14.79852872957786,
+            "n_in": 28,
+            "flagged": true
+          }
+        },
+        "flagged_series": [
+          "SAP_BKG"
+        ],
+        "clean": false,
+        "suspect": true,
+        "tested_series": [
+          "MOM_CENTR1",
+          "MOM_CENTR2",
+          "POS_CORR1",
+          "POS_CORR2",
+          "SAP_BKG"
+        ],
+        "product": "tess2025042113628-s0089-0000000126797048-0286-s_lc.fits"
+      }
+    ],
+    "file": "campaigns/toi-6670-01/event_census.json"
+  },
+  "checks": {
+    "Pointing and quality census per event": {
+      "state": "failed",
+      "note": "1 persistent event(s), 0 clean; BJD 2460746.9170 suspect: manual exclude (in event), SAP_BKG z=+14.8",
+      "step": "event_census"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

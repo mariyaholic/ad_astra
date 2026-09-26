@@ -111,3 +111,21 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 python -m cygnus.campaign run campaigns/toi-2003-01.yaml
 python -m cygnus.campaign report campaigns/toi-2003-01.yaml
 ```
+
+## Addendum 2026-09-26: suite-expansion checks
+
+Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EXPANSION.md` §7.3) and the corrected moving-object check (TESS-centred SkyBoT positions, distance-aware). The earlier science outputs (screen, calibration, positive control, aliases, cross-match) were compared leaf by leaf and are unchanged apart from timestamps. States and notes below are copied from `sky_record.json`; the review above is not changed by them unless a note says so.
+
+| Check | State | Note |
+|---|---|---|
+| Target-to-Gaia identification (proper motion propagated) | passed | TOI-2003.01: Gaia DR3 6189286849812601216 at 0.00" (propagated 2016.0 → J2015.5; 0.01" unpropagated, proper-motion shift 0.01") |
+| Stellar priors (Gaia colour and parallax) | inconclusive | TOI-2003.01: dwarf priors not applied — RUWE 2.4143386 ≥ 1.4 (or missing): astrometry may be perturbed |
+| Blend and dilution census (Gaia DR3 cone) | passed | TOI-2003.01: 7 Gaia neighbour(s) within 52.5", contamination 0.36%; depth 3860 ppm (catalogue depth); none bright enough to produce it alone |
+| Pointing and quality census per event | not_tested | no persistent screen event outside the veto |
+| Moving objects at screen-event epochs | not_tested | no persistent screen event outside the veto |
+| Variable-catalogue collision (VSX) | passed | TOI-2003.01: no VSX entry within 10" |
+| Object-class guard (SIMBAD) | passed | TOI-2003.01: HD 116759 otype * (star_or_other) at 0.3" |
+| Independent repetition (other MAST collections) | not_tested | no repeat candidate with allowed period aliases |
+| Independent-epoch confirmation (ZTF) | not_tested | no repeat candidate with allowed period aliases |
+
+`failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.

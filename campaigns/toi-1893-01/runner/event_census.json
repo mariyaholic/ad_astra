@@ -1,0 +1,82 @@
+{
+  "step": "event_census",
+  "run_id": 3152,
+  "config_hash": "c45c0424f5769c23",
+  "finished_utc": "2026-09-26T08:03:02Z",
+  "result": {
+    "events": [
+      {
+        "t_mid": 2458984.553942023,
+        "window_days": 0.041666666666666664,
+        "pad_days": 0.25,
+        "quality_bits_near": {},
+        "quality_bits_in_event": {},
+        "artifact_bits_near": [],
+        "artifact_bits_in_event": [],
+        "series": {
+          "MOM_CENTR1": {
+            "tested": true,
+            "shift": 0.0008736462440026571,
+            "baseline_robust_sigma": 0.003482360406810436,
+            "z": 1.3741132427995872,
+            "n_in": 30,
+            "flagged": false
+          },
+          "MOM_CENTR2": {
+            "tested": true,
+            "shift": 0.0016239346073234628,
+            "baseline_robust_sigma": 0.010475872130218843,
+            "z": 0.849061161961485,
+            "n_in": 30,
+            "flagged": false
+          },
+          "POS_CORR1": {
+            "tested": true,
+            "shift": 0.0005082385614514351,
+            "baseline_robust_sigma": 0.003465052267466672,
+            "z": 0.8033752544357661,
+            "n_in": 30,
+            "flagged": false
+          },
+          "POS_CORR2": {
+            "tested": true,
+            "shift": 0.0022212304174900055,
+            "baseline_robust_sigma": 0.012185863520018755,
+            "z": 0.998384729221078,
+            "n_in": 30,
+            "flagged": false
+          },
+          "SAP_BKG": {
+            "tested": true,
+            "shift": 80.6298828125,
+            "baseline_robust_sigma": 396.66608276367185,
+            "z": 1.1133496798544262,
+            "n_in": 30,
+            "flagged": false
+          }
+        },
+        "flagged_series": [],
+        "clean": true,
+        "suspect": false,
+        "tested_series": [
+          "MOM_CENTR1",
+          "MOM_CENTR2",
+          "POS_CORR1",
+          "POS_CORR2",
+          "SAP_BKG"
+        ],
+        "product": "tess2020133194932-s0025-0000000264544388-0182-s_lc.fits"
+      }
+    ],
+    "file": "campaigns/toi-1893-01/event_census.json"
+  },
+  "checks": {
+    "Pointing and quality census per event": {
+      "state": "passed",
+      "note": "1 persistent event(s), 1 clean; no artifact quality bit within \u00b10.25 d and no centroid, pointing or background shift beyond 5\u03c3",
+      "step": "event_census"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

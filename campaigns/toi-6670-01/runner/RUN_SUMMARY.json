@@ -4,8 +4,13 @@
     "fetch_products",
     "calibrate_screen",
     "known_signal_recovery",
+    "stellar_context",
     "residual_screen",
+    "event_census",
     "period_aliases",
+    "moving_objects",
+    "alias_cross_instrument",
+    "variability_guard",
     "prior_art"
   ],
   "complete": true,
@@ -35,10 +40,55 @@
       "note": "BJD 2459284.3652: recovered, depth 2125 \u00b1 23 ppm (catalogue 2390 ppm)",
       "step": "known_signal_recovery"
     },
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-6670.01: Gaia DR3 5324281398476375424 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-6670.01: Teff 6529 K, R* 1.64 \u00b1 0.13, M* 1.47 \u00b1 0.15, \u03c1* 0.34 \u00b1 0.09 \u03c1\u2609 (dwarf sequence, M_G 2.84, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-6670.01: 18 Gaia neighbour(s) within 52.5\", contamination 1.88%; depth 2125 ppm (measured depth of the recovered catalogued transit); 1 could produce it if fully eclipsed (brightest 5324281570275066880, 46.9\", \u0394G 4.59); a centroid test is needed",
+      "step": "stellar_context"
+    },
+    "Pointing and quality census per event": {
+      "state": "failed",
+      "note": "1 persistent event(s), 0 clean; BJD 2460746.9170 suspect: manual exclude (in event), SAP_BKG z=+14.8",
+      "step": "event_census"
+    },
     "Period aliases (repeat events)": {
       "state": "not_tested",
       "note": "no persistent screen event matches the catalogued depth",
       "step": "period_aliases"
+    },
+    "Moving objects at screen-event epochs": {
+      "state": "passed",
+      "note": "1 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin)",
+      "step": "moving_objects"
+    },
+    "Independent repetition (other MAST collections)": {
+      "state": "not_tested",
+      "note": "no repeat candidate with allowed period aliases",
+      "step": "alias_cross_instrument"
+    },
+    "Independent-epoch confirmation (ZTF)": {
+      "state": "not_tested",
+      "note": "no repeat candidate with allowed period aliases",
+      "step": "alias_cross_instrument"
+    },
+    "Variable-catalogue collision (VSX)": {
+      "state": "passed",
+      "note": "TOI-6670.01: no VSX entry within 10\"",
+      "step": "variability_guard"
+    },
+    "Object-class guard (SIMBAD)": {
+      "state": "passed",
+      "note": "TOI-6670.01: HD  78787 otype * (star_or_other) at 0.4\"",
+      "step": "variability_guard"
     },
     "Catalogue cross-match": {
       "state": "passed",
@@ -52,5 +102,5 @@
     "Residual screen: 239 threshold entries outside the known-signal veto across 6 light curve(s), forming 125 distinct event(s), 1 persistent in SAP and PDCSAP at two or more baselines."
   ],
   "record": "campaigns/toi-6670-01/sky_record.json",
-  "finished_utc": "2026-09-25T23:38:01Z"
+  "finished_utc": "2026-09-26T09:00:36Z"
 }

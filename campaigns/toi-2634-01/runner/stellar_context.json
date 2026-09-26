@@ -1,0 +1,96 @@
+{
+  "step": "stellar_context",
+  "run_id": 3434,
+  "config_hash": "9a40ac730aa357aa",
+  "finished_utc": "2026-09-26T08:13:29Z",
+  "result": {
+    "targets": {
+      "TOI-2634.01": {
+        "cone_radius_arcsec": 63.0,
+        "n_rows": 3,
+        "rows_sha256": "db2031f3ab2e0250662c0f03b4fcc8fbde5e6c739174ed1d26456a06482227c4",
+        "position_epoch": "J2015.5",
+        "match": {
+          "source_id": "5642251292706560",
+          "sep_arcsec": 0.003073585126505738,
+          "sep_unpropagated_arcsec": 0.017386823084050564,
+          "pm_shift_arcsec": 0.018833741830415092,
+          "phot_g_mean_mag": 11.504886,
+          "propagated_to": 2015.5,
+          "high_proper_motion": false,
+          "next": {
+            "source_id": "5642212637631104",
+            "sep_arcsec": 45.34333267694981,
+            "delta_g": 6.983473999999999
+          }
+        },
+        "priors": {
+          "source_id": "5642251292706560",
+          "phot_g_mean_mag": 11.504886,
+          "bp_rp": 1.0204659,
+          "parallax_mas": 5.630600975252042,
+          "parallax_error_mas": 0.111837156,
+          "ruwe": 5.6029916,
+          "usable": false,
+          "assumptions": [
+            "main-sequence dwarf",
+            "no extinction",
+            "single star",
+            "fractional floors R 0.08, M 0.1 (declared)"
+          ],
+          "table": "Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "teff_k": 5161.859855555555,
+          "teff_note": "interpolated in Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "reason": "RUWE 5.6029916 \u2265 1.4 (or missing): astrometry may be perturbed"
+        },
+        "dilution": {
+          "computed": true,
+          "aperture_arcsec": 52.5,
+          "depth_ppm": 3953.824406196127,
+          "n_neighbours": 1,
+          "neighbours": [
+            {
+              "source_id": "5642212637631104",
+              "sep_arcsec": 45.348924442735395,
+              "phot_g_mean_mag": 18.48836,
+              "flux_ratio_to_target": 0.0016092013935743068,
+              "max_depth_ppm_if_fully_eclipsed": 1606.6160248282144,
+              "could_mimic_depth": false
+            }
+          ],
+          "neighbours_without_g": [],
+          "contamination_fraction": 0.0016066160248281447,
+          "depth_dilution_factor": 1.0016092013935742,
+          "n_could_mimic": 0,
+          "assumptions": [
+            "Gaia G as a proxy for the TESS band",
+            "circular aperture of the stated radius",
+            "Gaia DR3 2016.0 positions",
+            "unresolved companions not counted"
+          ],
+          "depth_source": "measured depth of the recovered catalogued transit"
+        }
+      }
+    },
+    "file": "campaigns/toi-2634-01/stellar_context.json"
+  },
+  "checks": {
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-2634.01: Gaia DR3 5642251292706560 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.02\" unpropagated, proper-motion shift 0.02\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "inconclusive",
+      "note": "TOI-2634.01: dwarf priors not applied \u2014 RUWE 5.6029916 \u2265 1.4 (or missing): astrometry may be perturbed",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "passed",
+      "note": "TOI-2634.01: 1 Gaia neighbour(s) within 52.5\", contamination 0.16%; depth 3954 ppm (measured depth of the recovered catalogued transit); none bright enough to produce it alone",
+      "step": "stellar_context"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

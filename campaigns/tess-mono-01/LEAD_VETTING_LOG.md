@@ -58,3 +58,20 @@ possible additional transit at TBJD 1525.648.
 ## Erratum 2026-09-26: difference-image rule
 
 Until 2026-09-26 `cygnus.campaign vet` marked the difference-image centroid check `passed` whenever the offset was not significant, however large it was. The rule is now: `passed` only for an offset below 0.25 TESS pixel; a larger offset that is not significant is `inconclusive` (the image cannot place the dip). Two readings above used the old rule: TOI-2065.01 E1 (offset 27.7″, 1.0σ) and TOI-2318.01 E1 (20.5″, 2.4σ) were recorded `passed` and would now be `inconclusive`. Both leads were rejected on other tests (scattered light; systematics), so neither conclusion changes. Their generated `vetting/VETTING.md` files are left as produced; a rerun with the current code regenerates them. See `docs/SUITE_EXPANSION.md` §7.1, item 12.
+
+## 2026-09-26: suite-expansion checks on the leads
+
+All 76 known-object campaigns were re-run with the new record checks (`docs/SUITE_EXPANSION.md` §7.3). Earlier
+science outputs are unchanged (leaf-by-leaf comparison). For the leads:
+
+- **TOI-2065.01 (already rejected, scattered light):** the VSX guard **failed**. VSX lists KELT KC08C10921, type EA
+  (Algol-type eclipsing binary), P = 71.9649 d, 0.9″ from the target, and SIMBAD classifies the host HD 111605 as SB*
+  (spectroscopic binary, 0.2″). This independently points to a binary; the rejection stands.
+- **All 13 leads:** the per-event census is `failed`. At least one persistent event of each carries an in-event quality
+  flag or a pointing shift. For TOI-2666.01 the lead event E1 (BJD_TDB 2461049.1644) is only *caution* (Argabrightening
+  within ±0.25 d), and the other two events are suspect. Read `event_census.json` per event before using the summary state.
+- **Moving objects** (TESS-centred SkyBoT, corrected 2026-09-26): no known object bright and close enough at any
+  queried lead epoch. Several are `inconclusive` because SkyBoT did not answer some epochs.
+- **Independent repetition / ZTF:** `not_tested` everywhere. No light curve from another instrument was fetched;
+  adding Kepler/K2/HLSP or ZTF products to `fetch_products` is the next discriminating test.
+

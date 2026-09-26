@@ -4,8 +4,13 @@
     "fetch_products",
     "calibrate_screen",
     "known_signal_recovery",
+    "stellar_context",
     "residual_screen",
+    "event_census",
     "period_aliases",
+    "moving_objects",
+    "alias_cross_instrument",
+    "variability_guard",
     "prior_art"
   ],
   "complete": true,
@@ -35,10 +40,55 @@
       "note": "BJD 2460543.2097: recovered, depth 3930 \u00b1 253 ppm (catalogue 3119 ppm)",
       "step": "known_signal_recovery"
     },
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-7857.01: Gaia DR3 1730371439418183680 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.02\" unpropagated, proper-motion shift 0.02\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-7857.01: Teff 5799 K, R* 1.09 \u00b1 0.09, M* 1.05 \u00b1 0.11, \u03c1* 0.81 \u00b1 0.21 \u03c1\u2609 (dwarf sequence, M_G 4.36, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-7857.01: 12 Gaia neighbour(s) within 52.5\", contamination 13.53%; depth 3930 ppm (measured depth of the recovered catalogued transit); 3 could produce it if fully eclipsed (brightest 1730377319229575552, 48.9\", \u0394G 2.21); a centroid test is needed",
+      "step": "stellar_context"
+    },
+    "Pointing and quality census per event": {
+      "state": "failed",
+      "note": "8 persistent event(s), 6 clean; BJD 2459817.5428 caution: coarse point (within \u00b10.25 d), manual exclude (within \u00b10.25 d), momentum dump (within \u00b10.25 d); BJD 2459817.6213 suspect: coarse point (within \u00b10.25 d), manual exclude (within \u00b10.25 d), momentum dump (within \u00b10.25 d), SAP_BKG z=+8.1",
+      "step": "event_census"
+    },
     "Period aliases (repeat events)": {
       "state": "inconclusive",
-      "note": "1 repeat-candidate event(s); first at BJD 2459800.0638, \u0394T = 743.135 d, 34 of 743 aliases P = \u0394T/n \u2265 1 d allowed by the retrieved data (743.135, 371.568, 247.712, 185.784, 148.627, 123.856, 106.162, 92.8919, 82.5706, 74.3135, 67.5578, 61.9279 \u2026 d)",
+      "note": "1 repeat-candidate event(s); first at BJD 2459800.0638, \u0394T = 743.135 d, 34 of 743 aliases P = \u0394T/n \u2265 1 d allowed by the retrieved data (743.135, 371.568, 247.712, 185.784, 148.627, 123.856, 106.162, 92.8919, 82.5706, 74.3135, 67.5578, 61.9279 \u2026 d); duration likelihood under Gaia priors (circular orbits) peaks at 20.6 d (weight 0.06)",
       "step": "period_aliases"
+    },
+    "Moving objects at screen-event epochs": {
+      "state": "inconclusive",
+      "note": "8 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin); 3 epoch(s) not answered",
+      "step": "moving_objects"
+    },
+    "Independent repetition (other MAST collections)": {
+      "state": "not_tested",
+      "note": "no light curve from this instrument was fetched (add Kepler/K2/HLSP collections to fetch_products)",
+      "step": "alias_cross_instrument"
+    },
+    "Independent-epoch confirmation (ZTF)": {
+      "state": "not_tested",
+      "note": "no light curve from this instrument was fetched",
+      "step": "alias_cross_instrument"
+    },
+    "Variable-catalogue collision (VSX)": {
+      "state": "passed",
+      "note": "TOI-7857.01: no VSX entry within 10\"",
+      "step": "variability_guard"
+    },
+    "Object-class guard (SIMBAD)": {
+      "state": "inconclusive",
+      "note": "TOI-7857.01: TYC  530-1018-1 otype SB* (multiple) at 0.5\"",
+      "step": "variability_guard"
     },
     "Catalogue cross-match": {
       "state": "passed",
@@ -53,5 +103,5 @@
     "Repeat candidate: a persistent event matching the catalogued depth at BJD 2459800.0638 (\u0394T 743.14 d); 34 period aliases remain. Unverified lead until vetted."
   ],
   "record": "campaigns/toi-7857-01/sky_record.json",
-  "finished_utc": "2026-09-25T23:43:26Z"
+  "finished_utc": "2026-09-26T09:01:50Z"
 }

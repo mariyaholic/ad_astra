@@ -1,16 +1,16 @@
 {
   "step": "prior_art",
-  "run_id": 1810,
-  "config_hash": "01af8c3875a11293",
-  "finished_utc": "2026-09-25T23:21:20Z",
+  "run_id": 3942,
+  "config_hash": "e5c42372d9a1f10d",
+  "finished_utc": "2026-09-26T08:56:57Z",
   "result": {
     "targets": {
       "TOI-1835.02": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "6 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T23:21:13Z: HD 110067 g (host HD 110067); HD 110067 b (host HD 110067); HD 110067 c (host HD 110067); HD 110067 d (host HD 110067); HD 110067 e (host HD 110067); HD 110067 f (host HD 110067)",
+          "result": "6 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-26T08:56:50Z: HD 110067 g (host HD 110067); HD 110067 b (host HD 110067); HD 110067 c (host HD 110067); HD 110067 d (host HD 110067); HD 110067 e (host HD 110067); HD 110067 f (host HD 110067)",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 189.8392240, 20.0273380, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:21:13Z",
+          "retrieved_utc": "2026-09-26T08:56:50Z",
           "matches": [
             "HD 110067 g (host HD 110067)",
             "HD 110067 b (host HD 110067)",
@@ -22,9 +22,9 @@
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T23:21:16Z: TOI-1835.01 (TIC 347332255, disposition PC); TOI-1835.02 (TIC 347332255, disposition PC)",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-26T08:56:52Z: TOI-1835.01 (TIC 347332255, disposition PC); TOI-1835.02 (TIC 347332255, disposition PC)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 189.8303543 AND 189.8480937 AND dec BETWEEN 20.0190047 AND 20.0356713",
-          "retrieved_utc": "2026-09-25T23:21:16Z",
+          "retrieved_utc": "2026-09-26T08:56:52Z",
           "matches": [
             "TOI-1835.01 (TIC 347332255, disposition PC)",
             "TOI-1835.02 (TIC 347332255, disposition PC)"
@@ -32,16 +32,16 @@
         },
         "VSX": {
           "state": "done",
-          "result": "no match in VSX within 30\" as of 2026-09-25T23:21:18Z",
+          "result": "no match in VSX within 30\" as of 2026-09-26T08:56:54Z",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 189.8392240, 20.0273380, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:21:18Z",
+          "retrieved_utc": "2026-09-26T08:56:54Z",
           "matches": []
         },
         "SIMBAD": {
           "state": "done",
-          "result": "7 match(es) in SIMBAD within 30\" as of 2026-09-25T23:21:19Z: HD 110067f (Pl); HD 110067 (PM*); HD 110067c (Pl); HD 110067g (Pl); HD 110067d (Pl); HD 110067e (Pl); HD 110067b (Pl)",
+          "result": "7 match(es) in SIMBAD within 30\" as of 2026-09-26T08:56:56Z: HD 110067f (Pl); HD 110067 (PM*); HD 110067c (Pl); HD 110067g (Pl); HD 110067d (Pl); HD 110067e (Pl); HD 110067b (Pl)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 189.8392240, 20.0273380, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:21:19Z",
+          "retrieved_utc": "2026-09-26T08:56:56Z",
           "matches": [
             "HD 110067f (Pl)",
             "HD 110067 (PM*)",

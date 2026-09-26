@@ -1,0 +1,84 @@
+{
+  "TOI-2666.01": {
+    "cone_radius_arcsec": 63.0,
+    "n_rows": 6,
+    "rows_sha256": "fbd49c665c5b2804ad7d9a03fddfd1502573048031e978073b99fd26f17dce0d",
+    "position_epoch": "J2015.5",
+    "match": {
+      "source_id": "3837451574150437120",
+      "sep_arcsec": 0.0,
+      "sep_unpropagated_arcsec": 0.03352885530487732,
+      "pm_shift_arcsec": 0.034000650401272564,
+      "phot_g_mean_mag": 7.5441976,
+      "propagated_to": 2015.5,
+      "high_proper_motion": false,
+      "next": {
+        "source_id": "3837451578445470464",
+        "sep_arcsec": 1.2981449702275911,
+        "delta_g": 6.1596574
+      }
+    },
+    "priors": {
+      "source_id": "3837451574150437120",
+      "phot_g_mean_mag": 7.5441976,
+      "bp_rp": 1.0351901,
+      "parallax_mas": 30.979501829282864,
+      "parallax_error_mas": 0.03490539,
+      "ruwe": 1.464014,
+      "usable": false,
+      "assumptions": [
+        "main-sequence dwarf",
+        "no extinction",
+        "single star",
+        "fractional floors R 0.08, M 0.1 (declared)"
+      ],
+      "table": "Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+      "teff_k": 5150.4077,
+      "teff_note": "interpolated in Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+      "reason": "RUWE 1.464014 \u2265 1.4 (or missing): astrometry may be perturbed"
+    },
+    "dilution": {
+      "computed": true,
+      "aperture_arcsec": 52.5,
+      "depth_ppm": 12465.602823465539,
+      "n_neighbours": 3,
+      "neighbours": [
+        {
+          "source_id": "3837451578445470464",
+          "sep_arcsec": 1.3312527117289197,
+          "phot_g_mean_mag": 13.703855,
+          "flux_ratio_to_target": 0.003436663734315565,
+          "max_depth_ppm_if_fully_eclipsed": 3423.4478980310005,
+          "could_mimic_depth": false
+        },
+        {
+          "source_id": "3837451642869913728",
+          "sep_arcsec": 32.410834522207786,
+          "phot_g_mean_mag": 16.511187,
+          "flux_ratio_to_target": 0.0002589430386123169,
+          "max_depth_ppm_if_fully_eclipsed": 257.9472621646076,
+          "could_mimic_depth": false
+        },
+        {
+          "source_id": "3837451475366944640",
+          "sep_arcsec": 39.3106897830994,
+          "phot_g_mean_mag": 17.00193,
+          "flux_ratio_to_target": 0.00016478096429045606,
+          "max_depth_ppm_if_fully_eclipsed": 164.1472920969474,
+          "could_mimic_depth": false
+        }
+      ],
+      "neighbours_without_g": [],
+      "contamination_fraction": 0.0038455424522925163,
+      "depth_dilution_factor": 1.0038603877372183,
+      "n_could_mimic": 0,
+      "assumptions": [
+        "Gaia G as a proxy for the TESS band",
+        "circular aperture of the stated radius",
+        "Gaia DR3 2016.0 positions",
+        "unresolved companions not counted"
+      ],
+      "depth_source": "measured depth of the recovered catalogued transit"
+    }
+  }
+}

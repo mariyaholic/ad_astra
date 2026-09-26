@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "pipeline_check",
  "evidence": null,
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Known-object test on TOI-4585.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 3.5, ≤2.5, 3, ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit partial (1 covered epoch). Residual screen: 124 threshold entries outside the known-signal veto across 6 light curve(s), forming 52 distinct event(s), 2 persistent in SAP and PDCSAP at two or more baselines.",
  "spec": "campaigns/toi-4585-01.yaml",
  "report": "campaigns/toi-4585-01/REPORT.md",
@@ -117,8 +117,62 @@
    "state": "passed",
    "note": "6 light curve(s) screenable",
    "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-4585.01: Gaia DR3 2157077647164391296 at 0.00\" (propagated 2016.0 → J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "passed",
+   "note": "TOI-4585.01: Teff 5866 K, R* 1.17 ± 0.09, M* 1.13 ± 0.11, ρ* 0.71 ± 0.18 ρ☉ (dwarf sequence, M_G 4.09, no extinction)",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "inconclusive",
+   "note": "TOI-4585.01: 3 Gaia neighbour(s) within 52.5\", contamination 2.43%; depth 385 ppm (catalogue depth); 3 could produce it if fully eclipsed (brightest 2157077578444916224, 45.5\", ΔG 4.11); a centroid test is needed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "failed",
+   "note": "2 persistent event(s), 1 clean; BJD 2458762.4737 suspect: SAP_BKG z=+6.5",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "passed",
+   "note": "2 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin)",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-4585.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-4585.01: TYC 4219-131-1 otype * (star_or_other) at 0.4\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T23:35:00Z"
+ "generated_utc": "2026-09-26T08:59:35Z"
 }

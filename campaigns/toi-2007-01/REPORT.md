@@ -139,3 +139,21 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 python -m cygnus.campaign run campaigns/toi-2007-01.yaml
 python -m cygnus.campaign report campaigns/toi-2007-01.yaml
 ```
+
+## Addendum 2026-09-26: suite-expansion checks
+
+Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EXPANSION.md` §7.3) and the corrected moving-object check (TESS-centred SkyBoT positions, distance-aware). The earlier science outputs (screen, calibration, positive control, aliases, cross-match) were compared leaf by leaf and are unchanged apart from timestamps. States and notes below are copied from `sky_record.json`; the review above is not changed by them unless a note says so.
+
+| Check | State | Note |
+|---|---|---|
+| Target-to-Gaia identification (proper motion propagated) | passed | TOI-2007.01: Gaia DR3 1711633081221292800 at 0.00" (propagated 2016.0 → J2015.5; 0.05" unpropagated, proper-motion shift 0.05") |
+| Stellar priors (Gaia colour and parallax) | passed | TOI-2007.01: Teff 5202 K, R* 0.84 ± 0.07, M* 0.89 ± 0.09, ρ* 1.52 ± 0.39 ρ☉ (dwarf sequence, M_G 5.42, no extinction) |
+| Blend and dilution census (Gaia DR3 cone) | inconclusive | TOI-2007.01: 4 Gaia neighbour(s) within 52.5", contamination 7.26%; depth 912 ppm (catalogue depth); 2 could produce it if fully eclipsed (brightest 1711633016797799296, 46.5", ΔG 2.86); a centroid test is needed |
+| Pointing and quality census per event | not_tested | no persistent screen event outside the veto |
+| Moving objects at screen-event epochs | not_tested | no persistent screen event outside the veto |
+| Variable-catalogue collision (VSX) | passed | TOI-2007.01: Gaia DR3 1711633081221292800   ROT                            P=None at 1.7" |
+| Object-class guard (SIMBAD) | passed | TOI-2007.01: TOI-2007 otype PM* (star_or_other) at 1.4" |
+| Independent repetition (other MAST collections) | not_tested | no repeat candidate with allowed period aliases |
+| Independent-epoch confirmation (ZTF) | not_tested | no repeat candidate with allowed period aliases |
+
+`failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.

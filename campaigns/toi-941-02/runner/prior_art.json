@@ -1,25 +1,25 @@
 {
   "step": "prior_art",
-  "run_id": 2244,
-  "config_hash": "759c60589abe0d88",
-  "finished_utc": "2026-09-25T23:44:51Z",
+  "run_id": 3927,
+  "config_hash": "21c1104f0d6dbd65",
+  "finished_utc": "2026-09-26T08:42:49Z",
   "result": {
     "targets": {
       "TOI-941.02": {
         "NASA_Exoplanet_Archive": {
           "state": "done",
-          "result": "1 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-25T23:44:42Z: TOI-941 b (host TOI-941)",
+          "result": "1 match(es) in NASA_Exoplanet_Archive within 30\" as of 2026-09-26T08:42:35Z: TOI-941 b (host TOI-941)",
           "query": "SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 78.3005250, 6.5459150, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:44:42Z",
+          "retrieved_utc": "2026-09-26T08:42:35Z",
           "matches": [
             "TOI-941 b (host TOI-941)"
           ]
         },
         "TESS_TOI": {
           "state": "done",
-          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-25T23:44:44Z: TOI-941.01 (TIC 408137826, disposition PC); TOI-941.02 (TIC 408137826, disposition PC)",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-26T08:42:37Z: TOI-941.01 (TIC 408137826, disposition PC); TOI-941.02 (TIC 408137826, disposition PC)",
           "query": "SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN 78.2921370 AND 78.3089130 AND dec BETWEEN 6.5375817 AND 6.5542483",
-          "retrieved_utc": "2026-09-25T23:44:44Z",
+          "retrieved_utc": "2026-09-26T08:42:37Z",
           "matches": [
             "TOI-941.01 (TIC 408137826, disposition PC)",
             "TOI-941.02 (TIC 408137826, disposition PC)"
@@ -27,16 +27,16 @@
         },
         "VSX": {
           "state": "done",
-          "result": "no match in VSX within 30\" as of 2026-09-25T23:44:47Z",
+          "result": "no match in VSX within 30\" as of 2026-09-26T08:42:42Z",
           "query": "SELECT \"Name\", \"Type\", \"Period\", RAJ2000, DEJ2000 FROM \"B/vsx/vsx\" WHERE CONTAINS(POINT('ICRS', RAJ2000, DEJ2000), CIRCLE('ICRS', 78.3005250, 6.5459150, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:44:47Z",
+          "retrieved_utc": "2026-09-26T08:42:42Z",
           "matches": []
         },
         "SIMBAD": {
           "state": "done",
-          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-25T23:44:48Z: TOI-941.01 (Pl?); TOI-941 (*)",
+          "result": "2 match(es) in SIMBAD within 30\" as of 2026-09-26T08:42:45Z: TOI-941.01 (Pl?); TOI-941 (*)",
           "query": "SELECT main_id, otype, ra, dec FROM basic WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 78.3005250, 6.5459150, 0.0083333)) = 1",
-          "retrieved_utc": "2026-09-25T23:44:48Z",
+          "retrieved_utc": "2026-09-26T08:42:45Z",
           "matches": [
             "TOI-941.01 (Pl?)",
             "TOI-941 (*)"

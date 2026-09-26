@@ -1,0 +1,105 @@
+{
+  "step": "stellar_context",
+  "run_id": 3218,
+  "config_hash": "5d6a1f2076b526aa",
+  "finished_utc": "2026-09-26T08:04:55Z",
+  "result": {
+    "targets": {
+      "TOI-2087.01": {
+        "cone_radius_arcsec": 63.0,
+        "n_rows": 2,
+        "rows_sha256": "e91ea57a3ed694bbc721a2769c88a1dcf8be55314541ab92887faa9b47c8872a",
+        "position_epoch": "J2015.5",
+        "match": {
+          "source_id": "1712288703684932992",
+          "sep_arcsec": 0.003073585126505738,
+          "sep_unpropagated_arcsec": 0.0068727452774991205,
+          "pm_shift_arcsec": 0.008034866206270886,
+          "phot_g_mean_mag": 10.51358,
+          "propagated_to": 2015.5,
+          "high_proper_motion": false,
+          "next": {
+            "source_id": "1712287569813566720",
+            "sep_arcsec": 48.99369845384642,
+            "delta_g": 7.844574
+          }
+        },
+        "priors": {
+          "source_id": "1712288703684932992",
+          "phot_g_mean_mag": 10.51358,
+          "bp_rp": 0.8643999,
+          "parallax_mas": 7.620198840501566,
+          "parallax_error_mas": 0.012214717,
+          "ruwe": 1.0340629,
+          "usable": true,
+          "assumptions": [
+            "main-sequence dwarf",
+            "no extinction",
+            "single star",
+            "fractional floors R 0.08, M 0.1 (declared)"
+          ],
+          "table": "Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "teff_k": 5614.526631578948,
+          "teff_note": "interpolated in Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "abs_g": 4.923411519562783,
+          "abs_g_err": 0.0034807386934017836,
+          "sequence_abs_g_at_colour": 4.8866415105263155,
+          "offset_from_sequence_mag": 0.03677000903646732,
+          "radius_rsun": 0.9467494192349867,
+          "radius_err_rsun": 0.07574452699376606,
+          "mass_msun": 0.9679540174863515,
+          "mass_err_msun": 0.09679835932400985,
+          "density_rho_sun": 1.1406425927620774,
+          "density_err_rho_sun": 0.29658367332510205
+        },
+        "dilution": {
+          "computed": true,
+          "aperture_arcsec": 52.5,
+          "depth_ppm": 548.082765,
+          "n_neighbours": 1,
+          "neighbours": [
+            {
+              "source_id": "1712287569813566720",
+              "sep_arcsec": 48.99102340009052,
+              "phot_g_mean_mag": 18.358154,
+              "flux_ratio_to_target": 0.0007280654126117097,
+              "max_depth_ppm_if_fully_eclipsed": 727.535719018253,
+              "could_mimic_depth": true
+            }
+          ],
+          "neighbours_without_g": [],
+          "contamination_fraction": 0.0007275357190181797,
+          "depth_dilution_factor": 1.0007280654126116,
+          "n_could_mimic": 1,
+          "assumptions": [
+            "Gaia G as a proxy for the TESS band",
+            "circular aperture of the stated radius",
+            "Gaia DR3 2016.0 positions",
+            "unresolved companions not counted"
+          ],
+          "depth_source": "catalogue depth"
+        }
+      }
+    },
+    "file": "campaigns/toi-2087-01/stellar_context.json"
+  },
+  "checks": {
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-2087.01: Gaia DR3 1712288703684932992 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-2087.01: Teff 5615 K, R* 0.95 \u00b1 0.08, M* 0.97 \u00b1 0.10, \u03c1* 1.14 \u00b1 0.30 \u03c1\u2609 (dwarf sequence, M_G 4.92, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-2087.01: 1 Gaia neighbour(s) within 52.5\", contamination 0.07%; depth 548 ppm (catalogue depth); 1 could produce it if fully eclipsed (brightest 1712287569813566720, 49.0\", \u0394G 7.84); a centroid test is needed",
+      "step": "stellar_context"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

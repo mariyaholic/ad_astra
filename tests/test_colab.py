@@ -462,7 +462,8 @@ def test_batch_notebook_states_the_pinned_route_guards_and_ledger_decision():
     assert "'/content/scratch'" in code and "CYGNUS_SCRATCH" in code
     assert "colab_runs" in code and "_probe" in code and "rclone lsf" in code
     assert "cygnus.multi" in code and "archives" in code
-    assert "'--jobs', '3'" in code and "cygnus.batch" in code
+    assert "'--jobs', str(JOBS)" in code and "JOBS = 3 if MODE == 'equivalence'" in code and "cygnus.batch" in code
+    assert "CYGNUS_RATE_S" in code and "checkpoint(chunk)" in code and "already have committed records" in code
     assert "compare_campaigns" in code and "EQUIVALENCE.md" in code
     assert "build_manifest" in code and "verify_manifest" in code
     assert "committed_files" in code and "SET_OVERWRITE_COMMITTED_RECORDS" in code

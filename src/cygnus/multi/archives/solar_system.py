@@ -191,7 +191,10 @@ class SkybotAdapter(_ContextAdapter):
     verified = "[K]"
 
     def discover(self, target: Target, *, limit: int = 100, epoch_iso: str | None = None,
-                 radius_arcsec: float = 10.0, **opts) -> list[ProductRef]:
+                 radius_arcsec: float = 10.0, location: str = "500", **opts) -> list[ProductRef]:
+        """``location`` is the IAU/MPC observatory code the positions are computed for: ``500`` is the
+        geocentre, ``C57`` is TESS (its parallax against the geocentre reaches several arcminutes for
+        main-belt objects, more than a TESS aperture)."""
         if epoch_iso is None:
             raise AdapterUnavailable("SkyBoT needs epoch_iso (encoded trails are epoch-dependent)")
         try:
@@ -201,8 +204,12 @@ class SkybotAdapter(_ContextAdapter):
             from astropy.time import Time
 
             coord = SkyCoord(target.ra_deg * u.deg, target.dec_deg * u.deg, frame="icrs")
+            from .base import _throttle
+
+            _throttle("ssp.imcce.fr")
             try:
-                table = Skybot.cone_search(coord, u.Quantity(radius_arcsec, u.arcsec), Time(epoch_iso, scale="utc"))
+                table = Skybot.cone_search(coord, u.Quantity(radius_arcsec, u.arcsec), Time(epoch_iso, scale="utc"),
+                                           location=str(location))
             except RuntimeError as exc:
                 # astroquery raises when the field holds no known object: that is a result (no match), not an outage
                 if "No solar system object was found" not in str(exc):
@@ -214,5 +221,5 @@ class SkybotAdapter(_ContextAdapter):
         except Exception as exc:  # noqa: BLE001
             raise AdapterUnavailable(f"SkyBoT failed: {type(exc).__name__}: {exc}") from exc
         return as_products([{"product_id": f"skybot_{target.name.replace(' ', '_')}.csv", "format": "csv",
-                             "description": f"SkyBoT cone {radius_arcsec:g}\" at {epoch_iso} ({len(rows)} rows)",
+                             "description": f"SkyBoT cone {radius_arcsec:g}\" at {epoch_iso} from {location} ({len(rows)} rows)",
                              "rows": rows, "inline": True}], self.name, "csv")

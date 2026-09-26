@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import math
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable
@@ -30,6 +31,15 @@ def _f(v: Any) -> float | None:
     except (TypeError, ValueError):
         return None
     return x if math.isfinite(x) else None
+
+
+def _q(v: Any) -> float | None:
+    """A number that may carry a unit, as SkyBoT/astroquery rows do ('297.8 arcsec', '-36.1 arcsec / h')."""
+    x = _f(v)
+    if x is not None or v is None:
+        return x
+    m = re.match(r"\s*([-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)", str(v))
+    return _f(m.group(1)) if m else None
 
 
 def sep_arcsec(ra1, dec1, ra2, dec2) -> float:
@@ -345,13 +355,17 @@ def bjd_tdb_to_utc_iso(bjd_tdb: float, ra_deg: float, dec_deg: float) -> str:
 
 
 def moving_object_hits(rows: list[dict], *, target_mag: float | None, depth_ppm: float | None,
-                       min_flux_fraction_of_depth: float = 0.1) -> dict:
-    """Known solar-system objects at an event epoch that are bright enough to matter.
+                       min_flux_fraction_of_depth: float = 0.1, near_arcsec: float | None = None,
+                       window_h: float = 1.0) -> dict:
+    """Known solar-system objects at an event epoch that are bright enough, and close enough, to matter.
 
     An object crossing the target or background aperture changes the measured flux by about its flux
-    ratio to the target (V against the target's TESS magnitude — a colour-blind approximation). It is
-    counted when that ratio is at least ``min_flux_fraction_of_depth`` × the event depth; an object
-    with no V is counted as unknown brightness.
+    ratio to the target (V against the target's TESS magnitude, a colour-blind approximation). It is
+    counted when that ratio is at least ``min_flux_fraction_of_depth`` x the event depth. With
+    ``near_arcsec`` set it also has to lie within ``near_arcsec`` plus its own motion over ``window_h``
+    hours of the target (positions must then be computed for the right observer: TESS, not the
+    geocentre); one whose distance is not given is listed as ``unknown_distance``. An object with no V
+    is listed as ``unknown_brightness``. Values may carry units ('297.8 arcsec').
     """
     def col(r, *names):
         for n in names:
@@ -360,20 +374,27 @@ def moving_object_hits(rows: list[dict], *, target_mag: float | None, depth_ppm:
                     return r[k]
         return None
 
-    hits, unknown, faint = [], [], 0
+    hits, unknown, undist, faint, far = [], [], [], 0, 0
     for r in rows:
-        v = _f(col(r, "V", "Vmag", "vmag"))
-        d = _f(col(r, "centerdist", "centdist", "posdist"))
+        v = _q(col(r, "V", "Vmag", "vmag"))
+        d = _q(col(r, "centerdist", "centdist", "posdist"))
         name = col(r, "Name", "name") or col(r, "Number", "num")
+        rate = math.hypot(_q(col(r, "RA_rate", "RA_rate_cosdec")) or 0.0, _q(col(r, "DEC_rate")) or 0.0)
+        reach = None if near_arcsec is None else near_arcsec + rate * window_h
+        if reach is not None and d is not None and d > reach:
+            far += 1
+            continue
         if v is None:
             unknown.append({"name": name, "dist_arcsec": d})
             continue
         ratio = 10 ** (-0.4 * (v - target_mag)) if target_mag is not None else None
-        if ratio is None or depth_ppm is None or ratio >= min_flux_fraction_of_depth * depth_ppm * 1e-6:
-            hits.append({"name": name, "V": v, "dist_arcsec": d, "flux_ratio_to_target": ratio})
-        else:
+        if not (ratio is None or depth_ppm is None or ratio >= min_flux_fraction_of_depth * depth_ppm * 1e-6):
             faint += 1
-    return {"n_rows": len(rows), "bright_enough": hits, "unknown_brightness": unknown, "too_faint": faint}
+            continue
+        item = {"name": name, "V": v, "dist_arcsec": d, "flux_ratio_to_target": ratio}
+        (undist if reach is not None and d is None else hits).append(item)
+    return {"n_rows": len(rows), "bright_enough": hits, "unknown_brightness": unknown, "unknown_distance": undist,
+            "too_faint": faint, "too_far": far, "near_arcsec": near_arcsec, "window_h": window_h}
 
 
 # ------------------------------------------------------------------ catalogue class and variability guards

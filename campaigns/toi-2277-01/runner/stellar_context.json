@@ -1,0 +1,148 @@
+{
+  "step": "stellar_context",
+  "run_id": 3282,
+  "config_hash": "e163c5540011e352",
+  "finished_utc": "2026-09-26T08:07:35Z",
+  "result": {
+    "targets": {
+      "TOI-2277.01": {
+        "cone_radius_arcsec": 63.0,
+        "n_rows": 12,
+        "rows_sha256": "ff71aa67318d44213afa8dcc73f23eea9db8c39c9ba745c5076747f3fd0e4479",
+        "position_epoch": "J2015.5",
+        "match": {
+          "source_id": "2294551716287593344",
+          "sep_arcsec": 0.0,
+          "sep_unpropagated_arcsec": 0.02553111555654265,
+          "pm_shift_arcsec": 0.025481598978487324,
+          "phot_g_mean_mag": 8.354985,
+          "propagated_to": 2015.5,
+          "high_proper_motion": false,
+          "next": {
+            "source_id": "2294551746351920256",
+            "sep_arcsec": 29.149539618516883,
+            "delta_g": 8.005290000000002
+          }
+        },
+        "priors": {
+          "source_id": "2294551716287593344",
+          "phot_g_mean_mag": 8.354985,
+          "bp_rp": 0.6669483,
+          "parallax_mas": 6.386150174714354,
+          "parallax_error_mas": 0.015917907,
+          "ruwe": 1.00579,
+          "usable": false,
+          "assumptions": [
+            "main-sequence dwarf",
+            "no extinction",
+            "single star",
+            "fractional floors R 0.08, M 0.1 (declared)"
+          ],
+          "table": "Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "teff_k": 6287.120633333333,
+          "teff_note": "interpolated in Mamajek mean dwarf sequence v2022.04.16 (Pecaut & Mamajek 2013, ApJS 208, 9); Gaia DR2 colours and M_G, applied to DR3 photometry without extinction correction",
+          "abs_g": 2.3811806352849905,
+          "abs_g_err": 0.005412540407302869,
+          "sequence_abs_g_at_colour": 3.649827666666667,
+          "offset_from_sequence_mag": -1.2686470313816764,
+          "reason": "1.27 mag above (brighter: evolved, unresolved binary or young) the dwarf sequence at this colour; dwarf priors not applied"
+        },
+        "dilution": {
+          "computed": true,
+          "aperture_arcsec": 52.5,
+          "depth_ppm": 178.9213506,
+          "n_neighbours": 7,
+          "neighbours": [
+            {
+              "source_id": "2294551711991788544",
+              "sep_arcsec": 29.815241848806675,
+              "phot_g_mean_mag": 14.788169,
+              "flux_ratio_to_target": 0.0026713229789479677,
+              "max_depth_ppm_if_fully_eclipsed": 2659.7789771589814,
+              "could_mimic_depth": true
+            },
+            {
+              "source_id": "2294551613208376192",
+              "sep_arcsec": 48.96823854765452,
+              "phot_g_mean_mag": 16.03723,
+              "flux_ratio_to_target": 0.0008454773937750702,
+              "max_depth_ppm_if_fully_eclipsed": 841.823701345063,
+              "could_mimic_depth": true
+            },
+            {
+              "source_id": "2294551746351920256",
+              "sep_arcsec": 29.12231690092941,
+              "phot_g_mean_mag": 16.360275,
+              "flux_ratio_to_target": 0.0006278906269084127,
+              "max_depth_ppm_if_fully_eclipsed": 625.1772258792445,
+              "could_mimic_depth": true
+            },
+            {
+              "source_id": "2294504810949309824",
+              "sep_arcsec": 50.98406442310589,
+              "phot_g_mean_mag": 18.009533,
+              "flux_ratio_to_target": 0.00013746141179191482,
+              "max_depth_ppm_if_fully_eclipsed": 136.8673784997416,
+              "could_mimic_depth": false
+            },
+            {
+              "source_id": "2294504815243890176",
+              "sep_arcsec": 46.41879217455045,
+              "phot_g_mean_mag": 19.440546,
+              "flux_ratio_to_target": 3.6793881049981396e-05,
+              "max_depth_ppm_if_fully_eclipsed": 36.63487795226088,
+              "could_mimic_depth": false
+            },
+            {
+              "source_id": "2294504810949301248",
+              "sep_arcsec": 50.67958503154229,
+              "phot_g_mean_mag": 20.362043,
+              "flux_ratio_to_target": 1.574623758682562e-05,
+              "max_depth_ppm_if_fully_eclipsed": 15.678190931177976,
+              "could_mimic_depth": false
+            },
+            {
+              "source_id": "2294551746352114048",
+              "sep_arcsec": 35.48446232481141,
+              "phot_g_mean_mag": 21.500452,
+              "flux_ratio_to_target": 5.5184002919552065e-06,
+              "max_depth_ppm_if_fully_eclipsed": 5.49455277394832,
+              "could_mimic_depth": false
+            }
+          ],
+          "neighbours_without_g": [],
+          "contamination_fraction": 0.004321454904540389,
+          "depth_dilution_factor": 1.004340210930352,
+          "n_could_mimic": 3,
+          "assumptions": [
+            "Gaia G as a proxy for the TESS band",
+            "circular aperture of the stated radius",
+            "Gaia DR3 2016.0 positions",
+            "unresolved companions not counted"
+          ],
+          "depth_source": "catalogue depth"
+        }
+      }
+    },
+    "file": "campaigns/toi-2277-01/stellar_context.json"
+  },
+  "checks": {
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-2277.01: Gaia DR3 2294551716287593344 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.03\" unpropagated, proper-motion shift 0.03\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "inconclusive",
+      "note": "TOI-2277.01: dwarf priors not applied \u2014 1.27 mag above (brighter: evolved, unresolved binary or young) the dwarf sequence at this colour; dwarf priors not applied",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-2277.01: 7 Gaia neighbour(s) within 52.5\", contamination 0.43%; depth 179 ppm (catalogue depth); 3 could produce it if fully eclipsed (brightest 2294551711991788544, 29.8\", \u0394G 6.43); a centroid test is needed",
+      "step": "stellar_context"
+    }
+  },
+  "notes": [],
+  "outcome": null
+}

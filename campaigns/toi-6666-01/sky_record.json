@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "lead",
  "evidence": "Unverified lead",
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Known-object test on TOI-6666.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3, 3, ≤2.5, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 20%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 405 threshold entries outside the known-signal veto across 6 light curve(s), forming 147 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2458790.7204 (ΔT 171.51 d); 2 period aliases remain. Unverified lead until vetted.",
  "spec": "campaigns/toi-6666-01.yaml",
  "report": "campaigns/toi-6666-01/REPORT.md",
@@ -93,7 +93,7 @@
   {
    "name": "Period aliases (repeat events)",
    "state": "inconclusive",
-   "note": "6 repeat-candidate event(s); first at BJD 2458790.7204, ΔT = 171.507 d, 2 of 171 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data (171.507, 85.7535 d)",
+   "note": "6 repeat-candidate event(s); first at BJD 2458790.7204, ΔT = 171.507 d, 2 of 171 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data (171.507, 85.7535 d); duration likelihood under Gaia priors (circular orbits) peaks at 172 d (weight 0.93)",
    "source": "campaign runner, step period_aliases"
   },
   {
@@ -117,8 +117,62 @@
    "state": "passed",
    "note": "6 light curve(s) screenable",
    "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-6666.01: Gaia DR3 2223770483452673408 at 0.00\" (propagated 2016.0 → J2015.5; 0.02\" unpropagated, proper-motion shift 0.02\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "passed",
+   "note": "TOI-6666.01: Teff 6357 K, R* 1.47 ± 0.12, M* 1.33 ± 0.13, ρ* 0.42 ± 0.11 ρ☉ (dwarf sequence, M_G 3.26, no extinction)",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "inconclusive",
+   "note": "TOI-6666.01: 11 Gaia neighbour(s) within 52.5\", contamination 0.64%; depth 946 ppm (measured depth of the recovered catalogued transit); 1 could produce it if fully eclipsed (brightest 2223770792690320256, 26.7\", ΔG 5.69); a centroid test is needed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "failed",
+   "note": "6 persistent event(s), 0 clean; BJD 2458790.7204 suspect: earth point (within ±0.25 d), manual exclude (within ±0.25 d), momentum dump (within ±0.25 d), MOM_CENTR1 z=-8.0, MOM_CENTR2 z=+26.1, POS_CORR1 z=-8.1, POS_CORR2 z=+24.6; BJD 2458790.8572 suspect: earth point (within ±0.25 d), manual exclude (within ±0.25 d), momentum dump (within ±0.25 d), MOM_CENTR1 z=-9.2, MOM_CENTR2 z=+25.2, POS_CORR1 z=-9.2, POS_CORR2 z=+24.4, SAP_BKG z=+7.6; BJD 2458790.8739 suspect: earth point (within ±0.25 d), manual exclude (within ±0.25 d), momentum dump (within ±0.25 d), MOM_CENTR1 z=-8.7, MOM_CENTR2 z=+23.3, POS_CORR1 z=-8.8, POS_CORR2 z=+22.6, SAP_BKG z=+7.7; BJD 2458790.8836 suspect: earth point (within ±0.25 d), manual exclude (within ±0.25 d), momentum dump (within ±0.25 d), MOM_CENTR1 z=-8.7, MOM_CENTR2 z=+22.8, POS_CORR1 z=-8.7, POS_CORR2 z=+22.1, SAP_BKG z=+7.3",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "passed",
+   "note": "6 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin)",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no light curve from this instrument was fetched (add Kepler/K2/HLSP collections to fetch_products)",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no light curve from this instrument was fetched",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-6666.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-6666.01: HD 206617 otype * (star_or_other) at 0.6\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T23:38:11Z"
+ "generated_utc": "2026-09-26T09:00:23Z"
 }

@@ -276,13 +276,17 @@ def step_event_census(ctx, params: dict) -> dict:
 def step_moving_objects(ctx, params: dict) -> dict:
     """SkyBoT cone at each persistent event's epoch (and each repeat candidate). Writes ``moving_objects.json``.
 
-    SkyBoT is queried from the geocentre, not TESS: the default radius (600″) covers the parallax of
-    a main-belt object between the two viewpoints as well as the TESS aperture. An object bright
-    enough to matter supports an asteroid explanation of that event; none supports (never proves) a
-    non-asteroid one.
+    Positions are computed for TESS (observatory code ``C57``; ``location`` overrides): seen from the
+    geocentre a main-belt object can sit arcminutes from where TESS sees it. An object counts when it
+    is bright enough and within ``near_arcsec`` (default 63″, three TESS pixels) plus its own motion
+    over ``window_h`` hours (default 1) of the target. One that counts supports an asteroid
+    explanation of that event; none supports (never proves) a non-asteroid one.
     """
     radius = float(params.get("radius_arcsec", 600.0))
     frac = float(params.get("min_flux_fraction_of_depth", 0.1))
+    location = str(params.get("location", "C57"))
+    near = float(params.get("near_arcsec", 3 * M.TESS_PIX_ARCSEC))
+    window_h = float(params.get("window_h", 1.0))
     events = _persistent_events(ctx)
     for c in ctx.optional_result("period_aliases", {}).get("candidates", []):
         if not any(abs(e["mid_time_BJD_like"] - c["event_bjd"]) < 0.05 for e in events):
@@ -302,19 +306,24 @@ def step_moving_objects(ctx, params: dict) -> dict:
             out.append({"bjd": ev["mid_time_BJD_like"], "error": f"time conversion failed: {exc}"})
             states.append("not_tested")
             continue
-        rows, why = _query("skybot", t, epoch_iso=iso, radius_arcsec=radius)
+        rows, why = _query("skybot", t, epoch_iso=iso, radius_arcsec=radius, location=location)
         depth = abs(float(ev.get("deepest_median_residual") or 0)) * 1e6 or None
         if rows is None:
             out.append({"bjd": ev["mid_time_BJD_like"], "utc": iso, "error": why})
             states.append("not_tested")
             continue
-        hits = M.moving_object_hits(rows, target_mag=tmag, depth_ppm=depth, min_flux_fraction_of_depth=frac)
-        out.append({"bjd": ev["mid_time_BJD_like"], "utc": iso, "radius_arcsec": radius, "event_depth_ppm": depth, **hits})
-        states.append("failed" if hits["bright_enough"] else "inconclusive" if hits["unknown_brightness"] else "passed")
+        hits = M.moving_object_hits(rows, target_mag=tmag, depth_ppm=depth, min_flux_fraction_of_depth=frac,
+                                    near_arcsec=near, window_h=window_h)
+        out.append({"bjd": ev["mid_time_BJD_like"], "utc": iso, "location": location, "radius_arcsec": radius,
+                    "event_depth_ppm": depth, **hits})
+        states.append("failed" if hits["bright_enough"] else
+                      "inconclusive" if hits["unknown_brightness"] or hits["unknown_distance"] else "passed")
     n_hit = sum(bool(e.get("bright_enough")) for e in out)
-    note = (f"{len(events)} event epoch(s) queried in SkyBoT (geocentric, r={radius:g}\"); "
-            + (f"{n_hit} with a known object bright enough (≥{frac:g}× the depth in flux)" if n_hit else
-               "no known object bright enough at any queried epoch (supports, does not prove, a non-asteroid origin)")
+    note = (f"{len(events)} event epoch(s) queried in SkyBoT (observer {location}, r={radius:g}\"); "
+            + (f"{n_hit} with a known object bright enough (≥{frac:g}× the depth in flux) within {near:g}\" "
+               f"plus its motion over {window_h:g} h" if n_hit else
+               f"no known object bright enough within {near:g}\" plus its motion at any queried epoch "
+               "(supports, does not prove, a non-asteroid origin)")
             + (f"; {states.count('not_tested')} epoch(s) not answered" if "not_tested" in states else ""))
     # some epochs answered and some not: the check covered part of the events, so it is inconclusive
     state = ("failed" if "failed" in states else "not_tested" if set(states) == {"not_tested"} else

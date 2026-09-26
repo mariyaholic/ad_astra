@@ -4,8 +4,13 @@
     "fetch_products",
     "calibrate_screen",
     "known_signal_recovery",
+    "stellar_context",
     "residual_screen",
+    "event_census",
     "period_aliases",
+    "moving_objects",
+    "alias_cross_instrument",
+    "variability_guard",
     "prior_art"
   ],
   "complete": true,
@@ -35,10 +40,55 @@
       "note": "BJD 2458507.5198: partial, depth 152 \u00b1 23 ppm (catalogue 184 ppm)",
       "step": "known_signal_recovery"
     },
+    "Target-to-Gaia identification (proper motion propagated)": {
+      "state": "passed",
+      "note": "TOI-6691.01: Gaia DR3 4767020077694168576 at 0.00\" (propagated 2016.0 \u2192 J2015.5; 0.02\" unpropagated, proper-motion shift 0.02\")",
+      "step": "stellar_context"
+    },
+    "Stellar priors (Gaia colour and parallax)": {
+      "state": "passed",
+      "note": "TOI-6691.01: Teff 6485 K, R* 1.72 \u00b1 0.14, M* 1.59 \u00b1 0.16, \u03c1* 0.31 \u00b1 0.08 \u03c1\u2609 (dwarf sequence, M_G 2.54, no extinction)",
+      "step": "stellar_context"
+    },
+    "Blend and dilution census (Gaia DR3 cone)": {
+      "state": "inconclusive",
+      "note": "TOI-6691.01: 5 Gaia neighbour(s) within 52.5\", contamination 0.34%; depth 184 ppm (catalogue depth); 1 could produce it if fully eclipsed (brightest 4767020112053906688, 45.2\", \u0394G 6.31); a centroid test is needed",
+      "step": "stellar_context"
+    },
+    "Pointing and quality census per event": {
+      "state": "failed",
+      "note": "6 persistent event(s), 0 clean; BJD 2458491.7265 suspect: argabrightening (within \u00b10.25 d), earth point (within \u00b10.25 d), manual exclude (within \u00b10.25 d), momentum dump (within \u00b10.25 d), MOM_CENTR1 z=+25.8, MOM_CENTR2 z=-18.2, POS_CORR1 z=+27.3, POS_CORR2 z=-18.2, SAP_BKG z=+1197.7; BJD 2458491.7320 suspect: argabrightening (within \u00b10.25 d), earth point (within \u00b10.25 d), manual exclude (within \u00b10.25 d), momentum dump (within \u00b10.25 d), MOM_CENTR1 z=+28.8, MOM_CENTR2 z=-18.8, POS_CORR1 z=+29.9, POS_CORR2 z=-19.3, SAP_BKG z=+1285.1; BJD 2458491.7362 suspect: argabrightening (within \u00b10.25 d), earth point (within \u00b10.25 d), manual exclude (within \u00b10.25 d), momentum dump (within \u00b10.25 d), MOM_CENTR1 z=+29.9, MOM_CENTR2 z=-20.0, POS_CORR1 z=+31.3, POS_CORR2 z=-20.5, SAP_BKG z=+1333.9; BJD 2458492.2265 caution: manual exclude (within \u00b10.25 d)",
+      "step": "event_census"
+    },
     "Period aliases (repeat events)": {
       "state": "not_tested",
       "note": "catalogued transit not recovered; no reference depth",
       "step": "period_aliases"
+    },
+    "Moving objects at screen-event epochs": {
+      "state": "passed",
+      "note": "6 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin)",
+      "step": "moving_objects"
+    },
+    "Independent repetition (other MAST collections)": {
+      "state": "not_tested",
+      "note": "no repeat candidate with allowed period aliases",
+      "step": "alias_cross_instrument"
+    },
+    "Independent-epoch confirmation (ZTF)": {
+      "state": "not_tested",
+      "note": "no repeat candidate with allowed period aliases",
+      "step": "alias_cross_instrument"
+    },
+    "Variable-catalogue collision (VSX)": {
+      "state": "passed",
+      "note": "TOI-6691.01: no VSX entry within 10\"",
+      "step": "variability_guard"
+    },
+    "Object-class guard (SIMBAD)": {
+      "state": "passed",
+      "note": "TOI-6691.01: HD  36765 otype * (star_or_other) at 0.5\"",
+      "step": "variability_guard"
     },
     "Catalogue cross-match": {
       "state": "passed",
@@ -52,5 +102,5 @@
     "Residual screen: 207 threshold entries outside the known-signal veto across 6 light curve(s), forming 92 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines."
   ],
   "record": "campaigns/toi-6691-01/sky_record.json",
-  "finished_utc": "2026-09-25T23:39:16Z"
+  "finished_utc": "2026-09-26T09:01:23Z"
 }

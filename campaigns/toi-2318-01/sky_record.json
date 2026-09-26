@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "lead",
  "evidence": "Unverified lead",
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Known-object test on TOI-2318.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, 4, 3, ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 10%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 213 threshold entries outside the known-signal veto across 6 light curve(s), forming 89 distinct event(s), 5 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459743.0693 (ΔT 716.45 d); 0 period aliases remain. Unverified lead until vetted.",
  "spec": "campaigns/toi-2318-01.yaml",
  "report": "campaigns/toi-2318-01/REPORT.md",
@@ -117,8 +117,62 @@
    "state": "passed",
    "note": "6 light curve(s) screenable",
    "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-2318.01: Gaia DR3 1346780595884995968 at 0.02\" (propagated 2016.0 → J2015.5; 0.03\" unpropagated, proper-motion shift 0.03\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "inconclusive",
+   "note": "TOI-2318.01: dwarf priors not applied — RUWE 26.541597 ≥ 1.4 (or missing): astrometry may be perturbed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "passed",
+   "note": "TOI-2318.01: 5 Gaia neighbour(s) within 52.5\", contamination 0.18%; depth 2358 ppm (measured depth of the recovered catalogued transit); none bright enough to produce it alone",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "failed",
+   "note": "5 persistent event(s), 0 clean; BJD 2459743.0693 suspect: MOM_CENTR1 z=+10.6, MOM_CENTR2 z=-7.6, POS_CORR1 z=+11.3, POS_CORR2 z=-8.0, SAP_BKG z=-5.2; BJD 2459743.0762 suspect: MOM_CENTR1 z=+9.0, MOM_CENTR2 z=-6.8, POS_CORR1 z=+9.4, POS_CORR2 z=-7.6, SAP_BKG z=-5.6; BJD 2460506.0527 suspect: manual exclude (within ±0.25 d), MOM_CENTR2 z=-9.0, POS_CORR2 z=-11.4, SAP_BKG z=-23.1; BJD 2460506.3138 suspect: MOM_CENTR2 z=-16.2, POS_CORR2 z=-17.5, SAP_BKG z=-21.6",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "inconclusive",
+   "note": "5 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin); 1 epoch(s) not answered",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no light curve from this instrument was fetched (add Kepler/K2/HLSP collections to fetch_products)",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no light curve from this instrument was fetched",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-2318.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-2318.01: BD+40  3154 otype PM* (star_or_other) at 0.9\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T23:30:12Z"
+ "generated_utc": "2026-09-26T08:57:53Z"
 }

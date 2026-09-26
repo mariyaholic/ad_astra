@@ -6,7 +6,7 @@
  "status": "completed",
  "outcome": "pipeline_check",
  "evidence": null,
- "date": "2026-09-25",
+ "date": "2026-09-26",
  "summary": "Known-object test on TOI-2423.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 4.5, ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 0.5%, 0.5%, 0.5%, 0.5%, 0.5% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Residual screen: 190 threshold entries outside the known-signal veto across 5 light curve(s), forming 69 distinct event(s), 8 persistent in SAP and PDCSAP at two or more baselines.",
  "spec": "campaigns/toi-2423-01.yaml",
  "report": "campaigns/toi-2423-01/REPORT.md",
@@ -111,8 +111,62 @@
    "state": "passed",
    "note": "5 light curve(s) screenable",
    "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-2423.01: Gaia DR3 4729324799004633472 at 0.00\" (propagated 2016.0 → J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "inconclusive",
+   "note": "TOI-2423.01: dwarf priors not applied — RUWE 3.3617349 ≥ 1.4 (or missing): astrometry may be perturbed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "passed",
+   "note": "TOI-2423.01: 4 Gaia neighbour(s) within 52.5\", contamination 0.10%; depth 12640 ppm (catalogue depth); none bright enough to produce it alone",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "failed",
+   "note": "8 persistent event(s), 0 clean; BJD 2458421.3682 suspect: earth point (within ±0.25 d), manual exclude (within ±0.25 d), MOM_CENTR1 z=-43.5, MOM_CENTR2 z=-51.7, POS_CORR1 z=-54.5, POS_CORR2 z=-54.2, SAP_BKG z=+25.9; BJD 2458421.4668 suspect: earth point (within ±0.25 d), manual exclude (within ±0.25 d), MOM_CENTR1 z=-18.5, MOM_CENTR2 z=-21.1, POS_CORR1 z=-22.2, POS_CORR2 z=-21.4, SAP_BKG z=+5.2; BJD 2458422.5592 suspect: scattered light 2 (within ±0.25 d), MOM_CENTR1 z=+6.8, MOM_CENTR2 z=+6.6, POS_CORR1 z=+6.4, POS_CORR2 z=+6.6, SAP_BKG z=+314.1; BJD 2458436.3915 suspect: coarse point (within ±0.25 d), manual exclude (within ±0.25 d), momentum dump (within ±0.25 d), MOM_CENTR1 z=-6.9, POS_CORR1 z=-8.4, SAP_BKG z=+895.7",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "inconclusive",
+   "note": "8 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin); 2 epoch(s) not answered",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-2423.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-2423.01: CD-58   719 otype * (star_or_other) at 0.2\"",
+   "source": "campaign runner, step variability_guard"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-25T23:29:42Z"
+ "generated_utc": "2026-09-26T08:57:55Z"
 }

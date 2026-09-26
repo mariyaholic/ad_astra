@@ -221,3 +221,21 @@ None has been vetted: centroids, pointing, background, momentum dumps and other 
 python -m cygnus.campaign run campaigns/toi-1896-01.yaml
 python -m cygnus.campaign report campaigns/toi-1896-01.yaml
 ```
+
+## Addendum 2026-09-26: suite-expansion checks
+
+Re-run on 2026-09-26 with the steps added by the suite expansion (`docs/SUITE_EXPANSION.md` §7.3) and the corrected moving-object check (TESS-centred SkyBoT positions, distance-aware). The earlier science outputs (screen, calibration, positive control, aliases, cross-match) were compared leaf by leaf and are unchanged apart from timestamps. States and notes below are copied from `sky_record.json`; the review above is not changed by them unless a note says so.
+
+| Check | State | Note |
+|---|---|---|
+| Target-to-Gaia identification (proper motion propagated) | passed | TOI-1896.01: Gaia DR3 1938752502320406400 at 0.00" (propagated 2016.0 → J2015.5; 0.03" unpropagated, proper-motion shift 0.03") |
+| Stellar priors (Gaia colour and parallax) | passed | TOI-1896.01: Teff 6599 K, R* 1.56 ± 0.12, M* 1.41 ± 0.14, ρ* 0.37 ± 0.10 ρ☉ (dwarf sequence, M_G 3.04, no extinction) |
+| Blend and dilution census (Gaia DR3 cone) | passed | TOI-1896.01: 21 Gaia neighbour(s) within 52.5", contamination 0.42%; depth 4857 ppm (measured depth of the recovered catalogued transit); none bright enough to produce it alone |
+| Pointing and quality census per event | not_tested | no persistent screen event outside the veto |
+| Moving objects at screen-event epochs | not_tested | no persistent screen event outside the veto |
+| Variable-catalogue collision (VSX) | passed | TOI-1896.01: no VSX entry within 10" |
+| Object-class guard (SIMBAD) | passed | TOI-1896.01: BD+46  4054 otype PM* (star_or_other) at 0.9" |
+| Independent repetition (other MAST collections) | not_tested | no repeat candidate with allowed period aliases |
+| Independent-epoch confirmation (ZTF) | not_tested | no repeat candidate with allowed period aliases |
+
+`failed` on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (`event_census.json`); it is a statement about those events, not about the catalogued signal.

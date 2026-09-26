@@ -25,6 +25,13 @@ from pathlib import Path
 from typing import Any, Callable, Iterable, Mapping
 
 
+def _throttle(url: str) -> None:
+    """Space request starts per host across parallel batch jobs (cygnus.throttle; CYGNUS_RATE_S)."""
+    from ...throttle import wait
+
+    wait(url)
+
+
 class AdapterError(RuntimeError):
     """Base class for adapter failures."""
 
@@ -242,11 +249,13 @@ class ArchiveAdapter(ABC):
     def http_post(self, url: str, data: dict, *, timeout: float = 120.0, headers: dict | None = None):
         if self._http is not None:
             return self._http(url, data=data, timeout=timeout, headers=headers)
+        _throttle(url)
         return self._session_or_new().post(url, data=data, timeout=timeout, headers=headers)
 
     def http_get(self, url: str, *, params: dict | None = None, timeout: float = 120.0, headers: dict | None = None):
         if self._http is not None:
             return self._http(url, params=params, timeout=timeout, headers=headers)
+        _throttle(url)
         return self._session_or_new().get(url, params=params, timeout=timeout, headers=headers)
 
     def http_get_body(self, url: str, body: Mapping[str, Any], *, timeout: float = 120.0):
@@ -256,6 +265,7 @@ class ArchiveAdapter(ABC):
         headers = {"Content-Type": "application/json"}
         if self._http is not None:
             return self._http(url, data=json.dumps(body), headers=headers, timeout=timeout)
+        _throttle(url)
         return self._session_or_new().get(url, data=json.dumps(body), headers=headers, timeout=timeout)
 
     def tap_csv(self, url: str, adql: str, *, timeout: float = 120.0) -> list[dict]:
