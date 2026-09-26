@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Report: toi-6666-01-nss · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/tess-single-transit-01/">tess-single-transit-01</a><span aria-hidden="true">/</span><span class="id">REPORT.md</span></p>
+  <p class="kicker">Document · REPORT.md</p>
+  <h1>Report: toi-6666-01-nss</h1>
+<p class="lede">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span>  </p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#bottom-line">Bottom line</a></li><li class="l2"><a href="#reviewer-notes-2026-09-25">Reviewer notes (2026-09-25)</a></li><li class="l2"><a href="#target">Target</a></li><li class="l2"><a href="#products">Products</a></li><li class="l2"><a href="#gaia-dr3-astrometric-vetting">Gaia DR3 astrometric vetting</a></li><li class="l2"><a href="#checks">Checks</a></li><li class="l2"><a href="#reproduction">Reproduction</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">REPORT.md</span>
+    <span class="fmeta">Markdown source (public copy) · 5.6 KB · <span class="id" title="sha256 bdbc584f3d0c6e87d9fcd25077b8fd8afe4184452dbe3496b065acc090a6d35c">sha256 bdbc584f3d0c…</span> <button type="button" class="copy" data-copy="bdbc584f3d0c6e87d9fcd25077b8fd8afe4184452dbe3496b065acc090a6d35c" hidden>copy</button></span>
+    <a class="btn" href="/files/tess-single-transit-01/toi-6666-01-nss-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/tess-single-transit-01/">TESS single-transit tests: 76 TOI targets and 2 Gaia NSS companion checks</a>.</p>
+  </aside>
+  <article class="doc-body prose">
+    <blockquote><p>Drafted by <code>python -m cygnus.multi report</code> from the runner's outputs; reviewed 2026-09-25. The reviewer notes below were added by hand; every other number is the runner's.</p></blockquote>
+<ul>
+<li>Campaign spec: <code>campaigns/toi-6666-01-nss.yaml</code></li>
+<li>Parent queue: <code>toi-6666-01</code></li>
+<li>Ledger runs: astrometric_vetting #635, context_products #633, fetch_products #632, source_checks #634</li>
+<li>Runner finished (UTC): 2026-09-25T13:28:35Z</li>
+</ul>
+<h2 id="bottom-line">Bottom line<a class="anchor" href="#bottom-line" aria-label="Link to this section">#</a></h2>
+<p>No light curve was screened in this campaign (steps run: fetch_products, context_products, source_checks, astrometric_vetting); see <em>Checks</em> for what was tested. Gaia DR3 NSS, TOI-6666.01: <strong>inconclusive</strong> — no Gaia DR3 NSS two-body solution for source 2223770483452673408 (0.02" away); Gaia sensitivity is incomplete, so this is not proof of a single star.</p>
+<p>This is a pipeline check on a known object, not a discovery claim.</p>
+<h2 id="reviewer-notes-2026-09-25">Reviewer notes (2026-09-25)<a class="anchor" href="#reviewer-notes-2026-09-25" aria-label="Link to this section">#</a></h2>
+<p><strong>Astrometry of the matched host is clean.</strong> From <code>gaia_cone_TOI-6666.01_r30as.csv</code> and <code>source_checks.json</code> on disk: the matched source 2223770483452673408 has RUWE 0.827 (single-star model fits), no <code>non_single_star</code> flag, and it is the only Gaia DR3 source within 5″ — the identification is unique. (The 0.02″ to Gaia is itself 0.5 yr of proper motion, since the TOI-table position is at epoch J2015.5, <code>reports/position-epoch-audit-01</code>; the single SIMBAD row, <code>HD 206617</code>, is 0.57″ from the TOI position for the same reason: SIMBAD is at epoch 2000, and Gaia DR3 minus SIMBAD equals 16 yr × PM to within 1 mas.) No NSS two-body solution is published for it, which is <em>inconclusive</em>: Gaia's NSS catalogue is not complete at these orbital parameters, so absence is not evidence for or against the eclipsing-binary / companion alternative for the TOI-6666.01 repeat-event lead.</p>
+<p><strong>Earlier ad-hoc SB2 attribution withdrawn</strong> (check row marked <code>failed</code> — the test ran and refuted the attribution). An earlier ad-hoc check in this worktree attributed an SB2 NSS solution (P = 4.8124683 d, e = 0.053, K1 = 85.77 km/s, significance 1199.6, f(M) = 0.31 M☉) to this target. That solution belongs to Gaia source <code>4513527912472807936</code> at ICRS 287.16737, +16.85086 — 57.276° from TOI-6666.01 (re-verified arithmetically from the two ICRS positions on 2026-09-25) — and is not related to this campaign; the full query audit is in the sandbox record this campaign was promoted from. Nothing in this campaign depends on it.</p>
+<p>What this supports: the astrometric-companion channel neither supports nor excludes the companion alternative for the repeat-event lead. What it does not: any statement about the sector-18 event itself (no photometry was used here). Next test, unchanged from the vetting log: independent epochs; radial velocities would constrain any companion directly.</p>
+<h2 id="target">Target<a class="anchor" href="#target" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Field</th><th scope="col">Value</th><th scope="col">Source</th></tr></thead><tbody><tr><td>name</td><td>TOI-6666.01</td><td>NASA Exoplanet Archive TOI table (via campaigns/toi-6666-01.yaml) (copied in the spec)</td></tr><tr><td>tic</td><td>256429408</td><td>NASA Exoplanet Archive TOI table (via campaigns/toi-6666-01.yaml) (copied in the spec)</td></tr><tr><td>ra_deg</td><td>325.003248</td><td>NASA Exoplanet Archive TOI table (via campaigns/toi-6666-01.yaml) (copied in the spec)</td></tr><tr><td>dec_deg</td><td>69.086612</td><td>NASA Exoplanet Archive TOI table (via campaigns/toi-6666-01.yaml) (copied in the spec)</td></tr></tbody></table></div>
+<h2 id="products">Products<a class="anchor" href="#products" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Product</th><th scope="col">Kind</th><th scope="col">Sector</th><th scope="col">Covers catalogued epoch</th><th scope="col">SHA-256 (first 16)</th><th scope="col">Retrieved now</th></tr></thead><tbody><tr><td><code>gaia_cone_TOI-6666.01_r30as.csv</code></td><td>table</td><td>—</td><td>—</td><td><code>a0006c4ca461fbfe</code></td><td>True</td></tr><tr><td><code>simbad_TOI-6666.01.csv</code></td><td>table</td><td>—</td><td>—</td><td><code>b442c5a8d6fa2804</code></td><td>True</td></tr></tbody></table></div>
+<h2 id="gaia-dr3-astrometric-vetting">Gaia DR3 astrometric vetting<a class="anchor" href="#gaia-dr3-astrometric-vetting" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Target</th><th scope="col">Gaia DR3 source</th><th scope="col">Sep (")</th><th scope="col">G</th><th scope="col">Parallax (mas)</th><th scope="col">Sources in radius</th><th scope="col">Identification</th><th scope="col">NSS solutions</th><th scope="col">State</th></tr></thead><tbody><tr><td>TOI-6666.01</td><td>2223770483452673408</td><td>0.019</td><td>8.779</td><td>7.866</td><td>1</td><td>unique</td><td>0</td><td>inconclusive</td></tr></tbody></table></div>
+<p>An NSS solution at or above the significance threshold means the companion is already known to Gaia; no solution is <em>inconclusive</em> (Gaia's NSS sensitivity is incomplete), never a pass. Full rows: <code>nss.json</code>.</p>
+<h2 id="checks">Checks<a class="anchor" href="#checks" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Check</th><th scope="col">State</th><th scope="col">Note</th></tr></thead><tbody><tr><td>Product integrity (SHA-256)</td><td>passed</td><td>2 product(s) from gaia, simbad checksummed at first retrieval</td></tr><tr><td>Target-to-Gaia source identification</td><td>passed</td><td>TOI-6666.01: Gaia DR3 2223770483452673408 at 0.02", G 8.779094; 1 source(s) within 5"</td></tr><tr><td>Gaia NSS astrometric vetting</td><td>inconclusive</td><td>TOI-6666.01: no Gaia DR3 NSS two-body solution for source 2223770483452673408 (0.02" away); Gaia sensitivity is incomplete, so this is not proof of a single star</td></tr><tr><td>Proper-motion propagation to the Gaia epoch</td><td>passed</td><td>the runner matches positions as given; <code>reports/position-epoch-audit-01</code> (Gaia DR3 TAP, 2026-09-25) shows the TOI-table position is at epoch J2015.5, not J2000.0: TOI − Gaia DR3 = (+0.8, −19.1) mas = −0.5 yr × PM (+0.8, −18.5) mas; residual after propagation 0.6 mas. The 0.5-yr offset (0.019″) is far below the 5″ match radius</td></tr><tr><td>Radial-velocity / literature companion search (ADS)</td><td>not_tested</td><td></td></tr><tr><td>Earlier ad-hoc SB2 attribution</td><td>failed</td><td>cited source 4513527912472807936 (ICRS 287.16737, +16.85086) is 57.276 deg from the target; attribution withdrawn</td></tr><tr><td>Context products read</td><td>passed</td><td>2 non-light-curve product(s) (table) recorded in context.json</td></tr><tr><td>Source checks (gaia)</td><td>passed</td><td>5/5 passed</td></tr><tr><td>Source checks (simbad)</td><td>passed</td><td>2/2 passed</td></tr></tbody></table></div>
+<h2 id="reproduction">Reproduction<a class="anchor" href="#reproduction" aria-label="Link to this section">#</a></h2>
+<pre><code class="lang-bash">python -m cygnus.multi run campaigns/toi-6666-01-nss.yaml
+python -m cygnus.multi report campaigns/toi-6666-01-nss.yaml</code></pre>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T12:47:17Z" class="mono">2026-09-26T12:47:17Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Report: toi-941-02 · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/tess-single-transit-01/">tess-single-transit-01</a><span aria-hidden="true">/</span><span class="id">REPORT.md</span></p>
+  <p class="kicker">Document · REPORT.md</p>
+  <h1>Report: toi-941-02</h1>
+<p class="lede">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span>  </p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#bottom-line">Bottom line</a></li><li class="l2"><a href="#reviewer-notes-2026-09-25-supersede-pass">Reviewer notes (2026-09-25, supersede pass)</a></li><li class="l2"><a href="#reviewer-notes-2026-09-25">Reviewer notes (2026-09-25)</a></li><li class="l2"><a href="#target">Target</a></li><li class="l2"><a href="#products">Products</a></li><li class="l2"><a href="#positive-control-catalogued-transit">Positive control (catalogued transit)</a></li><li class="l2"><a href="#calibration-and-sensitivity">Calibration and sensitivity</a></li><li class="l2"><a href="#screen-events-outside-the-catalogued-epoch">Screen events outside the catalogued epoch</a></li><li class="l2"><a href="#catalogue-cross-match">Catalogue cross-match</a></li><li class="l2"><a href="#checks">Checks</a></li><li class="l2"><a href="#reproduction">Reproduction</a></li><li class="l2"><a href="#addendum-2026-09-26-suite-expansion-checks">Addendum 2026-09-26: suite-expansion checks</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">REPORT.md</span>
+    <span class="fmeta">Markdown source (public copy) · 11.4 KB · <span class="id" title="sha256 79b8f04ce92ee52670228766b808ca2cb7b117acd625b43effec08e3a3078932">sha256 79b8f04ce92e…</span> <button type="button" class="copy" data-copy="79b8f04ce92ee52670228766b808ca2cb7b117acd625b43effec08e3a3078932" hidden>copy</button></span>
+    <a class="btn" href="/files/tess-single-transit-01/toi-941-02-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/tess-single-transit-01/">TESS single-transit tests: 76 TOI targets and 2 Gaia NSS companion checks</a>.</p>
+  </aside>
+  <article class="doc-body prose">
+    <blockquote><p>Drafted by <code>python -m cygnus.campaign report</code> from the runner's outputs; reviewed 2026-09-25. The escalation and reviewer notes below were added by hand; every other number is the runner's.</p></blockquote>
+<ul>
+<li>Campaign spec: <code>campaigns/toi-941-02.yaml</code></li>
+<li>Parent queue: <code>tess-mono-01</code></li>
+<li>Ledger runs: calibrate_screen #213, fetch_products #212, known_signal_recovery #214, period_aliases #216, prior_art #217, residual_screen #215</li>
+<li>Runner finished (UTC): 2026-09-25T03:52:26Z</li>
+</ul>
+<h2 id="bottom-line">Bottom line<a class="anchor" href="#bottom-line" aria-label="Link to this section">#</a></h2>
+<p>The calibrated screen <strong>recovered the catalogued transit</strong> of TOI-941.02 (BJD 2461037.4553: recovered, depth 7511 ± 145 ppm (catalogue 4244 ppm)). Outside the catalogued epoch the screen left 30 threshold entries forming <strong>10 distinct event(s)</strong>, <strong>2 persistent</strong> (SAP and PDCSAP, two or more baselines). None is vetted; see <em>Screen events</em>.</p>
+<p>This is a pipeline check on a known object, not a discovery claim. No period is implied by a single transit.</p>
+<h2 id="reviewer-notes-2026-09-25-supersede-pass">Reviewer notes (2026-09-25, supersede pass)<a class="anchor" href="#reviewer-notes-2026-09-25-supersede-pass" aria-label="Link to this section">#</a></h2>
+<p><strong>Superceded by the multi-archive runner:</strong> re-run through <code>python -m cygnus.multi</code> on 2026-09-25, steps fetch_products, calibrate_screen, known_signal_recovery, residual_screen, period_aliases, prior_art (ledger fetch_products #1748, calibrate_screen #1749, known_signal_recovery #1750, residual_screen #1751, period_aliases #1752, prior_art #1753). Same retrieved products, same science outputs: entries, depths, k-star calibration and aliases match the production-runner results recorded here; the multi runner additionally records a screen-suitability census and a red-noise systematics model per light curve. The record is regenerated by the multi runner; nothing in the review changes.</p>
+<h2 id="reviewer-notes-2026-09-25">Reviewer notes (2026-09-25)<a class="anchor" href="#reviewer-notes-2026-09-25" aria-label="Link to this section">#</a></h2>
+<p>Positive control <strong>passed</strong>: the sector-98 profile (<code>sector98/normalized_series.csv</code>) shows a clean flat-bottomed dip centred on the catalogued epoch (BJD 2461037.4553), full width ≈ 8 h in both SAP and PDCSAP. The recovered depth (7511 ± 145 ppm) is deeper than the catalogue's 4244 ppm — read as dilution/detrending of the catalogue value, not a different event. No repeat candidate was raised (<code>period_aliases</code> <code>not_tested</code>; no persistent event matches the catalogued depth), so no escalation.</p>
+<p>The two persistent screen events (2461003.31247 and 2461003.35275, sector 98) are one contiguous feature, not two transits: their mid-times are 0.040 d apart and each binned profile is a broad (≈ ±0.15 d), shallow (~3000–4000 ppm) depression that drifts rather than showing a flat floor. SAP and PDCSAP agree in shape. The nearest-excursion flux centroid is essentially unmoved — MOM_CENTR1 +0.0016/−0.0001 px and MOM_CENTR2 −0.0001/−0.0001 px against local scatter sd 0.0049/0.0095 px — so no pointing excursion accompanies the dip. It sits ≈ 34 d before the catalogued epoch, well outside the alias window. Read as a low-frequency systematic; at most an unverified lead, and not advanced.</p>
+<p>Catalogue cross-match answered by all four services (SIMBAD returned TOI-941.01 and the host star); no service-outage caveat applies.</p>
+<h2 id="target">Target<a class="anchor" href="#target" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Field</th><th scope="col">Value</th><th scope="col">Source</th></tr></thead><tbody><tr><td>name</td><td>TOI-941.02</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>tic</td><td>408137826</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>ra_deg</td><td>78.300525</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>dec_deg</td><td>6.545915</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>t0_bjd</td><td>2461037.455335</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>depth_ppm</td><td>4243.6393708</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>duration_h</td><td>7.5</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>tmag</td><td>10.9968</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr><tr><td>catalogue_row_updated</td><td>2026-07-25 12:04:08</td><td>NASA Exoplanet Archive TOI table (copied in the spec)</td></tr></tbody></table></div>
+<h2 id="products">Products<a class="anchor" href="#products" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Product</th><th scope="col">Sector</th><th scope="col">Covers catalogued epoch</th><th scope="col">SHA-256 (first 16)</th><th scope="col">Retrieved now</th></tr></thead><tbody><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>98</td><td>True</td><td><code>b0000f45bb36d578</code></td><td>True</td></tr><tr><td><code>tess2020324010417-s0032-0000000408137826-0200-s_lc.fits</code></td><td>32</td><td>False</td><td><code>fa6b8e05c84f2315</code></td><td>True</td></tr></tbody></table></div>
+<h2 id="positive-control-catalogued-transit">Positive control (catalogued transit)<a class="anchor" href="#positive-control-catalogued-transit" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Product</th><th scope="col">Epoch (BJD)</th><th scope="col">State</th><th scope="col">Usable in-transit cadences</th><th scope="col">Measured depth (ppm)</th><th scope="col">Catalogue depth (ppm)</th><th scope="col">Entry offset (h)</th></tr></thead><tbody><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461037.45534</td><td>recovered</td><td>221</td><td>7511 ± 145</td><td>4244</td><td>2.51</td></tr><tr><td><code>tess2020324010417-s0032-0000000408137826-0200-s_lc.fits</code></td><td>—</td><td>epoch not in this light curve</td><td>—</td><td>—</td><td>4244</td><td>—</td></tr></tbody></table></div>
+<p>Depth: median PDCSAP residual inside ±duration/2 about the catalogued epoch, against a 2-d running median; the error is statistical only. A depth unlike the catalogue's may reflect dilution, detrending or an epoch/duration error; it is reported, not used as a pass mark.</p>
+<h2 id="calibration-and-sensitivity">Calibration and sensitivity<a class="anchor" href="#calibration-and-sensitivity" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Product</th><th scope="col">k* (sign-flip null)</th><th scope="col">At grid floor</th><th scope="col">90 % completeness depth at k = 5, by duration</th><th scope="col">at k*</th></tr></thead><tbody><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>3</td><td>False</td><td>1h: 10000, 2h: 10000, 4h: 10000, 8h: 10000</td><td>1h: 10000, 2h: 5000, 4h: 5000, 8h: 5000</td></tr><tr><td><code>tess2020324010417-s0032-0000000408137826-0200-s_lc.fits</code></td><td>4</td><td>False</td><td>1h: 10000, 2h: 10000, 4h: 10000, 8h: 10000</td><td>1h: 10000, 2h: 10000, 4h: 10000, 8h: 10000</td></tr></tbody></table></div>
+<p>The null result (if any) excludes only dips deeper than the 90 %-completeness depth for their duration.</p>
+<h2 id="screen-events-outside-the-catalogued-epoch">Screen events outside the catalogued epoch<a class="anchor" href="#screen-events-outside-the-catalogued-epoch" aria-label="Link to this section">#</a></h2>
+<p>Entries merged where they overlap in time. <em>Persistent</em> = SAP and PDCSAP at two or more baselines.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Product</th><th scope="col">Mid time (BJD)</th><th scope="col">Deepest median residual</th><th scope="col">Max cadences</th><th scope="col">Flux</th><th scope="col">Baselines (d)</th><th scope="col">Persistent</th></tr></thead><tbody><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461003.31247</td><td>-0.00634</td><td>4</td><td>PDCSAP+SAP</td><td>1, 2, 3</td><td>yes</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461003.35275</td><td>-0.00601</td><td>2</td><td>PDCSAP+SAP</td><td>1, 2, 3</td><td>yes</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461024.29736</td><td>-0.00851</td><td>2</td><td>SAP</td><td>1, 2, 3</td><td>no</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461024.20153</td><td>-0.00809</td><td>2</td><td>SAP</td><td>2, 3</td><td>no</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461024.28347</td><td>-0.00774</td><td>2</td><td>SAP</td><td>1, 2, 3</td><td>no</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461024.19042</td><td>-0.00743</td><td>2</td><td>SAP</td><td>1, 2, 3</td><td>no</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461011.88485</td><td>-0.00618</td><td>2</td><td>PDCSAP</td><td>1, 2, 3</td><td>no</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461031.14172</td><td>-0.00615</td><td>2</td><td>SAP</td><td>1, 2, 3</td><td>no</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461036.76795</td><td>-0.00596</td><td>2</td><td>PDCSAP</td><td>1</td><td>no</td></tr><tr><td><code>tess2025312202959-s0098-0000000408137826-0298-s_lc.fits</code></td><td>2461038.58456</td><td>-0.00595</td><td>2</td><td>SAP</td><td>1, 2</td><td>no</td></tr></tbody></table></div>
+<p>None has been vetted: centroids, pointing, background, momentum dumps and other reductions are <strong>not tested</strong>. Most screen events in TESS light curves are systematics; each is at most an unverified lead.</p>
+<h2 id="catalogue-cross-match">Catalogue cross-match<a class="anchor" href="#catalogue-cross-match" aria-label="Link to this section">#</a></h2>
+<p><strong>TOI-941.02</strong></p>
+<ul>
+<li>NASA_Exoplanet_Archive (done, 2026-09-25): 1 match(es) in NASA_Exoplanet_Archive within 30" as of 2026-09-25T03:52:16Z: TOI-941 b (host TOI-941)</li>
+<li>TESS_TOI (done, 2026-09-25): 2 match(es) in TESS_TOI within 30" as of 2026-09-25T03:52:19Z: TOI-941.01 (TIC 408137826, disposition PC); TOI-941.02 (TIC 408137826, disposition PC)</li>
+<li>VSX (done, 2026-09-25): no match in VSX within 30" as of 2026-09-25T03:52:21Z</li>
+<li>SIMBAD (done, 2026-09-25): 2 match(es) in SIMBAD within 30" as of 2026-09-25T03:52:22Z: TOI-941.01 (Pl?); TOI-941 (*)</li>
+</ul>
+<h2 id="checks">Checks<a class="anchor" href="#checks" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Check</th><th scope="col">State</th><th scope="col">Note</th></tr></thead><tbody><tr><td>Product integrity (SHA-256)</td><td>passed</td><td>2 product(s) checksummed at first retrieval</td></tr><tr><td>Known-signal recovery (positive control)</td><td>passed</td><td>BJD 2461037.4553: recovered, depth 7511 ± 145 ppm (catalogue 4244 ppm)</td></tr><tr><td>Calibrated false-alarm threshold (sign-flip null)</td><td>passed</td><td>screen run at each light curve's own k* (3, 3.5; ≤ 0 persistent null events outside the veto)</td></tr><tr><td>Synthetic signal injection–recovery</td><td>inconclusive</td><td>completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json</td></tr><tr><td>Catalogue cross-match</td><td>passed</td><td>1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table</td></tr><tr><td>Period aliases (repeat events)</td><td>not_tested</td><td>no persistent screen event matches the catalogued depth</td></tr><tr><td>Alternative detrending</td><td>not_tested</td><td></td></tr><tr><td>Difference-image centroids / blend audit</td><td>not_tested</td><td></td></tr><tr><td>Pointing / jitter correlation</td><td>not_tested</td><td></td></tr><tr><td>Literature (ADS) audit</td><td>not_tested</td><td></td></tr></tbody></table></div>
+<h2 id="reproduction">Reproduction<a class="anchor" href="#reproduction" aria-label="Link to this section">#</a></h2>
+<pre><code class="lang-bash">python -m cygnus.campaign run campaigns/toi-941-02.yaml
+python -m cygnus.campaign report campaigns/toi-941-02.yaml</code></pre>
+<h2 id="addendum-2026-09-26-suite-expansion-checks">Addendum 2026-09-26: suite-expansion checks<a class="anchor" href="#addendum-2026-09-26-suite-expansion-checks" aria-label="Link to this section">#</a></h2>
+<p>Re-run on 2026-09-26 with the steps added by the suite expansion (<code>docs/SUITE_EXPANSION.md</code> §7.3) and the corrected moving-object check (TESS-centred SkyBoT positions, distance-aware). The earlier science outputs (screen, calibration, positive control, aliases, cross-match) were compared leaf by leaf and are unchanged apart from timestamps. States and notes below are copied from <code>sky_record.json</code>; the review above is not changed by them unless a note says so.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Check</th><th scope="col">State</th><th scope="col">Note</th></tr></thead><tbody><tr><td>Target-to-Gaia identification (proper motion propagated)</td><td>passed</td><td>TOI-941.02: Gaia DR3 3240852617846876416 at 0.00" (propagated 2016.0 → J2015.5; 0.02" unpropagated, proper-motion shift 0.02")</td></tr><tr><td>Stellar priors (Gaia colour and parallax)</td><td>passed</td><td>TOI-941.02: Teff 5727 K, R* 1.08 ± 0.09, M* 1.04 ± 0.10, ρ* 0.83 ± 0.22 ρ☉ (dwarf sequence, M_G 4.40, no extinction)</td></tr><tr><td>Blend and dilution census (Gaia DR3 cone)</td><td>inconclusive</td><td>TOI-941.02: 9 Gaia neighbour(s) within 52.5", contamination 2.32%; depth 7511 ppm (measured depth of the recovered catalogued transit); 1 could produce it if fully eclipsed (brightest 3240852613549409664, 17.3", ΔG 4.52); a centroid test is needed</td></tr><tr><td>Pointing and quality census per event</td><td>failed</td><td>2 persistent event(s), 0 clean; BJD 2461003.3125 suspect: MOM_CENTR1 z=-31.4, MOM_CENTR2 z=+29.1, POS_CORR1 z=-40.7, POS_CORR2 z=+31.9, SAP_BKG z=+836.6; BJD 2461003.3527 suspect: MOM_CENTR1 z=-32.7, MOM_CENTR2 z=+29.5, POS_CORR1 z=-40.6, POS_CORR2 z=+33.8, SAP_BKG z=+896.3</td></tr><tr><td>Moving objects at screen-event epochs</td><td>passed</td><td>2 event epoch(s) queried in SkyBoT (observer C57, r=600"); no known object bright enough within 63" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin)</td></tr><tr><td>Variable-catalogue collision (VSX)</td><td>passed</td><td>TOI-941.02: no VSX entry within 10"</td></tr><tr><td>Object-class guard (SIMBAD)</td><td>passed</td><td>TOI-941.02: TOI-941 otype * (star_or_other) at 0.6"</td></tr><tr><td>Independent repetition (other MAST collections)</td><td>not_tested</td><td>no repeat candidate with allowed period aliases</td></tr><tr><td>Independent-epoch confirmation (ZTF)</td><td>not_tested</td><td>no repeat candidate with allowed period aliases</td></tr></tbody></table></div>
+<p><code>failed</code> on the per-event census means at least one persistent screen event carries an in-event artifact flag or pointing shift (<code>event_census.json</code>); it is a statement about those events, not about the catalogued signal.</p>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T12:47:17Z" class="mono">2026-09-26T12:47:17Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>
