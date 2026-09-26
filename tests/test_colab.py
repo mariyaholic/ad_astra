@@ -10,11 +10,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path
 
 import pytest
+
+from cygnus.config import WORKTREE
 
 from cygnus import colab
 
@@ -451,7 +454,10 @@ def test_batch_notebook_states_the_pinned_route_guards_and_ledger_decision():
                       if cell["cell_type"] == "markdown")
     assert "drive.mount('/content/drive')" in code
     assert "SET_MOUNTED_CYGNUS_ROOT" in code and "SET_PINNED_COMMIT" in code
-    assert "7f155719674f7279080d7c54dcfe480d8688715e" in code and "rev-parse" in code
+    pin = re.search(r"SET_PINNED_COMMIT or '([0-9a-f]{40})'", code)
+    assert pin and "rev-parse" in code, "the notebook must default to a full, verified commit pin"
+    if shutil.which("git") and (WORKTREE / ".git").exists():   # the pin must be a real commit of this repository
+        assert subprocess.run(["git", "-C", str(WORKTREE), "cat-file", "-e", pin.group(1) + "^{commit}"]).returncode == 0
     assert "[test,mast" in code and "pytest" in code
     assert "'/content/scratch'" in code and "CYGNUS_SCRATCH" in code
     assert "colab_runs" in code and "_probe" in code and "rclone lsf" in code
