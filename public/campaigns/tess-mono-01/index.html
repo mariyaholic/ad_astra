@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>tess-mono-01 (draft) · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/" aria-current="page">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/campaigns/">Campaigns</a><span aria-hidden="true">/</span><span class="id">tess-mono-01</span></p>
+  <p class="kicker">Campaign · <span class="id">worlds.planetary.monotransit</span></p>
+  <h1><span class="id">tess-mono-01</span><br>TESS single-transit search</h1>
+<p class="lede">Search TESS SPOC light curves and cutouts for isolated transits, then audit each against detrending, blending, pointing and prior-art alternatives.</p><p class="prose small">For TESS planet candidates known from a single transit (TOI table: no period, disposition PC or APC), screen their SPOC 120-s light curves for further isolated transit-like dips outside the known transit, with the screen&#39;s threshold calibrated on each light curve (sign-flip null) and its completeness measured by injection–recovery. A second dip would constrain the period; its absence is recorded as a bounded null with the measured sensitivity.</p>  <p class="badges"><span class="badge badge--draft">Draft · not executed</span></p>
+</header>
+
+<div class="callout callout--draft" role="note">
+  <p class="callout-title">Draft campaign — no results</p>
+  <p>This campaign has not been executed. It has 0 targets, no search log, and no measurements. The specification itself says: “queue built; analysis steps not yet run — do not cite results”. Nothing here is a finding.</p>
+</div>
+
+<div class="grid-2">
+  <div>
+    <section class="section" aria-labelledby="scope">
+      <h2 class="section-title" id="scope">Scope</h2>
+      <dl class="meta">
+        <dt>Domain</dt><dd class="id">worlds.planetary.monotransit</dd>
+        <dt>Target pool</dt><dd>nasa_exoplanet_archive.toi</dd>
+        <dt>Targets</dt><dd><span class="unset">none selected yet</span></dd>
+      </dl>
+    </section>
+
+    <section class="section" aria-labelledby="method">
+      <h2 class="section-title" id="method">Method <span class="count">5 steps, run in order</span></h2>
+<p class="small muted">Implementation status is taken from the <a href="/collections/cygnus-software-0-1-0/#module-register">module register</a>. A step whose module is only designed cannot run yet.</p>      <ol class="steps">
+        <li>
+          <div class="step-name">target_queue</div>
+<span class="state state--implemented">implemented</span> <span class="small muted"><span class="id">targets.py</span> — implemented 2026-09-24</span>
+        </li>
+        <li>
+          <div class="step-name">fetch_products</div>
+<span class="state state--implemented">implemented</span> <span class="small muted"><span class="id">campaign/</span> — implemented 2026-09-24</span>
+        </li>
+        <li>
+          <div class="step-name">calibrate_screen</div>
+<span class="state state--implemented">implemented</span> <span class="small muted"><span class="id">campaign/</span> — implemented 2026-09-24</span>
+        </li>
+        <li>
+          <div class="step-name">residual_screen</div>
+<span class="state state--implemented">implemented</span> <span class="small muted"><span class="id">campaign/</span> — implemented 2026-09-24</span>
+        </li>
+        <li>
+          <div class="step-name">prior_art</div>
+<span class="state state--implemented">implemented</span> <span class="small muted"><span class="id">priorart.py</span> — implemented: SkyBoT plus cone-search adapters for NASA Exoplanet Archive, TESS TOI, VSX, SIMBAD (2026-09-24); ExoFOP, ADS and others still <code>not_tested</code></span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" aria-labelledby="thresholds">
+      <h2 class="section-title" id="thresholds">Thresholds</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Thresholds">
+        <table>
+          <thead><tr><th scope="col">Parameter</th><th scope="col">Value</th><th scope="col">Note</th></tr></thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="log">
+      <h2 class="section-title" id="log">Search log</h2>
+      <div class="empty"><h3>No search has run</h3><p>Screened, excluded, rejected and retained counts will be recorded here once the campaign executes. A draft has none.</p></div>
+    </section>
+
+    <section class="section" aria-labelledby="negatives">
+      <h2 class="section-title" id="negatives">Negative results and limitations</h2>
+      <p>No results of any kind yet. Known limitations of the plan as written:</p>
+      <ul>
+<li>The target pool is empty; selection criteria are not yet pinned.</li>      </ul>
+    </section>
+  </div>
+
+  <aside class="stack" aria-label="Campaign details">
+    <div class="panel">
+      <p class="panel-title">Specification</p>
+      <dl class="meta">
+        <dt>File</dt><dd class="id">campaigns/tess-mono-01.yaml</dd>
+        <dt>Modified</dt><dd class="mono small">2026-09-25T03:40:32Z</dd>
+        <dt>Size</dt><dd><span class="mono">3.7 KB</span></dd>
+      </dl>
+      <ul class="files">
+  <li>
+    <span class="fname">tess-mono-01.yaml</span>
+    <span class="fmeta">Campaign specification (YAML) · 3.7 KB · <span class="id" title="sha256 93612ff4ae13206ea9b71094f64c87d56c8a3b14487c8e843b75043ef81ad172">sha256 93612ff4ae13…</span> <button type="button" class="copy" data-copy="93612ff4ae13206ea9b71094f64c87d56c8a3b14487c8e843b75043ef81ad172" hidden>copy</button></span>
+    <a class="btn" href="/files/tess-mono-01/spec/tess-mono-01.yaml" download>Download<span class="visually-hidden"> tess-mono-01.yaml</span></a>
+  </li>
+</ul>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Published in</p>
+      <p><a href="/collections/tess-mono-01/">Campaign tess-mono-01: TESS single-transit search (draft)</a></p>
+      <p class="panel-title">Related</p>
+      <ul class="related">
+<li><span class="related-type">Collection</span><a href="/collections/cygnus-software-0-1-0/">cygnus 0.1.0: analysis toolkit build status</a></li><li><span class="related-type">Collection</span><a href="/collections/project-specification/">Project specification and data-source register</a></li><li><span class="related-type">Collection</span><a href="/collections/tess-wasp12-2026-09/">WASP-12 in TESS: recovery test and residual screen, September 2026</a></li><li><span class="related-type">Document</span><a href="/documents/analysis-stack/">Analysis stack: design and status</a></li><li><span class="related-type">Document</span><a href="/documents/agents-spec/">Worktree agent specification</a></li></ul>
+    </div>
+    <details class="disclose">
+      <summary>Specification text</summary>
+      <div class="body"><pre><code># CYGNUS campaign: TESS single-transit candidates, first pass.
+# Status: DRAFT. The queue step has been run; the analysis steps are specified and runnable but
+# have not been executed. Do not cite results from this file.
+schema: cygnus.campaign/1
+campaign_id: tess-mono-01
+domain: worlds.planetary.monotransit
+status: draft          # queue built; analysis steps not yet run — do not cite results
+objective: &gt;
+  For TESS planet candidates known from a single transit (TOI table: no period, disposition PC or
+  APC), screen their SPOC 120-s light curves for further isolated transit-like dips outside the
+  known transit, with the screen&#39;s threshold calibrated on each light curve (sign-flip null) and
+  its completeness measured by injection–recovery. A second dip would constrain the period; its
+  absence is recorded as a bounded null with the measured sensitivity.
+outputs: campaigns/tess-mono-01/
+random_seed: 20260926
+
+# The known transit of each TOI is excluded: ±12 h about the TOI table&#39;s pl_tranmid.
+veto:
+  kind: single_epoch
+  veto_hours: 12
+
+steps:
+  - target_queue:
+      source: nasa_exoplanet_archive.toi
+      # tid 44161614 (TOI-7176.01) excluded: no SPOC 120-s light curve exists at MAST for this TIC
+      # (only SPOC FFI observations at 0.02 deg; verified with the filter ladder on 2026-09-25,
+      # evidence in DATA_SOURCES.md). The fetch step cannot retrieve its data.
+      # 2026-09-25: top raised from 20 to 100 so the whole declared pool is queued (the first pass
+      # ran the top 20; the rest are worked through the same known-object loop, docs/AGENT_RUNBOOK.md).
+      where: &#34;pl_orbper IS NULL AND tfopwg_disp IN (&#39;PC&#39;,&#39;APC&#39;) AND tid &lt;&gt; 44161614&#34;
+      top: 100
+  - fetch_products:
+      from_queue: {top: 5, max_products_per_target: 2}
+  - calibrate_screen:
+      declared_k: 5.0
+      window_days: 2.0
+      k_grid: [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0]
+      max_null_events: 0
+      depths_ppm: [500, 1000, 2000, 5000, 10000, 20000]
+      durations_h: [1.0, 2.0, 4.0, 8.0]
+      injections_per_cell: 10
+      reference_signal: {depth_ppm: 2000, duration_h: 4.0}
+  - residual_screen:
+      windows_days: [1.0, 2.0, 3.0]
+      k_mad: calibrated            # per light curve, from calibrate_screen; never typed in
+      min_cadences: 2
+      series_window_days: 2.0
+  - prior_art:
+      radius_arcsec: 30
+
+# Designed modules not yet built (ANALYSIS_STACK.md): detrend_lab, singletransit (period posteriors),
+# blendmap (difference-image centroids), jitterwatch (pointing correlation). Until they exist, any
+# screen crossing stays an unverified lead with those audits not_tested.
+
+record:
+  path: campaigns/tess-mono-01/sky_record.json
+  title: TESS single-transit candidates, first pass (tess-mono-01)
+  kind: monotransit search
+  outcome: bounded_null            # used only once status becomes completed
+  queue_targets_in_record: 10
+  summary: &gt;
+    Declared campaign: screen the light curves of TESS single-transit candidates for further dips,
+    with a threshold calibrated per light curve and measured completeness. Only the target queue
+    has been built; no light curve has been analysed.
+  checks:
+    - {name: &#34;Product integrity (SHA-256)&#34;, state: not_tested}
+    - {name: &#34;Calibrated false-alarm threshold (sign-flip null)&#34;, state: not_tested}
+    - {name: &#34;Synthetic signal injection–recovery&#34;, state: not_tested}
+    - {name: &#34;Catalogue cross-match&#34;, state: not_tested}
+    - {name: &#34;Alternative detrending&#34;, state: not_tested}
+    - {name: &#34;Difference-image centroids / blend audit&#34;, state: not_tested}
+    - {name: &#34;Pointing / jitter correlation&#34;, state: not_tested}
+    - {name: &#34;Literature (ADS) audit&#34;, state: not_tested}
+</code></pre></div>
+    </details>
+  </aside>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

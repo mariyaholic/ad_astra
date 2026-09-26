@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>cygnus 0.1.0: analysis toolkit build status · Project Cygnus / Astraea</title>
+<meta name="description" content="Which parts of the Cygnus Python toolkit exist, which are scaffolds, and which are only designed, as recorded in the project&#39;s module register.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span>collections<span aria-hidden="true">/</span><span class="id">cygnus-software-0-1-0</span></p>
+  <p class="kicker">Collection · software</p>
+  <h1>cygnus 0.1.0: analysis toolkit build status</h1>
+  <p class="lede">Which parts of the Cygnus Python toolkit exist, which are scaffolds, and which are only designed, as recorded in the project&#39;s module register.</p>
+  <p class="badges"><span class="badge">Published</span> <span class="badge">Scaffold · most detection modules not yet built</span></p>
+</header>
+
+<div class="grid-2">
+  <div>
+<div class="prose"><p>Cygnus is a Python package (<code>src/cygnus</code>, version 0.1.0). Its core is standard-library only; the science stack installs through optional extras (<code>mast</code>, <code>timing</code>, <code>imaging</code>, <code>moving</code>, <code>test</code>). The register below is read from the analysis-stack document at build time, so the site cannot claim more than the project records.</p></div>
+    <h2 class="section-title">Contents <span class="count">2 items</span></h2>
+    <section class="section" id="module-register" aria-labelledby="module-register-title">
+      <h3 id="module-register-title">Layer-2 module register</h3>
+      <p class="badges"><span class="badge ">Read online</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">module register</span></p>
+
+      <p class="small">Build status as recorded in <span class="id">ANALYSIS_STACK.md</span>: 15 implemented, 11 planned, 1 verified. “Planned” modules are designs, not working features.</p>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Module register">
+        <table>
+          <thead><tr><th scope="col">Module</th><th scope="col">Function</th><th scope="col">Status</th></tr></thead>
+          <tbody>
+            <tr><td class="id">ledger.py</td><td class="small">provenance DB, checksums, runs/measurements</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">candidate_record.py</td><td class="small">standard detector output + invariant rules</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">instruments.py</td><td class="small">instrument profiles, no-universal-cutoff policy</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">config.py</td><td class="small">paths (worktree/scratch/state), env overrides</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">ingest/scratch.py</td><td class="small">scratch resolve + safe cleanup inside scratch root</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">ingest/mast.py</td><td class="small">MAST SPOC LC search+download, TESScut cutouts</td><td class="small"><span class="state state--verified">verified</span><br><span class="muted">implemented; live-verified 2026-09-23 (astroquery 0.4.11; TESScut pi Men: sector 12, 5×5×1289 cadences, ledgered)</span></td></tr>
+            <tr><td class="id">priorart.py</td><td class="small">Known-Object Gate; service adapters w/ not_tested defaults</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented: SkyBoT plus cone-search adapters for NASA Exoplanet Archive, TESS TOI, VSX, SIMBAD (2026-09-24); ExoFOP, ADS and others still <code>not_tested</code></span></td></tr>
+            <tr><td class="id">campaign/</td><td class="small">spec-driven, ledgered, resumable campaign runner; steps: target_queue, fetch_products, residual_screen, calibrate_screen, bls_recovery, prior_art (<code>docs/CAMPAIGNS.md</code>)</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented 2026-09-24</span></td></tr>
+            <tr><td class="id">targets.py</td><td class="small">ranked target queue from a declared TOI pool, rationale per target</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented 2026-09-24</span></td></tr>
+            <tr><td class="id">reporting/dossier.py</td><td class="small">dossier markdown emission (never invents)</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">reporting/leads_board.py</td><td class="small">evidence-level ranked table</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">cli.py</td><td class="small"><code>doctor</code>, <code>dossier</code> commands</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented (scaffold)</span></td></tr>
+            <tr><td class="id">publish/</td><td class="small">public repository site: curated manifests → static site, leak-scanned (<code>docs/PUBLISHING.md</code>)</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented 2026-09-24</span></td></tr>
+            <tr><td class="id">analysis/</td><td class="small">bounded, in-memory reanalysis pilots: reduction disagreements, pixel controls, imaging residuals, epoch-aware crossmatches, Gaia NSS triage; read-only manifest/FITS adapter</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">implemented research utilities; synthetic tests only — see <code>docs/ANALYSIS_SUITE.md</code></span></td></tr>
+            <tr><td class="id">domains/timeseries/detrend_lab.py</td><td class="small">multi-recipe detrending robustness score</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 1</span></td></tr>
+            <tr><td class="id">domains/timeseries/singletransit.py</td><td class="small">monotransit posteriors, coverage constraints</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 1</span></td></tr>
+            <tr><td class="id">domains/timeseries/ttvs.py</td><td class="small">per-transit O–C with GP noise floor</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 1</span></td></tr>
+            <tr><td class="id">domains/imaging/zogydiff.py</td><td class="small">PSF-matched difference imaging (ZOGY-style)</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 2</span></td></tr>
+            <tr><td class="id">domains/imaging/blendmap.py</td><td class="small">difference-image centroids, BEB verdicts</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 1</span></td></tr>
+            <tr><td class="id">domains/imaging/lsblab.py</td><td class="small">Background2D + masked extraction, SB limits</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 2</span></td></tr>
+            <tr><td class="id">domains/auditing/jitterwatch.py</td><td class="small">pointing/centroid/quaternion correlation</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 1</span></td></tr>
+            <tr><td class="id">domains/auditing/crwatch.py</td><td class="small">PSF-profile + streak/cosmic-ray discrimination</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 2</span></td></tr>
+            <tr><td class="id">domains/moving/mover.py</td><td class="small">parallax-aware multi-epoch linking</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 3</span></td></tr>
+            <tr><td class="id">domains/moving/orbitfit.py</td><td class="small">multi-epoch LSQ orbit + error propagation</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 3</span></td></tr>
+            <tr><td class="id">domains/modeling/massfunction.py</td><td class="small">dark-companion M2 posteriors vs alternatives</td><td class="small"><span class="state state--planned">planned</span><br><span class="muted">designed — Sprint 3</span></td></tr>
+            <tr><td class="id">domains/validate/injection_recovery.py</td><td class="small">detection-efficiency curves per method</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">minimal version implemented for the residual screen (<code>campaign</code> step <code>calibrate_screen</code>); other detectors — Sprint 1</span></td></tr>
+            <tr><td class="id">domains/validate/nulllab.py</td><td class="small">empirical nulls → calibrated FAPs</td><td class="small"><span class="state state--implemented">implemented</span><br><span class="muted">sign-flip null implemented for the residual screen (<code>calibrate_screen</code>); others Sprint 1–3</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </section>
+    <section class="section" id="source-archive" aria-labelledby="source-archive-title">
+      <h3 id="source-archive-title">Source code archive</h3>
+      <p class="badges"><span class="badge badge--restricted">Not public</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">file</span></p>
+
+      <div class="callout"><p class="callout-title">Not public</p><p>No license has been chosen for the code yet. The source is not distributed until the operator selects one.</p></div>
+
+
+    </section>
+  </div>
+
+  <aside class="stack" aria-label="Collection details">
+    <div class="panel">
+      <p class="panel-title">Record</p>
+      <dl class="meta">
+        <dt>Stable URL</dt><dd class="id">/collections/cygnus-software-0-1-0/</dd>
+        <dt>Published</dt><dd class="mono">2026-09-24</dd>
+        <dt>Updated</dt><dd class="mono"><span class="unset">not since publication</span></dd>
+        <dt>License</dt><dd>Apache-2.0</dd>
+        <dt>Public files</dt><dd>0</dd>
+        <dt>Metadata</dt><dd><a href="/collections/cygnus-software-0-1-0/collection.json">collection.json</a></dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Cite</p>
+      <p class="small">No citation text supplied. Cite as: <span class="cite">Project Cygnus / Astraea, “cygnus 0.1.0: analysis toolkit build status”, 2026-09-24, /collections/cygnus-software-0-1-0/.</span></p>
+      <p class="small muted">Cite third-party products through their originating archive, as each archive requests.</p>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Related</p>
+      <ul class="related">
+<li><span class="related-type">Document</span><a href="/documents/analysis-stack/">Analysis stack: design and status</a></li><li><span class="related-type">Campaign</span><a href="/campaigns/tess-mono-01/">TESS single-transit search</a></li></ul>
+    </div>
+  </aside>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

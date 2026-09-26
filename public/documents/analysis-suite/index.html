@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Reanalysis suite: bounded research pilots · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/project-specification/">project-specification</a><span aria-hidden="true">/</span><span class="id">ANALYSIS_SUITE.md</span></p>
+  <p class="kicker">Document · ANALYSIS_SUITE.md</p>
+  <h1>Reanalysis suite: bounded research pilots</h1>
+<p class="lede">Scope and limits of the offline analysis utilities in src/cygnus/analysis and the Colab pilot notebook.</p>  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span>  <span class="badge badge--quiet" title="Private storage paths replaced with placeholders">Public copy · paths redacted</span></p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#purpose-and-inventory">Purpose and inventory</a></li><li class="l2"><a href="#colab-workflow-and-access">Colab workflow and access</a></li><li class="l2"><a href="#api-composition-one-target-at-a-time">API composition, one target at a time</a></li><li class="l2"><a href="#scientific-protocol">Scientific protocol</a></li><li class="l2"><a href="#validation-and-next-requirements">Validation and next requirements</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">ANALYSIS_SUITE.md</span>
+    <span class="fmeta">Markdown source (public copy) · 10.0 KB · <span class="id" title="sha256 3a1401bddad3a984a16555bc58a4cc8cb9a9f45828dd527999c943095c4ab9ff">sha256 3a1401bddad3…</span> <button type="button" class="copy" data-copy="3a1401bddad3a984a16555bc58a4cc8cb9a9f45828dd527999c943095c4ab9ff" hidden>copy</button></span>
+    <a class="btn" href="/files/project-specification/analysis-suite/ANALYSIS_SUITE.md" download>Download<span class="visually-hidden"> ANALYSIS_SUITE.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/project-specification/">Project specification and data-source register</a>. Locations of private storage in this public copy read “[private path]” or “[private Drive store]”.</p>
+  </aside>
+  <article class="doc-body prose">
+    <p><strong>Status:</strong> implemented in <code>src/cygnus/analysis/</code> as in-memory, offline research utilities with synthetic tests. This is <strong>not</strong> an automated discovery engine, an end-to-end sky survey, a validated prior-art gate, or a calibrated false-alarm estimator. The candidate-facing dossier and ledger rules in <code>AGENTS.md</code> remain authoritative.</p>
+<h2 id="purpose-and-inventory">Purpose and inventory<a class="anchor" href="#purpose-and-inventory" aria-label="Link to this section">#</a></h2>
+<p>The suite asks whether reductions, measurements and source models disagree in a reproducible, falsifiable way. It supports five pilot investigations:</p>
+<ol>
+<li><code>timeseries.py</code>: reduction-disagreement triage, requiring matched time coordinates and declared masks; ranking does not equal detection significance. Adjacent nonzero disagreements can form a long group under noisy trends: this is <strong>not</strong> a transit/event detector, and common-mode signals are invisible to it.</li>
+<li><code>pixels.py</code>: compare independent apertures/background controls and event-minus-control centroid when available; localization, quality flags and independent epochs remain mandatory.</li>
+<li><code>imaging.py</code>: inspect model-subtraction residuals with explicit coverage/masks and a caller-declared nominal per-pixel screening threshold; a residual alone is not a new source, and the threshold is not a calibrated discovery significance.</li>
+<li><code>crossmatch.py</code>: epoch-aware optical–infrared positional/quality comparisons; absence of a match is a statement about the queried catalogs and depth only.</li>
+<li><code>nss.py</code>: Gaia non-single-star orbit triage and alternative-hypothesis checks; a photocentre orbit alone does not establish a dark companion.</li>
+</ol>
+<p>An additional CPU-only, NumPy-based <code>ml.py</code> helper ranks target feature vectors by their distance to a <strong>separate caller-defined control sample</strong>. This is unsupervised anomaly triage, not a novelty classifier or significance calibration; document feature definitions/units and split controls by target or sector to avoid leakage. It cannot find events common to every reduction or correct poorly chosen controls.</p>
+<p><code>io.py</code> reads a master CSV and checks a product's SHA-256 and optional byte length before returning its <em>existing</em> path. It refuses traversal, symlink escapes, missing files, non-retained rows and unrecorded SHA-256. SPOC light-curve FITS loading and bounded TESScut cadence-window loading are opt-in via <code>cygnus[analysis]</code>; timing keywords are returned as recorded rather than silently assuming BJD_TDB. Pixel windows enforce an element cap before copying the cube. Nothing in this package mounts Drive, invokes network/archive APIs, uploads data, deletes staging files, changes the ledger or labels an astronomical candidate automatically.</p>
+<p>The <strong>recorded, not live-verified</strong> Tier-1 inventory (<code>docs/tier1_pack/SEARCH_LOG.md</code>) consists of selected TESS/Kepler LCs, six TESScut field/sector cutouts, Gaia DR3 cones and NSS extracts, limited AllWISE and ZTF extracts, selected Legacy Survey bricks and cutouts, two ESO HARPS example spectra and smaller archive samples. These are intentionally targeted examples, <strong>not</strong> an unbiased or unsurveyed sample. Some older <code>drive_only</code> manifest rows have SHA-256 but no MD5 or byte length; public snapshot JSON can be older than the current master CSV. Confirm the actual Drive inventory, integrity and catalog release before analysis. Never infer that the two HARPS samples belong to a selected Gaia NSS source.</p>
+<h2 id="colab-workflow-and-access">Colab workflow and access<a class="anchor" href="#colab-workflow-and-access" aria-label="Link to this section">#</a></h2>
+<p><code>notebooks/cygnus_reanalysis_colab.ipynb</code> is a proposed interactive entry point. Review code before granting Colab Drive access. The Colab Google identity may not have the same visibility as the rclone <code>[private Drive store]</code> connection (which has <code>drive.file</code> scope); <strong>mount success is not pack availability</strong>. Identify the actual mounted <code>Cygnus/data/tier1/</code> location explicitly and never assume that the rclone remote prefix itself is a filesystem path.</p>
+<p>Install the project from a user-supplied, reviewed checkout or wheel in the runtime (<code>pip install -e &#x27;.[analysis]&#x27;</code>); the notebook does not silently clone arbitrary code or ingest a remote manifest. Use <code>docs/tier1_pack/MASTER_MANIFEST.csv</code> from that checkout and confirm product IDs against the current Drive copy. For any large FITS product, confirm disk/RAM first, copy only one selected product to Colab's temporary disk, verify its SHA-256 again after copying, and read the local copy. The notebook should persist only <em>derived</em>, non-secret output under a separately specified location, with no overwrite of originals. Colab runtimes are temporary and Drive I/O is rate- and quota-limited; prefer CPU for the small baseline, reserve GPU for a validated model with measured benefit.</p>
+<h2 id="api-composition-one-target-at-a-time">API composition, one target at a time<a class="anchor" href="#api-composition-one-target-at-a-time" aria-label="Link to this section">#</a></h2>
+<p>The functions are importable from <code>cygnus.analysis</code>; none queries a catalog or operates on a Drive path by itself. The current Colab notebook demonstrates only the light-curve pilot. To use the other four routes, provide and independently audit their inputs:</p>
+<ul>
+<li><strong>Pixels:</strong> select a checksum-verified TESScut product, pass a small cadence interval to <code>read_tesscut_window(start=..., stop=...)</code>, exclude nonzero QUALITY cadences, specify nonoverlapping aperture and background masks, then call <code>aperture_counterfactuals</code> and <code>event_control_centroid</code> using predeclared disjoint event/control masks. Outputs are detector-cutout pixel offsets, not on-sky identifications; WCS/pointing and blended-neighbor checks remain external.</li>
+<li><strong>Optical residuals:</strong> obtain independently validated aligned image/model/noise arrays and true exclusion mask (not merely a JPEG cutout). Call <code>triage_residual(..., band=..., threshold_sigma=...)</code> with a threshold fixed on controls, inspect returned edge flags and repeat with alternate background/model. <code>independent_band_consistency</code> takes an <em>externally justified</em> independence flag and common pixel grid; neither function performs ZOGY or PSF matching.</li>
+<li><strong>Optical–IR:</strong> construct <code>Source</code> records using documented ICRS positions, actual Julian-year epochs, proper-motion conventions, uncertainty, magnitude system and quality flags. <code>match_optical_infrared</code> returns all pairs inside the specified radius and marks missing PM/uncertainty or ambiguous neighbors unknown. It omits parallax and full covariance and refuses polar/large-motion regimes; use Astropy or a full ephemeris for those cases. A nonmatch is not an upper limit.</li>
+<li><strong>Gaia NSS:</strong> populate <code>NEGATIVE_CONTROLS</code> from actual catalog/literature and solution-quality checks; absent checks remain unknown in <code>triage_nss</code>. Only construct <code>SpectroscopicOrbit(primary_rv_is_measured=True)</code> when a genuine primary-star RV semiamplitude and uncertainties exist. <code>spectroscopic_mass_constraint</code> returns a mass-function envelope and conditional edge-on minimum, not a mass measurement or posterior; Gaia photocentre orbit coefficients alone are insufficient.</li>
+<li><strong>Optional unsupervised ML:</strong> compute a small documented feature matrix for controls and <em>separate</em> targets, then call <code>rank_control_trained_anomalies</code> (NumPy nearest-control distance, capped at 1000 controls and targets). Control-target ID overlap is refused; field/sector-level leakage still requires human design. Keep missing features as unknown rather than filling them with arbitrary zeros. No score threshold or sigma significance is supplied.</li>
+</ul>
+<h2 id="scientific-protocol">Scientific protocol<a class="anchor" href="#scientific-protocol" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>For each dataset record archive/release/product ID, manifest checksum, query, retrieval date, FITS time standard/reference, frame/epoch, units, masks, software versions, random seed and all investigated targets/controls. A name/coordinate match is not an identification without epoch propagation and coverage limits.</li>
+<li>Freeze an analysis recipe and include positive controls, negative controls, instrumental/artifact controls and held-out sector/field when possible. Inject signal into small synthetic or justified real inputs, recover it through the <strong>complete</strong> search, estimate empirical null and selection efficiency; never turn a score into a sigma claim without calibration.</li>
+<li>Event vetoes/alternatives: background/scattered light, pointing, CCD defects/cosmic rays, dilution and background eclipsing binaries for TESS; sky gradients, bright-star wings, masks and coadd seams for Legacy; artifact flags and blending for WISE; NSS known issues, photocentre/light ratio and luminous companions for Gaia.</li>
+<li>Escalate only a reproducible lead surviving available tests; mark missing tests <code>not_tested</code>, not <code>passed</code>. The current <code>src/cygnus/priorart.py</code> mostly contains adapter stubs and is <strong>not</strong> a complete novelty screen. Search current release watchlists and literature before suggesting an unidentified source. Do not submit externally without authorization.</li>
+</ul>
+<h2 id="validation-and-next-requirements">Validation and next requirements<a class="anchor" href="#validation-and-next-requirements" aria-label="Link to this section">#</a></h2>
+<p>Run <code>python -m pytest -m &#x27;not network&#x27;</code> from the checkout with test dependencies. In the 2026-09-24 development pass, <code>python -m pytest -q -m &#x27;not network&#x27;</code> returned <strong>132 passed, 2 deselected</strong>; as of 2026-09-25 the gate is <strong>188 passed, 2 deselected</strong>. Synthetic unit tests validate calculations and negative cases; they do not validate real sky false alarms, source completeness, archive coverage or physical interpretations. Before a science campaign, add checksum-pinned real controls, independent epoch/imaging, pipeline-wide injection/recovery, an epoch-aware known-object gate and review by domain experts. Report negative results and the actual region/epochs/selections searched.</p>
+<p>Background references: <a href="https://docs.astropy.org/en/stable/timeseries/bls.html" rel="noopener" class="ext">Astropy BLS documentation</a>, <a href="https://lightkurve.github.io/lightkurve/tutorials/2-creating-light-curves/2-3-removing-scattered-light-using-regressioncorrector.html" rel="noopener" class="ext">Lightkurve TESS background example</a>, <a href="https://www.legacysurvey.org/dr10/description/" rel="noopener" class="ext">Legacy Survey DR10 processing</a>, <a href="https://www.cosmos.esa.int/web/gaia/dr3-non-single-stars" rel="noopener" class="ext">ESA Gaia DR3 NSS overview</a>, <a href="https://www.cosmos.esa.int/web/gaia/dr3-known-issues" rel="noopener" class="ext">ESA DR3 known issues</a>, <a href="https://research.google.com/colaboratory/faq.html" rel="noopener" class="ext">Google Colab FAQ</a>.</p>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "campaign": "wasp12-sector20-validation",
+  "retrieved_utc": "2026-09-24T08:03:45.690274+00:00",
+  "archive": "MAST/STScI",
+  "release_product": "tess2019357164649-s0020-0000000086396382-0165-s_lc.fits",
+  "product_url": "https://mast.stsci.edu/api/v0.1/Download/file?uri=mast%3ATESS%2Fproduct%2Ftess2019357164649-s0020-0000000086396382-0165-s_lc.fits",
+  "query_provenance": "Tier-1 manifest row: TESS/SPOC timeseries cone around TIC 86396382; 0.05 deg; LC product",
+  "sha256": "bf74a16f6e0c40b693a66de922e142d446cb44cee5bb7f26843062e436957f63",
+  "expected_sha256_manifest": "bf74a16f6e0c40b693a66de922e142d446cb44cee5bb7f26843062e436957f63",
+  "target_header": {
+    "TICID": 86396382,
+    "OBJECT": "TIC 86396382",
+    "RA_OBJ": 97.6366528287122,
+    "DEC_OBJ": 29.6722962039341,
+    "SECTOR": 20,
+    "CAMERA": 1,
+    "CCD": 3,
+    "TSTART": 1842.50881584634,
+    "TSTOP": 1868.827824585291
+  },
+  "time_metadata": {
+    "TIMESYS": "TDB",
+    "BJDREFI": 2457000,
+    "BJDREFF": 0.0,
+    "TIMEUNIT": "d",
+    "TIMEDEL": 0.001388888888888889,
+    "TIMEPIXR": 0.5
+  },
+  "cadence_day": 0.001388888888888889,
+  "n_rows": 18954,
+  "n_quality_zero_finite": 16551,
+  "n_excluded_quality_or_nonfinite": 2403,
+  "time_range_btjd": [
+    1842.5095101836014,
+    1868.8271302866792
+  ],
+  "baseline_days": 26.317620103077843,
+  "search": {
+    "period_days": [
+      0.5,
+      5.0
+    ],
+    "period_grid_count": 5000,
+    "durations_days": [
+      0.06,
+      0.08,
+      0.1,
+      0.12000000000000001,
+      0.14,
+      0.16000000000000003
+    ],
+    "objective": "likelihood",
+    "seed": 20260925,
+    "permutation_trials": 20
+  },
+  "best_bls": {
+    "period_days": 1.0914182836567314,
+    "transit_epoch_btjd": 1843.0045101836013,
+    "duration_hours": 2.4480000000000004,
+    "depth_fraction": 0.014228365196515954,
+    "depth_ppm": 14228.365196515955,
+    "power": 0.1550739241427167,
+    "empirical_permutation_fap": 0.047619047619047616,
+    "null_max_power_95pct": 0.00037948540492496806
+  },
+  "sap_at_pdc_ephemeris": {
+    "power": 0.14995807378502335,
+    "depth_fraction": 0.013987137590814458
+  },
+  "interpretation": "Known-planet recovery / software validation only; no novelty claim.",
+  "caveats": [
+    "Single sector; no independent epoch processed in this campaign.",
+    "Permutation null destroys time correlation and is not a calibrated red-noise false-alarm probability.",
+    "No pixel-level centroid/difference-image, aperture, or pointing-jitter artifact audit was run.",
+    "Reported period is a discovery-grid estimate, not a refined ephemeris."
+  ],
+  "software": {
+    "python": "3.13.3",
+    "numpy": "2.5.3",
+    "astropy": "8.0.1"
+  }
+}

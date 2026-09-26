@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Tier-1 pack: overview · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/tier1-baseline-pack-2026-09/">tier1-baseline-pack-2026-09</a><span aria-hidden="true">/</span><span class="id">README.md</span></p>
+  <p class="kicker">Document · README.md</p>
+  <h1>Tier-1 pack: overview</h1>
+  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span>  <span class="badge badge--quiet" title="Private storage paths replaced with placeholders">Public copy · paths redacted</span></p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#service-summary">Service summary</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">README.md</span>
+    <span class="fmeta">Markdown source (public copy) · 2.5 KB · <span class="id" title="sha256 eda506075e5236f4c5823072c1d9ff5e923d6c2d1ea1c78a2d91fb6abefd4e96">sha256 eda506075e52…</span> <button type="button" class="copy" data-copy="eda506075e5236f4c5823072c1d9ff5e923d6c2d1ea1c78a2d91fb6abefd4e96" hidden>copy</button></span>
+    <a class="btn" href="/files/tier1-baseline-pack-2026-09/pack-readme/README.md" download>Download<span class="visually-hidden"> README.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/tier1-baseline-pack-2026-09/">Tier-1 archive baseline pack, September 2026</a>. Locations of private storage in this public copy read “[private path]” or “[private Drive store]”.</p>
+  </aside>
+  <article class="doc-body prose">
+    <p><strong>Location:</strong> <code>[private Drive store]</code> (Drive-hosted; local staging copies are deleted after MD5 verification per the user retention instruction of 2026-09-24).</p>
+<p><strong>Contents:</strong> 82 checksummed data products (1112.1 MB), 132 manifest rows (including probe/exclusion records), from all 8 anonymous-access deep-sky archives of <code>DATA_SOURCES.md</code> §1. Built by <code>cygnus.ingest.tier1</code> on 2026-09-23/24. Every data product above was MD5-verified against the Drive copy before its local staging copy was deleted.</p>
+<p><strong>Provenance:</strong> every product is checksummed (sha256 + md5), carries its exact endpoint URL and verbatim query, and is registered in the worktree ledger (<code>state/ledger.sqlite</code>; CSV export <code>PROVENANCE_ledger_products.csv</code>). Any product can be re-fetched from its recorded URL.</p>
+<p><strong>Files in this folder:</strong></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Path</th><th scope="col">What it is</th></tr></thead><tbody><tr><td><code>MASTER_MANIFEST.csv</code></td><td>every product row across services (checksums, endpoints, queries, states)</td></tr><tr><td><code>SEARCH_LOG.md</code></td><td>service summary, data gaps, and the collector machine log</td></tr><tr><td><code>PROVENANCE_ledger_products.csv</code></td><td>ledger <code>products</code> table export</td></tr><tr><td><code>NAME_RESOLUTIONS.json</code></td><td>CDS Sesame name-resolver results used for every coordinate</td></tr><tr><td><code>RUN_CONFIG.json</code></td><td>budgets, target lists, package versions, config hash</td></tr><tr><td><code>01_mast/</code> … <code>08_legacy_survey/</code></td><td>per-service data + <code>MANIFEST.json</code> / <code>MANIFEST.csv</code></td></tr></tbody></table></div>
+<h2 id="service-summary">Service summary<a class="anchor" href="#service-summary" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Pack dir</th><th scope="col">Archive</th><th scope="col">Data products (state counts)</th></tr></thead><tbody><tr><td>01_mast</td><td>MAST (STScI)</td><td>(none)</td></tr><tr><td>02_gaia</td><td>Gaia DR3 (ESA TAP+)</td><td>(none)</td></tr><tr><td>03_skyview</td><td>SkyView (NASA GSFC)</td><td>(none)</td></tr><tr><td>04_cds</td><td>CDS Strasbourg</td><td>(none)</td></tr><tr><td>05_ned</td><td>NED (IPAC)</td><td>(none)</td></tr><tr><td>06_eso</td><td>ESO Science Archive</td><td>(none)</td></tr><tr><td>07_irsa</td><td>IRSA (IPAC)</td><td>(none)</td></tr><tr><td>08_legacy_survey</td><td>Legacy Survey (LS DR9/DR10)</td><td>(none)</td></tr></tbody></table></div>
+<p>See <code>SEARCH_LOG.md</code> for verified data gaps (they are recorded, never hidden) and <code>DATA_SOURCES.md</code> §0 for the live-verified service quirks this build relied on.</p>
+<p>The separately developed read-only research pilot in <code>src/cygnus/analysis/</code> and <code>notebooks/cygnus_reanalysis_colab.ipynb</code> is described in <code>docs/ANALYSIS_SUITE.md</code>. It checks SHA-256 before loading a selected file and does not mount or inspect Drive on its own. This document's product totals reflect the recorded pack build, not a fresh Drive inventory; a Colab account's mount permissions must be verified separately. The chosen targets are benchmark examples rather than an exhaustive or previously unsurveyed sky sample.</p>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

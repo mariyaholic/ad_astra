@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Analysis stack: design and status · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/project-specification/">project-specification</a><span aria-hidden="true">/</span><span class="id">ANALYSIS_STACK.md</span></p>
+  <p class="kicker">Document · ANALYSIS_STACK.md</p>
+  <h1>Analysis stack: design and status</h1>
+<p class="lede">The three-layer stack, the module register with build status, the prior-art gate and testing culture.</p>  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">Maintained 2026-09-23</span> <span class="badge badge--quiet" title="Private storage paths replaced with placeholders">Public copy · paths redacted</span></p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#purpose">Purpose</a></li><li class="l2"><a href="#substrate-built-first-shared-by-every-module">Substrate (built first; shared by every module)</a></li><li class="l2"><a href="#layer-2-module-register-build-status">Layer-2 module register (build status)</a></li><li class="l2"><a href="#bounded-reanalysis-suite-implemented-research-utilities-not-domain-pipelines">Bounded reanalysis suite (implemented research utilities, not domain pipelines)</a></li><li class="l2"><a href="#execution-pattern">Execution pattern</a></li><li class="l2"><a href="#prior-art-known-object-gate">Prior-Art / Known-Object Gate</a></li><li class="l2"><a href="#testing-culture">Testing culture</a></li><li class="l2"><a href="#environment-verification-record">Environment &amp; verification record</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">ANALYSIS_STACK.md</span>
+    <span class="fmeta">Markdown source (public copy) · 11.6 KB · <span class="id" title="sha256 c63b3c847ba0cd34984eec0b9de5d8d80de88f4e3ea3f24b35dc54ba706f7323">sha256 c63b3c847ba0…</span> <button type="button" class="copy" data-copy="c63b3c847ba0cd34984eec0b9de5d8d80de88f4e3ea3f24b35dc54ba706f7323" hidden>copy</button></span>
+    <a class="btn" href="/files/project-specification/analysis-stack/ANALYSIS_STACK.md" download>Download<span class="visually-hidden"> ANALYSIS_STACK.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/project-specification/">Project specification and data-source register</a>. Locations of private storage in this public copy read “[private path]” or “[private Drive store]”.</p>
+  </aside>
+  <article class="doc-body prose">
+    <p>Maintained: 2026-09-23 (UTC). Companion docs: <code>AGENTS.md</code> (spec), <code>DATA_SOURCES.md</code> (verified service catalog).</p>
+<h2 id="purpose">Purpose<a class="anchor" href="#purpose" aria-label="Link to this section">#</a></h2>
+<p>Layer 2 is the purpose-built forensics layer: the programs we <em>create</em> to find subtleties that standard survey pipelines discard, under the falsification-first discipline of <code>AGENTS.md</code>. Layers:</p>
+<ol>
+<li><strong>Layer 1 — off-the-shelf science libraries</strong> (use, don't rebuild): <code>lightkurve</code>, <code>astroquery</code>, <code>astropy</code>, TLS (<code>transitleastsquares</code>), <code>wotan</code>, <code>celerite2</code>, <code>batman</code>, <code>pyLIMA</code>, <code>photutils</code>/<code>sep</code>/<code>astroscrappy</code>, <code>skyfield</code>/JPL Horizons, <code>emcee</code>/<code>dynesty</code>, <code>stingray</code>.</li>
+<li><strong>Layer 2 — custom forensics modules</strong> (this package, <code>src/cygnus/</code>).</li>
+<li><strong>Layer 3 — deliberately <em>not</em> built:</strong> full LSST/Gaia-DPAC-style pipelines; we consume their outputs and test them with our independent reductions.</li>
+</ol>
+<h2 id="substrate-built-first-shared-by-every-module">Substrate (built first; shared by every module)<a class="anchor" href="#substrate-built-first-shared-by-every-module" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong><code>ledger.py</code></strong> — SQLite provenance database: <code>products</code>, <code>runs</code>, <code>measurements</code>, <code>candidates</code>, <code>prior_art</code>. Every measurement must reference a logged run and product rows; every dossier section must trace to ledger rows. Enforces AGENTS.md rules 4/5 mechanically instead of by memory.</li>
+<li><strong><code>candidate_record.py</code></strong> — standard output of every detector. Audit states limited to <code>passed|failed|inconclusive|not_tested</code>; any non-<code>passed</code> state pins the record to <code>unverified_lead</code>; rendering never invents values (absent fields render "(none recorded)"); strict validation refuses empty provenance/audit.</li>
+<li><strong><code>instruments.py</code></strong> — per-instrument profiles (plate scale, cadence, quirks). PSF size is <strong>not</strong> preloaded as a universal cutoff: <code>psf_fwhm_px=None</code> forces measurement or a library value per campaign — "no universal pixel-width cuts" per AGENTS.md Domain IV and falsification-matrix discipline.</li>
+<li><strong><code>config.py</code></strong> — single source of truth for paths: worktree (<code>[private path]</code>), scratch root (<code>[private path]</code>, env <code>CYGNUS_SCRATCH</code>, nonsynced/disposable), ledger DB (<code>state/ledger.sqlite</code>, env <code>CYGNUS_LEDGER</code>). Credentials never enter code/config; they live in uncommitted env files.</li>
+<li><strong><code>ingest/</code></strong> — thin archive clients (MAST/<code>Tesscut</code>, later IRSA/Gaia/ESO/ Horizons). Idempotent by checksum, cached in scratch, every product logged to the ledger. Lazy heavy imports: unit tests run without the science stack (pyproject extras install it: <code>pip install &quot;cygnus[mast]&quot;</code> etc.).</li>
+<li><strong><code>priorart.py</code></strong> — Known-Object Gate (§ below).</li>
+<li><strong><code>reporting/</code></strong> — dossier renderer + leads board, driven <em>only</em> by ledger and candidate records.</li>
+</ul>
+<h2 id="layer-2-module-register-build-status">Layer-2 module register (build status)<a class="anchor" href="#layer-2-module-register-build-status" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Module</th><th scope="col">Function</th><th scope="col">Status</th></tr></thead><tbody><tr><td><code>ledger.py</code></td><td>provenance DB, checksums, runs/measurements</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>candidate_record.py</code></td><td>standard detector output + invariant rules</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>instruments.py</code></td><td>instrument profiles, no-universal-cutoff policy</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>config.py</code></td><td>paths (worktree/scratch/state), env overrides</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>ingest/scratch.py</code></td><td>scratch resolve + safe cleanup inside scratch root</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>ingest/mast.py</code></td><td>MAST SPOC LC search+download, TESScut cutouts</td><td><strong>implemented; live-verified 2026-09-23</strong> (astroquery 0.4.11; TESScut pi Men: sector 12, 5×5×1289 cadences, ledgered)</td></tr><tr><td><code>priorart.py</code></td><td>Known-Object Gate; service adapters w/ not_tested defaults</td><td><strong>implemented</strong>: SkyBoT plus cone-search adapters for NASA Exoplanet Archive, TESS TOI, VSX, SIMBAD (2026-09-24); ExoFOP, ADS and others still <code>not_tested</code></td></tr><tr><td><code>campaign/</code></td><td>spec-driven, ledgered, resumable campaign runner; steps: target_queue, fetch_products, residual_screen, calibrate_screen, bls_recovery, prior_art (<code>docs/CAMPAIGNS.md</code>)</td><td><strong>implemented 2026-09-24</strong></td></tr><tr><td><code>targets.py</code></td><td>ranked target queue from a declared TOI pool, rationale per target</td><td><strong>implemented 2026-09-24</strong></td></tr><tr><td><code>reporting/dossier.py</code></td><td>dossier markdown emission (never invents)</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>reporting/leads_board.py</code></td><td>evidence-level ranked table</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>cli.py</code></td><td><code>doctor</code>, <code>dossier</code> commands</td><td><strong>implemented (scaffold)</strong></td></tr><tr><td><code>publish/</code></td><td>public repository site: curated manifests → static site, leak-scanned (<code>docs/PUBLISHING.md</code>)</td><td><strong>implemented 2026-09-24</strong></td></tr><tr><td><code>analysis/</code></td><td>bounded, in-memory reanalysis pilots: reduction disagreements, pixel controls, imaging residuals, epoch-aware crossmatches, Gaia NSS triage; read-only manifest/FITS adapter</td><td><strong>implemented research utilities; synthetic tests only — see <code>docs/ANALYSIS_SUITE.md</code></strong></td></tr><tr><td><code>domains/timeseries/detrend_lab.py</code></td><td>multi-recipe detrending robustness score</td><td>designed — Sprint 1</td></tr><tr><td><code>domains/timeseries/singletransit.py</code></td><td>monotransit posteriors, coverage constraints</td><td>designed — Sprint 1</td></tr><tr><td><code>domains/timeseries/ttvs.py</code></td><td>per-transit O–C with GP noise floor</td><td>designed — Sprint 1</td></tr><tr><td><code>domains/imaging/zogydiff.py</code></td><td>PSF-matched difference imaging (ZOGY-style)</td><td>designed — Sprint 2</td></tr><tr><td><code>domains/imaging/blendmap.py</code></td><td>difference-image centroids, BEB verdicts</td><td>designed — Sprint 1</td></tr><tr><td><code>domains/imaging/lsblab.py</code></td><td>Background2D + masked extraction, SB limits</td><td>designed — Sprint 2</td></tr><tr><td><code>domains/auditing/jitterwatch.py</code></td><td>pointing/centroid/quaternion correlation</td><td>designed — Sprint 1</td></tr><tr><td><code>domains/auditing/crwatch.py</code></td><td>PSF-profile + streak/cosmic-ray discrimination</td><td>designed — Sprint 2</td></tr><tr><td><code>domains/moving/mover.py</code></td><td>parallax-aware multi-epoch linking</td><td>designed — Sprint 3</td></tr><tr><td><code>domains/moving/orbitfit.py</code></td><td>multi-epoch LSQ orbit + error propagation</td><td>designed — Sprint 3</td></tr><tr><td><code>domains/modeling/massfunction.py</code></td><td>dark-companion M2 posteriors vs alternatives</td><td>designed — Sprint 3</td></tr><tr><td><code>domains/validate/injection_recovery.py</code></td><td>detection-efficiency curves per method</td><td><strong>minimal version implemented</strong> for the residual screen (<code>campaign</code> step <code>calibrate_screen</code>); other detectors — Sprint 1</td></tr><tr><td><code>domains/validate/nulllab.py</code></td><td>empirical nulls → calibrated FAPs</td><td><strong>sign-flip null implemented</strong> for the residual screen (<code>calibrate_screen</code>); others Sprint 1–3</td></tr></tbody></table></div>
+<p>Sprint order: <strong>S0</strong> substrate (this scaffold) → <strong>S1</strong> monotransit campaign minimum (detrend/singletransit/blendmap/jitterwatch, minimal injection recovery, prior-art gate hardening) → <strong>S2</strong> imaging campaigns → <strong>S3</strong> movers and dark companions.</p>
+<h2 id="bounded-reanalysis-suite-implemented-research-utilities-not-domain-pipelines">Bounded reanalysis suite (implemented research utilities, not domain pipelines)<a class="anchor" href="#bounded-reanalysis-suite-implemented-research-utilities-not-domain-pipelines" aria-label="Link to this section">#</a></h2>
+<p><code>src/cygnus/analysis/</code> now offers in-memory reduction-disagreement ranking, small TESScut aperture/centroid counterfactuals, cutout model-residual islands, epoch-aware optical–IR matching and Gaia NSS control/mass-function triage. A NumPy-only nearest-control ML ranker and checksum-gated, read-only Tier-1/FITS adapters support a <strong>manually mounted</strong> Colab pilot. All outputs are descriptive and either inconclusive or explicitly limited; no archived-data calibration, credible FAP, full survey discovery, Gaia orbit posterior or completed Known- Object Gate is supplied. Synthetic tests live in <code>tests/test_analysis_*.py</code>; methods, data prerequisites and limits are specified in <code>docs/ANALYSIS_SUITE.md</code>. The designed <code>domains/...</code> register above remains designed, not implemented by these pilots. A Colab mount or verified pack file alone is not a vetting step.</p>
+<h2 id="execution-pattern">Execution pattern<a class="anchor" href="#execution-pattern" aria-label="Link to this section">#</a></h2>
+<p>Campaigns are declarative YAML in <code>campaigns/</code> (schema <code>cygnus.campaign/1</code>); the runner (<code>python -m cygnus.campaign run &lt;spec&gt;</code>, implemented 2026-09-24, <code>docs/CAMPAIGNS.md</code>) executes their steps in order, each as a ledgered run keyed by config hash. Every step is idempotent; interrupt/resume recomputes nothing already ledgered. Bulk data stays in scratch; curated outputs and reports go to Drive <code>[private Drive store]</code> via rclone (see <code>DATA_SOURCES.md</code>).</p>
+<h2 id="prior-art-known-object-gate">Prior-Art / Known-Object Gate<a class="anchor" href="#prior-art-known-object-gate" aria-label="Link to this section">#</a></h2>
+<p>Goal: never brand a rediscovery as new. Three leak paths, three kill mechanisms:</p>
+<ol>
+<li><strong>Watchlists first (Gate 1):</strong> per-domain known-object registries collected and <em>pinned with versions</em> at campaign start, before screening:
+<ul>
+<li>planetary: NASA Exoplanet Archive (TOI/KOI/K2), ExoFOP, SPOC per-sector DV reports, Villanova Kepler EB catalog;</li>
+<li>variables: VSX, GCVS, ASAS-SN variable catalog, ZTF periodic catalogs;</li>
+<li>dark companions: <code>gaiadr3.nss_two_body_orbit</code> TAP queries <strong>plus</strong> ADS sweep of papers analyzing that table (Gaia BH1/BH2/BH3 came from DR3 data);</li>
+<li>brown dwarfs: UltracoolSheet-style compilations, Montreal WD DB, Y-dwarf lists; SSOs: MPC + SkyBoT per-epoch (via <code>astroquery.imcce</code>) + NEOCP;</li>
+<li>microlensing/FFP: OGLE EWS, KMTNet; transients: TNS (free acct), ATel, ALeRCE, Gaia alerts.</li>
+</ul></li>
+<li><strong>Epoch-aware matching (Gate 2):</strong> propagate Gaia proper motion/parallax to the observation epoch before any position match; no-match without epoch propagation is recorded <code>not_tested</code>, never <code>passed</code>.</li>
+<li><strong>Event-aware matching (Gate 3):</strong> transits are checked against known transits that could masquerade through blending (<code>blendmap.py</code> feeds inputs); moving objects are matched against ephemeris at each image epoch.</li>
+<li><strong>Recorded literature sweep (Gate 4):</strong> ADS/bulletin queries stored verbatim in the ledger's <code>prior_art</code> table; claims use "not found in sources searched as of &lt;date&gt;", never bare "uncataloged".</li>
+<li><strong>Ambiguity escalation (Gate 5):</strong> partial matches block advancement with a <code>known ?</code> working label; silent dismissal is forbidden; rejected leads stay in the search log.</li>
+</ol>
+<p><strong>Claim rule:</strong> new = full artifact audit + gates 1–4 (pinned) + ambiguity check. Lead evidence caps: any gate <code>not_tested</code> ⇒ at most <code>unverified_lead</code> at emission. Publication lag/embargo means novelty can never be <em>guaranteed</em> — only a dated, reproducible record of no contradiction when checked. Cross-campaign dedupe runs inside <code>prior_art</code> against our own past candidates.</p>
+<h2 id="testing-culture">Testing culture<a class="anchor" href="#testing-culture" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Tiny synthetic fixtures for units; published monotransit recoveries as end-to-end calibration targets (we quote our recovery rate on known truth).</li>
+<li><code>injection_recovery.py</code> runs early (even rough) so leads tables cite completeness curves, not bare sigma.</li>
+<li>Modules with <code>not_tested</code> items cannot raise evidence level past <code>unverified_lead</code> — enforced in <code>candidate_record.py</code>.</li>
+<li>Loud failures over silent drops (AGENTS.md); pytest markers: <code>not network</code> by default, explicit <code>-m network</code> for archive smoke tests.</li>
+</ul>
+<h2 id="environment-verification-record">Environment &amp; verification record<a class="anchor" href="#environment-verification-record" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Python 3.13 venv: <code>[private path]</code> (disposable; recreate with <code>python -m venv</code> plus the extras groups from <code>pyproject.toml</code>).</li>
+<li>Historical record (2026-09-23): <code>python -m pytest</code> reported 27 offline unit tests; extras plus live MAST probes reported 30 passed. These figures describe that earlier checkout, not the present suite.</li>
+<li>Current development verification of the reanalysis additions: <code>python -m pytest -q -m &#x27;not network&#x27;</code> reported <strong>132 passed, 2 deselected</strong>. This was an offline synthetic/integration run; no Colab mount, Drive inventory, real-product science calibration or live archive smoke was performed.</li>
+<li>Live probe record (<code>tests/probe_data_check.py</code>): TESScut pi Men (ra 219.757, dec −80.531): sector 12 camera 3 ccd 1; 1289 FFI cadences over ~27.9 d; FLUX finite fraction 1.000; product checksummed + ledgered with 2 measurements; run closed <code>completed</code>. astroquery &gt;=0.4.11 API notes: <code>Tesscut.get_cutouts(coordinates, size, product, sector)</code>; sector resolved live from <code>get_sectors</code>; a requested sector not covering the position raises loudly instead of returning empty data.</li>
+</ul>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

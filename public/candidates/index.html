@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Candidates · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/" aria-current="page">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="kicker">Candidate dossiers · 0 published</p>
+  <h1>Candidates</h1>
+  <p class="lede">A dossier records one signal and everything done to try to explain it away. Its evidence level describes how far it has survived those tests — not how interesting it is.</p>
+</header>
+
+<div class="grid-2">
+  <div>
+    <div class="empty">
+      <h2>No candidate dossiers have been published</h2>
+<p>The project’s provenance ledger currently holds <strong>0</strong> candidate records and <strong>308</strong> prior-art checks (counted at build time).</p>      <p>The first search campaign is still a draft. When a dossier is published it will show its evidence level, every artifact test as passed, failed, inconclusive or not tested, the catalog and literature checks, competing explanations, and how to reproduce it.</p>
+      <p><a href="/campaigns/">See campaign status →</a></p>
+    </div>
+  </div>
+  <aside class="stack" aria-label="How to read evidence levels">
+    <div class="panel">
+      <p class="panel-title">Evidence levels</p>
+      <dl class="meta">
+        <dt>1</dt><dd><strong>Unverified lead.</strong> A feature was observed; the artifact audit is incomplete.</dd>
+        <dt>2</dt><dd><strong>Vetted candidate.</strong> Reproducible and survives every available artifact test; alternatives remain.</dd>
+        <dt>3</dt><dd><strong>Independently supported.</strong> Corroborated by independent data, epochs, instruments or reductions.</dd>
+        <dt>4</dt><dd><strong>Established.</strong> Confirmed, including by the community. Not reachable from this toolchain alone.</dd>
+      </dl>
+      <p class="small muted">Any audit test not marked passed holds a record at level 1.</p>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Audit states</p>
+      <ul class="pill-list">
+        <li><span class="state state--passed">passed</span></li><li><span class="state state--failed">failed</span></li><li><span class="state state--inconclusive">inconclusive</span></li><li><span class="state state--not_tested">not tested</span></li>
+      </ul>
+      <p class="small muted section">A test that could not be run is “not tested”, never “passed”.</p>
+    </div>
+  </aside>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

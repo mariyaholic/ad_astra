@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/" aria-current="page">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<section class="hero" aria-labelledby="hero-title">
+  <div>
+    <p class="kicker">Project Cygnus / Astraea · public repository</p>
+    <h1 id="hero-title">Research records from an astronomical data-forensics project</h1>
+    <p class="lede">Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.</p>
+  </div>
+  <nav aria-label="Start here">
+    <ul class="routes">
+      <li><a href="/repository/"><strong>Browse the repository</strong><span>37 published entries: documents, datasets, campaigns, software</span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="/campaigns/"><strong>Campaigns</strong><span>Scope, methods and status of each search</span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="/candidates/"><strong>Candidate dossiers</strong><span>None published yet</span><span class="arrow" aria-hidden="true">→</span></a></li>
+      <li><a href="/methods/"><strong>How Cygnus works</strong><span>Evidence levels, audits, provenance, publication</span><span class="arrow" aria-hidden="true">→</span></a></li>
+    </ul>
+  </nav>
+</section>
+
+<section class="section" aria-labelledby="status-title">
+  <h2 class="section-title" id="status-title">Status at build time <span class="count">read 2026-09-26T11:41:13Z</span></h2>
+  <dl class="statline">
+    <div><dt>Published collections</dt><dd>6</dd></div>
+    <div><dt>Campaigns</dt><dd>2<small>1 draft, not executed</small></dd></div>
+    <div><dt>Candidate dossiers</dt><dd>0<small>published</small></dd></div>
+    <div><dt>Ledger candidates</dt><dd>0<small>recorded privately</small></dd></div>
+    <div><dt>Ledger products</dt><dd>476<small>archive products logged</small></dd></div>
+    <div><dt>Ledger runs</dt><dd>3943<small>ingest and probe runs</small></dd></div>
+  </dl>
+  <p class="small muted">Figures are counted when the site is built, not streamed live. Ledger figures are totals only; the ledger itself is not published.</p>
+  <div class="callout callout--note">
+    <p class="callout-title">No discovery claims</p>
+    <p>No candidate dossier has been published, and the provenance ledger holds 0 candidate records. What is here today is infrastructure: specifications, a draft campaign plan, archive-access tests, and their provenance.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="coverage-title">
+  <h2 class="section-title" id="coverage-title">Archive retrieval record <span class="count">8 manifests</span></h2>
+  <p class="prose small">Each row is one staged pack from a public archive. Counts are manifest rows: products retrieved and held in private project storage, rows excluded before retrieval, and failed attempts. Failures are kept as part of the record.</p>
+  <ul class="legend" aria-label="Legend">
+  <li><svg viewBox="0 0 14 10" aria-hidden="true"><rect class="seg-held" width="14" height="10" rx="1"/></svg>Retrieved, held privately</li>
+  <li><svg viewBox="0 0 14 10" aria-hidden="true"><rect class="seg-excluded" x=".5" y=".5" width="13" height="9" rx="1"/></svg>Excluded (not retrieved)</li>
+  <li><svg viewBox="0 0 14 10" aria-hidden="true"><rect class="seg-failed" width="14" height="10" rx="1"/></svg>Retrieval failed</li>
+</ul>
+  <div class="bars">
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-01-mast">01_mast</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="01_mast: 51 held, 1 excluded"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="97.48" height="12" rx="1"><title>51 held</title></rect><rect vector-effect="non-scaling-stroke" class="seg-excluded" x="98.08" y="1" width="1.32" height="12" rx="1"><title>1 excluded</title></rect></svg>
+      <span class="total">52 rows</span>
+    </div>
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-02-gaia">02_gaia</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="02_gaia: 13 held"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="99.40" height="12" rx="1"><title>13 held</title></rect></svg>
+      <span class="total">13 rows</span>
+    </div>
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-03-skyview">03_skyview</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="03_skyview: 10 held, 6 failed"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="61.90" height="12" rx="1"><title>10 held</title></rect><rect vector-effect="non-scaling-stroke" class="seg-failed" x="62.50" y="1" width="36.90" height="12" rx="1"><title>6 failed</title></rect></svg>
+      <span class="total">16 rows</span>
+    </div>
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-04-cds">04_cds</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="04_cds: 11 held"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="99.40" height="12" rx="1"><title>11 held</title></rect></svg>
+      <span class="total">11 rows</span>
+    </div>
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-05-ned">05_ned</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="05_ned: 1 held"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="99.40" height="12" rx="1"><title>1 held</title></rect></svg>
+      <span class="total">1 rows</span>
+    </div>
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-06-eso">06_eso</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="06_eso: 3 held, 1 excluded"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="74.40" height="12" rx="1"><title>3 held</title></rect><rect vector-effect="non-scaling-stroke" class="seg-excluded" x="75.00" y="1" width="24.40" height="12" rx="1"><title>1 excluded</title></rect></svg>
+      <span class="total">4 rows</span>
+    </div>
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-07-irsa">07_irsa</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="07_irsa: 11 held, 1 excluded, 1 failed"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="84.02" height="12" rx="1"><title>11 held</title></rect><rect vector-effect="non-scaling-stroke" class="seg-excluded" x="84.62" y="1" width="7.09" height="12" rx="1"><title>1 excluded</title></rect><rect vector-effect="non-scaling-stroke" class="seg-failed" x="92.31" y="1" width="7.09" height="12" rx="1"><title>1 failed</title></rect></svg>
+      <span class="total">13 rows</span>
+    </div>
+    <div class="bar-row">
+      <a href="/collections/tier1-baseline-pack-2026-09/#pack-08-legacy-survey">08_legacy_survey</a>
+      <svg viewBox="0 0 100 14" preserveAspectRatio="none" role="img" aria-label="08_legacy_survey: 15 held, 7 failed"><rect vector-effect="non-scaling-stroke" class="seg-held" x="0.00" y="1" width="67.58" height="12" rx="1"><title>15 held</title></rect><rect vector-effect="non-scaling-stroke" class="seg-failed" x="68.18" y="1" width="31.22" height="12" rx="1"><title>7 failed</title></rect></svg>
+      <span class="total">22 rows</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="recent-title">
+  <h2 class="section-title" id="recent-title">Collections <span class="count">6</span></h2>
+  <ul class="entries">
+    <li>
+      <article class="entry">
+        <div class="entry-type">measurements</div>
+        <div>
+          <h3 class="entry-title"><a href="/collections/archive-access-probe-2026-09-23/">Archive access probe: TESScut cutout, 2026-09-23</a></h3>
+          <p class="entry-summary">The first end-to-end check of the MAST client and provenance ledger: one small TESS full-frame-image cutout retrieved, checksummed, ledgered and checked for completeness. A data-health check, not an astrophysical measurement.</p>
+<div class="badges"><span class="badge">Data-access check · not a scientific result</span></div>        </div>
+        <dl class="entry-facts">
+          <div><dt>Published</dt><dd>2026-09-24</dd></div>
+          <div><dt>Items</dt><dd>1</dd></div>
+          <div><dt>Files</dt><dd>1</dd></div>
+        </dl>
+      </article>
+    </li>
+    <li>
+      <article class="entry">
+        <div class="entry-type">software</div>
+        <div>
+          <h3 class="entry-title"><a href="/collections/cygnus-software-0-1-0/">cygnus 0.1.0: analysis toolkit build status</a></h3>
+          <p class="entry-summary">Which parts of the Cygnus Python toolkit exist, which are scaffolds, and which are only designed, as recorded in the project&#39;s module register.</p>
+<div class="badges"><span class="badge">Scaffold · most detection modules not yet built</span></div>        </div>
+        <dl class="entry-facts">
+          <div><dt>Published</dt><dd>2026-09-24</dd></div>
+          <div><dt>Items</dt><dd>2</dd></div>
+          <div><dt>Files</dt><dd>0</dd></div>
+        </dl>
+      </article>
+    </li>
+    <li>
+      <article class="entry">
+        <div class="entry-type">documents</div>
+        <div>
+          <h3 class="entry-title"><a href="/collections/project-specification/">Project specification and data-source register</a></h3>
+          <p class="entry-summary">The governing documents of the worktree: the investigation specification, the analysis-stack design and build status, the data-source register, the reanalysis-suite scope, and a working-draft test-architecture plan.</p>
+<div class="badges"><span class="badge">Specification · not results</span></div>        </div>
+        <dl class="entry-facts">
+          <div><dt>Published</dt><dd>2026-09-24</dd></div>
+          <div><dt>Items</dt><dd>5</dd></div>
+          <div><dt>Files</dt><dd>5</dd></div>
+        </dl>
+      </article>
+    </li>
+    <li>
+      <article class="entry">
+        <div class="entry-type">campaign</div>
+        <div>
+          <h3 class="entry-title"><a href="/collections/tess-mono-01/">Campaign tess-mono-01: TESS single-transit search (draft)</a></h3>
+          <p class="entry-summary">Declarative plan for a search of TESS light curves for isolated (single) transits. Draft: no targets selected, thresholds unset, and most steps depend on modules not yet implemented.</p>
+<div class="badges"><span class="badge">Draft · not executed</span></div>        </div>
+        <dl class="entry-facts">
+          <div><dt>Published</dt><dd>2026-09-24</dd></div>
+          <div><dt>Items</dt><dd>1</dd></div>
+          <div><dt>Files</dt><dd>1</dd></div>
+        </dl>
+      </article>
+    </li>
+    <li>
+      <article class="entry">
+        <div class="entry-type">campaign</div>
+        <div>
+          <h3 class="entry-title"><a href="/collections/tess-wasp12-2026-09/">WASP-12 in TESS: recovery test and residual screen, September 2026</a></h3>
+          <p class="entry-summary">Two bounded analyses of TESS SPOC 120-s light curves of WASP-12 (TIC 86396382). The known planet WASP-12 b was recovered in Sector 20 as a pipeline check; a residual screen of Sectors 20 and 43 found no excursion outside the known transit window. No candidate.</p>
+<div class="badges"><span class="badge">Completed · bounded null · no candidate</span></div>        </div>
+        <dl class="entry-facts">
+          <div><dt>Published</dt><dd>2026-09-24</dd></div>
+          <div><dt>Items</dt><dd>10</dd></div>
+          <div><dt>Files</dt><dd>10</dd></div>
+        </dl>
+      </article>
+    </li>
+    <li>
+      <article class="entry">
+        <div class="entry-type">dataset</div>
+        <div>
+          <h3 class="entry-title"><a href="/collections/tier1-baseline-pack-2026-09/">Tier-1 archive baseline pack, September 2026</a></h3>
+          <p class="entry-summary">Provenance record of a bounded test retrieval from eight anonymous-access archives (MAST, Gaia, SkyView, CDS, NED, ESO, IRSA, Legacy Surveys) around benchmark fields and well-known targets. Engineering baseline for access and provenance tooling; no scientific analysis has been run on it.</p>
+<div class="badges"><span class="badge">Engineering baseline · not a scientific result</span></div>        </div>
+        <dl class="entry-facts">
+          <div><dt>Published</dt><dd>2026-09-24</dd></div>
+          <div><dt>Items</dt><dd>13</dd></div>
+          <div><dt>Files</dt><dd>20</dd></div>
+        </dl>
+      </article>
+    </li>
+  </ul>
+</section>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

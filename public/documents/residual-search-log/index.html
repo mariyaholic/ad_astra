@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Search log: WASP-12 residual screen · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/tess-wasp12-2026-09/">tess-wasp12-2026-09</a><span aria-hidden="true">/</span><span class="id">SEARCH_LOG.md</span></p>
+  <p class="kicker">Document · SEARCH_LOG.md</p>
+  <h1>Search log: WASP-12 residual screen</h1>
+<p class="lede">Exact products, checksums, queries, exclusions and untested checks.</p>  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span>  <span class="badge badge--quiet" title="Private storage paths replaced with placeholders">Public copy · paths redacted</span></p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#falsifiable-test">Falsifiable test</a></li><li class="l2"><a href="#access-and-provenance">Access and provenance</a></li><li class="l2"><a href="#catalog-and-literature-gate">Catalog and literature gate</a></li><li class="l2"><a href="#screening-and-exclusions">Screening and exclusions</a></li><li class="l2"><a href="#artifact-checks-and-omissions">Artifact checks and omissions</a></li><li class="l2"><a href="#rejections-and-null-results">Rejections and null results</a></li><li class="l2"><a href="#reproduction">Reproduction</a></li><li class="l2"><a href="#addendum-2026-09-24-later-runner-re-run-calibration-catalogue-cross-match">Addendum (2026-09-24, later): runner re-run, calibration, catalogue cross-match</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">SEARCH_LOG.md</span>
+    <span class="fmeta">Markdown source (public copy) · 8.3 KB · <span class="id" title="sha256 4c14f48257af9a6ead9c3dade9e1d5bc3446df071f618fb3f341b2c635efe146">sha256 4c14f48257af…</span> <button type="button" class="copy" data-copy="4c14f48257af9a6ead9c3dade9e1d5bc3446df071f618fb3f341b2c635efe146" hidden>copy</button></span>
+    <a class="btn" href="/files/tess-wasp12-2026-09/residual-search-log/SEARCH_LOG.md" download>Download<span class="visually-hidden"> SEARCH_LOG.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/tess-wasp12-2026-09/">WASP-12 in TESS: recovery test and residual screen, September 2026</a>. Locations of private storage in this public copy read “[private path]” or “[private Drive store]”.</p>
+  </aside>
+  <article class="doc-body prose">
+    <p><strong>Campaign:</strong> <code>tess-wasp12-residual-01</code> <strong>Run date:</strong> 2026-09-24 UTC (runtime date) <strong>Outcome:</strong> bounded null; no candidate dossier. No external submission.</p>
+<h2 id="falsifiable-test">Falsifiable test<a class="anchor" href="#falsifiable-test" aria-label="Link to this section">#</a></h2>
+<p>For TIC 86396382 (WASP-12), screen two checksum-verified TESS SPOC 120-s light curves (Sectors 20 and 43) for negative flux excursions at least 5 robust-MAD sigmas below local median baselines, lasting at least two consecutive cadences, and outside a conservative ±0.08 orbital-phase window around the known WASP-12 b transit. The result would be a lead only if repeated by reasonable baseline scales/reductions and not explained by quality flags or known transits. The -5 MAD threshold is a descriptive screen, not a calibrated false-alarm probability.</p>
+<h2 id="access-and-provenance">Access and provenance<a class="anchor" href="#access-and-provenance" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Archive: MAST public product downloads; source URLs and product dataURIs are in <code>docs/tier1_pack/MASTER_MANIFEST.csv</code>; transfer used the existing scoped <code>[private Drive store]</code> Drive location, one file at a time with <code>rclone copyto</code> (not sync). Scratch is <code>[private path]</code> and is disposable; no originals altered.</li>
+<li>Sector 20 product <code>tess2019357164649-s0020-0000000086396382-0165-s_lc.fits</code>: 1,926,720 bytes; manifest SHA-256 <code>bf74a16f6e0c40b693a66de922e142d446cb44cee5bb7f26843062e436957f63</code>; recomputed local SHA-256 matched.</li>
+<li>Sector 43 product <code>tess2021258175143-s0043-0000000086396382-0214-s_lc.fits</code>: 1,811,520 bytes; manifest SHA-256 <code>e3d5c6f76884014ec1dec1eb60f04eaf734330a7abd8eef99141f49df03b2493</code>; recomputed local SHA-256 matched.</li>
+<li>Both files are TESS SPOC light-curve FITS products (120 s in manifest). Sector 20 primary header: <code>PROCVER=spoc-5.0.96-20230729</code>, <code>DATA_REL=73</code>; Sector 43: <code>PROCVER=spoc-5.0.45-20211006</code>, <code>DATA_REL=62</code>. Header object TIC 86396382; header RA/Dec 97.6366528°, +29.6722962° (frame realization not independently verified). FITS table records <code>TIMESYS=TDB</code>, <code>BJDREFI=2457000</code>, <code>BJDREFF=0</code>; stored TIME is BJD−2457000 days, not a UTC date.</li>
+<li>Sector 20 UTC header dates: 2019-12-25 to 2020-01-20; usable stored TIME 1842.509510–1868.827130 (BJD-like 2458842.509510–2458868.827130). Sector 43 UTC dates: 2021-09-16 to 2021-10-11; TIME 2474.171742–2498.125471 (BJD-like 2459474.171742–2459498.125471).</li>
+<li>Runtime: Python 3.13.3; NumPy 2.5.3, SciPy 1.18.1, Astropy 8.0.1. Random seed 20260924 is declared in YAML; no stochastic computation was used.</li>
+</ul>
+<h2 id="catalog-and-literature-gate">Catalog and literature gate<a class="anchor" href="#catalog-and-literature-gate" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>NASA Exoplanet Archive live <code>pscomppars</code> snapshot queried 2026-09-24 for WASP-12 (<code>format=json</code>; no separately versioned release identifier was exposed in this query): <code>select pl_name,pl_orbper,pl_tranmid,pl_trandur,disc_refname from pscomppars where hostname=&#x27;WASP-12&#x27;</code>. Returned WASP-12 b, period 1.09141890100 d, transit midpoint 2457607.51930500, duration 3.001 h, reference Hebb et al. 2009. Source URL: &lt;<a href="https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select%20pl_name,pl_orbper,pl_tranmid,pl_trandur,disc_refname%20from%20pscomppars%20where%20hostname%3D%27WASP-12%27&amp;format=json&gt" rel="noopener" class="ext">https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select%20pl_name,pl_orbper,pl_tranmid,pl_trandur,disc_refname%20from%20pscomppars%20where%20hostname%3D%27WASP-12%27&amp;format=json&gt</a>;.</li>
+<li>The transit phase is calculated from that archive period/midpoint, but may not model long-baseline transit timing/period evolution. ±0.08 phase was deliberately broad (±2.1 h), not a precision ephemeris fit.</li>
+<li>Web-search requests on 2026-09-24: <code>WASP-12b transit ephemeris period 1.0914 TESS Sector 20 2019</code> and <code>WASP-12 TESS Sector 20 unusual transit event light curve 2019 paper</code>. Configured generic search service returned HTTP 402 (insufficient balance); these searches did not return results. No ADS, ExoFOP, VSX, or other literature/watchlist query succeeded in this run; those checks are <strong>not tested</strong>, not passed. The target is already a known transiting-planet host, so no novelty claim is in scope.</li>
+</ul>
+<h2 id="screening-and-exclusions">Screening and exclusions<a class="anchor" href="#screening-and-exclusions" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th scope="col">Product</th><th scope="col">Rows</th><th scope="col">QUALITY=0 and finite nonzero TIME/SAP/PDCSAP</th><th scope="col">Excluded from extraction</th><th scope="col">-5 robust-MAD excursion entries</th><th scope="col">Entries outside phase window</th></tr></thead><tbody><tr><td>Sector 20</td><td>18,954</td><td>16,551</td><td>2,403</td><td>835 (overlapping recipe/reduction entries)</td><td>0</td></tr><tr><td>Sector 43</td><td>17,804</td><td>15,577</td><td>2,227</td><td>464 (overlapping recipe/reduction entries)</td><td>0</td></tr></tbody></table></div>
+<p>Excluded cadences include nonzero QUALITY and/or nonfinite/zero flux/time; exact per-reason breakdown was not performed. For each product, flux measured by SAP and PDCSAP separately at centered 1-, 2-, and 3-day running-median scales. Event snippets recur only in the broad known-transit phase window; no threshold crossing survived outside it in any of the six reduction/scale combinations. Counts are not independent events, not trials-corrected, and not detections. No individual excursion is retained as a lead.</p>
+<p>Off-transit same-light-curve control (<code>phase</code> between 0.08 and 0.92; phase computed from archive ephemeris) contained 13,926 Sector-20 and 13,071 Sector-43 cadences. Robust fractional scatter (SAP, PDCSAP): S20 0.002145, 0.001957; S43 0.001935, 0.001911. These are descriptive noise controls; they are not a calibrated null distribution.</p>
+<h2 id="artifact-checks-and-omissions">Artifact checks and omissions<a class="anchor" href="#artifact-checks-and-omissions" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Performed:</strong> quality-zero cadence selection; parallel SAP/PDCSAP and three baseline-window comparison; centroid columns MOM_CENTR1/2 were present and their values retained with screen rows; two temporally separated sectors; known transit phase veto.</li>
+<li><strong>Not tested:</strong> cadence-level centroid/event correlation (centroid columns only retained, no correlation statistic); pixel-level localization, background/scattered light, pointing systematics, cosmic rays/hot pixels, nearby blends/background eclipsing binaries, independent pipeline/reduction or instrument, injection–recovery, calibrated correlated-noise false-alarm rates, current ADS/literature and ExoFOP/watchlist sweep.</li>
+</ul>
+<h2 id="rejections-and-null-results">Rejections and null results<a class="anchor" href="#rejections-and-null-results" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>All -5 MAD snippets were rejected from lead status because they lay inside the deliberately broad phase window for cataloged WASP-12 b transits. This is not evidence for additional objects. Any transit-shape or timing claim would require current transit timing, pixel/centroid auditing, and independent reduction.</li>
+<li>The proposed target/hypothesis is retained only as a documented bounded null: no out-of-window excursion met the declared threshold in these two SPOC sectors. Other sectors, cadences, targets, filters, and all other phenomena were not searched.</li>
+</ol>
+<h2 id="reproduction">Reproduction<a class="anchor" href="#reproduction" aria-label="Link to this section">#</a></h2>
+<p>From repository root with the recorded scratch files and Python environment:</p>
+<pre><code class="lang-text">[private path] tools\analyze_tess_residual.py [private path] --out reports\tess-wasp12-residual-01\sector20
+[private path] tools\analyze_tess_residual.py [private path] --out reports\tess-wasp12-residual-01\sector43</code></pre>
+<p>The script enforces exact product basenames, byte lengths, and SHA-256 before reading FITS. Both selected products were successfully processed, producing <code>screen.json</code> and <code>normalized_series.csv</code> in each derived-output directory. Offline project regression test run from the worktree: <code>python -m pytest -q -m &#x27;not network&#x27;</code> → <strong>132 passed, 2 deselected</strong> (these are general project tests, not a calibration validation of this real-product screen). Source data remain only in scratch and may be deleted; downloaded source products are not checked into the repository.</p>
+<h2 id="addendum-2026-09-24-later-runner-re-run-calibration-catalogue-cross-match">Addendum (2026-09-24, later): runner re-run, calibration, catalogue cross-match<a class="anchor" href="#addendum-2026-09-24-later-runner-re-run-calibration-catalogue-cross-match" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Re-run: <code>python -m cygnus.campaign run campaigns/tess-wasp12-residual-01.yaml</code> with the project venv (Python 3.13.3, NumPy 2.5.3, SciPy 1.18.1, Astropy 8.0.1). The spec now carries the exact ephemeris used (P = 1.09141890100 d, T0 = 2457607.51930500 BJD_TDB; the earlier spec's rounded 1.0914 d was never used by the code). Ledger runs #31 (fetch, checksums re-verified), #32 (screen), #33 (calibration), #34 (catalogue cross-match), all <code>completed</code>.</li>
+<li>Screen outputs reproduced exactly (byte-identical normalized series; identical 835/464 entries, 0 outside the window).</li>
+<li>Calibration (sign-flip null and injection–recovery; parameters in the spec; seed 20260924): results in <code>sector*/calibration.json</code> and the report addendum.</li>
+<li>Catalogue cross-match queries (ADQL, verbatim) and dated results are in the ledger <code>prior_art</code> table under <code>target:WASP-12</code> and in <code>runner/prior_art.json</code>.</li>
+<li>Still not tested: centroid correlation, pixel-level background/blend, cosmic-ray/hot-pixel, independent reduction or instrument, ADS literature.</li>
+</ul>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-09-26T11:41:13Z" class="mono">2026-09-26T11:41:13Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>
