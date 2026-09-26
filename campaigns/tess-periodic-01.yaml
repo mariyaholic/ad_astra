@@ -1,0 +1,32 @@
+# CYGNUS target queue tess-periodic-01: built by `python -m cygnus.batch queue` on 2026-09-26.
+# Work it with `python -m cygnus.batch claim --queue campaigns/tess-periodic-01/target_queue.csv`.
+schema: cygnus.campaign/1
+campaign_id: tess-periodic-01
+domain: worlds.planetary.transit
+status: draft
+objective: >
+  Target queue only: known-object tests of 1000 periodic TESS planet candidates (Colab stress test)
+outputs: campaigns/tess-periodic-01/
+random_seed: 20260927
+
+veto:
+  kind: single_epoch
+  veto_hours: 12
+
+steps:
+  - target_queue:
+      source: nasa_exoplanet_archive.toi
+      where: "pl_orbper > 0 AND tfopwg_disp IN ('PC','APC')"
+      top: 1000
+
+# A queue is a draft record: it ranks targets and analyses nothing. Its targets are run as
+# their own known-object campaigns (python -m cygnus.batch claim / run).
+record:
+  path: campaigns/tess-periodic-01/sky_record.json
+  title: Target queue tess-periodic-01
+  kind: target queue
+  status: draft
+  queue_targets_in_record: 10
+  summary: >
+    Ranked target queue from the NASA Exoplanet Archive TOI table (pl_orbper > 0 AND tfopwg_disp IN ('PC','APC'); top 1000).
+    No light curve is analysed here; each target becomes its own known-object campaign.

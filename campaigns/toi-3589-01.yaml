@@ -1,0 +1,98 @@
+# CYGNUS known-object test for TOI-3589.01, generated 2026-09-26 by `python -m cygnus.multi new`.
+# Target values are copied from: campaigns/tess-periodic-01/target_queue.csv (rank 182), itself from the NASA Exoplanet Archive TOI table. Run with
+#   python -m cygnus.multi run campaigns/toi-3589-01.yaml
+#   python -m cygnus.multi report campaigns/toi-3589-01.yaml
+schema: cygnus.campaign/1
+runner: cygnus.multi
+campaign_id: toi-3589-01
+parent: tess-periodic-01
+domain: worlds.planetary.monotransit
+objective: >
+  Known-object test on TOI-3589.01 (TIC 260761464, PC): check that the calibrated residual screen
+  recovers the catalogued single transit in its retrieved light curve, measure the depth, then screen the same light curves for further transit-like
+  dips outside the catalogued transits. A further dip is an unverified lead until vetted; it does
+  not imply a period.
+outputs: campaigns/toi-3589-01/
+random_seed: 1
+
+targets:
+  - name: TOI-3589.01
+    tic: 260761464
+    ra_deg: 326.392082
+    dec_deg: 39.495055
+    frame: ICRS
+    epoch: J2015.5
+    position_source: NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)
+    t0_bjd: 2459847.255364
+    period_days: null
+    depth_ppm: 14750.0
+    duration_h: 3.763
+    tmag: 11.528
+    catalogue_row_updated: "2025-09-19 12:04:41"
+
+# Catalogued transits are excluded from the search for further dips and are the positive control.
+veto:
+  kind: single_epoch
+  veto_hours: 12
+
+steps:
+  - fetch_products:
+      from_targets: {max_products_per_target: 6}
+  - calibrate_screen:
+      declared_k: 5.0
+      window_days: 2.0
+      k_grid: [2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 7.0, 8.0, 10.0, 12.0]
+      max_null_events: 0
+      depths_ppm: [500, 1000, 2000, 5000, 10000, 20000]
+      durations_h: [1.0, 2.0, 4.0, 8.0]
+      injections_per_cell: 10
+      reference_signal: {depth_ppm: 2000, duration_h: 4.0}
+  - known_signal_recovery:
+      k_mad: calibrated
+      epoch_tolerance_hours: 2.0
+  - stellar_context:
+      radius_arcsec: 63
+      aperture_arcsec: 52.5
+  - residual_screen:
+      windows_days: [1.0, 2.0, 3.0]
+      k_mad: calibrated
+      min_cadences: 2
+      series_window_days: 2.0
+  - event_census:
+      pad_days: 0.25
+      z_max: 5.0
+  - period_aliases:
+      depth_ratio: [0.5, 2.0]
+      min_period_days: 1.0
+      min_coverage: 0.5
+      excluded_below: 0.3
+      duration_frac_err: 0.1
+  - moving_objects:
+      radius_arcsec: 600
+  - alias_cross_instrument: {}
+  - variability_guard:
+      match_arcsec: 10
+  - prior_art:
+      radius_arcsec: 30
+
+record:
+  path: campaigns/toi-3589-01/sky_record.json
+  title: Known-object test, TOI-3589.01
+  kind: known-object test
+  outcome: pipeline_check
+  report: campaigns/toi-3589-01/REPORT.md
+  search_log: campaigns/toi-3589-01/SEARCH_LOG.md
+  summary: >
+    Known-object test on TOI-3589.01: positive control on the catalogued transit(s), calibrated
+    screen for further dips, catalogue cross-match.
+  checks:
+    - {name: "Product integrity (SHA-256)", state: not_tested}
+    - {name: "Known-signal recovery (positive control)", state: not_tested}
+    - {name: "Calibrated false-alarm threshold (sign-flip null)", state: not_tested}
+    - {name: "Synthetic signal injection–recovery", state: not_tested}
+    - {name: "Catalogue cross-match", state: not_tested}
+    - {name: "Period aliases (repeat events)", state: not_tested}
+    - {name: "Alternative detrending", state: not_tested}
+    - {name: "Difference-image centroids / blend audit", state: not_tested}
+    - {name: "Pointing / jitter correlation", state: not_tested}
+    - {name: "Literature (ADS) audit", state: not_tested}
