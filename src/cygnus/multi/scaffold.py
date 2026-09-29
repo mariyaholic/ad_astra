@@ -51,6 +51,8 @@ def target_from_row(row: dict, source: str) -> dict:
             "t0_bjd": t0, "depth_ppm": _f(row.get("depth_ppm")), "duration_h": _f(row.get("duration_h")),
             "period_days": _f(row.get("period_days")), "tmag": _f(row.get("tmag")), "position_source": source,
             "catalogue_row_updated": row.get("toi_rowupdate") or row.get("rowupdate") or "",
+            "catalogue_query": row.get("catalogue_query") or "",
+            "catalogue_retrieved_utc": row.get("catalogue_retrieved_utc") or "",
             "disposition": row.get("disposition") or ""}
 
 
@@ -168,6 +170,8 @@ targets:
     duration_h: {t.get('duration_h')}
     tmag: {t.get('tmag')}
     catalogue_row_updated: "{t.get('catalogue_row_updated', '')}"
+    catalogue_query: {json.dumps(t.get("catalogue_query") or "")}
+    catalogue_retrieved_utc: {json.dumps(t.get("catalogue_retrieved_utc") or "")}
 
 # Catalogued transits are excluded from the search for further dips and are the positive control.
 {veto}

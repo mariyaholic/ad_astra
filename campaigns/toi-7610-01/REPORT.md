@@ -1,3 +1,13 @@
+> **2026-09-27 final disposition:** the exoplanet lead is retired. The exact
+> target has a Gaia DR3 SB1 orbit (P = 90.4224 ± 0.3805 d,
+> K1 = 12.14 ± 1.31 km/s; 23 accepted RVs), implying a stellar companion
+> (mass function 0.0144 solar masses; conditional minimum mass about 0.238 solar
+> masses). A separate TPF reduction also reproduces the failed S99 localization
+> at 2.92 arcsec/5.71 bootstrap sigma. See [REJECTION.md](REJECTION.md) and the
+> [follow-up report](../../reports/lead-followup-2026-09-27/REPORT.md). The
+> generated runner narrative below is retained as historical output and is
+> superseded where it calls this an active lead.
+
 <!-- cygnus:generated-draft -->
 # Known-object test, TOI-7610.01
 

@@ -1,0 +1,100 @@
+{
+  "schema": "cygnus.sky_record/1",
+  "id": "lead-verification-2026-09-27",
+  "title": "Four-lead archive and localization verification",
+  "kind": "archive metadata and stored-measurement reclassification",
+  "status": "completed",
+  "outcome": "pipeline_check",
+  "evidence": null,
+  "date": "2026-09-27",
+  "summary": "No new SPOC light-curve sectors were returned for the four leads. Stored difference-image measurements fail localization for TOI-7610 E1 and TOI-224 E4; no lead was promoted or independently confirmed.",
+  "spec": null,
+  "report": "reports/lead-verification-2026-09-27/REPORT.md",
+  "search_log": "reports/lead-verification-2026-09-27/SEARCH_LOG.md",
+  "targets": [
+    {
+      "name": "TOI-224.01",
+      "ra_deg": 1.977969,
+      "dec_deg": -29.979603,
+      "frame": "ICRS",
+      "epoch": "J2015.5",
+      "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+    },
+    {
+      "name": "TOI-2666.01",
+      "ra_deg": 139.480865,
+      "dec_deg": -3.387525,
+      "frame": "ICRS",
+      "epoch": "J2015.5",
+      "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+    },
+    {
+      "name": "TOI-7610.01",
+      "ra_deg": 129.250045,
+      "dec_deg": -3.530909,
+      "frame": "ICRS",
+      "epoch": "J2015.5",
+      "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+    },
+    {
+      "name": "TOI-3500.02",
+      "ra_deg": 186.816884,
+      "dec_deg": -29.832996,
+      "frame": "ICRS",
+      "epoch": "J2015.5",
+      "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+    }
+  ],
+  "products": [],
+  "checks": [
+    {
+      "name": "MAST SPOC metadata access",
+      "state": "passed",
+      "note": "4 targets, 14 LC product metadata rows; no new sector found in this selection"
+    },
+    {
+      "name": "Event-time prior art",
+      "state": "inconclusive",
+      "note": "Current TOI and pscomppars rows answered; no ±1-d linear overlap for four accepted events; publication/TTV coverage incomplete"
+    },
+    {
+      "name": "toi-224-01 difference-image localization",
+      "state": "failed",
+      "note": "E4 S106 9.55 arcsec at 7.07 bootstrap sigma; E2 S69 0.52 arcsec at 3.62 sigma is inconclusive; E1/E3 small offsets pass.",
+      "source": "stored vetting/vetting.json; corrected rule in cygnus.campaign.vet"
+    },
+    {
+      "name": "toi-2666-01 difference-image localization",
+      "state": "passed",
+      "note": "Accepted E1 S99 difference-image offset 0.37 arcsec at 0.75 bootstrap sigma; other mass/blend tests remain open.",
+      "source": "stored vetting/vetting.json; corrected rule in cygnus.campaign.vet"
+    },
+    {
+      "name": "toi-7610-01 difference-image localization",
+      "state": "failed",
+      "note": "E1 S99 offset 2.92 arcsec at 5.85 bootstrap sigma now fails; MOM_CENTR2 +5.9 local sigma; S88 reference target offset 2.6 arcsec at 6.8 sigma also needs PRF/registration review.",
+      "source": "stored vetting/vetting.json; corrected rule in cygnus.campaign.vet"
+    },
+    {
+      "name": "toi-3500-02 difference-image localization",
+      "state": "failed",
+      "note": "E1 S90 offset 0.35 arcsec at 0.66 sigma passes; E2 S101 6.74 arcsec at 11.50 sigma fails and cannot select an alias.",
+      "source": "stored vetting/vetting.json; corrected rule in cygnus.campaign.vet"
+    },
+    {
+      "name": "Independent new epoch",
+      "state": "not_tested",
+      "note": "no additional SPOC LC sector in this metadata selection; FFI/HLSP/ground data not analyzed"
+    },
+    {
+      "name": "Multi-epoch RV",
+      "state": "not_tested",
+      "note": "no RV time series analyzed"
+    },
+    {
+      "name": "Search-wide false-alarm calibration",
+      "state": "not_tested",
+      "note": "300 local random epochs per event are not a search-wide null"
+    }
+  ]
+}

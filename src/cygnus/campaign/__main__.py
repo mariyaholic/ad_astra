@@ -66,9 +66,12 @@ def main(argv=None) -> int:
         if a.next or a.from_queue:
             qpath = root / a.queue
             row = scaffold.pick_from_queue(root, qpath, a.from_queue)
+            from cygnus.targets import refresh_queue_target
+            row = refresh_queue_target(row)
             t = scaffold.target_from_row(row, f"NASA Exoplanet Archive TOI table ({scaffold.TOI_POSITION_NOTE})")
             parent = Path(a.queue).parent.name
-            origin = f"{a.queue} (rank {row.get('rank')}), itself from the NASA Exoplanet Archive TOI table"
+            origin = (f"{a.queue} (rank {row.get('rank')}), NASA Exoplanet Archive TOI row refreshed "
+                      f"{row['catalogue_retrieved_utc']} (rowupdate {row['toi_rowupdate']})")
         elif a.planet:
             t = scaffold.lookup_planet(a.planet)
             origin = f"NASA Exoplanet Archive pscomppars, queried {scaffold.now_utc()[:10]}"

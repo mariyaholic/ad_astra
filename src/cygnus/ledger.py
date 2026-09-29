@@ -75,6 +75,16 @@ CREATE TABLE IF NOT EXISTS candidates (
     created_utc TEXT NOT NULL,
     updated_utc TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS candidate_retirements (
+    candidate_id TEXT PRIMARY KEY,
+    former_evidence_level TEXT NOT NULL,
+    former_summary TEXT,
+    former_coordinates TEXT,
+    candidate_created_utc TEXT NOT NULL,
+    retired_utc TEXT NOT NULL,
+    reason TEXT NOT NULL,
+    reference TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS prior_art (
     id INTEGER PRIMARY KEY,
     candidate_id TEXT NOT NULL DEFAULT '',
@@ -364,6 +374,9 @@ class Ledger:
         summary: str | None = None,
         coordinates: str | None = None,
     ) -> int:
+        if self.db.execute("SELECT 1 FROM candidate_retirements WHERE candidate_id=?",
+                           (candidate_id,)).fetchone():
+            raise ValueError(f"{candidate_id}: retired candidate ID cannot be reused")
         self.db.execute(
             "INSERT INTO candidates (candidate_id, evidence_level, summary, coordinates,"
             " created_utc, updated_utc)"
@@ -405,6 +418,32 @@ class Ledger:
             (evidence_level, summary, coordinates, now_utc(), candidate_id),
         )
         self.db.commit()
+
+    def retire_candidate(self, candidate_id: str, *, reason: str, reference: str) -> None:
+        """Remove a disproved candidate from active counts while retaining its ledger provenance.
+
+        Measurements and prior-art rows remain available under the original ID.
+        The dated rejection note is required as a durable, reviewable reference.
+        """
+        if not reason.strip() or not reference.strip():
+            raise ValueError("candidate retirement requires a reason and reference")
+        row = self.get_candidate(candidate_id)
+        if row is None:
+            raise ValueError(f"candidate {candidate_id!r} is not active")
+        with self.db:
+            self.db.execute(
+                "INSERT INTO candidate_retirements "
+                "(candidate_id, former_evidence_level, former_summary, former_coordinates, "
+                "candidate_created_utc, retired_utc, reason, reference) VALUES (?,?,?,?,?,?,?,?)",
+                (candidate_id, row["evidence_level"], row["summary"], row["coordinates"],
+                 row["created_utc"], now_utc(), reason.strip(), reference.strip()),
+            )
+            self.db.execute("DELETE FROM candidates WHERE candidate_id=?", (candidate_id,))
+
+    def retired_candidate(self, candidate_id: str) -> dict[str, Any] | None:
+        row = self.db.execute("SELECT * FROM candidate_retirements WHERE candidate_id=?",
+                              (candidate_id,)).fetchone()
+        return dict(row) if row else None
 
     def candidates(self) -> list[dict[str, Any]]:
         rows = self.db.execute("SELECT * FROM candidates ORDER BY candidate_id")

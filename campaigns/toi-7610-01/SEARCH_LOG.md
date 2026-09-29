@@ -1,3 +1,12 @@
+> **2026-09-27 final disposition:** the exoplanet lead is retired. Official
+> Gaia and SIMBAD TAP queries traced the host to a Gaia DR3 SB1 orbit; the exact
+> queries and rows are recorded in
+> `../../reports/lead-followup-2026-09-27/catalog_followup.json`. The derived
+> mass function, conditional minimum companion mass and timing comparison are
+> in `toi7610_sb1_results.json`. The separate cached-TPF reduction independently
+> reproduced the failed S99 localization. See [REJECTION.md](REJECTION.md).
+> The generated search log below remains the historical baseline.
+
 <!-- cygnus:generated-draft -->
 # Search log: toi-7610-01
 

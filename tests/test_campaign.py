@@ -15,8 +15,8 @@ from pathlib import Path
 import pytest
 
 from cygnus.ledger import Ledger
-from cygnus.priorart import catalogue_audit
-from cygnus.targets import build_queue
+from cygnus.priorart import catalogue_audit, event_ephemeris_screen, review_event_time_prior_art
+from cygnus.targets import build_queue, refresh_queue_target
 
 
 # ------------------------------------------------------------------ ledger runs
@@ -84,6 +84,42 @@ def test_queue_ranks_with_stated_formula_and_keeps_unranked():
     assert q["queue"][0]["score"] == pytest.approx(1000 * 2 * 10 ** 0.4)
     assert q["unranked"] and q["unranked"][0][0] == "TOI-3.01"
     assert "pl_orbper IS NULL" in q["query"] and q["pool_size"] == 3
+
+
+def test_queue_refresh_restores_period_and_rejects_changed_identity():
+    stale = {"name": "TOI-6695.01", "tic": 118339710, "period_days": None}
+    current = {"toi": "6695.01", "tid": "118339710", "ra": "129.572022",
+               "dec": "-23.550217", "st_tmag": "10.35", "pl_trandep": "2315",
+               "pl_trandurh": "8.67", "pl_tranmid": "2459249.547139",
+               "pl_orbper": "80.389", "tfopwg_disp": "PC",
+               "rowupdate": "2026-09-27"}
+    got = refresh_queue_target(stale, fetch=lambda query: [current])
+    assert got["period_days"] == pytest.approx(80.389)
+    assert got["catalogue_query"].endswith("WHERE tid = 118339710")
+    assert got["catalogue_retrieved_utc"]
+    with pytest.raises(ValueError, match="exactly one"):
+        refresh_queue_target(stale, fetch=lambda query: [{**current, "toi": "6695.02"}])
+
+
+def test_event_time_prior_art_flags_ttv_scale_overlap_without_claiming_identity():
+    rows = [{"pl_name": "TOI-6695 b", "pl_orbper": "80.389",
+             "pl_tranmid": "2459249.547139"},
+            {"pl_name": "TOI-6695 c", "pl_orbper": "242.4",
+             "pl_tranmid": ""}]
+    match = event_ephemeris_screen(2459973.5382, rows)
+    assert len(match) == 1 and match[0]["name"] == "TOI-6695 b"
+    assert abs(match[0]["residual_days"]) < 1
+    assert event_ephemeris_screen(2459970.0, rows) == []
+
+
+def test_event_time_review_includes_periodic_toi_rows():
+    catalogues = {"TOI-test": {"NASA_Exoplanet_Archive": {"rows": []},
+                               "TESS_TOI": {"rows": [{"toi": "9.01", "pl_orbper": "6",
+                                                        "pl_tranmid": "2459000"}]}}}
+    matches, state, note = review_event_time_prior_art(
+        catalogues, [{"event_bjd": 2459012.0}])
+    assert state == "inconclusive" and matches[0]["name"] == "TOI-9.01"
+    assert "possible published-ephemeris overlap" in note
 
 
 # ------------------------------------------------------------------ runner, end to end on a synthetic light curve

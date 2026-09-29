@@ -1,10 +1,8 @@
-# Candidate dossier — CYG-2026-09-TOI3500.02
-
 ### CYGNUS CANDIDATE DOSSIER
 
 **Working identifier:** CYG-2026-09-TOI3500.02 (local working ID — not an official designation)
 **Evidence level:** unverified_lead
-**Bottom line:** Two clean on-target transits on TIC 443666343 (the S90 event E1 and the S64 reference; the S101 event E2 is an aperture-loss/pointing artifact, rejected): equal depth ~7.0-7.8 ppt, equal 7.9-h duration and shape, 36-47-sigma red-noise significance, difference images 0.3-0.4 arcsec on target, the 3.71-arcsec co-moving neighbour excluded by the deficit direction. Sixteen data-allowed aliases P = 700.6242/n (n = 2..18 excluding 18.44 d; P >= 35.03 d) — P = 350.312 d is the most economical single reading. RV and phase coverage untested — Unverified lead.
+**Bottom line:** Two repeat dips remain in the TIC 443666343 aperture (the S90 event E1 and the S64 reference; S101 E2 is rejected as an aperture-loss/pointing artifact). Their depth, duration and shape agree, and their difference images lie near the target. A 2026-09-27 two-source Gaussian-PSF sensitivity grid usually prefers the target over the 3.71-arcsec co-moving neighbour, but the preference reverses under plausible PSF/registration perturbations because the sources are only 0.184 TESS pixel apart. Localization therefore remains inconclusive. Sixteen aliases P = 700.6242/n over 35.03–700.62 d remain; search-wide false alarms, calibrated PRF localization, RV and phase coverage are incomplete. Unverified lead.
 
 #### 1. Provenance
 
@@ -18,21 +16,14 @@
 - **vetting:** python -m cygnus.campaign vet, 2026-09-26; per-lead reading in campaigns/tess-{mono-01,periodic-01}/LEAD_VETTING_LOG.md
 - **worktree_commit:** 6a3aa66
 
-Prior-art gate results (ledger-pinned):
-
-- catalog/NASA_Exoplanet_Archive: no match in NASA_Exoplanet_Archive within 30" as of 2026-09-26T08:20:55Z (as of 2026-09-26T08:20:55Z)
-- catalog/SIMBAD: 1 match(es) in SIMBAD within 30" as of 2026-09-26T08:21:03Z: UCAC2  19403154 (PM*) (as of 2026-09-26T08:21:03Z)
-- catalog/TESS_TOI: 2 match(es) in TESS_TOI within 30" as of 2026-09-26T08:20:58Z: TOI-3500.01 (TIC 443666343, disposition PC); TOI-3500.02 (TIC 443666343, disposition PC) (as of 2026-09-26T08:20:58Z)
-- catalog/VSX: no match in VSX within 30" as of 2026-09-26T08:21:01Z (as of 2026-09-26T08:21:01Z)
-
 #### 2. Measured signal
 
 - **E1_S90:** value=BJD 2460757.3199, depth 7553 +/- 277 ppm (box fit), shape ratio 1.08 +/- 0.06, duration ratio 1.00
 - **E2_S101_rejected:** value=BJD 2461107.6407, difference-image centroid 6.74 arcsec off at 11.5 sigma, POS_CORR2 +28.9 sigma, depth 1614-7796 ppm across detrendings — an aperture-loss/pointing artifact; supports no period
 - **alias_family_16_aliases:** value=P = 700.62, 350.31, 233.54, 175.16, 140.12, 116.77, 100.09, 87.58, 77.85, 70.06, 63.69, 58.39, 53.89, 50.04, 36.88, 35.03 d (density limit excludes 18.44 d)
-- **delta_T_reference_to_E1:** value=700.6242; unit=d; method=(2:1 spacing; 700.62/2 = 350.31 d)
+- **delta_T_reference_to_E1:** value=700.6242; unit=d; method=reference S64 to accepted E1 S90; allowed aliases P = ΔT/n, including 350.31 d
 - **no_secondary_E1:** value=with E2 excluded, phase-0.5 windows are clean at all covered aliases (e.g. P 35.03: -80 +/- 186; 50.04: +313 +/- 167 ppm)
-- **red_noise_significance_E1:** value=36.0 robust sigma below the 300-epoch random null
+- **red_noise_significance_E1:** value=local robust statistic 36.0 relative to 300 random epochs; zero exceedances, search-wide false-alarm rate not estimated
 - **reference_depth:** value=7020; unit=ppm; uncertainty=+/-282; method=PDCSAP median residual (catalogue depth for TOI-3500.02: 8095 ppm)
 - **reference_duration:** value=7.91; unit=h; method=box fit
 - **reference_transit_S64_bjd:** value=2460056.6957; unit=BJD_TDB; method=box fit
@@ -49,16 +40,18 @@ Prior-art gate results (ledger-pinned):
 | alternative detrending (E1) | passed |
 | background/centroid/pointing (E1) | passed |
 | background/centroid/pointing (E2) | failed |
-| blend blame (3.71 arcsec neighbour) | failed |
+| blend blame (3.71 arcsec neighbour) | inconclusive |
 | blend test (43.2 arcsec neighbour) | not_tested |
 | box fit (E1; E2) | passed |
 | difference-image centroid (E1) | passed |
 | difference-image centroid (E2) | failed |
 | future-sector alias test (P = 350.31 d epemeris next transit ~2027-08) | not_tested |
+| independent cached TPF localization (2026-09-27) | failed |
+| two-source Gaussian-PSF sensitivity grid (2026-09-27) | inconclusive |
 | quality flags and coverage (E1) | passed |
-| red-noise significance (E1; E2) | passed |
+| red-noise significance (E1; E2) | inconclusive |
 | same-CCD common mode (E1; E2) | passed |
-| secondary eclipse at phase 0.5 | passed |
+| secondary eclipse at phase 0.5 | inconclusive |
 | shape vs reference (E1) | passed |
 | stellar-density duration limit on aliases | passed |
 
@@ -74,22 +67,23 @@ Prior-art gate results (ledger-pinned):
 
 #### 5. Competing explanations
 
-- Transiting planet (P = 350.31 d reading; depth 7 ppt, 7.9 h duration on a 1.10 Rsun host => Rp ~ 6 R_Earth, Jovian scale) — unresolved; RV would set M2.
+- Transiting planet or eclipsing companion under any of the 16 allowed aliases. At 7 ppt on an assumed 1.10 Rsun host, the central undiluted sqrt(depth) radius scale is about 10 Earth radii; grazing, dilution and unresolved multiplicity make this illustrative only. RV would constrain mass.
 - Long-period grazing eclipsing binary: secondary can hide in the seasonal gaps of the long aliases; equal depth and equal shape currently constrain it — RV is decisive.
-- Contaminating dips from the 3.71 arcsec co-moving neighbour: excluded for E1 by the deficit direction and the TPF-WCS pixel mapping; untested by ZTF (no light curve for the neighbour) — noted, not a pass.
+- Contamination by the 3.71-arcsec co-moving neighbour remains unresolved. The reviewable Gaussian-PSF grid favors the target in 71.4% of S64 trials and 85.7% of S90 trials, but target-versus-neighbour preference changes sign across the tested PSF widths and registration shifts; template correlations are 0.934–0.986 because the pair is separated by only 0.184 TESS pixel. A calibrated TESS PRF or higher-resolution observation is required.
 - Aperture-loss artifact: applies to E2 only (rejected); E1 carries no POS_CORR excursion and 237/237 usable cadences.
 - Sibling-TOI contamination (TOI-3500.01's P 7.34-d ephemeris): excluded by the sibling-ephemerides check — no catalogued sibling transit at E1's epoch.
 
 #### 6. Reproduction
 
-- **code:** cygnus (src/cygnus/), suite gate at commit 6a3aa66: python -m pytest -q (639 passed, 37 deselected)
+- **code:** cygnus (src/cygnus/); historical baseline gate at commit 6a3aa66: 639 passed, 37 deselected; current workspace gate 2026-09-27: 644 passed, 37 deselected
 - **figures:** vetting/figures/ and vetting/*.png in the campaign directory
+- **follow_up_2026_09_27:** reports/lead-followup-2026-09-27/independent_tpf_check.py and toi3500_two_source_test.py; results in independent_tpf_results.json, toi3500_two_source_results.json and REPORT.md
 - **package_versions:** python 3.13; astropy/lightkurve/numpy per requirements.txt; candidates rendered by cygnus.reporting.dossier
 - **run:** python -m cygnus.multi run campaigns/toi-3500-02.yaml ; python -m cygnus.campaign vet campaigns/toi-3500-02.yaml
 
 #### 7. Follow-up
 
-RV on the host (G 11.35): a planet candidate gives K ~ 90-150 m/s over a 350-d orbital period; a grazing EB gives km/s — decisive. Next predicted transit under P = 350.312 d is ~2027-08; ground-based photometry at the 2:1 phase and any new TESS sector against the 35.03-700.62-d alias ephemerides are the photometric path.
+Apply a calibrated, spatially varying TESS PRF fit to S64/S90 or obtain higher-resolution time-series photometry that separates the 3.71-arcsec pair. Preserve all 16 aliases because rejected E2 cannot select 350.312 d. Search later-sector coverage and obtain phase-spread RV before predicting a preferred observing window.
 
 ---
 *Generated from ledger/candidate records only; any field the evidence does not support renders '(none recorded)' rather than a fabricated value.*

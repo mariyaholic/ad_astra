@@ -1,3 +1,5 @@
+> **2026-09-27 verification update:** Canonical dossier units, local-null claims and difference-image states were corrected. New live MAST/TOI metadata is in [the archive verification report](../../reports/lead-verification-2026-09-27/REPORT.md), and the independent cached-TPF result is in [the follow-up report](../../reports/lead-followup-2026-09-27/REPORT.md); older interpretations below are historical where they conflict.
+
 <!-- cygnus:generated-draft -->
 # Search log: toi-224-01
 

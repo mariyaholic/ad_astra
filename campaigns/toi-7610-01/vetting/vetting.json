@@ -50,7 +50,7 @@
     ],
     "Red-noise significance": [
      "passed",
-     "box statistic at the event is 41.6 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.000"
+     "box statistic at the event is 41.6 robust \u03c3 below 300 random epochs of the same light curve; 0.0 of 300 local null epochs as extreme; finite local null, not Gaussian or search-wide FAP"
     ],
     "Background / centroid / pointing": [
      "failed",
@@ -73,12 +73,12 @@
      "21 of 21 allowed aliases compatible with a 3.8-h transit on a 0.74 R\u2609, 0.74 M\u2609 star (circular, central); shortest compatible 10.44 d"
     ],
     "Secondary eclipse (circular aliases)": [
-     "passed",
-     "phase 0.5 covered for 11 of 21 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 393 ppm"
+     "inconclusive",
+     "phase 0.5 covered for 11 of 21 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 393 ppm; unobserved aliases and non-circular phases remain open"
     ],
     "Difference-image centroid": [
-     "passed",
-     "difference-image centroid 2.9\u2033 from the out-of-transit centroid (5.9\u03c3 bootstrap); 3.1\u2033 from the catalogue position; 79% of the deficit in the optimal aperture"
+     "failed",
+     "difference-image centroid 2.9\u2033 from the out-of-transit centroid (5.9\u03c3 bootstrap); 3.1\u2033 from the catalogue position; 79% of the deficit in the optimal aperture; 2026-09-27 corrected rule: failed (angle and bootstrap significance assessed together; PRF/registration systematic still open)"
     ]
    },
    "significant_dip": true,
@@ -1139,5 +1139,13 @@
   "logg_cgs": 4.56486,
   "mass_msun_from_logg": 0.740807094773036,
   "source": "NASA Exoplanet Archive toi table"
+ },
+ "errata_reclassification": {
+  "date": "2026-09-27",
+  "method": "Re-evaluated stored difference-image offsets/bootstrap values and phase-coverage counts under corrected vet.py rules; no new pixel extraction or archive products",
+  "changes": [
+   "E1 difference image passed -> failed",
+   "E1 secondary partial coverage -> inconclusive"
+  ]
  }
 }

@@ -4,10 +4,10 @@
  "title": "Known-object test, TOI-7610.01",
  "kind": "known-object test",
  "status": "completed",
- "outcome": "lead",
- "evidence": "Unverified lead",
+ "outcome": "pipeline_check",
+ "evidence": "",
  "date": "2026-09-26",
- "summary": "Known-object test on TOI-7610.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 39 threshold entries outside the known-signal veto across 2 light curve(s), forming 9 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461066.2847 (ΔT 365.31 d); 21 period aliases remain. Unverified lead until vetted.",
+ "summary": "Former exoplanet lead retired 2026-09-27. Gaia DR3 source 3071787586789910144 has an SB1 orbit (P 90.4224 d, K1 12.14 km/s, 23 accepted RVs), giving a binary mass function 0.0144 solar masses and a conditional minimum companion mass about 0.238 solar masses. Independent cached-TPF analysis reproduces the failed S99 localization at 2.92 arcsec/5.71 bootstrap sigma. The photometric anomaly is preserved, but no target-planet candidate survives.",
  "spec": "campaigns/toi-7610-01.yaml",
  "report": "campaigns/toi-7610-01/REPORT.md",
  "search_log": "campaigns/toi-7610-01/SEARCH_LOG.md",
@@ -147,6 +147,30 @@
    "state": "inconclusive",
    "note": "TOI-7610.01: UCAC4 433-048726 otype SB* (multiple) at 0.3\"",
    "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Vetting difference-image localization (E1)",
+   "state": "failed",
+   "note": "difference-image centroid 2.9″ from the out-of-transit centroid (5.9σ bootstrap); 3.1″ from the catalogue position; 79% of the deficit in the optimal aperture; 2026-09-27 corrected rule: failed (angle and bootstrap significance assessed together; PRF/registration systematic still open)",
+   "source": "2026-09-27 stored vetting reclassification; vetting/vetting.json"
+  },
+  {
+   "name": "Independent cached TPF localization (2026-09-27)",
+   "state": "failed",
+   "note": "Separate reduction: S88 reference 1.11″/2.88σ is inconclusive; E1 S99 2.92″/5.71σ remains displaced and target origin is not established.",
+   "source": "reports/lead-followup-2026-09-27/independent_tpf_results.json"
+  },
+  {
+   "name": "Gaia DR3 spectroscopic-binary orbit",
+   "state": "failed",
+   "note": "Exact target Gaia DR3 3071787586789910144 has an SB1 solution: P 90.4224 ± 0.3805 d, e 0.309 ± 0.095, K1 12.14 ± 1.31 km/s, 23/23 accepted RVs; this defeats the original single-host planet interpretation.",
+   "source": "reports/lead-followup-2026-09-27/catalog_followup.json"
+  },
+  {
+   "name": "Binary mass-function interpretation",
+   "state": "failed",
+   "note": "f(M)=0.0144 solar masses; conditional sin(i)=1 minimum companion mass 0.238 solar masses (16th–84th percentile 0.204–0.274) under the campaign primary-mass prior.",
+   "source": "reports/lead-followup-2026-09-27/toi7610_sb1_results.json"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",

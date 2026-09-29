@@ -187,10 +187,10 @@ def _adapters(ra: float, dec: float, radius_arcsec: float) -> dict:
     r = radius_arcsec / 3600
     dra = r / max(0.01, math.cos(math.radians(dec)))
     return {
-        "NASA_Exoplanet_Archive": (_EXO_TAP, f"SELECT pl_name, hostname, ra, dec FROM pscomppars WHERE {_cone(ra, dec, r, 'ra', 'dec')}",
+        "NASA_Exoplanet_Archive": (_EXO_TAP, f"SELECT pl_name, hostname, ra, dec, pl_orbper, pl_tranmid, pl_trandur FROM pscomppars WHERE {_cone(ra, dec, r, 'ra', 'dec')}",
                                    lambda row: f"{row['pl_name']} (host {row['hostname']})", ("ra", "dec")),
         # the TOI table does not support CONTAINS; box query then an exact separation cut below
-        "TESS_TOI": (_EXO_TAP, f"SELECT toi, tid, tfopwg_disp, ra, dec FROM toi WHERE ra BETWEEN {ra - dra:.7f} AND {ra + dra:.7f} "
+        "TESS_TOI": (_EXO_TAP, f"SELECT toi, tid, tfopwg_disp, ra, dec, pl_orbper, pl_tranmid, pl_trandurh FROM toi WHERE ra BETWEEN {ra - dra:.7f} AND {ra + dra:.7f} "
                                f"AND dec BETWEEN {dec - r:.7f} AND {dec + r:.7f}",
                      lambda row: f"TOI-{row['toi']} (TIC {row['tid']}, disposition {row['tfopwg_disp'] or 'none'})", ("ra", "dec")),
         "VSX": (_VIZIER_TAP, f'SELECT "Name", "Type", "Period", RAJ2000, DEJ2000 FROM "B/vsx/vsx" WHERE {_cone(ra, dec, r, "RAJ2000", "DEJ2000")}',
@@ -223,8 +223,58 @@ def catalogue_audit(ra_deg: float, dec_deg: float, *, radius_arcsec: float = 30.
                       ("" if len(names) <= 12 else f"; +{len(names) - 12} more")
             else:
                 res = f"no match in {svc} within {radius_arcsec:g}\" as of {ts}"
-            out[svc] = {"state": "done", "result": res, "query": adql, "retrieved_utc": ts, "matches": names}
+            out[svc] = {"state": "done", "result": res, "query": adql, "retrieved_utc": ts, "matches": names, "rows": rows}
         except Exception as exc:  # noqa: BLE001 - an outage is inconclusive, never 'no match'
             out[svc] = {"state": "error", "result": f"inconclusive ({svc} query failed as of {ts}: {type(exc).__name__}: {str(exc)[:200]})",
-                        "query": adql, "retrieved_utc": ts, "matches": []}
+                        "query": adql, "retrieved_utc": ts, "matches": [], "rows": []}
     return out
+
+
+def event_ephemeris_screen(event_bjd: float, rows: list[dict], *, tolerance_days: float = 1.0) -> list[dict]:
+    """Flag possible published ephemeris coincidences for manual timing/TTV review.
+
+    This is a deliberately broad screen, not an identity or false-alarm test.
+    A missing period/epoch cannot clear a lead; catalogues may omit TTVs.
+    """
+    import math
+
+    matches = []
+    for row in rows:
+        try:
+            period = float(row["pl_orbper"])
+            epoch = float(row["pl_tranmid"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not all(math.isfinite(x) for x in (period, epoch)) or period <= 0:
+            continue
+        cycle = round((event_bjd - epoch) / period)
+        predicted = epoch + cycle * period
+        residual = event_bjd - predicted
+        if abs(residual) <= tolerance_days:
+            matches.append({"name": row.get("pl_name") or f"TOI-{row.get('toi')}",
+                            "event_bjd": event_bjd, "cycle": cycle,
+                            "predicted_bjd": predicted, "residual_days": residual,
+                            "screen_tolerance_days": tolerance_days,
+                            "period_days": period, "reference_epoch_bjd": epoch})
+    return matches
+
+
+def review_event_time_prior_art(catalogues: dict[str, dict], events: list[dict]) -> tuple[list[dict], str, str]:
+    """Shared campaign-runner review state for the broad published-time screen."""
+    timing = []
+    for services in catalogues.values():
+        rows = (services.get("NASA_Exoplanet_Archive", {}).get("rows", [])
+                + services.get("TESS_TOI", {}).get("rows", []))
+        for event in events:
+            timing.extend(event_ephemeris_screen(float(event["event_bjd"]), rows))
+    if not events:
+        return timing, "not_tested", "no repeat events to compare"
+    if timing:
+        names = ", ".join(sorted({m["name"] for m in timing}))
+        return timing, "inconclusive", (
+            f"{len(timing)} possible published-ephemeris overlap(s) within 1 d ({names}); "
+            "inspect individual published mid-times/TTVs before candidate promotion; "
+            "the screening tolerance does not prove identity")
+    return timing, "inconclusive", (
+        "no 1-d published-ephemeris overlap in answered catalogue rows; "
+        "missing ephemerides and TTVs remain untested")

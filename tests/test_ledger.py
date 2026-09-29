@@ -121,3 +121,18 @@ def test_reopen_persists_runs_and_measurements(tmp_path):
     again = Ledger(path)
     assert again.run(run)["status"] == "completed"
     assert [m["name"] for m in again.measurements_for_candidate("")] == ["depth"]
+
+
+def test_retired_candidate_leaves_history_but_not_active_count():
+    import pytest
+
+    led = Ledger(":memory:")
+    cid = "CYG-retracted-test"
+    led.add_candidate(cid, evidence_level="unverified_lead", summary="former signal")
+    led.add_prior_art("NASA", "published self-match", candidate_id=cid, query="exact ephemeris")
+    led.retire_candidate(cid, reason="published transit", reference="campaigns/example/REJECTION.md")
+    assert led.get_candidate(cid) is None
+    assert led.retired_candidate(cid)["former_summary"] == "former signal"
+    assert led.prior_art_for(cid)[0]["result"] == "published self-match"
+    with pytest.raises(ValueError, match="cannot be reused"):
+        led.add_candidate(cid)

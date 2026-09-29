@@ -354,6 +354,13 @@ def tpfs(tmp_path_factory):
     return {"target": write_tpf(d / "target_tp.fits", seed=11), "neighbour": write_tpf(d / "nb_tp.fits", seed=11, dip_on="neighbour")}
 
 
+def test_significant_subpixel_centroid_offset_fails_localization():
+    assert vet.difference_image_localization_state(2.9, 5.9) == "failed"
+    assert vet.difference_image_localization_state(2.6, 6.8) == "failed"
+    assert vet.difference_image_localization_state(0.4, 0.7) == "passed"
+    assert vet.difference_image_localization_state(8.0, 1.5) == "inconclusive"
+
+
 def test_difference_image_on_target_signal(tpfs):
     evs = [("E", bjd(REL_EV), DUR), ("GAP", bjd(REL_GAP), DUR)]
     r = vet.difference_image(tpfs["target"], RA, DEC, evs, n_boot=60)

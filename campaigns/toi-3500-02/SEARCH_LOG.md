@@ -1,3 +1,5 @@
+> **2026-09-27 verification update:** Canonical dossier units, local-null claims and difference-image states were corrected. The [follow-up report](../../reports/lead-followup-2026-09-27/REPORT.md) records the live metadata, independent cached-TPF reduction and two-source Gaussian-PSF grid. The grid is target-favoring in most S64/S90 trials but changes sign across plausible PSF/registration perturbations, so the 3.71-arcsec companion remains unresolved. Older interpretations below are historical where they conflict.
+
 # Search log: toi-3500-02
 
 > Generated draft; see REPORT.md.

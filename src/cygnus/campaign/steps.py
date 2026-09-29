@@ -714,7 +714,7 @@ def step_period_aliases(ctx, params: dict) -> dict:
 # ------------------------------------------------------------------ prior art
 def step_prior_art(ctx, params: dict) -> dict:
     """Catalogue cross-match for every campaign target through the Known-Object Gate adapters."""
-    from ..priorart import catalogue_audit
+    from ..priorart import catalogue_audit, review_event_time_prior_art
 
     targets = ctx.targets()
     radius = float(params.get("radius_arcsec", 30.0))
@@ -726,12 +726,15 @@ def step_prior_art(ctx, params: dict) -> dict:
             ctx.ledger.add_prior_art(service=svc, result=r["result"], gate="catalog", query=r["query"],
                                      candidate_id=f"target:{t['name']}", retrieved_utc=r["retrieved_utc"])
         out[t["name"]] = res
+    events = ctx.optional_result("period_aliases", {}).get("candidates", [])
+    timing, timing_state, timing_note = review_event_time_prior_art(out, events)
+    ctx.check("Event-time prior art", timing_state, timing_note)
     states = [r["state"] for res in out.values() for r in res.values()]
     if states:
         ctx.check("Catalogue cross-match", "passed" if all(s == "done" for s in states) else "inconclusive",
                   f"{len(out)} target(s) × {len(states) // max(1, len(out))} services, radius {radius:g}″; "
                   f"{states.count('done')} answered, {len(states) - states.count('done')} errored; results in the ledger prior_art table")
-    return {"targets": out}
+    return {"targets": out, **({"event_time_screen": timing} if targets else {})}
 
 
 # ------------------------------------------------------------------ target queue

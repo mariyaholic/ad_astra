@@ -1,0 +1,49 @@
+{
+  "schema": "cygnus.sky_record/1",
+  "id": "lead-followup-2026-09-27",
+  "title": "Pixel, catalog and binary-orbit follow-up for four leads",
+  "kind": "same-epoch pixel re-reduction and exact-source catalog follow-up",
+  "status": "completed",
+  "outcome": "pipeline_check",
+  "evidence": null,
+  "date": "2026-09-27",
+  "summary": "A separate cached-TPF reduction confirms displaced TOI-224 E4, TOI-3500 E2 and TOI-7610 E1 localizations. Exact Gaia/SIMBAD rows establish TOI-7610 as an SB1 with a stellar-mass companion, so that exoplanet lead is retired. A TOI-3500 Gaussian-PRF sensitivity grid usually favors the target but cannot separate the 0.184-pixel pair robustly. Three active Unverified leads remain; none is promoted.",
+  "spec": null,
+  "report": "reports/lead-followup-2026-09-27/REPORT.md",
+  "search_log": "reports/lead-followup-2026-09-27/SEARCH_LOG.md",
+  "products": [
+    {"id": "tess2018234235059-s0002-0000000070797900-0121-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "A216CE5334B9548BEB6137D7D1F97BBD5AD7CDF1BCFBEFD7CB5D1820B47BED1E"},
+    {"id": "tess2020238165205-s0029-0000000070797900-0193-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "C53F5BFC72EE2FA974D717BED8528FF4DA206ED171626BEE3322F9A6174B3D4A"},
+    {"id": "tess2023237165326-s0069-0000000070797900-0264-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "E6D1B5738B43DE6FA95BFC86FA6D22EF84D7CF2E26A00E11A9E3252096CD8052"},
+    {"id": "tess2025232030459-s0096-0000000070797900-0293-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "00FFB20B5287A817B6FA05ECDAA29FC36E5971DB113C1EE31E9414956D9E1A39"},
+    {"id": "tess2026192185000-s0106-0000000070797900-0308-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "3DF0FFA33FCE53A78FBD44FC495AD63834ADA8F17DED240C0C1C89F3F573BD0F"},
+    {"id": "tess2021039152502-s0035-0000000170889511-0205-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "7BF671F85BF7D8EBEF001C30B6A1AAA8FD0355A86D51FB746AB9C65E7A8580B9"},
+    {"id": "tess2026005125623-s0099-0000000170889511-0300-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "77CBE1764AD84D32D653200972CE0725C1E984E5E35A542EE3537A7413A3F059"},
+    {"id": "tess2023096110322-s0064-0000000443666343-0257-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "DAB6E7568827AD9A34D72001D1BF3E8200EFA852474FEA937D03B071FF32F52E"},
+    {"id": "tess2025071122000-s0090-0000000443666343-0287-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "772E4D5E4D75DF82D563F3238AD978FA81FD1AFCF9B0AE2B1F46D834973C5027"},
+    {"id": "tess2026060005000-s0101-0000000443666343-0303-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "3C607E6CD7A7DA0371AA562A06B089AD3A910129CDAF069DEC375316E3A0D38C"},
+    {"id": "tess2025014115807-s0088-0000000121341000-0285-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "4BAF947215854D36E2CC2D46C2FE43C1D3D68E454328E4874794585122A3CF65"},
+    {"id": "tess2026005125623-s0099-0000000121341000-0300-s_tp.fits", "archive": "MAST/TESS SPOC TPF", "sha256": "1C5357DC2B6C61AC867ACAA7C23406C255A996996C116ED74B91CCC00AA4AA7C"}
+  ],
+  "targets": [
+    {"name": "TOI-224.01", "ra_deg": 1.977969, "dec_deg": -29.979603, "frame": "ICRS", "epoch": "J2015.5", "position_source": "NASA Exoplanet Archive TOI table; reports/position-epoch-audit-01"},
+    {"name": "TOI-2666.01", "ra_deg": 139.480865, "dec_deg": -3.387525, "frame": "ICRS", "epoch": "J2015.5", "position_source": "NASA Exoplanet Archive TOI table; reports/position-epoch-audit-01"},
+    {"name": "TOI-3500.02", "ra_deg": 186.816884, "dec_deg": -29.832996, "frame": "ICRS", "epoch": "J2015.5", "position_source": "NASA Exoplanet Archive TOI table; reports/position-epoch-audit-01"},
+    {"name": "TOI-7610.01", "ra_deg": 129.250045, "dec_deg": -3.530909, "frame": "ICRS", "epoch": "J2015.5", "position_source": "NASA Exoplanet Archive TOI table; reports/position-epoch-audit-01"}
+  ],
+  "checks": [
+    {"name": "Cached TPF input integrity", "state": "passed", "note": "12 TPFs checked by filename, byte count and SHA-256; hashes are in SEARCH_LOG.md."},
+    {"name": "Independent same-epoch aperture reduction", "state": "passed", "note": "Four aperture definitions and 300 bootstrap resamples per event completed for 12 event/control windows."},
+    {"name": "TOI-224 E4 localization", "state": "failed", "note": "S106 local-peak offset 8.70 arcsec at 8.60 bootstrap sigma; independent reduction reproduces the displaced source."},
+    {"name": "TOI-2666 E1 localization", "state": "passed", "note": "S99 local-peak offset 0.37 arcsec at 0.74 bootstrap sigma; same-epoch source localization survives this reduction."},
+    {"name": "TOI-3500 E1 localization", "state": "passed", "note": "S90 local-peak offset 0.35 arcsec at 0.65 bootstrap sigma."},
+    {"name": "TOI-3500 E2 localization", "state": "failed", "note": "S101 local-peak offset 6.74 arcsec at 7.60 bootstrap sigma; rejected event supplies no alias preference."},
+    {"name": "TOI-7610 E1 localization", "state": "failed", "note": "S99 local-peak offset 2.92 arcsec at 5.71 bootstrap sigma; target origin remains unestablished."},
+    {"name": "Independent sky epoch or instrument", "state": "not_tested", "note": "All 12 products are previously cached TESS observations."},
+    {"name": "PRF registration uncertainty", "state": "inconclusive", "note": "TOI-3500 sensitivity grid varied common registration by ±0.1 pixel and FWHM 0.8–2.0 pixels, but used a Gaussian rather than the calibrated TESS PRF."},
+    {"name": "TOI-3500 neighbor two-source fit", "state": "inconclusive", "note": "Target favored in 71% of S64 and 86% of S90 grid trials, but preference changes sign and residualized source-template correlations span 0.934–0.986 for a 0.183–0.185-pixel separation."},
+    {"name": "TOI-7610 exact-source Gaia DR3 NSS audit", "state": "failed", "note": "Gaia DR3 returns an SB1 orbit with P 90.4224 d, e 0.309, K1 12.14 km/s and 23 accepted RVs; f(M)=0.0144 solar masses and conditional minimum companion mass about 0.238 solar masses. Original target-planet reading rejected."},
+    {"name": "New RV for active leads", "state": "not_tested", "note": "No new or archival multi-epoch RV time series was analyzed for TOI-224, TOI-2666 or TOI-3500."},
+    {"name": "Search-wide false-alarm calibration and injection recovery", "state": "not_tested", "note": "Local bootstrap localization does not calibrate search-wide significance."}
+  ]
+}

@@ -16,6 +16,9 @@ from __future__ import annotations
 import csv
 import io
 import math
+import re
+
+from .ledger import now_utc
 
 EXO_TAP = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
 TOI_COLUMNS = ("toi", "tid", "tfopwg_disp", "ra", "dec", "st_tmag", "pl_trandep", "pl_trandurh", "pl_tranmid",
@@ -63,7 +66,8 @@ def build_queue(params: dict, fetch=_fetch) -> dict:
         s, why = score_toi(r)
         entry = {"name": f"TOI-{r['toi']}", "tic": int(float(r["tid"])), "ra_deg": _f(r["ra"]), "dec_deg": _f(r["dec"]),
                  "tmag": _f(r["st_tmag"]), "depth_ppm": _f(r["pl_trandep"]), "duration_h": _f(r["pl_trandurh"]),
-                 "t0_bjd": _f(r["pl_tranmid"]), "disposition": r.get("tfopwg_disp") or "",
+                 "t0_bjd": _f(r["pl_tranmid"]), "period_days": _f(r.get("pl_orbper")),
+                 "disposition": r.get("tfopwg_disp") or "",
                  "toi_rowupdate": r.get("rowupdate"), "score": s, "rationale": why}
         (ranked if s is not None else unranked).append(entry)
     ranked.sort(key=lambda e: (-e["score"], e["name"]))
@@ -73,3 +77,37 @@ def build_queue(params: dict, fetch=_fetch) -> dict:
     return {"query": adql, "endpoint": EXO_TAP, "pool_size": len(rows), "unranked": [(e["name"], e["rationale"]) for e in unranked],
             "ranking": {"formula": DEFAULT_FORMULA, "note": "heuristic for ordering work, not a measurement"},
             "queue": ranked[:top]}
+
+
+def refresh_queue_target(row: dict, fetch=None) -> dict:
+    """Re-read the exact TOI/TIC at claim time; fail closed on missing or changed identity.
+
+    Queue CSVs are prioritization snapshots, not current ephemerides. The live TOI
+    period must reach the spec so periodic targets receive an ephemeris veto.
+    The query, retrieval time and archive row-update date are carried forward.
+    """
+    name = str(row.get("name") or "")
+    if not re.fullmatch(r"TOI-\d+\.\d+", name):
+        raise ValueError(f"invalid queued TOI identifier: {name!r}")
+    tic = int(float(row["tic"]))
+    adql = f"SELECT {', '.join(TOI_COLUMNS)} FROM toi WHERE tid = {tic}"
+    rows = (fetch or _fetch)(adql)
+    matches = [r for r in rows if f"TOI-{r.get('toi')}" == name
+               and int(float(r.get("tid") or -1)) == tic]
+    if len(matches) != 1:
+        raise ValueError(f"{name} / TIC {tic}: expected exactly one current TOI row, got {len(matches)}")
+    r = matches[0]
+    epoch = _f(r.get("pl_tranmid"))
+    if epoch is None:
+        raise ValueError(f"{name}: current TOI row has no transit epoch")
+    refreshed = dict(row)
+    refreshed.update({
+        "ra_deg": _f(r.get("ra")), "dec_deg": _f(r.get("dec")),
+        "tmag": _f(r.get("st_tmag")), "depth_ppm": _f(r.get("pl_trandep")),
+        "duration_h": _f(r.get("pl_trandurh")), "t0_bjd": epoch,
+        "period_days": _f(r.get("pl_orbper")),
+        "disposition": r.get("tfopwg_disp") or "",
+        "toi_rowupdate": r.get("rowupdate") or "",
+        "catalogue_query": adql, "catalogue_retrieved_utc": now_utc(),
+    })
+    return refreshed

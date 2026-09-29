@@ -1,5 +1,6 @@
 {
   "audit": {
+    "independent cached TPF localization (2026-09-27)": "failed",
     "Gaia neighbours able to mimic the depth (E1)": "inconclusive",
     "RV (host G 11.35)": "not_tested",
     "ZTF light curve (3.71 arcsec neighbour)": "not_tested",
@@ -7,20 +8,21 @@
     "alternative detrending (E1)": "passed",
     "background/centroid/pointing (E1)": "passed",
     "background/centroid/pointing (E2)": "failed",
-    "blend blame (3.71 arcsec neighbour)": "failed",
+    "blend blame (3.71 arcsec neighbour)": "inconclusive",
     "blend test (43.2 arcsec neighbour)": "not_tested",
     "box fit (E1; E2)": "passed",
     "difference-image centroid (E1)": "passed",
     "difference-image centroid (E2)": "failed",
     "future-sector alias test (P = 350.31 d epemeris next transit ~2027-08)": "not_tested",
     "quality flags and coverage (E1)": "passed",
-    "red-noise significance (E1; E2)": "passed",
+    "red-noise significance (E1; E2)": "inconclusive",
     "same-CCD common mode (E1; E2)": "passed",
-    "secondary eclipse at phase 0.5": "passed",
+    "secondary eclipse at phase 0.5": "inconclusive",
     "shape vs reference (E1)": "passed",
-    "stellar-density duration limit on aliases": "passed"
+    "stellar-density duration limit on aliases": "passed",
+    "two-source Gaussian-PSF sensitivity grid (2026-09-27)": "inconclusive"
   },
-  "bottom_line": "Two clean on-target transits on TIC 443666343 (the S90 event E1 and the S64 reference; the S101 event E2 is an aperture-loss/pointing artifact, rejected): equal depth ~7.0-7.8 ppt, equal 7.9-h duration and shape, 36-47-sigma red-noise significance, difference images 0.3-0.4 arcsec on target, the 3.71-arcsec co-moving neighbour excluded by the deficit direction. Sixteen data-allowed aliases P = 700.6242/n (n = 2..18 excluding 18.44 d; P >= 35.03 d) \u2014 P = 350.312 d is the most economical single reading. RV and phase coverage untested \u2014 Unverified lead.",
+  "bottom_line": "Two repeat dips remain in the TIC 443666343 aperture (the S90 event E1 and the S64 reference; S101 E2 is rejected as an aperture-loss/pointing artifact). Their depth, duration and shape agree, and their difference images lie near the target. A 2026-09-27 two-source Gaussian-PSF sensitivity grid usually prefers the target over the 3.71-arcsec co-moving neighbour, but the preference reverses under plausible PSF/registration perturbations because the sources are only 0.184 TESS pixel apart. Localization therefore remains inconclusive. Sixteen aliases P = 700.6242/n over 35.03\u2013700.62 d remain; search-wide false alarms, calibrated PRF localization, RV and phase coverage are incomplete. Unverified lead.",
   "candidate_id": "CYG-2026-09-TOI3500.02",
   "catalog_audit": {
     "Gaia DR3 cone": "3.71 arcsec co-moving neighbour (parallax 5.21 mas = host's, G 14.07); 43.2 arcsec neighbour (G ~14.5)",
@@ -30,9 +32,9 @@
     "VSX (30 arcsec)": "no match (as of 2026-09-26T08:21:01Z)"
   },
   "competing": [
-    "Transiting planet (P = 350.31 d reading; depth 7 ppt, 7.9 h duration on a 1.10 Rsun host => Rp ~ 6 R_Earth, Jovian scale) \u2014 unresolved; RV would set M2.",
+    "Transiting planet or eclipsing companion under any of the 16 allowed aliases. At 7 ppt on an assumed 1.10 Rsun host, the central undiluted sqrt(depth) radius scale is about 10 Earth radii; grazing, dilution and unresolved multiplicity make this illustrative only. RV would constrain mass.",
     "Long-period grazing eclipsing binary: secondary can hide in the seasonal gaps of the long aliases; equal depth and equal shape currently constrain it \u2014 RV is decisive.",
-    "Contaminating dips from the 3.71 arcsec co-moving neighbour: excluded for E1 by the deficit direction and the TPF-WCS pixel mapping; untested by ZTF (no light curve for the neighbour) \u2014 noted, not a pass.",
+    "Contamination by the 3.71-arcsec co-moving neighbour remains unresolved. The reviewable Gaussian-PSF grid favors the target in 71.4% of S64 trials and 85.7% of S90 trials, but target-versus-neighbour preference changes sign across the tested PSF widths and registration shifts; template correlations are 0.934-0.986 because the pair is separated by only 0.184 TESS pixel. A calibrated TESS PRF or higher-resolution observation is required.",
     "Aperture-loss artifact: applies to E2 only (rejected); E1 carries no POS_CORR excursion and 237/237 usable cadences.",
     "Sibling-TOI contamination (TOI-3500.01's P 7.34-d ephemeris): excluded by the sibling-ephemerides check \u2014 no catalogued sibling transit at E1's epoch."
   ],
@@ -48,7 +50,7 @@
       "value": "P = 700.62, 350.31, 233.54, 175.16, 140.12, 116.77, 100.09, 87.58, 77.85, 70.06, 63.69, 58.39, 53.89, 50.04, 36.88, 35.03 d (density limit excludes 18.44 d)"
     },
     "delta_T_reference_to_E1": {
-      "method": "(2:1 spacing; 700.62/2 = 350.31 d)",
+      "method": "reference S64 to accepted E1 S90; allowed aliases P = \u0394T/n, including 350.31 d",
       "unit": "d",
       "value": 700.6242
     },
@@ -56,7 +58,7 @@
       "value": "with E2 excluded, phase-0.5 windows are clean at all covered aliases (e.g. P 35.03: -80 +/- 186; 50.04: +313 +/- 167 ppm)"
     },
     "red_noise_significance_E1": {
-      "value": "36.0 robust sigma below the 300-epoch random null"
+      "value": "local robust statistic 36.0 relative to 300 random epochs; zero exceedances, search-wide false-alarm rate not estimated"
     },
     "reference_depth": {
       "method": "PDCSAP median residual (catalogue depth for TOI-3500.02: 8095 ppm)",
@@ -78,7 +80,7 @@
       "value": "1.10 Rsun, 0.94 Msun host (density limit), host G 11.35 \u2014 RV-measurable; sibling TOI-3500.01 (P 7.3436 d, PC) transit is not the signal"
     }
   },
-  "next_test": "RV on the host (G 11.35): a planet candidate gives K ~ 90-150 m/s over a 350-d orbital period; a grazing EB gives km/s \u2014 decisive. Next predicted transit under P = 350.312 d is ~2027-08; ground-based photometry at the 2:1 phase and any new TESS sector against the 35.03-700.62-d alias ephemerides are the photometric path.",
+  "next_test": "Apply a calibrated, spatially varying TESS PRF fit to S64/S90 or obtain higher-resolution time-series photometry that separates the 3.71-arcsec pair. Preserve all 16 aliases because rejected E2 cannot select 350.312 d. Search later-sector coverage and obtain phase-spread RV before predicting a preferred observing window.",
   "provenance": {
     "archive": "MAST (TESS SPOC 120-s light curves, TPF difference images; NASA Exoplanet Archive TOI table for target metadata)",
     "campaign": "campaigns/toi-3500-02.yaml and campaigns/toi-3500-02; vetting artifacts campaigns/toi-3500-02/../vetting/ (vetting.json, VETTING.md, figures)",
@@ -91,7 +93,8 @@
     "worktree_commit": "6a3aa66"
   },
   "reproduction": {
-    "code": "cygnus (src/cygnus/), suite gate at commit 6a3aa66: python -m pytest -q (639 passed, 37 deselected)",
+    "follow_up_2026_09_27": "reports/lead-followup-2026-09-27/independent_tpf_check.py and toi3500_two_source_test.py; results in independent_tpf_results.json, toi3500_two_source_results.json and REPORT.md",
+    "code": "cygnus (src/cygnus/); historical baseline gate at commit 6a3aa66: 639 passed, 37 deselected; current workspace gate 2026-09-27: 644 passed, 37 deselected",
     "figures": "vetting/figures/ and vetting/*.png in the campaign directory",
     "package_versions": "python 3.13; astropy/lightkurve/numpy per requirements.txt; candidates rendered by cygnus.reporting.dossier",
     "run": "python -m cygnus.multi run campaigns/toi-3500-02.yaml ; python -m cygnus.campaign vet campaigns/toi-3500-02.yaml"

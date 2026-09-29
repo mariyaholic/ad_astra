@@ -1,5 +1,7 @@
 # Follow-up plan: the five vetted candidate dossiers (2026-09-26)
 
+> Superseded for pursuit decisions by [the 2026-09-27 five-dossier audit](LEAD_PURSUIT_PLAN_2026-09-27.md). The audit found that the TOI-6695 S34/S61 events match published TOI-6695 b transits and identified unit, prior-art and localization errors below. Retain this file as the 2026-09-26 handoff snapshot.
+
 Working handoff for the pursuit phase after the 2026-09-26 lead vetting and dossier
 creation. **Read `docs/STATUS.md` first**, then the five dossiers themselves — the
 dossiers, not this file, are the evidence of record; this file only *sequences the

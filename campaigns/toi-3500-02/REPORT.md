@@ -1,3 +1,5 @@
+> **2026-09-27 verification update:** Canonical dossier units, local-null claims and difference-image states were corrected. New live MAST/TOI metadata and independent cached-TPF checks are linked from the [follow-up report](../../reports/lead-followup-2026-09-27/REPORT.md). A two-source Gaussian-PSF sensitivity grid usually favors the target in S64/S90 but reverses under plausible PSF/registration choices because the target and 3.71-arcsec companion are only 0.184 TESS pixel apart; localization remains inconclusive. Older interpretations below are historical where they conflict.
+
 # Known-object test, TOI-3500.02
 
 > **Generated draft** (`python -m cygnus.campaign report`). Numbers are copied from the runner's saved

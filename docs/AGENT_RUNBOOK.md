@@ -32,6 +32,25 @@ Other targets:
 
 Never edit a generated spec's numbers by hand. If a value is wrong, fix the source and generate the spec again.
 
+## Claim-time catalogue and candidate gates
+
+The queue is a dated prioritization snapshot. `new --next` and `new --from-queue` must re-query the exact TOI/TIC from the NASA Exoplanet Archive and record the query, retrieval UTC and row-update date in the spec. Verify `period_days` and the veto kind: a current period requires an ephemeris veto across every retrieved sector. If identity, epoch or service access fails, stop the claim and record an inconclusive lookup; never silently fall back to the stale CSV. For an existing historical spec with `period_days: null`, check the current TOI row before interpreting any repeat event.
+
+For every proposed lead, use this review sequence before creating or retaining a candidate dossier:
+
+1. **Identify the event.** Match TIC/TOI/Gaia identity and propagated position, then query the current TOI table, confirmed planet table, sibling ephemerides and primary literature. Record the exact query, release and retrieval date. Compare each local BJD_TDB event to predicted *and individually published* transit times, including TTVs and uncertainty. `prior_art`'s one-day event-time overlap is a broad alert, not a proof of identity; a non-match cannot clear missing ephemerides or TTVs. Check the local time scale before subtracting epochs.
+2. **Reconcile units.** Keep source depths in ppm and show `ppt = ppm/1000`, `% = ppm/10000`. Compute a central, undiluted radius scale only as a conditional check; grazing, dilution, uncertain host radius and poor RUWE invalidate a precise radius estimate. Check durations, radius and RV units against the source table.
+3. **Audit localization.** Read the difference-image offset in arcseconds *and* its uncertainty/significance, the centroid and pointing time series, PRF registration, aperture changes, neighbours and background. A coarse three-pixel inclusion test does not override a significant displacement. If any relevant test fails or is unavailable, keep localization failed/inconclusive; do not call the event on-target.
+4. **Audit statistics and coverage.** Report the empirical null exceedance count and number of trials (for example 0/300), red-noise treatment, searched targets/epochs/widths, and injection–recovery completeness. Zero exceedances is finite null resolution, not p=0 or a Gaussian sigma. A nondetection constrains only covered windows at demonstrated sensitivity; keep unobserved aliases and eccentric cases open.
+5. **Compare all allowed interpretations.** Reject pointing, off-target, known-object and sibling-transit explanations first. An event rejected as an artifact cannot select an alias even if it is near one predicted phase. Use multi-epoch RV to constrain a binary; one visit at unknown phase is not an orbital upper bound. A second reduction of the same pixels tests reduction robustness, not independent sky support.
+6. **Reconcile outputs.** Put the reasoning and null results in `REPORT.md`, `SEARCH_LOG.md` and `vetting/`; update or regenerate `sky_record.json`. Edit the canonical `publish/candidates/*.json` source before regenerating `DOSSIER.md`, update every collection description/status and retire false candidate records through `Ledger.retire_candidate(candidate_id, reason=..., reference=...)`, which archives the old row while preserving measurements and prior-art history. Keep a dated rejection note for withdrawn leads. Run `python -m pytest -q`, `python -m cygnus.publish check`, and inspect the rendered candidate route before any site build/deploy.
+
+TOI-6695.01 is the regression example: S34 and S61 belong to the published TOI-6695 b transit sequence with TTVs; see `campaigns/toi-6695-01/REJECTION.md`. The original TOI queue row lacked a period in the CSV, so its spec used a single-epoch veto; a position-only prior-art audit then missed the event-time identity.
+
+### Revisit of the four 2026-09-27 leads
+
+Before working on TOI-224.01, TOI-2666.01, TOI-3500.02 or TOI-7610.01, read `docs/LEAD_PURSUIT_PLAN_2026-09-27.md` **Next-agent execution contract** and the dated verification report. Their older specs still have `period_days: null` / `veto: single_epoch` and are frozen provenance, not a template for a fresh run. Do not run `--force`, `vet`, or regenerate reviewed outputs in those campaign directories; use a separately named campaign or report from an exact current TOI/TIC query, retaining the historical inputs for comparison. Follow the per-lead falsification and promotion gates in the plan, and keep every failed/inconclusive/not-tested check visible.
+
 ## Batches (many targets, unattended)
 
 `python -m cygnus.batch` (`src/cygnus/batch.py`) drives the same loop for tens to hundreds of targets. It calls the same commands (`cygnus.multi new`, `run` and `report`), so every campaign it produces is identical to one made by hand.
@@ -78,7 +97,7 @@ What `run` guarantees:
 1. **Read the checks table.** Each state has a fixed meaning:
    - `passed`, `failed`, `inconclusive` mean the test ran, with that result;
    - `not_tested` means it did not run, which is never the same as passed.
-   Do not change any state.
+   Do not silently change a generated state. If its decision rule is wrong, fix the rule, reclassify the stored source output with provenance, regenerate downstream records and run the gate.
 2. **Read the positive control.** It is the first thing to judge.
 
    | Positive-control state | Meaning | What you do |
@@ -93,7 +112,7 @@ What `run` guarantees:
    - `period_aliases.json`.
 
    Use the table in `campaigns/toi-2666-01/REPORT.md` as the model.
-4. **Keep claims inside the evidence rules.** The runner sets the record's outcome to `lead` with evidence *Unverified lead* when it finds a repeat candidate. **Never raise the evidence level, change `outcome`, or call anything a planet, discovery or period.** Escalate instead (below).
+4. **Keep claims inside the evidence rules.** The runner sets the record's outcome to `lead` with evidence *Unverified lead* when it finds a repeat candidate. **Never raise the evidence level or claim a new planet from a runner flag.** A documented falsification may lower `outcome` to `pipeline_check`; reconcile the record, report, ledger and publication artifacts together as described above.
 5. **Mark the draft reviewed** by deleting the first line of both files, `<!-- cygnus:generated-draft -->`. `report` never overwrites a reviewed file; later drafts go to `REPORT.draft.md`.
 6. **Commit.** Commit the spec, the `campaigns/<slug>/` directory and nothing else. Never commit `*.fits`, `state/` or your scratch paths. Use this message:
 

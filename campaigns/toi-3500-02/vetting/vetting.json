@@ -50,7 +50,7 @@
     ],
     "Red-noise significance": [
      "passed",
-     "box statistic at the event is 36.0 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.000"
+     "box statistic at the event is 36.0 robust \u03c3 below 300 random epochs of the same light curve; 0.0 of 300 local null epochs as extreme; finite local null, not Gaussian or search-wide FAP"
     ],
     "Background / centroid / pointing": [
      "passed",
@@ -833,7 +833,7 @@
     ],
     "Red-noise significance": [
      "passed",
-     "box statistic at the event is 46.9 robust \u03c3 below 300 random epochs of the same light curve; fraction as extreme 0.000"
+     "box statistic at the event is 46.9 robust \u03c3 below 300 random epochs of the same light curve; 0.0 of 300 local null epochs as extreme; finite local null, not Gaussian or search-wide FAP"
     ],
     "Background / centroid / pointing": [
      "failed",
@@ -856,12 +856,12 @@
      "22 of 22 allowed aliases compatible with a 6.3-h transit on a 1.10 R\u2609, 0.94 M\u2609 star (circular, central); shortest compatible 18.44 d"
     ],
     "Secondary eclipse (circular aliases)": [
-     "passed",
-     "phase 0.5 covered for 10 of 22 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 168 ppm"
+     "inconclusive",
+     "phase 0.5 covered for 10 of 22 allowed aliases (red-noise errors, sibling transits masked); no \u22654\u03c3 dip; median 1\u03c3 limit 168 ppm; unobserved aliases and non-circular phases remain open"
     ],
     "Difference-image centroid": [
-     "inconclusive",
-     "difference-image centroid 6.7\u2033 from the out-of-transit centroid (11.5\u03c3 bootstrap); 7.3\u2033 from the catalogue position; 78% of the deficit in the optimal aperture"
+     "failed",
+     "difference-image centroid 6.7\u2033 from the out-of-transit centroid (11.5\u03c3 bootstrap); 7.3\u2033 from the catalogue position; 78% of the deficit in the optimal aperture; 2026-09-27 corrected rule: failed (angle and bootstrap significance assessed together; PRF/registration systematic still open)"
     ]
    },
    "significant_dip": true,
@@ -1993,5 +1993,13 @@
    18.4375
   ],
   "note": "aliases of the reference-to-E1 interval allowed by the data that also put every other listed event within 0.75 h of a predicted transit"
+ },
+ "errata_reclassification": {
+  "date": "2026-09-27",
+  "method": "Re-evaluated stored difference-image offsets/bootstrap values and phase-coverage counts under corrected vet.py rules; no new pixel extraction or archive products",
+  "changes": [
+   "E2 difference image inconclusive -> failed",
+   "E2 secondary partial coverage -> inconclusive"
+  ]
  }
 }

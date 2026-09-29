@@ -4,10 +4,10 @@
  "title": "Known-object test, TOI-6695.01",
  "kind": "known-object test",
  "status": "completed",
- "outcome": "lead",
- "evidence": "Unverified lead",
- "date": "2026-09-26",
- "summary": "Known-object test on TOI-6695.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, ≤2.5, 3.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 279 threshold entries outside the known-signal veto across 4 light curve(s), forming 75 distinct event(s), 34 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459973.4583 (ΔT 723.90 d); 0 period aliases remain. Unverified lead until vetted.",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-27",
+ "summary": "Known-object recovery: S34 reference and S61 repeat match the published TOI-6695 b transit sequence (Eberhardt et al. 2025, TESS S34/S61, TTVs). The former lead and 26-alias interpretation are retracted. S88 E2 remains an off-target/pointing rejection. See REJECTION.md; original runner checks and product provenance remain below.",
  "spec": "campaigns/toi-6695-01.yaml",
  "report": "campaigns/toi-6695-01/REPORT.md",
  "search_log": "campaigns/toi-6695-01/SEARCH_LOG.md",
@@ -159,6 +159,12 @@
    "state": "passed",
    "note": "TOI-6695.01: TOI-6695 otype * (star_or_other) at 0.1\"",
    "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Published event-time identity (S34/S61)",
+   "state": "passed",
+   "note": "TOI-6695 b: archive T0 2459249.547139 vs S34 fit 2459249.5428; thesis Fig. 4.6 S61 t19 2459973.53 (rounded) vs local 2459973.5382; Eberhardt et al. 2025 report TTVs. The event is known, not a new lead.",
+   "source": "manual prior-art reconciliation, 2026-09-27; REJECTION.md"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",

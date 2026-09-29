@@ -317,6 +317,24 @@ def tpf_for(lc_product: str, scratch: Path) -> Path:
     return _mast_file("mast:TESS/product/" + fn, scratch / "tpf" / fn)
 
 
+def difference_image_localization_state(offset_arcsec: float | None, bootstrap_sigma: float | None) -> str:
+    """Classify source localization using both angle and bootstrap significance.
+
+    A significant sub-pixel offset fails this *localization check*; it does
+    not by itself identify a contaminating object, because PRF and WCS
+    systematics still need a separate audit.
+    """
+    if offset_arcsec is None or bootstrap_sigma is None:
+        return "inconclusive"
+    if not math.isfinite(offset_arcsec) or not math.isfinite(bootstrap_sigma):
+        return "inconclusive"
+    if bootstrap_sigma >= 3 and offset_arcsec >= 0.1 * TESS_PIX_ARCSEC:
+        return "failed"
+    if bootstrap_sigma < 3 and offset_arcsec < 0.25 * TESS_PIX_ARCSEC:
+        return "passed"
+    return "inconclusive"
+
+
 def difference_image(tpf: Path, ra: float, dec: float, events: list[tuple[str, float, float]], n_boot: int = 200, seed: int = 0):
     """For each (label, mid, duration): per-pixel depth = linear flank baseline − in-transit mean;
     centroid of the positive difference image (3×3 around its peak) vs the target's pixel position."""
@@ -677,8 +695,9 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
         if zf is not None and dip:
             ev["checks"]["Red-noise significance"] = (
                 "passed" if -zf >= 7 else "inconclusive" if -zf >= 4 else "failed",
-                f"box statistic at the event is {-zf:.1f} robust σ below {emp['PDCSAP']['n_random']} random epochs of the same light curve; "
-                f"fraction as extreme {emp['PDCSAP']['fraction_random_as_extreme']:.3f}")
+                f"local robust-z descriptor {-zf:.1f} against {emp['PDCSAP']['n_random']} random epochs of this light curve; "
+                f"fraction as extreme {emp['PDCSAP']['fraction_random_as_extreme']:.3f}; "
+                "finite local null only, not a Gaussian significance or search-wide false-alarm probability")
         eng = {k: v for k, v in emp.items() if k not in ("PDCSAP", "SAP") and v.get("z") is not None}
         worst = max(eng.items(), key=lambda kv: abs(kv[1]["z"])) if eng else None
         if worst:
@@ -774,7 +793,7 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
         ev["secondary_eclipse"] = rows
         sig = [r_ for r_ in rows if r_["secondary_depth_ppm"] > 4 * r_["err_ppm"]]
         ev["checks"]["Secondary eclipse (circular aliases)"] = (
-            "not_tested" if not rows else "failed" if sig else "passed",
+            "not_tested" if not rows else "failed" if sig else "inconclusive" if len(rows) < len(allowed) else "passed",
             f"phase 0.5 covered for {len(rows)} of {len(allowed)} allowed aliases (red-noise errors, sibling transits masked); "
             + (f"{len(sig)} with a ≥4σ dip: " + ", ".join(f"P {r_['period_days']:.2f} d {r_['secondary_depth_ppm']:.0f}±{r_['err_ppm']:.0f} ppm" for r_ in sig[:4])
                if sig else (f"no ≥4σ dip; median 1σ limit {np.median([r_['err_ppm'] for r_ in rows]):.0f} ppm" if rows else "")))
@@ -805,8 +824,7 @@ def vet(spec: dict, root: Path, *, neighbours: bool = True, pixels: bool = True,
                 continue
             # a small offset passes; a large one fails only when the bootstrap makes it significant; a large but
             # insignificant offset (a noisy stamp) is inconclusive, not passed
-            state = ("passed" if off < 0.25 * TESS_PIX_ARCSEC
-                     else "failed" if s and s >= 3 and off >= 0.5 * TESS_PIX_ARCSEC else "inconclusive")
+            state = difference_image_localization_state(off, s)
             refd = (report.get("reference") or {}).get("difference_image") or di["events"].get("REF") or {}
             ev["checks"]["Difference-image centroid"] = (
                 state, f"difference-image centroid {off:.1f}″ from the out-of-transit centroid ({(s or 0):.1f}σ bootstrap); "

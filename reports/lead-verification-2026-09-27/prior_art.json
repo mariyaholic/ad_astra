@@ -1,0 +1,171 @@
+{
+  "retrieved_utc": "2026-09-27T04:58:22.736381+00:00",
+  "services": [
+    "NASA_Exoplanet_Archive pscomppars",
+    "TESS_TOI toi"
+  ],
+  "radius_arcsec": 30,
+  "events_bjd_tdb": {
+    "toi-224-01": 2459092.1803,
+    "toi-2666-01": 2461049.1644,
+    "toi-3500-02": 2460757.3199,
+    "toi-7610-01": 2461066.3486
+  },
+  "targets": {
+    "toi-224-01": {
+      "tic": 70797900,
+      "event_bjd_tdb": 2459092.1803,
+      "audit": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-27T04:58:22Z",
+          "query": "SELECT pl_name, hostname, ra, dec, pl_orbper, pl_tranmid, pl_trandur FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 1.9779690, -29.9796030, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-27T04:58:22Z",
+          "matches": [],
+          "rows": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-27T04:58:26Z: TOI-224.01 (TIC 70797900, disposition APC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec, pl_orbper, pl_tranmid, pl_trandurh FROM toi WHERE ra BETWEEN 1.9683485 AND 1.9875895 AND dec BETWEEN -29.9879363 AND -29.9712697",
+          "retrieved_utc": "2026-09-27T04:58:26Z",
+          "matches": [
+            "TOI-224.01 (TIC 70797900, disposition APC)"
+          ],
+          "rows": [
+            {
+              "toi": "224.01",
+              "tid": "70797900",
+              "tfopwg_disp": "APC",
+              "ra": "1.9779690",
+              "dec": "-29.9796030",
+              "pl_orbper": "705.5844658",
+              "pl_tranmid": "2458365.8436840",
+              "pl_trandurh": "1.9189212"
+            }
+          ]
+        }
+      },
+      "event_time_screen": []
+    },
+    "toi-2666-01": {
+      "tic": 170889511,
+      "event_bjd_tdb": 2461049.1644,
+      "audit": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-27T04:58:29Z",
+          "query": "SELECT pl_name, hostname, ra, dec, pl_orbper, pl_tranmid, pl_trandur FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 139.4808650, -3.3875250, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-27T04:58:29Z",
+          "matches": [],
+          "rows": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-27T04:58:31Z: TOI-2666.01 (TIC 170889511, disposition APC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec, pl_orbper, pl_tranmid, pl_trandurh FROM toi WHERE ra BETWEEN 139.4725171 AND 139.4892129 AND dec BETWEEN -3.3958583 AND -3.3791917",
+          "retrieved_utc": "2026-09-27T04:58:31Z",
+          "matches": [
+            "TOI-2666.01 (TIC 170889511, disposition APC)"
+          ],
+          "rows": [
+            {
+              "toi": "2666.01",
+              "tid": "170889511",
+              "tfopwg_disp": "APC",
+              "ra": "139.4808650",
+              "dec": "-3.3875250",
+              "pl_orbper": "",
+              "pl_tranmid": "2459259.1413830",
+              "pl_trandurh": "1.4450000"
+            }
+          ]
+        }
+      },
+      "event_time_screen": []
+    },
+    "toi-3500-02": {
+      "tic": 443666343,
+      "event_bjd_tdb": 2460757.3199,
+      "audit": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-27T04:58:33Z",
+          "query": "SELECT pl_name, hostname, ra, dec, pl_orbper, pl_tranmid, pl_trandur FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 186.8168840, -29.8329960, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-27T04:58:33Z",
+          "matches": [],
+          "rows": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "2 match(es) in TESS_TOI within 30\" as of 2026-09-27T04:58:35Z: TOI-3500.01 (TIC 443666343, disposition PC); TOI-3500.02 (TIC 443666343, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec, pl_orbper, pl_tranmid, pl_trandurh FROM toi WHERE ra BETWEEN 186.8072776 AND 186.8264904 AND dec BETWEEN -29.8413293 AND -29.8246627",
+          "retrieved_utc": "2026-09-27T04:58:35Z",
+          "matches": [
+            "TOI-3500.01 (TIC 443666343, disposition PC)",
+            "TOI-3500.02 (TIC 443666343, disposition PC)"
+          ],
+          "rows": [
+            {
+              "toi": "3500.01",
+              "tid": "443666343",
+              "tfopwg_disp": "PC",
+              "ra": "186.8168840",
+              "dec": "-29.8329960",
+              "pl_orbper": "7.3436151",
+              "pl_tranmid": "2459315.3574690",
+              "pl_trandurh": "3.8475431"
+            },
+            {
+              "toi": "3500.02",
+              "tid": "443666343",
+              "tfopwg_disp": "PC",
+              "ra": "186.8168840",
+              "dec": "-29.8329960",
+              "pl_orbper": "",
+              "pl_tranmid": "2460056.7062830",
+              "pl_trandurh": "7.9079384"
+            }
+          ]
+        }
+      },
+      "event_time_screen": []
+    },
+    "toi-7610-01": {
+      "tic": 121341000,
+      "event_bjd_tdb": 2461066.3486,
+      "audit": {
+        "NASA_Exoplanet_Archive": {
+          "state": "done",
+          "result": "no match in NASA_Exoplanet_Archive within 30\" as of 2026-09-27T04:58:38Z",
+          "query": "SELECT pl_name, hostname, ra, dec, pl_orbper, pl_tranmid, pl_trandur FROM pscomppars WHERE CONTAINS(POINT('ICRS', ra, dec), CIRCLE('ICRS', 129.2500450, -3.5309090, 0.0083333)) = 1",
+          "retrieved_utc": "2026-09-27T04:58:38Z",
+          "matches": [],
+          "rows": []
+        },
+        "TESS_TOI": {
+          "state": "done",
+          "result": "1 match(es) in TESS_TOI within 30\" as of 2026-09-27T04:58:40Z: TOI-7610.01 (TIC 121341000, disposition PC)",
+          "query": "SELECT toi, tid, tfopwg_disp, ra, dec, pl_orbper, pl_tranmid, pl_trandurh FROM toi WHERE ra BETWEEN 129.2416958 AND 129.2583942 AND dec BETWEEN -3.5392423 AND -3.5225757",
+          "retrieved_utc": "2026-09-27T04:58:40Z",
+          "matches": [
+            "TOI-7610.01 (TIC 121341000, disposition PC)"
+          ],
+          "rows": [
+            {
+              "toi": "7610.01",
+              "tid": "121341000",
+              "tfopwg_disp": "PC",
+              "ra": "129.2500450",
+              "dec": "-3.5309090",
+              "pl_orbper": "22.1441161",
+              "pl_tranmid": "2460700.9708030",
+              "pl_trandurh": "4.7045956"
+            }
+          ]
+        }
+      },
+      "event_time_screen": []
+    }
+  }
+}

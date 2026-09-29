@@ -73,3 +73,9 @@ Not built yet (designed in `ANALYSIS_STACK.md`): alternative detrending families
 ## Automation
 
 `.github/workflows/ci.yml` runs the tests, validates every spec and builds the public site and the explorer on each push. `.github/workflows/scheduled-queue.yml` rebuilds the `tess-mono-01` queue weekly and cross-matches its top targets, using public services only, and uploads the result as an artifact; it never commits or publishes. `.github/workflows/network.yml` runs the `network`-marked tests weekly (and on demand) against the live public archives from a throwaway scratch root — an outage there is reported as inconclusive, never folded into the offline gate.
+
+## Event-time prior-art and source-record gate (2026-09-27)
+
+TOI-6695.01 exposed a queue/provenance failure: a periodic TOI row lost `pl_orbper` in the ranked CSV, creating a single-epoch veto, and a 30-arcsec cone search found the confirmed host planet without comparing event times. The S34/S61 events are TOI-6695 b (see `campaigns/toi-6695-01/REJECTION.md`).
+
+New queue claims refresh the exact TOI/TIC row and carry period, query, archive update and retrieval UTC into the spec. `prior_art` retrieves ephemerides and screens each repeat event against published epochs; any overlap requires a primary-paper and TTV review. The screen is deliberately broad and its absence is inconclusive. Agent review and source-record reconciliation are specified in `docs/AGENT_RUNBOOK.md`; a runner `lead` remains an unverified screening outcome until that review.

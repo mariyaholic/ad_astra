@@ -225,3 +225,7 @@ system in the same change.
 - The project is licensed Apache-2.0 (set on every collection). The source
   archive in `cygnus-software-0-1-0` is still restricted until the user decides
   to publish it (see `docs/STATUS.md`).
+
+## Candidate correction gate (2026-09-27)
+
+Before adding a candidate item to a published collection, use the event-identity and quantitative checks in `docs/AGENT_RUNBOOK.md`. Candidate copy is generated from the canonical `publish/candidates/*.json` record; do not fix only the rendered dossier or collection blurb. A known-object self-match is a campaign `pipeline_check` with a dated rejection note and must be removed from the active candidate collection. Update the campaign collection status and call `Ledger.retire_candidate` on the local ledger so the old row is archived rather than counted active, then run `python -m cygnus.publish check` before a build. The TOI-6695.01 retraction in `campaigns/toi-6695-01/REJECTION.md` is the worked example.

@@ -159,6 +159,30 @@
    "state": "passed",
    "note": "TOI-3500.02: UCAC2  19403154 otype PM* (star_or_other) at 1.1\"",
    "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Vetting difference-image localization (E1)",
+   "state": "passed",
+   "note": "difference-image centroid 0.3″ from the out-of-transit centroid (0.7σ bootstrap); 3.7″ from the catalogue position; 83% of the deficit in the optimal aperture",
+   "source": "2026-09-27 stored vetting reclassification; vetting/vetting.json"
+  },
+  {
+   "name": "Vetting difference-image localization (E2)",
+   "state": "failed",
+   "note": "difference-image centroid 6.7″ from the out-of-transit centroid (11.5σ bootstrap); 7.3″ from the catalogue position; 78% of the deficit in the optimal aperture; 2026-09-27 corrected rule: failed (angle and bootstrap significance assessed together; PRF/registration systematic still open)",
+   "source": "2026-09-27 stored vetting reclassification; vetting/vetting.json"
+  },
+  {
+   "name": "Independent cached TPF localization (2026-09-27)",
+   "state": "failed",
+   "note": "Separate reduction: E1 S90 0.35″/0.65σ remains on-source; rejected E2 S101 6.74″/7.60σ remains displaced and supplies no alias preference.",
+   "source": "reports/lead-followup-2026-09-27/independent_tpf_results.json"
+  },
+  {
+   "name": "Two-source Gaussian-PSF sensitivity grid (2026-09-27)",
+   "state": "inconclusive",
+   "note": "S64 favored the target in 71.4% and S90 in 85.7% of tested PSF/registration trials, but target-versus-neighbour delta-chi-square changed sign; 0.934-0.986 template correlation at 0.184 TESS-pixel separation prevents source assignment.",
+   "source": "reports/lead-followup-2026-09-27/toi3500_two_source_results.json"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",

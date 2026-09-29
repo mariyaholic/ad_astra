@@ -1,10 +1,18 @@
-# Candidate dossier — CYG-2026-09-TOI7610.01
+# Retired candidate dossier: TOI-7610.01
 
-### CYGNUS CANDIDATE DOSSIER
+> **Retired 2026-09-27.** Gaia DR3 supplies an SB1 orbit for the exact host
+> (P = 90.4224 d, K1 = 12.14 km/s, 23 accepted RVs), with a mass function of
+> 0.0144 solar masses and a conditional minimum companion mass near 0.238 solar
+> masses. The independent cached-TPF reduction also reproduces the failed S99
+> localization at 2.92 arcsec/5.71 bootstrap sigma. See
+> [REJECTION.md](REJECTION.md). The former dossier below is preserved as the
+> historical interpretation; no active candidate dossier remains.
+
+### Historical CYGNUS candidate dossier
 
 **Working identifier:** CYG-2026-09-TOI7610.01 (local working ID — not an official designation)
 **Evidence level:** unverified_lead
-**Bottom line:** One clean on-target transit in S99 (BJD 2461066.3486, depth 15,757 +/- 425 ppm, 3.76 h), 365.379 d from the S88 reference, equal depth and shape; no catalogued period fits (the TOI table's P 22.1441 d is not an integer sub-multiple of dT: 365.379/22.1441 = 16.5); 21 data-allowed aliases of dT = 365.379 d. A +5.9-sigma MOM_CENTR2 excursion is the residual caveat, no capable Gaia neighbour — Unverified lead.
+**Bottom line:** One repeat dip with unresolved localization in S99 (BJD 2461066.3486, depth 15,757 +/- 425 ppm, 3.76 h), 365.379 d from the S88 reference, equal depth and shape; no current TOI linear ephemeris fits (the TOI table's P 22.1441 d is not an integer sub-multiple of dT: 365.379/22.1441 = 16.5); 21 data-allowed aliases of dT = 365.379 d. MOM_CENTR2 shifts by +5.9 local sigma, and the E1 difference-image centroid lies 2.9 arcsec away at 5.9 sigma; on-target origin is not established — Unverified lead.
 
 #### 1. Provenance
 
@@ -18,19 +26,12 @@
 - **vetting:** python -m cygnus.campaign vet, 2026-09-26; per-lead reading in campaigns/tess-{mono-01,periodic-01}/LEAD_VETTING_LOG.md
 - **worktree_commit:** 6a3aa66
 
-Prior-art gate results (ledger-pinned):
-
-- catalog/NASA_Exoplanet_Archive: no match in NASA_Exoplanet_Archive within 30" as of 2026-09-26T10:22:38Z (as of 2026-09-26T10:22:38Z)
-- catalog/SIMBAD: 1 match(es) in SIMBAD within 30" as of 2026-09-26T10:22:46Z: UCAC4 433-048726 (SB*) (as of 2026-09-26T10:22:46Z)
-- catalog/TESS_TOI: 1 match(es) in TESS_TOI within 30" as of 2026-09-26T10:22:44Z: TOI-7610.01 (TIC 121341000, disposition PC) (as of 2026-09-26T10:22:44Z)
-- catalog/VSX: 1 match(es) in VSX within 30" as of 2026-09-26T10:22:45Z: Gaia DR3 3071787586789910144 (type ROT, P — d) (as of 2026-09-26T10:22:45Z)
-
 #### 2. Measured signal
 
 - **E1_S99:** value=BJD 2461066.3486, depth 15757 +/- 425 ppm, 3.76 h, depth ratio 0.95 +/- 0.04, duration ratio 1.00
 - **delta_T_reference_to_E1:** value=365.379; unit=d; method=alias family dT/n; 21 data-allowed aliases
 - **no_secondary_E1:** value=phase 0.5 covered for 11 of 21 aliases; no >=4-sigma dip; median 1-sigma limit 393 ppm
-- **red_noise_significance_E1:** value=41.6 robust sigma below the 300-epoch random null
+- **red_noise_significance_E1:** value=local robust statistic 41.6 relative to 300 random epochs; zero exceedances, search-wide false-alarm rate not estimated
 - **reference_depth:** value=16594; unit=ppm; uncertainty=+/-529
 - **reference_duration:** value=3.76; unit=h; method=box fit
 - **reference_transit_S88_bjd:** value=2460700.9701; unit=BJD_TDB; method=box fit
@@ -47,12 +48,13 @@ Prior-art gate results (ledger-pinned):
 | alternative detrending (E1) | passed |
 | background/centroid/pointing (E1) | failed |
 | box fit (E1) | passed |
-| difference-image centroid (E1) | passed |
+| difference-image centroid (E1) | failed |
 | future-sector alias test | not_tested |
+| independent cached TPF localization (2026-09-27) | failed |
 | quality flags and coverage (E1) | passed |
-| red-noise significance (E1) | passed |
+| red-noise significance (E1) | inconclusive |
 | same-CCD common mode (E1) | passed |
-| secondary eclipse at phase 0.5 (E1) | passed |
+| secondary eclipse at phase 0.5 (E1) | inconclusive |
 | shape vs reference (E1) | passed |
 | stellar-density duration limit on aliases | passed |
 
@@ -60,7 +62,7 @@ Prior-art gate results (ledger-pinned):
 
 #### 4. Catalog and literature audit
 
-- **Gaia DR3 cone:** 0 sources G<17 within 52 arcsec capable of the 1.58 ppt depth
+- **Gaia DR3 cone:** No G<17 neighbour in the queried 52-arcsec cone capable of the 15.8 ppt depth under the adopted blend model.
 - **NASA Exoplanet Archive (pscomppars, 30 arcsec):** no match within 30 arcsec (as of 2026-09-26T10:22:38Z)
 - **SIMBAD (30 arcsec):** UCAC4 433-048726 (SB*) at 0.3 arcsec — inconclusive SB* class on the host; scrutinize with RV
 - **TESS_TOI (30 arcsec):** TOI-7610.01 (TIC 121341000, disposition PC)
@@ -70,19 +72,20 @@ Prior-art gate results (ledger-pinned):
 
 - Transiting planet (Rp/R* = 0.126 on a 0.74 Rsun host => Rp ~ 0.64 Rjup; P from the 21-alias family).
 - Eclipsing binary (secondary grazing star, low-mass): equal depth and duration consistent with a grazing equal-mass pair; RV or a phase-0.5 detection would set M2.
-- Contamination/pointing: the MOM_CENTR2 +5.9-sigma excursion is unresolved (pointing slide or a real host dip); the difference image is on-target (5.9 sigma off but inside 3 pixel) and no neighbour is capable.
+- Contamination, stellar variability or pointing remains unresolved: E1 MOM_CENTR2 moves +5.9 local sigma and its difference-image centroid is displaced 2.9 arcsec at 5.9 sigma. A coarse three-pixel acceptance rule cannot establish source localization; repeat the PRF/registration analysis.
 - Sibling-TOI contamination: excluded by the sibling-ephemerides check (the catalogued P 22.1441-d ephemeris predicts no transit at E1's epoch, and 365.379/22.1441 is non-integer — no integer harmonic of the catalogued period fits the train).
 
 #### 6. Reproduction
 
-- **code:** cygnus (src/cygnus/), suite gate at commit 6a3aa66: python -m pytest -q (639 passed, 37 deselected)
+- **code:** cygnus (src/cygnus/); historical baseline gate at commit 6a3aa66: 639 passed, 37 deselected; current workspace gate 2026-09-27: 644 passed, 37 deselected
 - **figures:** vetting/figures/ and vetting/*.png in the campaign directory
+- **follow_up_2026_09_27:** reports/lead-followup-2026-09-27/independent_tpf_check.py; results in independent_tpf_results.json and REPORT.md
 - **package_versions:** python 3.13; astropy/lightkurve/numpy per requirements.txt; candidates rendered by cygnus.reporting.dossier
 - **run:** python -m cygnus.multi run campaigns/toi-7610-01.yaml ; python -m cygnus.campaign vet campaigns/toi-7610-01.yaml
 
 #### 7. Follow-up
 
-RV or ground photometry at the alias-predicted phases; future TESS sectors checked against the 21 data-allowed aliases (P >= 10.44 d). SIMBAD's SB* classification of the host warrants an RV scan regardless.
+Trace the SIMBAD SB* classification to its primary evidence; redo S88/S99 difference imaging and centroid time series with PRF, registration and aperture variations; seek phase-spread RV and a clean independent epoch. Do not promote while localization is unresolved.
 
 ---
 *Generated from ledger/candidate records only; any field the evidence does not support renders '(none recorded)' rather than a fabricated value.*

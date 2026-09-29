@@ -75,6 +75,14 @@ For every dataset, target, coordinate pair, or candidate:
 
 Report a negative result when evidence fails these tests. Do not silently drop it from a campaign summary.
 
+## Lead promotion and errata gate
+
+Before an event is written to a candidate dossier or a published collection, review `docs/AGENT_RUNBOOK.md` and complete its event-identity, units, localization, null-statistics, and source-record checks. A position-only catalogue match cannot clear a transient: compare every measured event time against the target and sibling ephemerides, confirmed planets, individual published transit times and plausible TTVs. Refresh the exact source row at claim time; a queue CSV is a dated ranking snapshot.
+
+Keep event measurements in ppm and display conversions explicitly (`1 ppt = 1,000 ppm = 0.1%`). Check physical estimates against `sqrt(depth) × stellar radius` under stated central/undiluted assumptions and mark stellar priors uncertain when astrometry or multiplicity is poor. Report empirical null exceedances as counts with finite resolution; do not turn 0/N into zero probability or a Gaussian significance. Treat a significant difference-image displacement or centroid excursion as unresolved/failed localization even when a coarse pixel-radius rule passes. An artifact-rejected event supplies no period preference.
+
+When a lead is falsified, reconcile the canonical campaign result, `sky_record.json`, report, search log, vetting note, generated dossier or rejection note, candidate record, ledger and publication collection together. Preserve original measurements and queries as history, label superseded interpretations, and re-run validation before publishing. Never silently remove a failed lead from the search log.
+
 ## Data, compute, and Google Drive policy
 
 Use appropriate scientific tools such as `astropy`, `astroquery`, `lightkurve`, `photutils`/`sep`, `scipy`, and archive-supported TAP/VO interfaces. Relevant archives may include MAST, Gaia, IRSA, CDS/VizieR, SIMBAD, NED, MPC, and NASA ADS, depending on the question. Check service documentation and current releases instead of assuming every listed survey or API is available. The maintained catalog of verified free services — URLs, access tiers (anonymous vs free account), script interfaces, and verification dates — lives in `DATA_SOURCES.md` at the worktree root; consult and update it there.
@@ -127,6 +135,9 @@ These instructions are tool-neutral; any agent (or person) picking up the work s
 
 1. **Orient first.** Read `docs/STATUS.md` for the current state, open decisions and known problems, then the document for the area you are touching (table in `README.md`).
 2. **Run analyses as campaigns.** For a known object (queue target, named planet, or given coordinates and epoch) follow `docs/AGENT_RUNBOOK.md`: `python -m cygnus.campaign new …`, `run`, `report`; no new analysis code. Otherwise put parameters in a `campaigns/<id>.yaml` spec and run `python -m cygnus.campaign run` (`docs/CAMPAIGNS.md`): steps are ledgered, resumable and regenerate the sky record. Write the report and search log, then run `python -m pytest -q`; the suite fails if a campaign spec or report has no valid record.
+
+   **Existing four-lead exception:** For the four surviving 2026-09-27 leads, follow `docs/LEAD_PURSUIT_PLAN_2026-09-27.md` before a rerun. Their historical campaign specs predate the queue-period repair and must remain a frozen comparison; start any new extraction with fresh exact-source provenance in a separately named campaign or report. The no-new-code rule covers routine known-object screening; a specialized follow-up test unavailable in the runner needs reviewable scientific code, configuration and validation rather than an unsupported claim from an existing metric.
+
 3. **Publishing:** content becomes public only through `publish/collections/*.json`; follow `docs/PUBLISHING.md` and run `python -m cygnus.publish check` before `build`. Never edit templates to add content.
 4. **Sky explorer (the site's home page since 2026-09-25):** `design-system/mockups/README.md`. Rebuild with `python design-system/mockups/build_explorer.py`; new catalogue fetches go through `fetch_sky_data.py` so provenance is recorded.
 5. **Decisions that belong to the user** are listed in `docs/STATUS.md`; ask rather than assume. Update that file when a decision is made or a known problem changes.
