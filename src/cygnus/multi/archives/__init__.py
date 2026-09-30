@@ -16,5 +16,6 @@ from . import astronomy  # noqa: F401  (registers MAST, Gaia, SkyView, CDS, NED,
 from . import solar_system  # noqa: F401  (registers Horizons, SBDB, MPC, AstDyS, SkyBoT)
 from . import earth_obs  # noqa: F401  (registers Earthdata, CDSE, ASF, USGS, FIRMS)
 from . import observing  # noqa: F401  (registers MicroObservatory, Skynet)
+from . import spectroscopy  # noqa: F401  (registers KOA)
 
-__all__ = ["base", "astronomy", "solar_system", "earth_obs", "observing"]
+__all__ = ["base", "astronomy", "solar_system", "earth_obs", "observing", "spectroscopy"]

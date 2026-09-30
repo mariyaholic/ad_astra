@@ -206,11 +206,17 @@ def run(spec_path: str | Path, *, ledger: Ledger, root: Path = WORKTREE, force: 
     source = code_fingerprint()
     state_dir = ctx.outdir / "runner"
     state_dir.mkdir(exist_ok=True)
-    done = []
+    done, skipped = [], []
     for entry in spec["steps"]:
         name, params = next(iter(entry.items()))
         params = params or {}
         ctx.step = name
+        gated = _tier_gate(ctx, name)
+        if gated is not None:
+            echo(f"[{name}] skipped: {gated}")
+            ctx.check(name, "not_tested", gated)
+            skipped.append(name)
+            continue
         cfg = _hash({"step": name, "params": params, "shared": shared, "upstream": upstream,
                      "code": ledger.code_version, "source": source})
         script = f"cygnus.campaign:{ctx.campaign_id}:{name}"
@@ -242,12 +248,41 @@ def run(spec_path: str | Path, *, ledger: Ledger, root: Path = WORKTREE, force: 
         done.append(name)
         if until and name == until:
             break
-    complete = len(done) == len(spec["steps"])
+    complete = len(done) + len(skipped) == len(spec["steps"])
     record = write_record(ctx, complete)
-    summary = {"campaign_id": ctx.campaign_id, "steps_run": done, "complete": complete, "checks": ctx.checks,
+    summary = {"campaign_id": ctx.campaign_id, "steps_run": done, "steps_skipped_by_tier_gate": skipped, "complete": complete, "checks": ctx.checks,
                "notes": ctx.notes, "record": record, "finished_utc": now_utc()}
     (state_dir / "RUN_SUMMARY.json").write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
     return summary
+
+
+def _tier_gate(ctx: Context, step: str) -> str | None:
+    """None if the step may run; else the reason it is skipped (recorded as a not_tested check).
+
+    The record consulted is the spec's ``parent_record`` (a frozen lead's sky record) or, without one,
+    this campaign's own on-disk record merged with checks set so far. ``tier_override`` in the spec
+    ({tier, reason, approved_by, date}) is recorded, never silent.
+    """
+    from .tiers import STEP_TIER, gate_step
+
+    if step not in STEP_TIER:
+        return None
+    rel = ctx.spec.get("parent_record")
+    path = ctx.root / rel if rel else ctx.outdir / "sky_record.json"
+    record = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {"checks": [], "outcome": "not_run"}
+    have = {c["name"]: c for c in record.get("checks", [])}
+    for n, c in ctx.checks.items():
+        have[n] = {"name": n, "state": c["state"]}
+    record = {**record, "checks": list(have.values())}
+    if ctx.outcome and record.get("outcome") not in ("lead", "candidate"):
+        record["outcome"] = "lead"
+    ok, msg = gate_step(step, record, ctx.spec.get("tier_override"), spec=ctx.spec,
+                        rejection_note=(path.parent / "REJECTION.md").exists())
+    if ok:
+        if msg:
+            ctx.note(f"{step}: {msg}")
+        return None
+    return msg
 
 
 def write_record(ctx: Context, complete: bool) -> str | None:

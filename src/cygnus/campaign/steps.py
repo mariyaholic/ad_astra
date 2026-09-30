@@ -711,6 +711,67 @@ def step_period_aliases(ctx, params: dict) -> dict:
             "file": ctx.rel(ctx.outdir / "period_aliases.json")}
 
 
+def step_event_null(ctx, params: dict) -> dict:
+    """Event-epoch empirical null and injection-recovery for each repeat candidate (T2 tool).
+
+    For every candidate from ``period_aliases`` the event depth is re-measured with a joint polynomial + box
+    fit on that product's PDCSAP flux, then compared with the same fit at ``n_null`` random event-free centres
+    (away from the event, catalogued transits and gaps): k/N nulls, not a sigma. The same depth is injected at
+    random event-free epochs to get a recovery fraction. Uncovered windows are excluded from N, never counted
+    as misses or nulls.
+    """
+    from ..analysis.events import box_measure, injection_recovery, null_exceedance, null_verdict
+
+    cands = ctx.optional_result("period_aliases", {}).get("candidates", [])
+    if not cands:
+        for n in ("Event-epoch null exceedance (k/N)", "Event-depth injection-recovery"):
+            ctx.check(n, "not_tested", "no repeat-candidate event to test")
+        return {"events": []}
+    degree, n_null = int(params.get("degree", 2)), int(params.get("n_null", 300))
+    keep = float(params.get("exclude_days", 1.5))
+    min_n = int(params.get("min_n", 100))
+    rng = np.random.default_rng(int(ctx.seed or 0))
+    products = ctx.result("fetch_products")["products"]
+    out, worst_null, worst_inj = [], "passed", "passed"
+    order = {"failed": 3, "inconclusive": 2, "not_tested": 1, "passed": 0}
+    for c in cands:
+        prod = products.get(c["product"])
+        if not prod:
+            continue
+        lc = read_spoc(resolve(prod["path"]))
+        tgt = _target_for(ctx, c["product"]) or {}
+        dur = float(tgt.get("duration_h") or 2.0) / 24
+        u = lc.usable
+        t, y = lc.time_bjd[u], lc.pdc[u] / np.nanmedian(lc.pdc[u])
+        obs = box_measure(t, y, c["event_bjd"], dur, degree)
+        if obs["state"] != "measured":
+            worst_null = worst_inj = "not_tested"
+            out.append({"event_bjd": c["event_bjd"], "state": obs["state"], "coverage": obs.get("coverage")})
+            continue
+        known = _known_epochs(lc, ctx.spec.get("veto"), tgt)
+        span = t[np.isfinite(t)]
+        draws = rng.uniform(span.min(), span.max(), size=n_null * 3)
+        cand = [x for x in draws if abs(x - c["event_bjd"]) > keep and all(abs(x - k) > keep for k in known)][:n_null]
+        nul = null_exceedance(t, y, dur, degree, obs["depth_ppm"], centres=cand)
+        verdict = null_verdict(nul["n_exceed"], nul["n_covered"], min_n=min_n,
+                               max_frac=float(params.get("max_frac", 0.05)))
+        inj = injection_recovery(t, y, dur, degree, obs["depth_ppm"], epochs=cand[:int(params.get("n_inject", 100))])
+        frac = inj["n_recovered"] / inj["n_covered"] if inj["n_covered"] else None
+        inj_state = ("not_tested" if frac is None else "inconclusive" if inj["n_covered"] < min_n // 2
+                     else "passed" if frac >= float(params.get("min_recovery", 0.9)) else "failed")
+        worst_null = max(worst_null, verdict["state"], key=order.get)
+        worst_inj = max(worst_inj, inj_state, key=order.get)
+        out.append({"event_bjd": c["event_bjd"], "product": c["product"], "observed": obs, "null": {**nul, **verdict},
+                    "injection": {**inj, "recovery_fraction": frac, "state": inj_state}})
+    ctx.check("Event-epoch null exceedance (k/N)", worst_null,
+              "; ".join(f"BJD {e['event_bjd']:.3f}: {e['null']['note']}" for e in out if "null" in e) or "no covered event")
+    ctx.check("Event-depth injection-recovery", worst_inj,
+              "; ".join(f"BJD {e['event_bjd']:.3f}: {e['injection']['n_recovered']}/{e['injection']['n_covered']} recovered"
+                        for e in out if "injection" in e) or "no covered event")
+    (ctx.outdir / "event_null.json").write_text(json.dumps({"events": out}, indent=1, default=float), encoding="utf-8")
+    return {"events": out, "file": ctx.rel(ctx.outdir / "event_null.json")}
+
+
 # ------------------------------------------------------------------ prior art
 def step_prior_art(ctx, params: dict) -> dict:
     """Catalogue cross-match for every campaign target through the Known-Object Gate adapters."""
@@ -760,5 +821,6 @@ STEPS: dict[str, Callable[[Any, dict], dict]] = {
     "bls_recovery": step_bls_recovery,
     "known_signal_recovery": step_known_signal_recovery,
     "period_aliases": step_period_aliases,
+    "event_null": step_event_null,
     "prior_art": step_prior_art,
 }

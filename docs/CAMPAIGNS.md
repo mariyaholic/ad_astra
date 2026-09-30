@@ -18,7 +18,7 @@ Code: `src/cygnus/campaign/` (runner, steps, light-curve primitives), `src/cygnu
 
 A spec may declare `runner: cygnus.multi`; `python -m cygnus.campaign run|check|report|vet` hands such specs over whole (`python -m cygnus.multi …`), and `load_spec` rejects a `runner:` spec anywhere else, so the two runners cannot be confused. The same ledgered, resumable loop runs them, with three generalisations:
 
-- **Any archive.** `fetch_products` discovers products through 23 registered archive adapters (the free services of `DATA_SOURCES.md` sections 1–3, 5 plus the NASA Exoplanet Archive); `python -m cygnus.multi archives` lists them, `archives --check <name>` live-probes one discovery path.
+- **Any archive.** `fetch_products` discovers products through 24 registered archive adapters (the free services of `DATA_SOURCES.md` sections 1–3, 5 plus the NASA Exoplanet Archive); `python -m cygnus.multi archives` lists them, `archives --check <name>` live-probes one discovery path.
 - **Product kinds.** Products carry `kind` (`lightcurve`/`image`/`table`/`text`); only time series are screened. A single-channel product is screened once (`channel_mode: single`) against a red-noise systematics model (`cygnus.multi.systematics.py`) instead of the false SAP-vs-PDCSAP independence claim. Each event reports `robust_z` / `parametric_z` (the same value: the z of the event's box statistic against random epochs of the same light curve, whose spread already contains the red noise), the Gaussian-tail `parametric_p`, the empirical p and both trial-corrected FAPs. `rednoise_inflation` (sqrt(tau/cadence)) is reported as a diagnostic and **not applied** (`rednoise_inflation_applied: false`); the field was called `parametric_z_rednoise_inflated` before 2026-09-26, and records written before then still carry that name until they are regenerated.
 - **Catalogue-only steps.** `context_products` (what was fetched), `source_checks` (per-product integrity; Gaia RUWE and `non_single_star` flags; MAST quality census; MPC observations via `data.minorplanetcenter.net`) and `astrometric_vetting` (Gaia DR3 NSS two-body cross-match of the target, mass function where a significant solution exists) answer questions without light curves; a campaign with no light-curve product is a recorded null, not a red run.
 
@@ -45,6 +45,7 @@ Code: `src/cygnus/multi/` (runner, steps, scaffold, `archives/`, readers, system
 | `known_signal_recovery` | Positive control: screen without veto at k*; the catalogued epoch(s) recovered if SAP and PDCSAP entries overlap ±(dur/2 + tolerance); in-transit depth measured | `runner/known_signal_recovery.json` |
 | `period_aliases` | Persistent events matching the catalogued depth (0.5–2×) → periods ΔT/n; an alias is excluded when a predicted transit on usable data is absent. Raises the record to `lead` / *Unverified lead*, never higher | `period_aliases.json` |
 | `bls_recovery` | Astropy BLS + permutation diagnostic on one light curve | `results.json` |
+| `event_null` | **T2 tool.** For each repeat candidate: re-measure the event depth (joint polynomial + box), then k/N empirical null at random event-free centres and injection–recovery at the event depth. Uncovered windows are excluded from N, never counted as misses. Checks `Event-epoch null exceedance (k/N)` (passed only with N ≥ 100 and k/N ≤ 5%) and `Event-depth injection-recovery` | `event_null.json` |
 | `prior_art` | Cone search of NASA Exoplanet Archive, TESS TOI, VSX and SIMBAD around each target; dated results into the ledger `prior_art` table | — |
 
 `k_mad: calibrated` falls back to the declared k, labelled UNCALIBRATED, for a light curve where no grid k meets the null limit. `residual_screen` groups overlapping entries into distinct events and marks those seen in SAP and PDCSAP at ≥ 2 baselines as persistent.
@@ -79,3 +80,35 @@ Not built yet (designed in `ANALYSIS_STACK.md`): alternative detrending families
 TOI-6695.01 exposed a queue/provenance failure: a periodic TOI row lost `pl_orbper` in the ranked CSV, creating a single-epoch veto, and a 30-arcsec cone search found the confirmed host planet without comparing event times. The S34/S61 events are TOI-6695 b (see `campaigns/toi-6695-01/REJECTION.md`).
 
 New queue claims refresh the exact TOI/TIC row and carry period, query, archive update and retrieval UTC into the spec. `prior_art` retrieves ephemerides and screens each repeat event against published epochs; any overlap requires a primary-paper and TTV review. The screen is deliberately broad and its absence is inconclusive. Agent review and source-record reconciliation are specified in `docs/AGENT_RUNBOOK.md`; a runner `lead` remains an unverified screening outcome until that review.
+
+## Native lead-resolution tools (2026-09-30)
+
+Ported from the hand-written `reports/lead-resolution-2026-09-30/resolve_leads.py` (inventory: `docs/NATIVE_SUPPORT_GAPS_2026-09-30.md`). Tests: `tests/test_native_lead_tools.py`.
+
+| Need | Module |
+|---|---|
+| Atomic JSON/text writes with input-hash linkage; `archive_previous` history files | `cygnus.fileio` |
+| Predicted-epoch box measurement (uncovered ≠ null), k/N nulls, injection recovery, alias coverage (`untested` unless a covered window is empty) | `cygnus.analysis.events` |
+| TESS PRF sampling, source preference over registration × model floors (a flip is *inconclusive*) | `cygnus.analysis.prf` |
+| Block-bootstrap centroid offset; never returns *passed* | `cygnus.analysis.localize` |
+| Transit-tied RV orbit fits (km/s), RV–FWHM correlation | `cygnus.analysis.rv` |
+| Log-λ shifts, gap-aware mask CCFs, `precision_gate` / `require_gate` (10 m/s default) | `cygnus.analysis.spectra` |
+| Barycentric-correction audit (delta only, never applied) | `cygnus.analysis.timing` |
+| Access states (`ok/http_401/timeout/...`), capped streaming, gzip/TAR sniffing | `cygnus.ingest.access` |
+| ESO exact-name (`names=[...]`), KOA HIRES TAP, Gaia exact-source RV/NSS row | `cygnus.multi.archives` (`eso`, `koa`, `spectroscopy.gaia_exact_source`) |
+| Footers, drift checks, ppm/radius/null-count/centroid/event-time gate helpers, per-paper prior-art rows | `python -m cygnus.campaign reconcile <id> --note … [--superseded-by … --candidate-id …]`, `cygnus.campaign.reconcile` |
+
+Not yet native: PRF/TESScut *fetching*, HARPS/FEROS bundle parsing, KOA raw/calibration download, spec-driven campaign steps wrapping these primitives. `resolve_leads.py` is unchanged and still the frozen record of this campaign.
+
+## Tier gating (2026-09-30)
+
+Not every target gets the full suite. `python -m cygnus.campaign tier <id>` (or `tier --all`, campaign records only) derives the tier a target has earned from its sky record (`src/cygnus/campaign/tiers.py`), reviewed by the Opus adviser the same day:
+
+- **T0** screen (all targets, light) → **T1** triage (persistent repeat event) → **T2** vet (pixel/FFI localization) → **T3** discriminate (PRF, archive spectra, RV; heavy) → **T4** confirm (spectral extraction behind the precision gate; user go-ahead). **closed** on decisive evidence.
+- **T1→T2:** aliases run; catalogue cross-match passed; an *event-time comparison vs published ephemerides* recorded (position-only never clears); null and moving-object checks run.
+- **T2→T3:** localization *passed on every defining event* (events listed in the record's `rejected_events` are set aside) and no other localization check failed; blend census passed; calibrated null passed; **event-epoch null exceedance (k/N) passed** (`event_null` step, a T2 tool); the spec supplies `budget` and `discriminating_question`.
+- **T3→T4:** **event-depth injection-recovery passed** (same `event_null` step); an independent-sky check passed (a second reduction of the same pixels is not independent) and evidence ≥ Vetted candidate.
+- **closed:** event identified as a known signal, VSX collision or ephemeris collision failed, every localized event rejected, `REJECTION.md` present, or abandoned. A failed pointing census demotes events; it does not close a target.
+- Every check name in a campaign record must map to a role in `tiers.GATE_CHECKS` (a test fails on an unmapped name).
+- **Enforcement:** the runner skips a step listed in `tiers.STEP_TIER` (recorded as a `not_tested` check) unless the target earned that tier in the spec's `parent_record` (or its own record); `campaign vet` needs T2. Overrides are explicit: spec `tier_override: {tier, reason, approved_by, date}` (T4 needs `approved_by`), or `vet --tier-override REASON`.
+- **Current:** T0 1072, T2 3 (toi-224-01, toi-2666-01, toi-3500-02; none has run `event_null` yet, and 2666's other T3 gates are met), closed 6 (incl. toi-6695-01, toi-7610-01). The test suite is the software gate and is not run per target.

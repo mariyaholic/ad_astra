@@ -52,10 +52,20 @@ def main(argv=None) -> int:
     v.add_argument("--no-neighbours", action="store_true", help="skip the same-CCD neighbour light curves")
     v.add_argument("--no-pixels", action="store_true", help="skip the target-pixel-file difference image")
     v.add_argument("--events", help="comma-separated BJD mid-times to vet besides the runner's repeat candidates")
+    v.add_argument("--tier-override", metavar="REASON", help="run vet below the T2 gate; the reason is printed and must be recorded in the report")
     v.add_argument("--ledger", help="ledger path (default: CYGNUS_LEDGER or state/ledger.sqlite)")
     q = sub.add_parser("queue", help="which queued targets are free, claimed, run or reviewed")
     q.add_argument("--queue", default=DEFAULT_QUEUE)
     q.add_argument("--json", action="store_true")
+    rc = sub.add_parser("reconcile", help="annotate a lead's records as superseded, re-render its dossier, check drift")
+    rc.add_argument("campaign_id")
+    rc.add_argument("--note", required=True)
+    rc.add_argument("--superseded-by")
+    rc.add_argument("--candidate-id")
+    rc.add_argument("--no-dossier", action="store_true")
+    tr = sub.add_parser("tier", help="which analysis tier a target has earned (from its sky record)")
+    tr.add_argument("campaign_id", nargs="?")
+    tr.add_argument("--all", action="store_true", help="tier counts over every sky record")
     a = ap.parse_args(argv)
 
     from . import scaffold
@@ -87,6 +97,22 @@ def main(argv=None) -> int:
         load_spec(path)   # generated specs must validate
         print(path.relative_to(root).as_posix())
         return 0
+    if a.cmd == "tier":
+        from ..skyrecord import load_records
+        from .tiers import decide_campaign, summarize
+
+        if a.all or not a.campaign_id:
+            print(json.dumps(summarize([r for r in load_records(root) if r["_path"].startswith("campaigns/")]), indent=2))
+            return 0
+        print(json.dumps(decide_campaign(root, a.campaign_id).as_dict(), indent=2))
+        return 0
+    if a.cmd == "reconcile":
+        from .reconcile import reconcile
+
+        out = reconcile(root, a.campaign_id, a.note, superseded_by=a.superseded_by,
+                        candidate_id=a.candidate_id, render_dossier=not a.no_dossier)
+        print(json.dumps(out, indent=2))
+        return 1 if out["findings"] else 0
     if a.cmd == "queue":
         rows = scaffold.queue_status(root, root / a.queue)
         if a.json:
@@ -115,6 +141,18 @@ def main(argv=None) -> int:
             print(p.relative_to(root).as_posix())
         return 0
     if a.cmd == "vet":
+        from .tiers import decide_campaign, rank
+
+        try:
+            gate = decide_campaign(root, spec["campaign_id"], spec)
+        except FileNotFoundError:
+            gate = None
+        if gate is not None and (gate.tier == "closed" or rank(gate.tier) < rank("T2")) and not a.tier_override:
+            print(f"tier gate: {spec['campaign_id']} is at {gate.tier}, vet needs T2: " + "; ".join(gate.blockers or [gate.reason]) +
+                  " (use --tier-override REASON only with a recorded justification)", file=sys.stderr)
+            return 3
+        if a.tier_override:
+            print(f"TIER OVERRIDE: {a.tier_override} (record this in REPORT.md)", file=sys.stderr)
         from .vet import vet
 
         ledger = Ledger(a.ledger or ledger_path())

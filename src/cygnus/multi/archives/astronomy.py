@@ -368,9 +368,16 @@ class EsoAdapter(ArchiveAdapter):
 
     def discover(self, target: Target, *, limit: int = 20, radius_arcsec: float = 30.0, **opts) -> list[ProductRef]:
         r = radius_arcsec / 3600
-        adql = (f"SELECT TOP {int(limit)} dp_id, obs_collection, instrument_name, access_url, access_format, "
-                f"dataproduct_type, s_ra, s_dec FROM ivoa.ObsCore WHERE "
-                f"1=CONTAINS(POINT('ICRS', s_ra, s_dec), CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f}))")
+        cols = (f"SELECT TOP {int(limit)} dp_id, obs_collection, instrument_name, access_url, access_format, "
+                f"dataproduct_type, s_ra, s_dec, target_name FROM ivoa.ObsCore WHERE ")
+        names = [n for n in (opts.get("names") or []) if n]
+        if names:
+            # exact-name selection: spatial cone queries can time out where this answers
+            esc = ", ".join("'" + n.replace("'", "''") + "'" for n in names)
+            adql = cols + f"target_name IN ({esc})"
+        else:
+            adql = cols + (f"1=CONTAINS(POINT('ICRS', s_ra, s_dec), "
+                           f"CIRCLE('ICRS', {target.ra_deg:.7f}, {target.dec_deg:.7f}, {r:.7f}))")
         try:
             rows = self.tap_csv(ESO_OBS_TAP, adql)
         except Exception as exc:  # noqa: BLE001
