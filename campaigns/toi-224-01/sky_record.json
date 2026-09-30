@@ -7,7 +7,7 @@
  "outcome": "lead",
  "evidence": "Unverified lead",
  "date": "2026-09-26",
- "summary": "Known-object test on TOI-224.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 10, 8, —, 4.5, —; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, 2%, 2%, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 24 threshold entries outside the known-signal veto across 5 light curve(s), forming 4 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459092.1803 (ΔT 726.34 d); 18 period aliases remain. Unverified lead until vetted.",
+ "summary": "A new Sector107 FFI dip repeats near the conditional 31.57966184-day timing family, but its 0.618-arcsec displacement at a 4.71 block-bootstrap ratio leaves localization inconclusive. Gaia records a 49.801-km/s robust RV range over21 accepted transits, GOF41.54 and RUWE9.18; SOAR literature resolves a close companion and favors an eclipsing binary. S106 remains rejected. A clean single-star planet interpretation is unsupported; which component eclipses and its orbit remain unresolved. Unverified lead.",
  "spec": "campaigns/toi-224-01.yaml",
  "report": "campaigns/toi-224-01/REPORT.md",
  "search_log": "campaigns/toi-224-01/SEARCH_LOG.md",
@@ -195,8 +195,23 @@
    "state": "failed",
    "note": "Separate reduction: E1 0.27″/1.29σ, E2 0.52″/3.84σ, E3 0.35″/2.66σ, E4 8.70″/8.60σ local-peak offsets; E4 remains rejected for period evidence.",
    "source": "reports/lead-followup-2026-09-27/independent_tpf_results.json"
+  },
+  {
+   "name": "Dated follow-up2026-09-30",
+   "state": "inconclusive",
+   "note": "A new Sector107 FFI dip repeats near the conditional 31.57966184-day timing family, but its 0.618-arcsec displacement at a 4.71 block-bootstrap ratio leaves localization inconclusive. Gaia records a 49.801-km/s robust RV range over21 accepted transits, GOF41.54 and RUWE9.18; SOAR literature resolves a close companion and favors an eclipsing binary. S106 remains rejected. A clean single-star planet interpretation is unsupported; which component eclipses and its orbit remain unresolved. Unverified lead. See reports/lead-resolution-2026-09-30; frozen original run products/measurements retained."
+  },
+  {
+   "name": "Event-time comparison vs published ephemerides",
+   "state": "inconclusive",
+   "note": "Exact TOI row t0=2458365.843684 (no period) and Gaia/NEA cone queries (2026-09-27/30) show no confirmed-planet row; no cited paper publishes an event time matching E1-E4 (reports/lead-resolution-2026-09-30/PRIOR_ART_AUDIT.md). Individually published transit times and every sibling ephemeris were not exhaustively compared: inconclusive.",
+   "source": "reports/lead-resolution-2026-09-30/PRIOR_ART_AUDIT.md"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-26T09:54:46Z"
+ "generated_utc": "2026-09-26T09:54:46Z",
+ "historical_summary_before_2026-09-30": "Known-object test on TOI-224.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 10, 8, —, 4.5, —; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, 2%, 2%, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 24 threshold entries outside the known-signal veto across 5 light curve(s), forming 4 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459092.1803 (ΔT 726.34 d); 18 period aliases remain. Unverified lead until vetted.",
+ "rejected_events": [
+  "E4"
+ ]
 }

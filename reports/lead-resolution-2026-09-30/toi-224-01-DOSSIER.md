@@ -1,0 +1,107 @@
+### CYGNUS CANDIDATE DOSSIER
+
+**Working identifier:** CYG-2026-09-TOI224.01 (local working ID — not an official designation)
+**Evidence level:** unverified_lead
+**Bottom line:** A new Sector107 FFI dip repeats near the conditional 31.57966184-day timing family, but its 0.618-arcsec displacement at a 4.71 block-bootstrap ratio leaves localization inconclusive. Gaia records a 49.801-km/s robust RV range over21 accepted transits, GOF41.54 and RUWE9.18; SOAR literature resolves a close companion and favors an eclipsing binary. S106 remains rejected. A clean single-star planet interpretation is unsupported; which component eclipses and its orbit remain unresolved. Unverified lead.
+
+#### 1. Provenance
+
+- **2026-09-30 follow-up:** reports/lead-resolution-2026-09-30/REPORT.md; exact queries/checksums in companion JSON outputs
+- **archive:** MAST (TESS SPOC 120-s light curves, TPF difference images; NASA Exoplanet Archive TOI table for target metadata)
+- **campaign:** campaigns/toi-224-01.yaml and campaigns/toi-224-01; vetting artifacts campaigns/toi-224-01/../vetting/ (vetting.json, VETTING.md, figures)
+- **position:** RA 1.977969 deg, Dec -29.979603 deg (ICRS; TOI-table position at Gaia DR2 epoch J2015.5 — reports/position-epoch-audit-01)
+- **products:** `tess*-s0002-0000000070797900-*-s_lc.fits`, `...s0029-...`, `...s0069-...`, `...s0096-...`, `...s0106-...` (SHA-256 recorded in the sky record)
+- **sectors:** S2 (reference), S29, S69, S96, S106
+- **target:** TOI-224.01 (TIC 70797900), Tmag 11.14
+- **time_standard:** BJD_TDB (SPOC light-curve timestamps)
+- **vetting:** python -m cygnus.campaign vet, 2026-09-26; per-lead reading in campaigns/tess-{mono-01,periodic-01}/LEAD_VETTING_LOG.md
+- **worktree_commit:** 6a3aa66
+
+Prior-art gate results (ledger-pinned):
+
+- catalog/NASA_Exoplanet_Archive: no match in NASA_Exoplanet_Archive within 30" as of 2026-09-26T09:54:43Z (as of 2026-09-26T09:54:43Z)
+- catalog/SIMBAD: 2 match(es) in SIMBAD within 30" as of 2026-09-26T09:54:45Z: TOI-224.01 (err); G 267-34 (PM*) (as of 2026-09-26T09:54:45Z)
+- catalog/TESS_TOI: 1 match(es) in TESS_TOI within 30" as of 2026-09-26T09:54:44Z: TOI-224.01 (TIC 70797900, disposition APC) (as of 2026-09-26T09:54:44Z)
+- catalog/VSX: no match in VSX within 30" as of 2026-09-26T09:54:45Z (as of 2026-09-26T09:54:45Z)
+
+#### 2. Measured signal
+
+- **E1_S29:** value=BJD 2459092.1803, depth 78141 +/- 927 ppm, 1.25 h
+- **E2_S69:** value=BJD 2460197.4715, depth 77897 +/- 1002 ppm, 1.25 h
+- **E3_S96:** value=BJD 2460923.7950, depth 74302 +/- 1223 ppm, 1.25 h
+- **E4_S106:** value=BJD 2461239.5866, depth 74089 +/- 1009 ppm, 1.25 h
+- **S107 descriptive depth_ppm:** value=77185.43203095568; unit=ppm; method=fixed1.2473h box; no physical radius inference
+- **S107 difference offset:** value=0.6177606986208493; unit=arcsec; method=4.71 block-bootstrap ratio; localization inconclusive
+- **catalogued_period:** value=705.5845 d (TOI table, APC); method=incommensurate: 705.58/31.58 = 22.34, not an integer; the observed 4-event train contradicts it
+- **common_period_data_allowed:** value=31.5798; unit=d; method=harmonic families P = dT/n per event (+/-0.75 h tolerance, coverage + density limits); intersection over n = 23 (E1), 58 (E2), 81 (E3), 91 (E4)
+- **depth_ratios_vs_reference:** value=E1 0.98 +/- 0.02; E2 0.97 +/- 0.02; E3 0.93 +/- 0.02; E4 0.93 +/- 0.02; method=box fits
+- **red_noise_significance_per_event:** value=local robust statistics 126.8 / 135.2 / 99.8 / 112.2 relative to 300 random epochs; zero exceedances, search-wide false-alarm rate not estimated
+- **reference_V_shape_index:** value=1.49; method=box/width profile comparison
+- **reference_depth:** value=79895; unit=ppm; uncertainty=+/-1033; method=median PDCSAP residual in +/-duration/2 vs 2-d running median
+- **reference_duration:** value=1.25; unit=h; method=box fit
+- **reference_transit_S2_bjd:** value=2458365.8438; unit=BJD_TDB; method=box fit of the merged screen candidate
+- **stellar_density_limit:** value=conditional on 0.49 Rsun, 0.52 Msun Gaia-derived host priors; RUWE 9.18 makes these uncertain
+- **superseded_bottom_line_2026-09-27:** value=Four deep repeat dips measured in the target aperture in four TESS sectors form a single harmonic family with P = 31.5798 d (n = 23/58/81/91 from the reference): one timing family fits the measured spacings, though E4 localization fails, and the TOI table's own P = 705.5845 d is incommensurate with the better-localized event spacing (705.58/31.58 = 22.34, non-integer). A deep eclipsing companion on the target is plausible from E1-E3, but E4 has a displaced difference image and the host has Gaia RUWE 9.18; the period and the planet-vs-EB question are unresolved (RV not tested) — Unverified lead.; method=historical narrative; superseded by2026-09-30 follow-up; original measurements retained
+
+#### 3. Artifact audit
+
+| test | state |
+| --- | --- |
+| 2026-09-30 SAP/PDCSAP baseline persistence | passed |
+| 2026-09-30 fixed-epoch injection sensitivity | passed |
+| 2026-09-30 search-wide false-alarm calibration | not_tested |
+| Gaia neighbours able to mimic the depth (E1-E4) | passed |
+| S107 repeat signal | passed |
+| S107 source localization | inconclusive |
+| ZTF independent epochs | not_tested |
+| alternative detrending (E1-E4) | passed |
+| background/centroid/pointing shifts vs random epochs (E1-E4) | failed |
+| box fit with pipeline errors (E1-E4) | inconclusive |
+| difference-image centroid (E1-E3) | inconclusive |
+| difference-image centroid (E4) | failed |
+| future-sector alias test | inconclusive |
+| independent cached TPF localization (2026-09-27) | failed |
+| moving objects (650-arcsec, 4 event epochs) | not_tested |
+| quality flags and coverage (E1-E4) | inconclusive |
+| radial velocity (companion mass) | not_tested |
+| red-noise significance (E1-E4) | inconclusive |
+| same-CCD common mode (E2-E4; E1 query failed) | inconclusive |
+| secondary eclipse at phase 0.5, circular aliases | inconclusive |
+| shape vs reference transit (E1-E4) | passed |
+| single-star host interpretation | failed |
+| stellar-density duration limit on aliases (E1-E4) | passed |
+
+(States: passed | failed | inconclusive | not_tested — 'not_tested' never supports an evidence upgrade.)
+
+#### 4. Catalog and literature audit
+
+- **2026-09-30 primary literature and exact-source refresh:** reports/lead-resolution-2026-09-30/PRIOR_ART_AUDIT.md; archive_refresh.json. Companion/binary evidence is not an event-time matched orbit.
+- **Gaia DR3 cone, 52 arcsec:** No G<17 neighbour in the queried 52-arcsec cone capable of the 74–78 ppt depth under the adopted blend model; Gaia RUWE 9.18 makes the host astrometric/stellar priors uncertain.
+- **NASA Exoplanet Archive (pscomppars, 30 arcsec):** no match within 30 arcsec (as of 2026-09-26T09:54:43Z)
+- **SIMBAD (30 arcsec):** TOI-224.01 (err); G 267-34 (PM*) — no eclipsing-binary class
+- **TESS_TOI (30 arcsec):** TOI-224.01 (TIC 70797900, disposition APC) — the target itself; the table row carries P 705.5845 d which the observed train contradicts
+- **VSX (30 arcsec):** no match (as of 2026-09-26T09:54:45Z)
+
+#### 5. Competing explanations
+
+- Close stellar companion / hierarchical eclipsing system strongly supported by SOAR and Gaia RV variability; no solved orbit identifies the eclipsed component.
+- On-target planet, brown dwarf or stellar companion at the 31.5798-d timing family: 74–78 ppt is deep. A central, undiluted sqrt(depth) × 0.49 Rsun scale is about 1.3 Rjup, conditional on a stellar radius compromised by RUWE 9.18; grazing, dilution and multiplicity prevent a secure radius or mass classification.
+- Blended eclipsing binary: disfavoured — no Gaia source within 52 arcsec bright enough, difference images on target (E1-E3), same-CCD common mode empty (E2-E4); E4's displaced difference image sits inside a heavily flagged window.
+- Stellar activity or a repeated reduction/pointing effect remains possible; four sector events have similar measured profiles, but E1-E4 pointing/centroid checks failed and E4 has a displaced difference image.
+- Chance alignment and red noise are not quantified search-wide: zero of 300 local random epochs exceeded the statistic, which does not imply p=0 or a Gaussian >99-sigma detection.
+
+#### 6. Reproduction
+
+- **2026-09-30:** python reports/lead-resolution-2026-09-30/resolve_leads.py --help; config.json; see REPORT.md for ordered modes and validation
+- **code:** cygnus (src/cygnus/); historical baseline gate at commit 6a3aa66: 639 passed, 37 deselected; current workspace gate 2026-09-27: 644 passed, 37 deselected
+- **figures:** vetting/figures/ and vetting/*.png in the campaign directory
+- **follow_up_2026_09_27:** reports/lead-followup-2026-09-27/independent_tpf_check.py; results in independent_tpf_results.json and REPORT.md
+- **package_versions:** python 3.13; astropy/lightkurve/numpy per requirements.txt; candidates rendered by cygnus.reporting.dossier
+- **run:** python -m cygnus.multi run campaigns/toi-224-01.yaml ; python -m cygnus.campaign vet campaigns/toi-224-01.yaml
+
+#### 7. Follow-up
+
+Resolve the S107 significant subpixel displacement with component-aware PRF/registration and same-CCD/pointing controls. Obtain or recover phase-spread component velocities; fit a binary orbit before assigning the eclipse or companion mass. New repeat timing alone is insufficient.
+
+---
+*Generated from ledger/candidate records only; any field the evidence does not support renders '(none recorded)' rather than a fabricated value.*

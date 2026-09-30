@@ -2,7 +2,7 @@
 
 An astronomical data-forensics worktree: tools and records for re-examining public archive data (TESS, Kepler, Gaia, WISE, ZTF, Legacy Surveys and others) for signals that standard pipelines may have missed, and for trying hard to explain them away before calling anything a lead.
 
-Nothing here is a discovery. As of 2026-09-24 the project has run one known-planet recovery test and one bounded residual screen (WASP-12, TESS Sectors 20 and 43; null result), and the first known-object test from the monotransit queue (TOI-2666.01: catalogued transit recovered; a probable second transit in Sector 99 is an **unverified lead**). There are no candidate dossiers.
+Nothing here is an established discovery. As of 2026-09-30, three unresolved event interpretations have candidate dossiers: TOI-224.01, TOI-2666.01 and TOI-3500.02, all **Unverified leads**. Two previous leads were retracted. New FFI, primary-literature binary evidence and calibrated-PRF work are recorded in `reports/lead-resolution-2026-09-30/`; read `docs/STATUS.md` for current results and remaining proof/disproof gates.
 
 ## Start here
 

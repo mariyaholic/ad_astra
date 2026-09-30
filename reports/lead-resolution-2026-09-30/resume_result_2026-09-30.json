@@ -1,0 +1,110 @@
+{
+  "generated_utc": "2026-09-30T06:02:02Z",
+  "campaign": "lead-resolution-2026-09-30",
+  "spectral_rerun": {
+    "command": "python reports/lead-resolution-2026-09-30/resolve_leads.py --mode masked-spectra --limit 53 --scratch D:\\AO_Artifacts\\cygnus_scratch",
+    "manifest_downloaded_unique_datalinks": 31,
+    "result_rows": 31,
+    "unique_result_datalinks": 31,
+    "missing_rows": 0,
+    "extra_rows": 0,
+    "duplicate_rows": 0,
+    "measured_profile": 29,
+    "failed": 2,
+    "harps_pipeline_precision_gate": [
+      {
+        "mask": "R50G2",
+        "comparisons": 5,
+        "rms_m_per_s": 15.167557021342737,
+        "required_m_per_s": 10,
+        "state": "failed"
+      },
+      {
+        "mask": "K0",
+        "comparisons": 5,
+        "rms_m_per_s": 13.599555324802856,
+        "required_m_per_s": 10,
+        "state": "failed"
+      }
+    ],
+    "harps_relative_ccf_precision_gate": [
+      {
+        "mask": "R50G2",
+        "comparisons": 5,
+        "rms_m_per_s": 10.945761607734012,
+        "required_m_per_s": 10,
+        "state": "failed"
+      },
+      {
+        "mask": "K0",
+        "comparisons": 5,
+        "rms_m_per_s": 10.850264265974673,
+        "required_m_per_s": 10,
+        "state": "failed"
+      }
+    ],
+    "masked_spectra_sha256": "e898343f99bc7eede257524df7151be45aacc1ca3f00101bdb9bd6c5f842c0c4",
+    "ccf_alignment_input_sha256": "e898343f99bc7eede257524df7151be45aacc1ca3f00101bdb9bd6c5f842c0c4",
+    "source_sha256": "be5331dd0c2d026000b5c763c21908ce79d08f83976c42bccfd7b88c031ee520",
+    "history_source": "history/resolve_leads_spectral_rerun_2026-09-30.py",
+    "history_masked_output": "masked_spectra_history_2026-09-30_pre_final_rerun_incomplete.json",
+    "history_alignment_output": "ccf_alignment_history_2026-09-30_pre_final_rerun.json",
+    "failed_previous_save_cause": "unresolved"
+  },
+  "koa_hires_screen": {
+    "source_metadata": "koa_hires_archive.json",
+    "screened_rows": [
+      {
+        "koaid": "HI.19981226.50823.fits",
+        "date_utc": "1998-12-26",
+        "exposure_s": 240.0,
+        "iodout": "T",
+        "obstype": "",
+        "datlevel": 0,
+        "ra_deg": 139.47983,
+        "dec_deg": -3.38481
+      },
+      {
+        "koaid": "HI.20210223.23526.fits",
+        "date_utc": "2021-02-23",
+        "exposure_s": 11.62639999,
+        "iodout": "T",
+        "obstype": "Object",
+        "datlevel": 0,
+        "ra_deg": 139.48083,
+        "dec_deg": -3.38722
+      },
+      {
+        "koaid": "HI.20210527.19968.fits",
+        "date_utc": "2021-05-27",
+        "exposure_s": 67.22840118,
+        "iodout": "F",
+        "obstype": "Object",
+        "datlevel": 0,
+        "ra_deg": 139.48171,
+        "dec_deg": -3.38769
+      }
+    ],
+    "exact_name_query_rows": 0,
+    "followup_fileurl_tap_state": "failed",
+    "followup_fileurl_tap_http_status": 400,
+    "followup_fileurl_tap_error": "ORA-00904: FILEURL invalid identifier",
+    "constructed_filehand_route_probe_http_status": 404,
+    "constructed_route_is_proof_of_product_unavailability": false,
+    "fits_products_downloaded": 0,
+    "fits_headers_inspected": 0,
+    "calibration_associations_inspected": 0,
+    "gaia_proper_motion_assignment": "not tested",
+    "file_size": "not tested",
+    "interpretation": "Possible Level-0 raw routes only; no Keck science interpretation.",
+    "documentation": [
+      "https://koa.ipac.caltech.edu/UserGuide/public_data.html",
+      "https://koa.ipac.caltech.edu/UserGuide/calibration_association.html"
+    ]
+  },
+  "validation": {
+    "focused_pytest": "11 passed in 15.42s",
+    "ruff": "All checks passed for resolve_leads.py and test_lead_resolution.py",
+    "full_suite": "parent verification pending"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "retrieved_utc": "2026-09-30T01:34:11.702577+00:00",
+  "endpoint": "https://koa.ipac.caltech.edu/TAP/sync",
+  "documentation": "https://koa.ipac.caltech.edu/UserGuide/PyKOA/TAPClients.html",
+  "queries": [
+    {
+      "target": "toi-224-01",
+      "query": "SELECT TOP 100 koaid,filehand,object,ra,dec,mjd,utdatetime,exptime,iodout,obstype,datlevel FROM koa_hires WHERE ra BETWEEN 1.957969 AND 1.997969 AND dec BETWEEN -29.999603 AND -29.959603",
+      "retrieved_utc": "2026-09-30T01:34:11.702634+00:00",
+      "selection": "coordinate box plusminus0.02deg (equinoxJ2000 archive fields); exact names and positive control separate; no precise epoch/source assignment until headers checked",
+      "state": "answered",
+      "count": 0,
+      "cap": 100,
+      "rows": []
+    },
+    {
+      "target": "toi-2666-01",
+      "query": "SELECT TOP 100 koaid,filehand,object,ra,dec,mjd,utdatetime,exptime,iodout,obstype,datlevel FROM koa_hires WHERE ra BETWEEN 139.46086499999998 AND 139.500865 AND dec BETWEEN -3.407525 AND -3.367525",
+      "retrieved_utc": "2026-09-30T01:34:18.831691+00:00",
+      "selection": "coordinate box plusminus0.02deg (equinoxJ2000 archive fields); exact names and positive control separate; no precise epoch/source assignment until headers checked",
+      "state": "answered",
+      "count": 3,
+      "cap": 100,
+      "rows": [
+        {
+          "koaid": "HI.19981226.50823.fits",
+          "filehand": "/koadata4/HIRES/19981226/lev0/HI.19981226.50823.fits",
+          "object": "k27",
+          "ra": "139.47983",
+          "dec": "-3.38481",
+          "mjd": "51173.58824100",
+          "utdatetime": "1998-12-26 14:07:03.530000",
+          "exptime": "240.00000000",
+          "iodout": "T",
+          "obstype": "",
+          "datlevel": "0"
+        },
+        {
+          "koaid": "HI.20210223.23526.fits",
+          "filehand": "/koadata13/HIRES/20210223/lev0/HI.20210223.23526.fits",
+          "object": "",
+          "ra": "139.48083",
+          "dec": "-3.38722",
+          "mjd": "59268.27231900",
+          "utdatetime": "2021-02-23 06:32:06",
+          "exptime": "11.62639999",
+          "iodout": "T",
+          "obstype": "Object",
+          "datlevel": "0"
+        },
+        {
+          "koaid": "HI.20210527.19968.fits",
+          "filehand": "/koadata13/HIRES/20210527/lev0/HI.20210527.19968.fits",
+          "object": "",
+          "ra": "139.48171",
+          "dec": "-3.38769",
+          "mjd": "59361.23113200",
+          "utdatetime": "2021-05-27 05:32:48",
+          "exptime": "67.22840118",
+          "iodout": "F",
+          "obstype": "Object",
+          "datlevel": "0"
+        }
+      ]
+    },
+    {
+      "target": "toi-3500-02",
+      "query": "SELECT TOP 100 koaid,filehand,object,ra,dec,mjd,utdatetime,exptime,iodout,obstype,datlevel FROM koa_hires WHERE ra BETWEEN 186.79688399999998 AND 186.836884 AND dec BETWEEN -29.852996 AND -29.812996000000002",
+      "retrieved_utc": "2026-09-30T01:34:26.727792+00:00",
+      "selection": "coordinate box plusminus0.02deg (equinoxJ2000 archive fields); exact names and positive control separate; no precise epoch/source assignment until headers checked",
+      "state": "answered",
+      "count": 0,
+      "cap": 100,
+      "rows": []
+    },
+    {
+      "target": "toi-2666-01:exact_names",
+      "query": "SELECT TOP 100 koaid,filehand,object,ra,dec,mjd,utdatetime,exptime,iodout,obstype,datlevel FROM koa_hires WHERE object IN ('HD80133','HD 80133','HIP45621','HIP 45621','TOI-2666','TOI2666','TIC170889511')",
+      "retrieved_utc": "2026-09-30T01:34:33.223760+00:00",
+      "selection": "coordinate box plusminus0.02deg (equinoxJ2000 archive fields); exact names and positive control separate; no precise epoch/source assignment until headers checked",
+      "state": "answered",
+      "count": 0,
+      "cap": 100,
+      "rows": []
+    },
+    {
+      "target": "control-any-HIRES",
+      "query": "SELECT TOP 1 koaid,filehand,object,ra,dec,mjd,utdatetime,exptime,iodout,obstype,datlevel FROM koa_hires",
+      "retrieved_utc": "2026-09-30T01:34:39.392312+00:00",
+      "selection": "coordinate box plusminus0.02deg (equinoxJ2000 archive fields); exact names and positive control separate; no precise epoch/source assignment until headers checked",
+      "state": "answered",
+      "count": 1,
+      "cap": 1,
+      "rows": [
+        {
+          "koaid": "HI.19941118.65412.fits",
+          "filehand": "/koadata4/HIRES/19941118/lev0/HI.19941118.65412.fits",
+          "object": "",
+          "ra": "15.84556",
+          "dec": "70.26828",
+          "mjd": "49674.75708420",
+          "utdatetime": "1994-11-18 18:10:12.070000",
+          "exptime": "1.00000000",
+          "iodout": "T",
+          "obstype": "",
+          "datlevel": "0"
+        }
+      ]
+    }
+  ]
+}

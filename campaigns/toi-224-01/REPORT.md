@@ -1,3 +1,6 @@
+<!-- follow-up-2026-09-30 -->
+> Historical analysis below. Current evidence and dossier: [2026-09-30 follow-up](../../reports/lead-resolution-2026-09-30/REPORT.md). A new Sector107 FFI dip repeats near the conditional 31.57966184-day timing family, but its 0.618-arcsec displacement at a 4.71 block-bootstrap ratio leaves localization inconclusive. Gaia records a 49.801-km/s robust RV range over21 accepted transits, GOF41.54 and RUWE9.18; SOAR literature resolves a close companion and favors an eclipsing binary. S106 remains rejected. A clean single-star planet interpretation is unsupported; which component eclipses and its orbit remain unresolved. Unverified lead.
+
 > **2026-09-27 verification update:** Canonical dossier units, local-null claims and difference-image states were corrected. New live MAST/TOI metadata is in [the archive verification report](../../reports/lead-verification-2026-09-27/REPORT.md), and the independent cached-TPF result is in [the follow-up report](../../reports/lead-followup-2026-09-27/REPORT.md); older interpretations below are historical where they conflict.
 
 <!-- cygnus:generated-draft -->

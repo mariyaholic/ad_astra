@@ -7,7 +7,7 @@
  "outcome": "lead",
  "evidence": "Unverified lead",
  "date": "2026-09-26",
- "summary": "Known-object test on TOI-3500.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 185 threshold entries outside the known-signal veto across 4 light curve(s), forming 44 distinct event(s), 21 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460757.1825 (ΔT 700.53 d); 8 period aliases remain. Unverified lead until vetted.",
+ "summary": "S64/S90 dips persist, but official UPDATED_2.0 TESS PRFs do not assign the deficit robustly between the0.18-pixel-separated Gaia A/B pair. Source preference reverses with allowed registration and1/3/5-percent model floors; static PRF residuals exceed nominal interpolation accuracy. S101 remains rejected and supplies no period preference. All16 baseline aliases remain open; Gaia RV summaries provide no orbit or companion-mass bound. Unverified lead. Six public HARPS epochs span111.785days with87.507m/s corrected-RV range. A conditional circular50.0446-day fit gives signedK about39m/s but six epochs, line-width correlation and unresolved source identity prevent confirmation or alias rejection. Eighteen further HARPS and six FEROS products returnHTTP401. A relative-spectrum attempt on23 FEROS and6 HARPS spectra fails the independent HARPS precision check (168m/s RMS); derived shifts are not accepted orbital velocities. A completed31-input line-mask rerun gives HARPS CCF-alignment disagreement RMS10.9458m/s (R50G2) and10.8503m/s (K0), both failing the10m/s requirement. FEROS midpoint barycentric replacement deltas are roughly-103 to+173m/s; release products also lack simultaneous-reference drift correction and usable ERR arrays. FEROS profile shifts remain unvalidated.",
  "spec": "campaigns/toi-3500-02.yaml",
  "report": "campaigns/toi-3500-02/REPORT.md",
  "search_log": "campaigns/toi-3500-02/SEARCH_LOG.md",
@@ -183,8 +183,23 @@
    "state": "inconclusive",
    "note": "S64 favored the target in 71.4% and S90 in 85.7% of tested PSF/registration trials, but target-versus-neighbour delta-chi-square changed sign; 0.934-0.986 template correlation at 0.184 TESS-pixel separation prevents source assignment.",
    "source": "reports/lead-followup-2026-09-27/toi3500_two_source_results.json"
+  },
+  {
+   "name": "Dated follow-up2026-09-30",
+   "state": "inconclusive",
+   "note": "S64/S90 dips persist, but official UPDATED_2.0 TESS PRFs do not assign the deficit robustly between the0.18-pixel-separated Gaia A/B pair. Source preference reverses with allowed registration and1/3/5-percent model floors; static PRF residuals exceed nominal interpolation accuracy. S101 remains rejected and supplies no period preference. All16 baseline aliases remain open; Gaia RV summaries provide no orbit or companion-mass bound. Unverified lead. Six public HARPS epochs span111.785days with87.507m/s corrected-RV range. A conditional circular50.0446-day fit gives signedK about39m/s but six epochs, line-width correlation and unresolved source identity prevent confirmation or alias rejection. Eighteen further HARPS and six FEROS products returnHTTP401. A relative-spectrum attempt on23 FEROS and6 HARPS spectra fails the independent HARPS precision check (168m/s RMS); derived shifts are not accepted orbital velocities. A completed31-input line-mask rerun gives HARPS CCF-alignment disagreement RMS10.9458m/s (R50G2) and10.8503m/s (K0), both failing the10m/s requirement. FEROS midpoint barycentric replacement deltas are roughly-103 to+173m/s; release products also lack simultaneous-reference drift correction and usable ERR arrays. FEROS profile shifts remain unvalidated. See reports/lead-resolution-2026-09-30; frozen original run products/measurements retained."
+  },
+  {
+   "name": "Event-time comparison vs published ephemerides",
+   "state": "inconclusive",
+   "note": "Sibling TOI-3500.01 (P=7.3436151 d, t0=2459315.357469) and TOI-3500.02 (t0=2460056.706283, no period) rows read; Cygnus S64/S90 event times are not published in the Gaia companion paper (PRIOR_ART_AUDIT.md, 2026-09-30). Sibling-ephemeris coincidence of E1/E2 not exhaustively tested: inconclusive.",
+   "source": "reports/lead-resolution-2026-09-30/PRIOR_ART_AUDIT.md"
   }
  ],
  "generated_by": "cygnus_multi campaign runner",
- "generated_utc": "2026-09-26T08:59:10Z"
+ "generated_utc": "2026-09-26T08:59:10Z",
+ "historical_summary_before_2026-09-30": "Known-object test on TOI-3500.02: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, 3, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 1%, 1%, 1% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 185 threshold entries outside the known-signal veto across 4 light curve(s), forming 44 distinct event(s), 21 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460757.1825 (ΔT 700.53 d); 8 period aliases remain. Unverified lead until vetted.",
+ "rejected_events": [
+  "E2"
+ ]
 }

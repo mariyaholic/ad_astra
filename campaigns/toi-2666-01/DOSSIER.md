@@ -1,3 +1,6 @@
+<!-- follow-up-2026-09-30 -->
+> Historical analysis below. Current evidence and dossier: [2026-09-30 follow-up](../../reports/lead-resolution-2026-09-30/REPORT.md). S35/S99 V-shaped dips persist under independent baseline choices. Zhang2024 primary Keck/HIRES evidence identifies HIP45621/TOI2666 as a spectroscopic binary with35-km/s component separation, corroborating the close-companion alternative. The later eclipse is not linked to a solved stellar orbit. Earlier S8 FFI tests robustly exclude0 of52 historical aliases across exposure integration and timing slack; noisy reductions cannot supply a clean nondetection. Unverified event interpretation; binarity independently established.
+
 ### CYGNUS CANDIDATE DOSSIER
 
 **Working identifier:** CYG-2026-09-TOI2666.01 (local working ID — not an official designation)

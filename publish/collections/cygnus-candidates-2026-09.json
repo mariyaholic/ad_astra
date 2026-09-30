@@ -4,9 +4,9 @@
   "type": "candidates",
   "status": "published",
   "published": "2026-09-26",
-  "summary": "Three unverified leads remain after TOI-6695.01 was retracted as a known-planet recovery and TOI-7610.01 was retired after a Gaia DR3 SB1 orbit and failed source localization. No independent confirmation or external submission is claimed.",
-  "description_md": "Three active unverified-lead dossiers remain: TOI-224.01, TOI-2666.01 and TOI-3500.02. TOI-6695.01 was retracted after event-time comparison with the published TOI-6695 b sequence. TOI-7610.01 was retracted after its SIMBAD SB* type was traced to a Gaia DR3 SB1 orbit with a stellar-mass companion and its S99 deficit independently failed localization. Both campaigns retain REJECTION.md and pipeline-check sky records. Remaining tests are in docs/LEAD_PURSUIT_PLAN_2026-09-27.md.",
-  "research_status": "3 Unverified leads · 2 retracted · RV/new epochs still needed",
+  "summary": "Three unresolved event interpretations remain Unverified after2026-09-30: TOI224 has a new FFI repeat but unresolved localization and strong binary evidence; TOI2666 is a literature spectroscopic binary; calibrated PRFs do not resolve TOI3500. Two previous leads remain retracted. No planet is established.",
+  "description_md": "Three unresolved event interpretations remain Unverified after2026-09-30: TOI224 has a new FFI repeat but unresolved localization and strong binary evidence; TOI2666 is a literature spectroscopic binary; calibrated PRFs do not resolve TOI3500. Two previous leads remain retracted. No planet is established. Current follow-up: reports/lead-resolution-2026-09-30/REPORT.md. Research resumed at the user's request after the historical pause checkpoint; complete proof/disproof remains outstanding.",
+  "research_status": "3 unresolved event interpretations; binary evidence strengthened; no evidence promotion",
   "license": "Apache-2.0",
   "citation": "Project Cygnus / Astraea, candidate dossiers (2026).",
   "related": [
@@ -24,7 +24,7 @@
       "kind": "candidate",
       "source": "publish/candidates/CYG-2026-09-TOI224.01.json",
       "title": "CYG-2026-09-TOI224.01 — TOI-224.01 (TIC given in the record)",
-      "description": "Four deep repeat dips measured in the target aperture in four TESS sectors form a single harmonic family with P = 31.5798 d (n = 23/58/81/91 from the reference): one timing family fits the measured spacings, though E4 localization fails, and the TOI table's own P = 705.5845 d is incommensurate with the better-localized event spacing (705.58/31.58 = 22.34, non-integer). A deep eclipsing companion on the target is plausible from E1-E3, but E4 has a displaced difference image and the host has Gaia RUWE 9.18; the period and the planet-vs-EB question are unresolved (RV not tested) — Unverified lead.",
+      "description": "A new Sector107 FFI dip repeats near the conditional 31.57966184-day timing family, but its 0.618-arcsec displacement at a 4.71 block-bootstrap ratio leaves localization inconclusive. Gaia records a 49.801-km/s robust RV range over21 accepted transits, GOF41.54 and RUWE9.18; SOAR literature resolves a close companion and favors an eclipsing binary. S106 remains rejected. A clean single-star planet interpretation is unsupported; which component eclipses and its orbit remain unresolved. Unverified lead.",
       "origin": "project",
       "download": true
     },
@@ -33,7 +33,7 @@
       "kind": "candidate",
       "source": "publish/candidates/CYG-2026-09-TOI2666.01.json",
       "title": "CYG-2026-09-TOI2666.01 — TOI-2666.01 (TIC given in the record)",
-      "description": "Two deep, coincidentally-equal V-shaped dips on HD 80133 measured in S35 and S99, 1790.006 d apart, survive several artifact tests, with quality/box-fit checks inconclusive (on-target difference image 0.4 arcsec/0.7 sigma, shape ratio 1.02 +/- 0.02, strong local box statistic against 300 random epochs; search-wide false-alarm rate uncalibrated, no capable neighbour). All short SPOC-DV periods (13.93/34.37/7.50 d) and the P 36.53 d alias are refuted as two-event artifacts and parity-inconsistent rows; 52 data-allowed aliases (P >= 12.79 d) remain. A grazing planet (Rp ~ 1.1-1.4 Rjup) or an equal-depth grazing EB is unresolved — RV is decisive — Unverified lead.",
+      "description": "S35/S99 V-shaped dips persist under independent baseline choices. Zhang2024 primary Keck/HIRES evidence identifies HIP45621/TOI2666 as a spectroscopic binary with35-km/s component separation, corroborating the close-companion alternative. The later eclipse is not linked to a solved stellar orbit. Earlier S8 FFI tests robustly exclude0 of52 historical aliases across exposure integration and timing slack; noisy reductions cannot supply a clean nondetection. Unverified event interpretation; binarity independently established. Two public FEROS spectra from2006/2009 were retrieved; their relative-shift blocks disagree by53km/s, so no usable component velocities or orbit are claimed. A bounded public Keck HIRES coordinate query returns three raw observations from1998/2021; exact-name selection returns zero. Documented public access recovered all three primary header prefixes: each TARGNAME is80133, consistent with intended HD80133 targeting. Iodine is out for1998/February2021 and in forMay2021. KOA lists18/59/58 associated calibrations; suitability, acquired component identity and component velocities remain untested. No full science or calibration FITS was downloaded; no extra velocities or orbit are claimed.",
       "origin": "project",
       "download": true
     },
@@ -42,7 +42,7 @@
       "kind": "candidate",
       "source": "publish/candidates/CYG-2026-09-TOI3500.02.json",
       "title": "CYG-2026-09-TOI3500.02 — TOI-3500.02 (TIC given in the record)",
-      "description": "Two repeat dips in the TIC 443666343 aperture (the S90 event E1 and the S64 reference; the S101 event E2 is an aperture-loss/pointing artifact, rejected): equal depth ~7.0-7.8 ppt, equal 7.9-h duration and shape, strong local box statistics against 300 random epochs; search-wide false-alarm rate uncalibrated. A Gaussian-PRF sensitivity grid usually favors the target over the 3.74-arcsec neighbour, but source preference changes across allowed registration/width choices and the templates are highly correlated, so localization remains inconclusive. Sixteen data-allowed aliases from P = 700.6242/n over 35.03–700.62 d; E2 cannot prefer P = 350.312 d. RV and new phase coverage are untested — Unverified lead.",
+      "description": "S64/S90 dips persist, but official UPDATED_2.0 TESS PRFs do not assign the deficit robustly between the0.18-pixel-separated Gaia A/B pair. Source preference reverses with allowed registration and1/3/5-percent model floors; static PRF residuals exceed nominal interpolation accuracy. S101 remains rejected and supplies no period preference. All16 baseline aliases remain open; Gaia RV summaries provide no orbit or companion-mass bound. Unverified lead. Six public HARPS epochs span111.785days with87.507m/s corrected-RV range. A conditional circular50.0446-day fit gives signedK about39m/s but six epochs, line-width correlation and unresolved source identity prevent confirmation or alias rejection. Eighteen further HARPS and six FEROS products returnHTTP401. A relative-spectrum attempt on23 FEROS and6 HARPS spectra fails the independent HARPS precision check (168m/s RMS); derived shifts are not accepted orbital velocities. A completed31-input line-mask rerun gives HARPS CCF-alignment disagreement RMS10.9458m/s (R50G2) and10.8503m/s (K0), both failing the10m/s requirement. FEROS midpoint barycentric replacement deltas are roughly-103 to+173m/s; release products also lack simultaneous-reference drift correction and usable ERR arrays. FEROS profile shifts remain unvalidated.",
       "origin": "project",
       "download": true
     }

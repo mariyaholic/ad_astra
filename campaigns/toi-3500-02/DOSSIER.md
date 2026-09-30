@@ -1,3 +1,6 @@
+<!-- follow-up-2026-09-30 -->
+> Historical analysis below. Current evidence and dossier: [2026-09-30 follow-up](../../reports/lead-resolution-2026-09-30/REPORT.md). S64/S90 dips persist, but official UPDATED_2.0 TESS PRFs do not assign the deficit robustly between the0.18-pixel-separated Gaia A/B pair. Source preference reverses with allowed registration and1/3/5-percent model floors; static PRF residuals exceed nominal interpolation accuracy. S101 remains rejected and supplies no period preference. All16 baseline aliases remain open; Gaia RV summaries provide no orbit or companion-mass bound. Unverified lead.
+
 ### CYGNUS CANDIDATE DOSSIER
 
 **Working identifier:** CYG-2026-09-TOI3500.02 (local working ID — not an official designation)
