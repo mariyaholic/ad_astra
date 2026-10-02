@@ -1,0 +1,184 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "toi-2255-01",
+ "title": "Known-object test, TOI-2255.01",
+ "kind": "known-object test",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-30",
+ "summary": "Known-object test on TOI-2255.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3.5, ≤2.5, —, 3, 3, 3; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, none on grid, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit not recovered, partial, recovered (12 covered epochs). Residual screen: 86 threshold entries outside the known-signal veto across 6 light curve(s), forming 57 distinct event(s), 1 persistent in SAP and PDCSAP at two or more baselines.",
+ "spec": "campaigns/toi-2255-01.yaml",
+ "report": "campaigns/toi-2255-01/REPORT.md",
+ "search_log": "campaigns/toi-2255-01/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "TOI-2255.01",
+   "ra_deg": 316.892698,
+   "dec_deg": 74.383252,
+   "frame": "ICRS",
+   "epoch": "J2015.5",
+   "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+  }
+ ],
+ "products": [
+  {
+   "id": "tess2022138205153-s0052-0000000265146266-0224-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "4ba6f41ba0e8b973985ddcfe1cf2720b1b80125a869d491b87391cdfc855d685",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2020106103520-s0024-0000000265146266-0180-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "baf8fa2a814cccc20764bb3b8321bcfa7380aa11439650b094773be0fcef3b9c",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2020133194932-s0025-0000000265146266-0182-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "3afe7f83d08584e8dd92e2181050d710c55f09af9ece2ba7d65252c3e72b807f",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2020160202036-s0026-0000000265146266-0188-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "b780de05f82292806d1f7a7c605f4151fa588c8087dff96f61b917a80584d50d",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2022273165103-s0057-0000000265146266-0245-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "909bc09f5cff90455665e13e242acb06272e3bb62213e12c1152feb9b44af3e0",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2022330142927-s0059-0000000265146266-0248-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "5c3b012038367b6a567f33d5ec6175524fda66d5babe226649e8ebb94d389e24",
+   "format": "spoc_lc"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "passed",
+   "note": "6 product(s) from MAST checksummed at first retrieval",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Known-signal recovery (positive control)",
+   "state": "passed",
+   "note": "BJD 2459727.1174: not recovered, depth 6379 ± 362 ppm (catalogue 9860 ppm); BJD 2459739.0700: recovered, depth 6431 ± 388 ppm (catalogue 9860 ppm); BJD 2458962.1503: recovered, depth 5952 ± 413 ppm (catalogue 9860 ppm); BJD 2458974.1029: recovered, depth 6336 ± 417 ppm (catalogue 9860 ppm); BJD 2458986.0556: not recovered, depth 3090 ± 1727 ppm (catalogue 9860 ppm); BJD 2458998.0082: not recovered, depth 6403 ± 1422 ppm (catalogue 9860 ppm); BJD 2459021.9134: not recovered, depth 5154 ± 465 ppm (catalogue 9860 ppm); BJD 2459033.8660: partial, depth 6327 ± 471 ppm (catalogue 9860 ppm); BJD 2459858.5961: recovered, depth 6109 ± 348 ppm (catalogue 9860 ppm); BJD 2459870.5487: recovered, depth 7135 ± 355 ppm (catalogue 9860 ppm); BJD 2459918.3592: recovered, depth 6690 ± 329 ppm (catalogue 9860 ppm); BJD 2459930.3118: not recovered, depth 2085 ± 729 ppm (catalogue 9860 ppm)",
+   "source": "campaign runner, step known_signal_recovery"
+  },
+  {
+   "name": "Calibrated false-alarm threshold (sign-flip null)",
+   "state": "inconclusive",
+   "note": "screen run at each light curve's own k* (3.5, ≤2.5, none, 3, 3, 3; ≤ 0 persistent null events outside the veto); 1 light curve(s) reached no k* on the grid and used the declared k, uncalibrated",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Synthetic signal injection–recovery",
+   "state": "inconclusive",
+   "note": "completeness for 2000 ppm, 4.0 h boxes at the declared threshold: 0%, 0%, 0%, 0%, 0%, 0% per light curve (pass mark 90%)",
+   "source": "campaign runner, step calibrate_screen"
+  },
+  {
+   "name": "Catalogue cross-match",
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
+  },
+  {
+   "name": "Period aliases (repeat events)",
+   "state": "not_tested",
+   "note": "no persistent screen event matches the catalogued depth",
+   "source": "campaign runner, step period_aliases"
+  },
+  {
+   "name": "Alternative detrending",
+   "state": "not_tested"
+  },
+  {
+   "name": "Difference-image centroids / blend audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Pointing / jitter correlation",
+   "state": "not_tested"
+  },
+  {
+   "name": "Literature (ADS) audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Light-curve suitability for the residual screen",
+   "state": "passed",
+   "note": "6 light curve(s) screenable",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-2255.01: Gaia DR3 2276846933380823936 at 0.05\" (propagated 2016.0 → J2015.5; 0.05\" unpropagated)",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "inconclusive",
+   "note": "TOI-2255.01: dwarf priors not applied — no positive parallax or G magnitude; RUWE n/a ≥ 1.4 (or missing): astrometry may be perturbed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "inconclusive",
+   "note": "TOI-2255.01: 12 Gaia neighbour(s) within 52.5\", contamination 17.63%; depth 6431 ppm (measured depth of the recovered catalogued transit); 4 could produce it if fully eclipsed (brightest 2276847139539677824, 41.2\", ΔG 2.44); a centroid test is needed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "failed",
+   "note": "1 persistent event(s), 0 clean; BJD 2458984.4500 suspect: POS_CORR1 z=-6.7, POS_CORR2 z=-6.9, SAP_BKG z=+6.5",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "passed",
+   "note": "1 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin)",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-2255.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-2255.01: TOI-2255 otype * (star_or_other) at 0.4\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Event-time prior art",
+   "state": "not_tested",
+   "note": "no repeat events to compare",
+   "source": "campaign runner, step prior_art"
+  }
+ ],
+ "generated_by": "cygnus_multi campaign runner",
+ "generated_utc": "2026-09-30T21:52:48Z"
+}

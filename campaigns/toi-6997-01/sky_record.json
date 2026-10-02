@@ -1,0 +1,141 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "toi-6997-01",
+ "title": "Known-object test, TOI-6997.01",
+ "kind": "known-object test",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-30",
+ "summary": "Known-object test on TOI-6997.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: TOI-6997.01: no SPOC 120-s light curve found at MAST for TIC 357858008. no products to analyse: none pinned and none found for the requested targets (TOI-6997.01: no SPOC 120-s light curve found at MAST for TIC 357858008.)",
+ "spec": "campaigns/toi-6997-01.yaml",
+ "report": "campaigns/toi-6997-01/REPORT.md",
+ "search_log": "campaigns/toi-6997-01/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "TOI-6997.01",
+   "ra_deg": 282.269154,
+   "dec_deg": 25.693224,
+   "frame": "ICRS",
+   "epoch": "J2015.5",
+   "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+  }
+ ],
+ "products": [],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "not_tested",
+   "note": "no products to analyse: none pinned and none found for the requested targets (TOI-6997.01: no SPOC 120-s light curve found at MAST for TIC 357858008.)",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Known-signal recovery (positive control)",
+   "state": "not_tested",
+   "note": "no retrieved light curve covers a catalogued transit epoch",
+   "source": "campaign runner, step known_signal_recovery"
+  },
+  {
+   "name": "Calibrated false-alarm threshold (sign-flip null)",
+   "state": "not_tested",
+   "note": "no products to analyse: none pinned and none found for the requested targets (TOI-6997.01: no SPOC 120-s light curve found at MAST for TIC 357858008.)",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Synthetic signal injection–recovery",
+   "state": "not_tested",
+   "note": "no products to analyse: none pinned and none found for the requested targets (TOI-6997.01: no SPOC 120-s light curve found at MAST for TIC 357858008.)",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Catalogue cross-match",
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
+  },
+  {
+   "name": "Period aliases (repeat events)",
+   "state": "not_tested",
+   "note": "catalogued transit not recovered; no reference depth",
+   "source": "campaign runner, step period_aliases"
+  },
+  {
+   "name": "Alternative detrending",
+   "state": "not_tested"
+  },
+  {
+   "name": "Difference-image centroids / blend audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Pointing / jitter correlation",
+   "state": "not_tested"
+  },
+  {
+   "name": "Literature (ADS) audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-6997.01: Gaia DR3 4537553856410695424 at 0.00\" (propagated 2016.0 → J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "passed",
+   "note": "TOI-6997.01: Teff 5256 K, R* 0.95 ± 0.08, M* 0.97 ± 0.10, ρ* 1.14 ± 0.30 ρ☉ (dwarf sequence, M_G 4.92, no extinction)",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "inconclusive",
+   "note": "TOI-6997.01: 47 Gaia neighbour(s) within 52.5\", contamination 47.09%; depth 10730 ppm (catalogue depth); 8 could produce it if fully eclipsed (brightest 4537553787691208320, 42.9\", ΔG 1.44); a centroid test is needed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-6997.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-6997.01: UCAC4 579-067716 otype * (star_or_other) at 0.2\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Event-time prior art",
+   "state": "not_tested",
+   "note": "no repeat events to compare",
+   "source": "campaign runner, step prior_art"
+  }
+ ],
+ "generated_by": "cygnus_multi campaign runner",
+ "generated_utc": "2026-09-30T21:39:39Z"
+}

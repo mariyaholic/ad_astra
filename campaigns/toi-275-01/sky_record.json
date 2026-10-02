@@ -1,0 +1,184 @@
+{
+ "schema": "cygnus.sky_record/1",
+ "id": "toi-275-01",
+ "title": "Known-object test, TOI-275.01",
+ "kind": "known-object test",
+ "status": "completed",
+ "outcome": "pipeline_check",
+ "evidence": null,
+ "date": "2026-09-30",
+ "summary": "Known-object test on TOI-275.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 4.5, 5, 3, 3.5, 12; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 1%, 2%, 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap, not recovered, partial, recovered (170 covered epochs). Residual screen: 8 threshold entries outside the known-signal veto across 6 light curve(s), forming 4 distinct event(s), 0 persistent in SAP and PDCSAP at two or more baselines.",
+ "spec": "campaigns/toi-275-01.yaml",
+ "report": "campaigns/toi-275-01/REPORT.md",
+ "search_log": "campaigns/toi-275-01/SEARCH_LOG.md",
+ "targets": [
+  {
+   "name": "TOI-275.01",
+   "ra_deg": 81.516646,
+   "dec_deg": -67.232772,
+   "frame": "ICRS",
+   "epoch": "J2015.5",
+   "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+  }
+ ],
+ "products": [
+  {
+   "id": "tess2023096110322-s0064-0000000373844472-0257-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "f2ede16be459818ec6e9345bfa88f6035b88ee0f28b768a41828181b669527d2",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2018206045859-s0001-0000000373844472-0120-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "ec9574c7d72304a2b6afd145722f56c587c8dfd22697cf1bb8d17bbd6ef0d093",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2018263035959-s0003-0000000373844472-0123-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "d010686c2c413b499751ed41ea7b84d30832376e89e3c8e109b56f495ca26a34",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2018292075959-s0004-0000000373844472-0124-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "0b410d2e9317a08f70114f1df62a09612108c9b2dfc9d8230a398a821747e046",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2018319095959-s0005-0000000373844472-0125-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "823f27ff009a35a7a554d1ac87cca4c9d60a907163592518a4eaf107d15e0011",
+   "format": "spoc_lc"
+  },
+  {
+   "id": "tess2018349182500-s0006-0000000373844472-0126-s_lc.fits",
+   "archive": "MAST",
+   "sha256": "e23321ccf1c590a9f563e9c660eb48c5c3aa2c7fa2ec23c26cbeb44d6311d3ed",
+   "format": "spoc_lc"
+  }
+ ],
+ "checks": [
+  {
+   "name": "Product integrity (SHA-256)",
+   "state": "passed",
+   "note": "6 product(s) from MAST checksummed at first retrieval",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Known-signal recovery (positive control)",
+   "state": "passed",
+   "note": "BJD 2460041.9647: recovered, depth 7491 ± 325 ppm (catalogue 9180 ppm); BJD 2460042.8842: recovered, depth 7492 ± 345 ppm (catalogue 9180 ppm); BJD 2460043.8038: recovered, depth 7659 ± 323 ppm (catalogue 9180 ppm); BJD 2460044.7233: recovered, depth 7791 ± 327 ppm (catalogue 9180 ppm); BJD 2460045.6429: recovered, depth 6576 ± 329 ppm (catalogue 9180 ppm); BJD 2460046.5625: recovered, depth 7676 ± 327 ppm (catalogue 9180 ppm); BJD 2460047.4820: recovered, depth 6989 ± 333 ppm (catalogue 9180 ppm); BJD 2460048.4016: recovered, depth 7046 ± 323 ppm (catalogue 9180 ppm); BJD 2460049.3212: recovered, depth 6671 ± 330 ppm (catalogue 9180 ppm); BJD 2460050.2407: recovered, depth 8540 ± 336 ppm (catalogue 9180 ppm); BJD 2460051.1603: recovered, depth 6532 ± 350 ppm (catalogue 9180 ppm); BJD 2460052.0798: recovered, depth 7501 ± 328 ppm (catalogue 9180 ppm); BJD 2460052.9994: recovered, depth 7117 ± 348 ppm (catalogue 9180 ppm); BJD 2460053.9190: recovered, depth 7696 ± 340 ppm (catalogue 9180 ppm); BJD 2460054.8385: recovered, depth 8044 ± 352 ppm (catalogue 9180 ppm); BJD 2460055.7581: recovered, depth 8164 ± 338 ppm (catalogue 9180 ppm); BJD 2460056.6776: recovered, depth 6894 ± 331 ppm (catalogue 9180 ppm); BJD 2460057.5972: recovered, depth 6807 ± 327 ppm (catalogue 9180 ppm); BJD 2460058.5168: recovered, depth 7627 ± 336 ppm (catalogue 9180 ppm); BJD 2460059.4363: recovered, depth 7587 ± 328 ppm (catalogue 9180 ppm); BJD 2460060.3559: recovered, depth 7218 ± 331 ppm (catalogue 9180 ppm); BJD 2460061.2755: recovered, depth 6952 ± 349 ppm (catalogue 9180 ppm); BJD 2460062.1950: recovered, depth 5104 ± 348 ppm (catalogue 9180 ppm); BJD 2460063.1146: recovered, depth 7236 ± 317 ppm (catalogue 9180 ppm); BJD 2460064.0341: recovered, depth 7961 ± 340 ppm (catalogue 9180 ppm); BJD 2460064.9537: recovered, depth 7869 ± 350 ppm (catalogue 9180 ppm); BJD 2460065.8733: recovered, depth 7436 ± 360 ppm (catalogue 9180 ppm); BJD 2460066.7928: recovered, depth 7275 ± 371 ppm (catalogue 9180 ppm); BJD 2460067.7124: recovered, depth 8315 ± 395 ppm (catalogue 9180 ppm); BJD 2458326.0625: recovered, depth 7457 ± 383 ppm (catalogue 9180 ppm); BJD 2458326.9821: recovered, depth 6514 ± 368 ppm (catalogue 9180 ppm); BJD 2458327.9017: recovered, depth 7722 ± 349 ppm (catalogue 9180 ppm); BJD 2458328.8212: partial, depth 6201 ± 369 ppm (catalogue 9180 ppm); BJD 2458329.7408: recovered, depth 8010 ± 378 ppm (catalogue 9180 ppm); BJD 2458330.6603: recovered, depth 6099 ± 381 ppm (catalogue 9180 ppm); BJD 2458331.5799: recovered, depth 7587 ± 378 ppm (catalogue 9180 ppm); BJD 2458332.4995: recovered, depth 6369 ± 389 ppm (catalogue 9180 ppm); BJD 2458333.4190: recovered, depth 8314 ± 388 ppm (catalogue 9180 ppm); BJD 2458334.3386: recovered, depth 6518 ± 394 ppm (catalogue 9180 ppm); BJD 2458335.2581: recovered, depth 7911 ± 401 ppm (catalogue 9180 ppm); BJD 2458336.1777: partial, depth 6396 ± 377 ppm (catalogue 9180 ppm); BJD 2458337.0973: recovered, depth 7223 ± 371 ppm (catalogue 9180 ppm); BJD 2458338.0168: recovered, depth 6120 ± 351 ppm (catalogue 9180 ppm); BJD 2458338.9364: gap (catalogue 9180 ppm); BJD 2458339.8560: recovered, depth 6347 ± 329 ppm (catalogue 9180 ppm); BJD 2458340.7755: recovered, depth 7714 ± 332 ppm (catalogue 9180 ppm); BJD 2458341.6951: recovered, depth 6788 ± 390 ppm (catalogue 9180 ppm); BJD 2458342.6146: recovered, depth 7887 ± 390 ppm (catalogue 9180 ppm); BJD 2458343.5342: recovered, depth 7180 ± 423 ppm (catalogue 9180 ppm); BJD 2458344.4538: recovered, depth 7067 ± 377 ppm (catalogue 9180 ppm); BJD 2458345.3733: recovered, depth 6227 ± 358 ppm (catalogue 9180 ppm); BJD 2458346.2929: recovered, depth 7762 ± 343 ppm (catalogue 9180 ppm); BJD 2458347.2124: recovered, depth 5954 ± 387 ppm (catalogue 9180 ppm); BJD 2458348.1320: recovered, depth 7636 ± 447 ppm (catalogue 9180 ppm); BJD 2458349.0516: partial, depth 5897 ± 604 ppm (catalogue 9180 ppm); BJD 2458349.9711: recovered, depth 8107 ± 373 ppm (catalogue 9180 ppm); BJD 2458350.8907: partial, depth 5269 ± 372 ppm (catalogue 9180 ppm); BJD 2458351.8103: recovered, depth 8221 ± 375 ppm (catalogue 9180 ppm); BJD 2458352.7298: recovered, depth 6220 ± 370 ppm (catalogue 9180 ppm); BJD 2458382.1558: gap (catalogue 9180 ppm); BJD 2458383.0754: gap (catalogue 9180 ppm); BJD 2458383.9949: gap (catalogue 9180 ppm); BJD 2458384.9145: gap (catalogue 9180 ppm); BJD 2458385.8340: gap (catalogue 9180 ppm); BJD 2458386.7536: not recovered, depth 8021 ± 408 ppm (catalogue 9180 ppm); BJD 2458387.6732: not recovered, depth 6920 ± 362 ppm (catalogue 9180 ppm); BJD 2458388.5927: recovered, depth 7761 ± 356 ppm (catalogue 9180 ppm); BJD 2458389.5123: not recovered, depth 5812 ± 377 ppm (catalogue 9180 ppm); BJD 2458390.4318: not recovered, depth 7687 ± 336 ppm (catalogue 9180 ppm); BJD 2458391.3514: recovered, depth 5827 ± 331 ppm (catalogue 9180 ppm); BJD 2458392.2710: not recovered, depth 6498 ± 434 ppm (catalogue 9180 ppm); BJD 2458393.1905: not recovered, depth 5181 ± 397 ppm (catalogue 9180 ppm); BJD 2458394.1101: recovered, depth 2599 ± 384 ppm (catalogue 9180 ppm); BJD 2458395.0297: gap (catalogue 9180 ppm); BJD 2458395.9492: gap (catalogue 9180 ppm); BJD 2458396.8688: recovered, depth 5404 ± 374 ppm (catalogue 9180 ppm); BJD 2458397.7883: recovered, depth 7425 ± 373 ppm (catalogue 9180 ppm); BJD 2458398.7079: not recovered, depth 4360 ± 434 ppm (catalogue 9180 ppm); BJD 2458399.6275: recovered, depth 7864 ± 356 ppm (catalogue 9180 ppm); BJD 2458400.5470: not recovered, depth 5425 ± 359 ppm (catalogue 9180 ppm); BJD 2458401.4666: recovered, depth 7462 ± 353 ppm (catalogue 9180 ppm); BJD 2458402.3861: recovered, depth 5382 ± 362 ppm (catalogue 9180 ppm); BJD 2458403.3057: recovered, depth 8203 ± 369 ppm (catalogue 9180 ppm); BJD 2458404.2253: recovered, depth 5531 ± 382 ppm (catalogue 9180 ppm); BJD 2458405.1448: recovered, depth 7249 ± 372 ppm (catalogue 9180 ppm); BJD 2458406.0644: not recovered, depth 5418 ± 376 ppm (catalogue 9180 ppm); BJD 2458406.9840: gap (catalogue 9180 ppm); BJD 2458407.9035: gap (catalogue 9180 ppm); BJD 2458408.8231: gap (catalogue 9180 ppm); BJD 2458411.5818: recovered, depth 6133 ± 362 ppm (catalogue 9180 ppm); BJD 2458412.5013: recovered, depth 8376 ± 366 ppm (catalogue 9180 ppm); BJD 2458413.4209: recovered, depth 6709 ± 348 ppm (catalogue 9180 ppm); BJD 2458414.3405: recovered, depth 7287 ± 336 ppm (catalogue 9180 ppm); BJD 2458415.2600: recovered, depth 4520 ± 367 ppm (catalogue 9180 ppm); BJD 2458416.1796: recovered, depth 8135 ± 354 ppm (catalogue 9180 ppm); BJD 2458417.0991: recovered, depth 5307 ± 504 ppm (catalogue 9180 ppm); BJD 2458418.0187: recovered, depth 6647 ± 337 ppm (catalogue 9180 ppm); BJD 2458418.9383: gap (catalogue 9180 ppm); BJD 2458419.8578: gap (catalogue 9180 ppm); BJD 2458420.7774: gap (catalogue 9180 ppm); BJD 2458421.6969: recovered, depth 8705 ± 320 ppm (catalogue 9180 ppm); BJD 2458422.6165: gap (catalogue 9180 ppm); BJD 2458423.5361: gap (catalogue 9180 ppm); BJD 2458424.4556: gap (catalogue 9180 ppm); BJD 2458425.3752: recovered, depth 7870 ± 358 ppm (catalogue 9180 ppm); BJD 2458426.2948: recovered, depth 4863 ± 369 ppm (catalogue 9180 ppm); BJD 2458427.2143: recovered, depth 7186 ± 367 ppm (catalogue 9180 ppm); BJD 2458428.1339: recovered, depth 6412 ± 373 ppm (catalogue 9180 ppm); BJD 2458429.0534: recovered, depth 7770 ± 358 ppm (catalogue 9180 ppm); BJD 2458429.9730: recovered, depth 7107 ± 353 ppm (catalogue 9180 ppm); BJD 2458430.8926: recovered, depth 8306 ± 334 ppm (catalogue 9180 ppm); BJD 2458431.8121: recovered, depth 6724 ± 332 ppm (catalogue 9180 ppm); BJD 2458432.7317: recovered, depth 7390 ± 344 ppm (catalogue 9180 ppm); BJD 2458433.6512: recovered, depth 4969 ± 376 ppm (catalogue 9180 ppm); BJD 2458434.5708: recovered, depth 7603 ± 348 ppm (catalogue 9180 ppm); BJD 2458435.4904: recovered, depth 5781 ± 447 ppm (catalogue 9180 ppm); BJD 2458436.4099: recovered, depth 9677 ± 474 ppm (catalogue 9180 ppm); BJD 2458438.2491: not recovered, depth -4520 ± 489 ppm (catalogue 9180 ppm); BJD 2458439.1686: recovered, depth 6544 ± 394 ppm (catalogue 9180 ppm); BJD 2458440.0882: recovered, depth 6651 ± 367 ppm (catalogue 9180 ppm); BJD 2458441.0077: recovered, depth 6955 ± 390 ppm (catalogue 9180 ppm); BJD 2458441.9273: recovered, depth 6936 ± 355 ppm (catalogue 9180 ppm); BJD 2458442.8469: recovered, depth 6108 ± 348 ppm (catalogue 9180 ppm); BJD 2458443.7664: recovered, depth 7358 ± 359 ppm (catalogue 9180 ppm); BJD 2458444.6860: recovered, depth 5321 ± 371 ppm (catalogue 9180 ppm); BJD 2458445.6055: recovered, depth 8469 ± 369 ppm (catalogue 9180 ppm); BJD 2458446.5251: recovered, depth 5284 ± 376 ppm (catalogue 9180 ppm); BJD 2458447.4447: recovered, depth 7831 ± 357 ppm (catalogue 9180 ppm); BJD 2458448.3642: recovered, depth 6524 ± 378 ppm (catalogue 9180 ppm); BJD 2458449.2838: recovered, depth 8176 ± 378 ppm (catalogue 9180 ppm); BJD 2458450.2034: gap (catalogue 9180 ppm); BJD 2458451.1229: gap (catalogue 9180 ppm); BJD 2458452.0425: recovered, depth 6231 ± 380 ppm (catalogue 9180 ppm); BJD 2458452.9620: recovered, depth 7200 ± 359 ppm (catalogue 9180 ppm); BJD 2458453.8816: recovered, depth 5794 ± 366 ppm (catalogue 9180 ppm); BJD 2458454.8012: recovered, depth 7578 ± 353 ppm (catalogue 9180 ppm); BJD 2458455.7207: recovered, depth 6338 ± 366 ppm (catalogue 9180 ppm); BJD 2458456.6403: recovered, depth 6741 ± 358 ppm (catalogue 9180 ppm); BJD 2458457.5599: recovered, depth 5657 ± 362 ppm (catalogue 9180 ppm); BJD 2458458.4794: recovered, depth 7577 ± 352 ppm (catalogue 9180 ppm); BJD 2458459.3990: recovered, depth 6661 ± 378 ppm (catalogue 9180 ppm); BJD 2458460.3185: recovered, depth 7734 ± 372 ppm (catalogue 9180 ppm); BJD 2458461.2381: recovered, depth 6550 ± 370 ppm (catalogue 9180 ppm); BJD 2458462.1577: recovered, depth 8571 ± 362 ppm (catalogue 9180 ppm); BJD 2458463.0772: recovered, depth 5299 ± 414 ppm (catalogue 9180 ppm); BJD 2458463.9968: gap (catalogue 9180 ppm); BJD 2458468.5946: not recovered, depth 5362 ± 395 ppm (catalogue 9180 ppm); BJD 2458469.5142: not recovered, depth 6762 ± 383 ppm (catalogue 9180 ppm); BJD 2458470.4337: not recovered, depth 5640 ± 359 ppm (catalogue 9180 ppm); BJD 2458471.3533: not recovered, depth 8239 ± 340 ppm (catalogue 9180 ppm); BJD 2458472.2728: not recovered, depth 5764 ± 353 ppm (catalogue 9180 ppm); BJD 2458473.1924: not recovered, depth 8159 ± 342 ppm (catalogue 9180 ppm); BJD 2458474.1120: not recovered, depth 6175 ± 359 ppm (catalogue 9180 ppm); BJD 2458475.0315: not recovered, depth 8489 ± 356 ppm (catalogue 9180 ppm); BJD 2458475.9511: not recovered, depth 5960 ± 378 ppm (catalogue 9180 ppm); BJD 2458476.8706: not recovered, depth 5973 ± 339 ppm (catalogue 9180 ppm); BJD 2458477.7902: gap (catalogue 9180 ppm); BJD 2458478.7098: not recovered, depth 6124 ± 352 ppm (catalogue 9180 ppm); BJD 2458479.6293: not recovered, depth 6120 ± 349 ppm (catalogue 9180 ppm); BJD 2458480.5489: not recovered, depth 7810 ± 347 ppm (catalogue 9180 ppm); BJD 2458481.4685: not recovered, depth 6655 ± 344 ppm (catalogue 9180 ppm); BJD 2458482.3880: not recovered, depth 6902 ± 343 ppm (catalogue 9180 ppm); BJD 2458483.3076: not recovered, depth 6524 ± 350 ppm (catalogue 9180 ppm); BJD 2458484.2271: not recovered, depth 8406 ± 349 ppm (catalogue 9180 ppm); BJD 2458485.1467: not recovered, depth 5538 ± 356 ppm (catalogue 9180 ppm); BJD 2458486.0663: not recovered, depth 7284 ± 367 ppm (catalogue 9180 ppm); BJD 2458486.9858: not recovered, depth 6597 ± 393 ppm (catalogue 9180 ppm); BJD 2458487.9054: not recovered, depth 9487 ± 372 ppm (catalogue 9180 ppm); BJD 2458488.8249: not recovered, depth 6759 ± 361 ppm (catalogue 9180 ppm); BJD 2458489.7445: not recovered, depth 8619 ± 341 ppm (catalogue 9180 ppm)",
+   "source": "campaign runner, step known_signal_recovery"
+  },
+  {
+   "name": "Calibrated false-alarm threshold (sign-flip null)",
+   "state": "passed",
+   "note": "screen run at each light curve's own k* (≤2.5, 4.5, 5, 3, 3.5, 12; ≤ 0 persistent null events outside the veto)",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Synthetic signal injection–recovery",
+   "state": "inconclusive",
+   "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 0%, 0%, 0%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json",
+   "source": "campaign runner, step residual_screen"
+  },
+  {
+   "name": "Catalogue cross-match",
+   "state": "passed",
+   "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+   "source": "campaign runner, step prior_art"
+  },
+  {
+   "name": "Period aliases (repeat events)",
+   "state": "not_tested",
+   "note": "no persistent screen event matches the catalogued depth",
+   "source": "campaign runner, step period_aliases"
+  },
+  {
+   "name": "Alternative detrending",
+   "state": "not_tested"
+  },
+  {
+   "name": "Difference-image centroids / blend audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Pointing / jitter correlation",
+   "state": "not_tested"
+  },
+  {
+   "name": "Literature (ADS) audit",
+   "state": "not_tested"
+  },
+  {
+   "name": "Light-curve suitability for the residual screen",
+   "state": "passed",
+   "note": "6 light curve(s) screenable",
+   "source": "campaign runner, step fetch_products"
+  },
+  {
+   "name": "Target-to-Gaia identification (proper motion propagated)",
+   "state": "passed",
+   "note": "TOI-275.01: Gaia DR3 4660192386982447232 at 0.00\" (propagated 2016.0 → J2015.5; 0.03\" unpropagated, proper-motion shift 0.03\")",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Stellar priors (Gaia colour and parallax)",
+   "state": "inconclusive",
+   "note": "TOI-275.01: dwarf priors not applied — RUWE 5.5791526 ≥ 1.4 (or missing): astrometry may be perturbed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Blend and dilution census (Gaia DR3 cone)",
+   "state": "inconclusive",
+   "note": "TOI-275.01: 190 Gaia neighbour(s) within 52.5\", contamination 16.49%; depth 7491 ppm (measured depth of the recovered catalogued transit); 3 could produce it if fully eclipsed (brightest 4660192490061661056, 29.7\", ΔG 3.99); a centroid test is needed",
+   "source": "campaign runner, step stellar_context"
+  },
+  {
+   "name": "Pointing and quality census per event",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step event_census"
+  },
+  {
+   "name": "Moving objects at screen-event epochs",
+   "state": "not_tested",
+   "note": "no persistent screen event outside the veto",
+   "source": "campaign runner, step moving_objects"
+  },
+  {
+   "name": "Independent repetition (other MAST collections)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Independent-epoch confirmation (ZTF)",
+   "state": "not_tested",
+   "note": "no repeat candidate with allowed period aliases",
+   "source": "campaign runner, step alias_cross_instrument"
+  },
+  {
+   "name": "Variable-catalogue collision (VSX)",
+   "state": "passed",
+   "note": "TOI-275.01: no VSX entry within 10\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Object-class guard (SIMBAD)",
+   "state": "passed",
+   "note": "TOI-275.01: TOI-275.01 otype err (star_or_other) at 0.8\"",
+   "source": "campaign runner, step variability_guard"
+  },
+  {
+   "name": "Event-time prior art",
+   "state": "not_tested",
+   "note": "no repeat events to compare",
+   "source": "campaign runner, step prior_art"
+  }
+ ],
+ "generated_by": "cygnus_multi campaign runner",
+ "generated_utc": "2026-09-30T22:59:51Z"
+}
