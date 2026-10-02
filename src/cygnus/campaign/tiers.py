@@ -66,7 +66,7 @@ GATE_CHECKS: list[tuple[str, str]] = [
     (r"^Event-depth injection-recovery$", "injection"),         # recovery at the event depth (gates T4)
     (r"^Period aliases\b", "aliases"),
     (r"^Catalogue cross-match$", "catalogue"),
-    (r"^Event-time comparison vs published ephemerides$", "event_time"),
+    (r"^Event-time comparison vs published ephemerides$|^Event-time prior art$", "event_time"),
     (r"^Published event-time identity\b", "identity"),
     (r"^Variable-catalogue collision \(VSX\)$", "vsx"),
     (r"^Object-class guard \(SIMBAD\)$", "guard"),

@@ -87,7 +87,7 @@ def test_veto_mask_none_ephemeris_single_epoch_and_unknown_kind():
 
 
 # ------------------------------------------------------------------ calibrated residual screen, end to end
-def _screen_world(root: Path, scratch: Path, steps_yaml: str, *, cid="cal-fixture", dips=(1501.5,)) -> Path:
+def _screen_world(root: Path, scratch: Path, steps_yaml: str, *, cid="cal-fixture", dips=(1501.5,), veto: str = "") -> Path:
     lc = write_spoc(scratch / "stage" / SPOC_PID, n=3000, dips=dips)
     (root / "campaigns").mkdir(exist_ok=True)
     spec = f"""schema: cygnus.campaign/1
@@ -95,7 +95,7 @@ campaign_id: {cid}
 outputs: campaigns/{cid}/
 random_seed: 11
 targets: [{{name: Fixture, ra_deg: 10.0, dec_deg: 20.0, frame: ICRS, epoch: J2000.0, position_source: fixture}}]
-input:
+{veto}input:
   products: [{{product_id: {SPOC_PID}, target: Fixture, sector: 7, expected_sha256: {sha256(lc)}}}]
 steps:
 {steps_yaml}record:
@@ -159,6 +159,32 @@ def test_uncalibrated_light_curve_uses_the_declared_k_and_says_so(tmp_path, scra
     assert "none" in c["note"]
     # no calibrated completeness exists, so the residual screen leaves calibrate_screen's own injection check
     assert out["checks"]["Synthetic signal injection–recovery"]["step"] == "calibrate_screen"
+
+
+def test_veto_window_wider_than_the_data_is_reported_not_crashed(tmp_path, scratch):
+    # Mirrors the p02-b01 batch failure on TOI-6041.01/TOI-6249.01: an ephemeris veto of ±veto_phase·P
+    # (0.02 × ~1093 d ≈ ±21.9 d) is wider than one TESS sector, so every usable cadence is inside
+    # the veto and the calibration has no data outside it. The campaign must complete and record
+    # that the screen is uncalibrated there instead of crashing on an empty sample array.
+    steps_yaml = ("  - fetch_products: {search_dirs: [\"scratch:stage\"]}\n" + CAL.format(grid="[4.0, 6.0]")
+                  + "  - residual_screen: {windows_days: [1.0], k_mad: calibrated}\n")
+    veto = ("veto:\n  kind: ephemeris\n  period_days: 1094.062167\n  t0_bjd: 2458501.0\n  veto_phase: 0.02\n"
+            "  source: NASA Exoplanet Archive TOI row (spec-level veto fixture)\n")
+    out, _ = _run(_screen_world(tmp_path, scratch, steps_yaml, cid="veto-fixture", veto=veto), tmp_path)
+    assert out["complete"]                    # no ValueError from the empty ranged input
+    cal = json.loads((tmp_path / "campaigns/veto-fixture/runner/calibrate_screen.json").read_text())["result"]
+    per = cal["per_product"][SPOC_PID]
+    assert per["usable_cadences_outside_veto"] == 0
+    assert per["k_star"] is None               # never an upper bound built on zero data
+    for cell in per["completeness"].values():
+        assert cell["declared"] is None and cell["calibrated"] is None
+    c = out["checks"]["Calibrated false-alarm threshold (sign-flip null)"]
+    assert c["state"] == "inconclusive" and "no usable cadence outside the veto" in c["note"]
+    # the screen itself still completed truthfully: it cannot see transits there
+    summ = json.loads((tmp_path / "campaigns/veto-fixture/runner/residual_screen.json").read_text())["result"]
+    assert summ["entries_outside_veto_total"] == 0
+    rec = json.loads((tmp_path / "campaigns/veto-fixture/sky_record.json").read_text())
+    assert rec["status"] == "completed"
 
 
 def test_systematics_model_failure_does_not_break_the_screen(tmp_path, scratch, monkeypatch):

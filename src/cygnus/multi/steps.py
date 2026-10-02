@@ -525,8 +525,9 @@ def step_residual_screen(ctx, params: dict) -> dict:
         if ph is not None:
             control = finite & ~vmask
             res["controls"] = {"definition": f"same LC phase outside ±{veto['veto_phase']}-cycle window about provisional transit",
-                               "n": int(control.sum()), "sap_control_robust_sigma": robust_sigma(rs[control]),
-                               "pdc_control_robust_sigma": robust_sigma(rp[control])}
+                               "n": int(control.sum()),
+                               "sap_control_robust_sigma": robust_sigma(rs[control]) if control.any() else None,
+                               "pdc_control_robust_sigma": robust_sigma(rp[control]) if control.any() else None}
         res["interpretation_limit"] = (f"-{k} robust-MAD threshold "
                                        + ("from the campaign's sign-flip calibration" if k_src.startswith("calibrated")
                                           else "is an uncalibrated screen unless calibrate_screen ran")
@@ -587,11 +588,15 @@ def step_residual_screen(ctx, params: dict) -> dict:
     if k_decl == "calibrated":
         cal = ctx.result("calibrate_screen")["per_product"]
         unc = [pid for pid in summary if cal.get(pid, {}).get("k_star") is None]
+        vetoed = [pid for pid in unc if cal.get(pid, {}).get("all_data_vetoed")]
+        plain = [pid for pid in unc if pid not in vetoed]
         kf = lambda c: "none" if c["k_star"] is None else (f"≤{c['k_star']:g}" if c["k_star_at_grid_floor"] else f"{c['k_star']:g}")
+        tail = (f"; {len(vetoed)} light curve(s) have no usable cadence outside the veto "
+                "(the veto window covers all of the data; no k* exists there)" if vetoed else "")
+        tail += ("; %d light curve(s) reached no k* on the grid and used the declared k, uncalibrated" % len(plain) if plain else "")
         ctx.check("Calibrated false-alarm threshold (sign-flip null)", "inconclusive" if unc else "passed",
                   "screen run at each light curve's own k* (" + ", ".join(kf(cal[pid]) for pid in summary) + "; ≤ "
-                  f"{ctx.spec_step_param('calibrate_screen', 'max_null_events', 0)} persistent null events outside the veto)"
-                  + (f"; {len(unc)} light curve(s) reached no k* on the grid and used the declared k, uncalibrated" if unc else ""))
+                  f"{ctx.spec_step_param('calibrate_screen', 'max_null_events', 0)} persistent null events outside the veto)" + tail)
         refs = [cal[pid]["reference"] for pid in summary if pid in cal]
         vals = [r.get("calibrated") for r in refs]
         if refs and all(v is not None for v in vals):
@@ -706,6 +711,7 @@ def step_calibrate_screen(ctx, params: dict) -> dict:
     durs = [float(x) for x in params.get("durations_h", [1.0, 2.0, 4.0])]
     n_inj = int(params.get("injections_per_cell", 10))
     ref = params.get("reference_signal", {"depth_ppm": 2000, "duration_h": 2.0})
+    refkey = f"{int(ref['depth_ppm'])}ppm_{float(ref['duration_h']):g}h"
     rng = np.random.default_rng(ctx.seed)
     per = {}
     for pid, prod in _lightcurve_products(ctx).items():
@@ -720,6 +726,15 @@ def step_calibrate_screen(ctx, params: dict) -> dict:
         # injection–recovery
         usable_idx = np.flatnonzero(finite & ~vmask)
         cad_d = lc.cadence_s / 86400
+        if usable_idx.size == 0:
+            # the veto window (±veto_phase·P d) swallows every usable cadence: the null and the
+            # injections have no sample space, and a k* built on zero data is an empty bound
+            per[pid] = {"null_events_by_k": {}, "k_star": None, "k_star_at_grid_floor": False,
+                        "depth_for_90pct_completeness_ppm": {}, "completeness": {},
+                        "channel_mode": "single" if single else "SAP+PDCSAP",
+                        "usable_cadences_outside_veto": 0, "all_data_vetoed": True,
+                        "reference": {"cell": refkey, "declared": None, "calibrated": None}}
+            continue
         comp = {}
         for dep in depths:
             for dur in durs:
@@ -750,7 +765,6 @@ def step_calibrate_screen(ctx, params: dict) -> dict:
                     rec = sum(any(a <= b1 and b0 <= bb for a, bb in found) for b0, b1 in boxes)
                     cell[label] = rec / len(boxes) if boxes else None
                 comp[f"{int(dep)}ppm_{dur:g}h"] = {"depth_ppm": dep, "duration_h": dur, "n_injected": len(boxes), **cell}
-        refkey = f"{int(ref['depth_ppm'])}ppm_{float(ref['duration_h']):g}h"
         depth90 = {}
         for dur in durs:
             for label in ("declared", "calibrated"):
@@ -783,14 +797,22 @@ def step_calibrate_screen(ctx, params: dict) -> dict:
                   f"declared k = {k_decl:g} " + ("is at or above it" if state == "passed"
                                                  else "is below it, so crossings at the declared k are expected from noise"))
     else:
+        vetoed = [pid for pid, v in per.items() if v.get("all_data_vetoed")]
         ctx.check("Calibrated false-alarm threshold (sign-flip null)", "inconclusive",
-                  "no threshold on the grid reached the null-event limit for every light curve")
+                  ("no usable cadence outside the veto for " + ", ".join(vetoed)
+                   + ": the veto window covers all of the data, so the null, k* and injections have no sample space there"
+                   if vetoed else
+                   "no threshold on the grid reached the null-event limit for every light curve"))
     refs = [v["reference"]["declared"] for v in per.values() if v["reference"]["declared"] is not None]
     if refs:
         lo = min(refs)
         ctx.check("Synthetic signal injection–recovery", "passed" if lo >= 0.9 else "inconclusive",
                   f"completeness for {ref['depth_ppm']} ppm, {ref['duration_h']} h boxes at the declared threshold: "
                   + ", ".join(f"{r:.0%}" for r in refs) + " per light curve (pass mark 90%)")
+    elif any(v.get("all_data_vetoed") for v in per.values()):
+        ctx.check("Synthetic signal injection–recovery", "not_tested",
+                  "no usable cadence outside the veto for " + ", ".join(pid for pid, v in per.items() if v.get("all_data_vetoed"))
+                  + "; no injection–recovery sample space there")
     d90 = []
     for v in per.values():
         dd = v["depth_for_90pct_completeness_ppm"].get(f"{float(ref['duration_h']):g}h", {}).get("declared")

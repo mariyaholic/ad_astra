@@ -1,6 +1,17 @@
 # Project status and handoff
 
-Last updated: 2026-09-30 (Asia/Manila; unresolved event interpretations after new FFI/binary/PRF work). Read this after `AGENTS.md` when picking the project up. It records the current state, open decisions and known problems that are not obvious from the code. Update it when any of these change.
+Last updated: 2026-10-02 (Asia/Manila; batch offline-compatibility redo + sample batch p02-b02). Read this after `AGENTS.md` when picking the project up. It records the current state, open decisions and known problems that are not obvious from the code. Update it when any of these change.
+
+## Current focus (2026-10-02): batches revalidated offline, sample batch of 100 claimed
+
+**Offline compatibility redo (2026-10-02):** the earlier conclusion stands — the `tess-periodic-01` batch (`batch_colab-p01.txt`, 1,000 single-epoch-veto specs without `period_days`) is not valid to run on the current suite; the repair lives in `tess-periodic-02` (300-row queue with `period_days`). The offline gate (`python -m pytest -q`) failed on three things and all are fixed, test-first: (1) the `Event-time prior art` check name from the event-epoch null step had no role mapping in `cygnus.campaign.tiers` (now `event_time`); (2) `calibrate_screen` crashed (`rng.choice` on an empty range) for ephemeris vetoes where ±`veto_phase`·`P` covers ALL usable cadences — e.g. TOI-6041.01/TOI-6249.01, period ≈ 1093 d, veto window ±~22 d ≫ one sector; it now records `all_data_vetoed`, `k_star: null`, no injections, and inconclusive checks in both runners (`test_veto_window_wider_than_the_data_is_reported_not_crashed`); (3) the two failed campaigns had no sky record at all. They re-ran to completion (`pipeline_check`, positive-control failures and inconclusive calibration recorded honestly — escalations like the others).
+
+**Claim-time records:** claims left specs without a sky record (which breaks `coverage_gaps` before any run). `write_spec` (both runners) now writes a draft/`not_run` placeholder (`skyrecord.placeholder_record`) that the runner overwrites on first run, and `python -m cygnus.batch claim --bulk` fetches all pending TOI rows with **one** bulk TAP query (one round trip ~6 s vs one per target), serving them through the existing `refresh_queue_target` fetch seam to `multi new --refresh-rows`; the query, counts and retrieval UTC are journalled (`claim_bulk_fetch`).
+
+**Sample batch p02-b02:** 100 targets claimed from `campaigns/tess-periodic-02/target_queue.csv` (bulk refresh 2026-10-02T07:25:08Z, 101 rows — one TIC carries two TOIs). All 100 specs have `veto.kind: ephemeris` with live periods and placeholder records; none has run yet. Interrupted claim attempts left 30 orphan specs; 28 were archived to `state/claim_history/2026-10-02-interrupted-claims/` (two WASP-12 specs were mispaired by a naive spec↔record-directory heuristic and restored). Offline gate: **681 passed, 37 deselected**.
+
+**p02-b01 (previous 100) is finished but unreviewed:** 98 completed, 41 escalations (**35 outcome-lead repeat candidates** that need `vet` + the lead vetting log; positive-control failures on toi-3662-01, toi-2560-01, toi-4776-01, toi-5237-01; VSX collision on toi-6347-01 with Gaia DR3 170890362096387200, an EB at 10.0″). Nothing is reviewed yet; follow `docs/AGENT_RUNBOOK.md` before removing any draft marker.
+
 
 ## Current focus (2026-09-30): research resumed with Luna execution and adviser review
 

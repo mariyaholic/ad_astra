@@ -35,6 +35,8 @@ import json
 import re
 from pathlib import Path
 
+from .ledger import now_utc
+
 SCHEMA = "cygnus.sky_record/1"
 FILENAME = "sky_record.json"
 STATUSES = ("draft", "running", "completed", "abandoned")
@@ -158,6 +160,41 @@ def validate(rec: dict, root: Path, known_positions: dict[str, tuple[float, floa
         if pl.get("type") == "fold" and not (_is_num(pl.get("period_days")) and _is_num(pl.get("t0_bjd"))):
             e.append(f"{where}: fold plots need period_days and t0_bjd")
     return e
+
+
+def placeholder_record(root: Path, spec_path: Path) -> dict | None:
+    """A draft/`not_run` record written when a claim leaves a spec without one: every declared
+    check is `not_tested`, nothing has been measured and the runner overwrites it on first run.
+
+    Returns None if the spec has no record block (e.g. a queue-less hand spec); the invariant
+    that every campaign spec is accounted for by a sky record stays measurable (coverage_gaps).
+    """
+    import yaml
+
+    spec = yaml.safe_load(spec_path.read_text(encoding="utf-8")) or {}
+    rec_spec = spec.get("record")
+    cid = spec.get("campaign_id")
+    if not rec_spec or not cid:
+        return None
+    checks = [dict(c) for c in sorted(rec_spec.get("checks", []), key=lambda c: c.get("name", ""))]
+    for c in checks:
+        c.setdefault("state", "not_tested")
+    targets = [{k: t[k] for k in ("name", "ra_deg", "dec_deg", "frame", "epoch", "position_source") if t.get(k)}
+               for t in spec.get("targets", [])]
+    try:
+        rel = spec_path.resolve().relative_to(Path(root).resolve()).as_posix()
+    except ValueError:   # outside the worktree (sandbox runs reference it as their root already)
+        rel = spec_path.as_posix()
+    return {
+        "schema": SCHEMA, "id": cid, "title": rec_spec.get("title", cid),
+        "kind": rec_spec.get("kind", "residual screen"),
+        "status": "draft", "outcome": "not_run", "evidence": None, "date": None,
+        "summary": (rec_spec.get("summary") or "Declared but not yet run (claim-time placeholder).").strip(),
+        "spec": rel, "report": None, "search_log": None,
+        "targets": targets, "products": [], "checks": checks,
+        "generated_by": "cygnus.skyrecord placeholder_record (claim time; not yet run)",
+        "generated_utc": now_utc(),
+    }
 
 
 def referenced_paths(rec: dict) -> set[str]:

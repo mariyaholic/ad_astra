@@ -116,6 +116,9 @@ def main(argv=None) -> int:
     src.add_argument("--manual", metavar="NAME")
     n.add_argument("--queue", default=DEFAULT_QUEUE)
     n.add_argument("--seed", type=int, default=20260927)
+    n.add_argument("--refresh-rows", metavar="FILE",
+                   help="claim-time bulk refresh: JSON list of preloaded TOI rows from one bulk TAP "
+                        "query (cygnus.batch claim --bulk); the single-TOI lookups are served from it")
     n.add_argument("--archives", help="comma-separated archive adapters for fetch_products, e.g. mast,gaia,skyview")
     for flag, typ in (("--tic", int), ("--ra", float), ("--dec", float), ("--t0", float), ("--period", float),
                       ("--depth-ppm", float), ("--duration-h", float)):
@@ -147,7 +150,14 @@ def main(argv=None) -> int:
                 qpath = Path(a.queue) if Path(a.queue).is_absolute() else root / a.queue
                 row = scaffold.pick_from_queue(root, qpath, a.from_queue)
                 from cygnus.targets import refresh_queue_target
-                row = refresh_queue_target(row)
+                if getattr(a, "refresh_rows", None):
+                    import json as _json
+                    from cygnus.targets import bulk_fetcher
+
+                    rfile = Path(a.refresh_rows) if Path(a.refresh_rows).is_absolute() else root / a.refresh_rows
+                    row = refresh_queue_target(row, fetch=bulk_fetcher(_json.loads(rfile.read_text(encoding="utf-8"))))
+                else:
+                    row = refresh_queue_target(row)
                 t = scaffold.target_from_row(row, f"NASA Exoplanet Archive TOI table ({scaffold.TOI_POSITION_NOTE})")
                 parent = Path(a.queue).parent.name
                 origin = (f"{a.queue} (rank {row.get('rank')}), NASA Exoplanet Archive TOI row refreshed "

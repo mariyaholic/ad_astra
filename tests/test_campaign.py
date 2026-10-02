@@ -101,6 +101,28 @@ def test_queue_refresh_restores_period_and_rejects_changed_identity():
         refresh_queue_target(stale, fetch=lambda query: [{**current, "toi": "6695.02"}])
 
 
+def test_bulk_fetcher_serves_the_claim_time_refresh_offline():
+    from cygnus.targets import bulk_fetcher
+
+    rows = [
+        {"toi": "3.01", "tid": "3", "tfopwg_disp": "PC", "ra": "1", "dec": "2", "st_tmag": "10", "pl_trandep": "1000",
+         "pl_trandurh": "4", "pl_tranmid": "2459000.5", "pl_orbper": "50.5", "sectors": "", "toi_created": "",
+         "rowupdate": "2026-09-30 12:00:00"},
+        {"toi": "4.01", "tid": "44", "tfopwg_disp": "APC", "ra": "3", "dec": "4", "st_tmag": "8", "pl_trandep": "900",
+         "pl_trandurh": "2", "pl_tranmid": "2459001.5", "pl_orbper": "9.25", "sectors": "", "toi_created": "",
+         "rowupdate": "2026-09-30 12:00:00"},
+    ]
+    f = bulk_fetcher(rows)
+    got = f("SELECT toi, ... FROM toi WHERE tid = 44")
+    assert len(got) == 1
+    refresh = refresh_queue_target({"name": "TOI-4.01", "tic": 44}, fetch=f)
+    assert refresh["period_days"] == pytest.approx(9.25) and refresh["t0_bjd"] == pytest.approx(2459001.5)
+    with pytest.raises(ValueError, match="single-TOI"):
+        f("SELECT ... FROM toi")  # no tid lookup in the ADQL
+    with pytest.raises(ValueError, match="exactly one"):
+        refresh_queue_target({"name": "TOI-5.01", "tic": 55}, fetch=f)  # claim target absent from the bulk set
+
+
 def test_event_time_prior_art_flags_ttv_scale_overlap_without_claiming_identity():
     rows = [{"pl_name": "TOI-6695 b", "pl_orbper": "80.389",
              "pl_tranmid": "2459249.547139"},

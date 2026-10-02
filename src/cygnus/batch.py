@@ -250,6 +250,7 @@ def cmd_queue(a, root: Path) -> int:
 
 def cmd_claim(a, root: Path) -> int:
     """Claim the next N unclaimed queue rows (write their specs) and add them to the batch."""
+    from .targets import TOI_COLUMNS, _fetch, bulk_fetcher
     from .multi import scaffold
 
     qpath = Path(a.queue) if Path(a.queue).is_absolute() else root / a.queue
@@ -261,6 +262,21 @@ def cmd_claim(a, root: Path) -> int:
     taken = {p.stem for p in (root / "campaigns").glob("*.yaml")}
     bdir = batch_dir(root, a.batch)
     specs = batch_specs(bdir)
+    refresh_rows_arg = None
+    if getattr(a, "bulk", False):
+        # one bulk TOI-table query for every pending row instead of one HTTP round trip per target
+        # (handoff: "batch the refresh with a bulk query and pass the rows in")
+        pending = [r for r in rows if scaffold.slug_for(r["name"]) not in taken][:a.n]
+        if pending:
+            tids = sorted({int(float(r["tic"])) for r in pending})
+            adql = f"SELECT {', '.join(TOI_COLUMNS)} FROM toi WHERE tid IN ({','.join(map(str, tids))})"
+            bulk_rows = _fetch(adql)
+            bdir.mkdir(parents=True, exist_ok=True)
+            (bdir / "refresh_rows.json").write_text(json.dumps(bulk_rows), encoding="utf-8", newline="\n")
+            refresh_rows_arg = (bdir / "refresh_rows.json").resolve().relative_to(Path(root).resolve()).as_posix()
+            append_journal(bdir, {"event": "claim_bulk_fetch", "utc": now_utc(), "n_targets": len(pending),
+                                  "n_rows": len(bulk_rows), "query": adql, "endpoint": "nasa_exoplanet_archive.toi",
+                                  "refresh_rows": refresh_rows_arg})
     made, skipped = [], []
     for row in rows:
         if len(made) >= a.n:
@@ -269,6 +285,8 @@ def cmd_claim(a, root: Path) -> int:
         if slug in taken:
             continue
         cmd = _py() + ["cygnus.multi", "new", "--from-queue", row["name"], "--queue", qarg, "--seed", str(a.seed)]
+        if refresh_rows_arg:
+            cmd += ["--refresh-rows", refresh_rows_arg]
         if a.archives:
             cmd += ["--archives", a.archives]
         r = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
@@ -388,6 +406,9 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("--batch", required=True)
     c.add_argument("--archives", help="extra archive adapters for fetch_products (cygnus.multi new --archives)")
     c.add_argument("--seed", type=int, default=20260927)
+    c.add_argument("--bulk", action="store_true",
+                   help="fetch the TOI rows of all pending targets with one bulk TAP query instead of "
+                        "one query per target (the rows are served to each spec through the fetch seam)")
     r = sub.add_parser("run", help="run every unfinished campaign of a batch (resumable)")
     r.add_argument("--batch", required=True)
     r.add_argument("--spec", nargs="*", help="add these specs to the batch before running")

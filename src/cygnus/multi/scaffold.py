@@ -253,6 +253,14 @@ def write_spec(root: Path, t: dict, *, parent: str | None, origin: str, seed: in
         raise SystemExit(f"campaigns/{path.name} already exists (claimed); pick another target")
     path.write_text(spec_for(t, parent=parent, origin=origin, seed=seed, archives=archives),
                     encoding="utf-8", newline="\n")
+    from .. import skyrecord
+
+    rec = skyrecord.placeholder_record(root, path)
+    if rec is not None:
+        from ..fileio import atomic_write_text
+
+        atomic_write_text(root / "campaigns" / path.stem / skyrecord.FILENAME,
+                          json.dumps(rec, indent=2, allow_nan=False, ensure_ascii=False) + "\n")
     return path
 
 

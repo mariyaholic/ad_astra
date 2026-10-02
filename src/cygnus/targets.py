@@ -79,6 +79,19 @@ def build_queue(params: dict, fetch=_fetch) -> dict:
             "queue": ranked[:top]}
 
 
+def bulk_fetcher(rows: list[dict]):
+    """A claim-time ``fetch`` seam backed by one bulk TOI-table query instead of one HTTP round
+    trip per target. The refreshed row's own query is always a single-TOI ``tid = N`` lookup, so
+    the fetcher filters the preloaded rows by the tid it finds in the ADQL."""
+    def fetch(adql: str) -> list[dict]:
+        m = re.search(r"\btid\s*=\s*(\d+)", adql)
+        if not m:
+            raise ValueError(f"bulk fetcher only covers single-TOI tid queries, got: {adql[:120]}")
+        tid = int(m.group(1))
+        return [r for r in rows if int(float(r.get("tid") or -1)) == tid]
+    return fetch
+
+
 def refresh_queue_target(row: dict, fetch=None) -> dict:
     """Re-read the exact TOI/TIC at claim time; fail closed on missing or changed identity.
 

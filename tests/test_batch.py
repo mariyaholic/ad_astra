@@ -146,3 +146,37 @@ def test_claim_skips_claimed_rows_and_unrunnable_ones(tmp_path, monkeypatch):
     assert batch.batch_specs(batch.batch_dir(tmp_path, "b1")) == ["campaigns/toi-3-01.yaml", "campaigns/toi-4-01.yaml"]
     skipped = [e for e in batch.read_journal(batch.batch_dir(tmp_path, "b1")) if e["event"] == "claim_skipped"]
     assert skipped[0]["target"] == "TOI-2.01" and "no t0_bjd" in skipped[0]["reason"]
+
+
+def test_claim_bulk_one_tap_query_feeds_the_fetch_seam(tmp_path, monkeypatch):
+    from cygnus import targets as _targets
+
+    (tmp_path / "campaigns" / "q").mkdir(parents=True)
+    (tmp_path / "campaigns" / "q" / "target_queue.csv").write_text(
+        "rank,name,tic\n1,TOI-3.01,3\n2,TOI-4.01,4\n3,TOI-5.01,5\n", encoding="utf-8")
+
+    calls = []
+
+    def fake_fetch(adql):
+        calls.append(adql)
+        return [{"toi": "3.01", "tid": "3"}, {"toi": "4.01", "tid": "4"}]
+
+    monkeypatch.setattr(_targets, "_fetch", fake_fetch)
+
+    def fake(cmd, cwd=None, capture_output=None, text=None, **kw):
+        assert cmd[cmd.index("--refresh-rows") + 1] == "state/batches/b1/refresh_rows.json"
+        slug = cmd[cmd.index("--from-queue") + 1].lower().replace(".", "-")
+        (tmp_path / "campaigns" / f"{slug}.yaml").write_text("spec", encoding="utf-8")
+        return types.SimpleNamespace(returncode=0, stdout=f"campaigns/{slug}.yaml\n", stderr="")
+
+    monkeypatch.setattr(batch.subprocess, "run", fake)
+    a = types.SimpleNamespace(queue="campaigns/q/target_queue.csv", n=2, batch="b1", archives=None, seed=1, bulk=True)
+    assert batch.cmd_claim(a, tmp_path) == 0
+    assert len(calls) == 1 and "tid IN (3,4)" in calls[0] and "FROM toi" in calls[0]   # one bulk query, only pending rows
+    bdir = batch.batch_dir(tmp_path, "b1")
+    rows = json.loads((bdir / "refresh_rows.json").read_text(encoding="utf-8"))
+    assert sorted(r["tid"] for r in rows) == ["3", "4"]
+    events = [e["event"] for e in batch.read_journal(bdir)]
+    bulk = next(e for e in events if e == "claim_bulk_fetch") if "claim_bulk_fetch" in events else None
+    assert bulk == "claim_bulk_fetch"                                                 # provenance journaled
+    assert batch.batch_specs(bdir) == ["campaigns/toi-3-01.yaml", "campaigns/toi-4-01.yaml"]
