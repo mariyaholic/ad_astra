@@ -48,6 +48,15 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def jnum(x) -> float | None:
+    """A JSON-bound float that never carries nan/inf (screen.json is written with allow_nan=False)."""
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return None
+    return v if math.isfinite(v) else None
+
+
 def _excluded(ctx) -> dict | None:
     """The ``fetch_products`` result when it found nothing (a documented exclusion), else None.
 
@@ -241,15 +250,15 @@ def step_residual_screen(ctx, params: dict) -> dict:
         for e in screen_events(lc, windows_days=windows, k_mad=k, min_cadences=int(params.get("min_cadences", 2))):
             g = np.arange(e["start_index"], e["stop_index"] + 1)
             epoch = float(np.nanmedian(lc.time_bjd[g]))
-            ev = {"detrend_days": e["detrend_days"], "flux_type": e["flux_type"], "start_index": e["start_index"],
+            ev = {"detrend_days": jnum(e["detrend_days"]), "flux_type": e["flux_type"], "start_index": e["start_index"],
                   "stop_index": e["stop_index"], "n_cadences": e["n_cadences"],
-                  "start_time_stored": float(lc.time[g[0]]), "end_time_stored": float(lc.time[g[-1]]),
-                  "mid_time_BJD_like": epoch}
+                  "start_time_stored": jnum(lc.time[g[0]]), "end_time_stored": jnum(lc.time[g[-1]]),
+                  "mid_time_BJD_like": jnum(epoch)}
             if veto and veto["kind"] == "ephemeris":
-                ev["phase_from_provisional_ephemeris"] = float(((epoch - veto["t0_bjd"]) / veto["period_days"]) % 1)
-            ev.update({"median_fractional_residual": e["median_fractional_residual"],
-                       "robust_sigma_fraction": e["robust_sigma_fraction"], "min_quality": int(np.min(lc.quality[g])),
-                       "centroids": {n: float(np.nanmedian(v[g])) for n, v in lc.centroids.items()},
+                ev["phase_from_provisional_ephemeris"] = jnum(((epoch - veto["t0_bjd"]) / veto["period_days"]) % 1)
+            ev.update({"median_fractional_residual": jnum(e["median_fractional_residual"]),
+                       "robust_sigma_fraction": jnum(e["robust_sigma_fraction"]), "min_quality": int(np.min(lc.quality[g])),
+                       "centroids": {n: jnum(np.nanmedian(v[g])) for n, v in lc.centroids.items()},
                        "inside_veto": bool(vmask[g].any())})
             events.append(ev)
         res = {"input": {"file": lc.path.name, "bytes": prod["bytes"], "sha256": prod["sha256"]},

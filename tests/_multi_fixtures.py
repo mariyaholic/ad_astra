@@ -17,13 +17,14 @@ SPOC_PID = "tess-fixture-s0007-0000000000000001-s_lc.fits"
 def write_spoc(path: Path, *, n: int = 3000, cadence_s: float = 120.0, t_start: float = 1500.0,
                dips=(), depth: float = 0.03, half_width_d: float = 0.06, periodic=None,
                noise: float = 0.001, seed: int = 1, bad_windows=(), bad_index=None, sector: int | None = 7,
-               bjdrefi: int = 2457000) -> Path:
+               bjdrefi: int = 2457000, centr_nan: bool = False) -> Path:
     """A SPOC-shaped light curve (TIME/SAP_FLUX/PDCSAP_FLUX/QUALITY/MOM_CENTR*).
 
     ``dips``: box centres (stored time) of depth ``depth`` and half width ``half_width_d``.
     ``periodic``: (period_d, epoch, depth, half_width_d) for a repeating box.
     ``bad_windows``: (lo, hi) stored-time windows flagged QUALITY=512.
     ``bad_index``: a boolean mask (or slice) of cadences flagged QUALITY=512.
+    ``centr_nan``: MOM_CENTR columns written as all-NaN (an unmeasured-centroid product).
     """
     from astropy.io import fits
 
@@ -42,8 +43,11 @@ def write_spoc(path: Path, *, n: int = 3000, cadence_s: float = 120.0, t_start: 
     if bad_index is not None:
         q[bad_index] = 512
     cols = [fits.Column(name=nm, format="D", array=a) for nm, a in
-            (("TIME", t), ("SAP_FLUX", flux * 1.01), ("PDCSAP_FLUX", flux), ("MOM_CENTR1", np.full(n, 10.0)),
-             ("MOM_CENTR2", np.full(n, 11.0)))] + [fits.Column(name="QUALITY", format="J", array=q)]
+            (("TIME", t), ("SAP_FLUX", flux * 1.01),
+             ("PDCSAP_FLUX", flux),
+             ("MOM_CENTR1", np.full(n, np.nan) if centr_nan else np.full(n, 10.0)),
+             ("MOM_CENTR2", np.full(n, np.nan) if centr_nan else np.full(n, 11.0)))] \
+            + [fits.Column(name="QUALITY", format="J", array=q)]
     hdu0 = fits.PrimaryHDU()
     hdr = {"OBJECT": "TIC 1", "TICID": 1, "TIMEDEL": cadence_s / 86400, "RA_OBJ": 10.0, "DEC_OBJ": 20.0}
     if sector is not None:

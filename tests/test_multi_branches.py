@@ -87,8 +87,9 @@ def test_veto_mask_none_ephemeris_single_epoch_and_unknown_kind():
 
 
 # ------------------------------------------------------------------ calibrated residual screen, end to end
-def _screen_world(root: Path, scratch: Path, steps_yaml: str, *, cid="cal-fixture", dips=(1501.5,), veto: str = "") -> Path:
-    lc = write_spoc(scratch / "stage" / SPOC_PID, n=3000, dips=dips)
+def _screen_world(root: Path, scratch: Path, steps_yaml: str, *, cid="cal-fixture", dips=(1501.5,),
+                  veto: str = "", centr_nan: bool = False) -> Path:
+    lc = write_spoc(scratch / "stage" / SPOC_PID, n=3000, dips=dips, centr_nan=centr_nan)
     (root / "campaigns").mkdir(exist_ok=True)
     spec = f"""schema: cygnus.campaign/1
 campaign_id: {cid}
@@ -184,6 +185,20 @@ def test_veto_window_wider_than_the_data_is_reported_not_crashed(tmp_path, scrat
     summ = json.loads((tmp_path / "campaigns/veto-fixture/runner/residual_screen.json").read_text())["result"]
     assert summ["entries_outside_veto_total"] == 0
     rec = json.loads((tmp_path / "campaigns/veto-fixture/sky_record.json").read_text())
+    assert rec["status"] == "completed"
+
+
+def test_all_nan_centroids_in_an_event_are_recorded_not_crashed(tmp_path, scratch):
+    # Mirrors the p02-b02 Colab failure on toi-3941-01: a screen event whose centroid columns are
+    # all NaN must write honest `null`s into screen.json (allow_nan=False), not crash the runner.
+    steps_yaml = ("  - fetch_products: {search_dirs: [\"scratch:stage\"]}\n"
+                  "  - residual_screen: {windows_days: [1.0], k_mad: 5.0}\n")
+    out, _ = _run(_screen_world(tmp_path, scratch, steps_yaml, cid="nancentr-fixture", centr_nan=True), tmp_path)
+    assert out["complete"]
+    scr = json.loads(next((tmp_path / "campaigns/nancentr-fixture").rglob("screen.json")).read_text())
+    evs = scr["screened_excursions"]
+    assert evs and all(v is None for ev in evs for v in ev["centroids"].values())
+    rec = json.loads((tmp_path / "campaigns/nancentr-fixture/sky_record.json").read_text())
     assert rec["status"] == "completed"
 
 
