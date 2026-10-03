@@ -2,7 +2,8 @@
 
 Supports what the worktree docs use: ATX headings (with anchors), paragraphs,
 nested bullet/numbered lists, pipe tables, fenced code, block quotes, rules,
-and inline code/bold/italic/links/autolinks. Raw HTML is always escaped —
+and inline code/bold/italic/links/autolinks. Standalone single-line HTML comments
+are omitted outside code fences. Other raw HTML is always escaped —
 published Markdown can never inject markup or script.
 """
 
@@ -155,6 +156,10 @@ def _render(md: str, *, demote_h1: bool = False) -> Rendered:
                 i += 1
             cls = f' class="lang-{html.escape(lang)}"' if lang else ""
             out.append(f"<pre><code{cls}>{html.escape(chr(10).join(buf))}</code></pre>")
+            i += 1
+            continue
+        if re.fullmatch(r"<!--.*?-->", stripped):
+            flush()
             i += 1
             continue
         if not stripped:

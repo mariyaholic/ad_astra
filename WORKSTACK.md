@@ -17,8 +17,9 @@
 - Machine-local agent/editor/browser files and Ruff cache ignored; 19 disposable browser logs/snapshots archived outside the repo. No scientific record or failed result removed.
 - Added a curated operations collection for current status and post-run tier marks, with explicit metadata-only verification limits.
 - Latest remote CI exposed a shallow-history notebook-pin failure and missing campaign plotting dependency. CI now fetches full history; campaign extra includes matplotlib.
-- Fresh offline gate: 693 passed / 37 deselected, one existing all-NaN-centroid warning; Ruff and diff checks passed. Explorer rebuilt (1,294 targets); publication dry build passed (574 pages / 581 public files). Historical status stays in Git and is excluded from the public operations collection.
+- Final offline gate after renderer repair: 694 passed / 37 deselected, one existing all-NaN-centroid warning; Ruff and diff checks passed. Explorer rebuilt (1,294 targets); publication dry build and site build passed (574 pages / 581 public files). Historical status stays in Git and is excluded from the public operations collection. Cleanup commit `af07e7a` passed GitHub Linux CI (690 passed, 3 skipped, 37 deselected); the renderer follow-up also needs its own remote gate.
 - Git and website updates use the existing `main` and `site` routes. The live `SITE_BUILD.json` identifies the deployed source commit; GitHub Actions records the deployment outcome. No extra publishing scheduler is created.
+- Render review exposed visible sync comment markers. Publication Markdown now omits standalone single-line HTML comments outside code fences; fenced examples and HTML escaping are preserved. The regression failed before the fix; all 56 publication tests and renderer Ruff passed afterward.
 
 ## Verification commands
 

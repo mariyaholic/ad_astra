@@ -236,6 +236,16 @@ def test_markdown_escapes_html_and_unsafe_links():
     assert "<strong>b</strong>" in r.html and "<code>&lt;i&gt;</code>" in r.html
 
 
+def test_markdown_hides_standalone_comments_but_preserves_code_examples():
+    result = markdown.render(
+        '# Status\n\n<!-- sync-marker -->\n\nVisible status.\n\n'
+        '```text\n<!-- sync-marker -->\n```\n'
+    )
+    assert '<p>&lt;!-- sync-marker --&gt;</p>' not in result.html
+    assert '<p>Visible status.</p>' in result.html
+    assert '<pre><code class="lang-text">&lt;!-- sync-marker --&gt;</code></pre>' in result.html
+
+
 def test_markdown_tables_lists_and_toc():
     r = markdown.render("# Title\n\n## A\n\n- one\n  - nested\n- two\n\n| h | k |\n| --- | --- |\n| `a|b` | 2 |\n",
                         demote_h1=True)
