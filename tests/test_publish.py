@@ -88,6 +88,8 @@ def worktree(tmp_path: Path) -> Path:
     (wt / "campaigns" / "fx-01.yaml").write_text(CAMPAIGN, encoding="utf-8")
     (wt / "publish" / "pages" / "methods.md").write_text(
         "# Methods\n\n## Publication boundary\n\nSee [catalog](/data/catalog.json).\n", encoding="utf-8")
+    (wt / "publish" / "pages" / "methods-full.md").write_text(
+        "# Full methods\n\n## Complete definition\n\nThe full fixture definition.\n", encoding="utf-8")
     (wt / "publish" / "files" / "table.csv").write_bytes(b"a,b\n1,2\n")
     (wt / "publish" / "files" / "secret.csv").write_text("x\n", encoding="utf-8")
     (wt / "publish" / "data" / "tier1-pack").mkdir(parents=True)
@@ -251,7 +253,14 @@ def test_markdown_tables_lists_and_toc():
                         demote_h1=True)
     assert r.title == "Title" and "<h1" not in r.html
     assert r.toc == [(2, "a", "A")]
-    assert r.html.count("<ul>") == 2 and "<td><code>a|b</code></td>" in r.html
+    assert r.html.count("<ul>") == 2 and '<td data-label="h"><code>a|b</code></td>' in r.html
+
+
+def test_markdown_tables_expose_cell_labels_for_narrow_layouts():
+    r = markdown.render("| Target | Blocker |\n| --- | --- |\n| TOI-1 | none |")
+    assert 'data-responsive="cards"' in r.html
+    assert 'data-label="Target"' in r.html
+    assert 'data-label="Blocker"' in r.html
 
 
 # ---------------------------------------------------------------- snapshot mapping
@@ -287,6 +296,24 @@ def test_build_publication_boundary(built):
     assert "license pending" in soft
     # unresolved related ref is dropped with a warning, not rendered
     assert any("collection:ghost" in w for w in res.warnings)
+
+
+def test_methods_page_offers_compact_and_full_definition_modes(built):
+    _, out, _ = built
+    html = (out / "methods" / "index.html").read_text(encoding="utf-8")
+    assert 'data-methods-mode="compact"' in html
+    assert 'data-methods-mode="full"' in html
+    assert 'data-methods-panel="compact"' in html
+    assert 'data-methods-panel="full"' in html
+    assert "The full fixture definition." in html
+
+
+def test_document_table_css_fits_wide_and_narrow_views(built):
+    _, out, _ = built
+    css = (out / "static" / "site.css").read_text(encoding="utf-8")
+    assert ".doc-body table { font-size: var(--fs-sm); table-layout: fixed;" in css
+    assert ".doc-body td { min-width: 0;" in css
+    assert ".doc-body thead th { white-space: normal;" in css
 
 
 def test_build_never_leaks_private_values(built):

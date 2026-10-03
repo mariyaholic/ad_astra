@@ -444,10 +444,16 @@ class SiteBuilder:
         self.write_page("log/index.html", "log.html.j2", groups=self._log_runs, manifests=manifests, **common)
         methods_path = self.cfg.publish_root / "pages" / "methods.md"
         methods = None
+        methods_full = None
         if methods_path.is_file():
             text = redact(methods_path.read_text(encoding="utf-8")).replace("](/", "](" + self.base)
             methods = markdown.render(text, demote_h1=True)
-        self.write_page("methods/index.html", "methods.html.j2", methods=methods, **common)
+            full_path = methods_path.with_name("methods-full.md")
+            if full_path.is_file():
+                full_text = redact(full_path.read_text(encoding="utf-8")).replace("](/", "](" + self.base)
+                methods_full = markdown.render(full_text, demote_h1=True)
+        self.write_page("methods/index.html", "methods.html.j2", methods=methods,
+                        methods_full=methods_full, **common)
         self.write_page("404.html", "404.html.j2", **common)
         self._write_catalog(views, withdrawn)
 

@@ -6,12 +6,23 @@
   <h1>{{ methods.title if methods else 'Methods' }}</h1>
 </header>
 {% if methods %}
+{% if methods_full %}
+<div class="method-modes" data-methods-modes role="group" aria-label="Methods definition view">
+  <span class="method-modes__label">Definition view</span>
+  <button type="button" class="chip" data-methods-mode="compact" aria-pressed="true" aria-controls="methods-compact">Compact</button>
+  <button type="button" class="chip" data-methods-mode="full" aria-pressed="false" aria-controls="methods-full">Full definitions</button>
+</div>
+{% endif %}
 <div class="doc">
   <aside class="toc" aria-label="On this page">
     <p class="panel-title">On this page</p>
-    <ol>{% for level, anchor, text in methods.toc %}<li class="l{{ level }}"><a href="#{{ anchor }}">{{ text }}</a></li>{% endfor %}</ol>
+    <ol data-methods-toc="compact">{% for level, anchor, text in methods.toc %}<li class="l{{ level }}"><a href="#{{ anchor }}">{{ text }}</a></li>{% endfor %}</ol>
+    {% if methods_full %}<ol data-methods-toc="full">{% for level, anchor, text in methods_full.toc %}<li class="l{{ level }}"><a href="#{{ anchor }}">{{ text }}</a></li>{% endfor %}</ol>{% endif %}
   </aside>
-  <article class="doc-body prose">{{ methods.html | safe }}</article>
+  <article class="doc-body prose">
+    <div id="methods-compact" data-methods-panel="compact">{{ methods.html | safe }}</div>
+    {% if methods_full %}<div id="methods-full" data-methods-panel="full">{{ methods_full.html | safe }}</div>{% endif %}
+  </article>
 </div>
 {% else %}
 <div class="empty"><h2>Methods page not written</h2><p>Add <span class="id">publish/pages/methods.md</span> and rebuild.</p></div>

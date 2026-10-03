@@ -10,6 +10,9 @@
 - Browser checks: desktop 1440px and phone 375px; T2 adds 30 to the default 19; Show all returns 1294; reset returns 19; empty selection is explicit; Enter finds hidden TOI-4280.01 and displays earned T1/run_at T0, then close restores 19. Reading theme toggle works; campaign/status phone pages have no horizontal page overflow. No console errors observed during those interactions.
 - Publishing uses the existing site-branch workflow. Palette source is `src/cygnus/publish/static/sky-theme.css`; explorer copy is generated and ignored. Rebuild both site and explorer before the whole-bundle leak scan; do not create another publisher or scheduler.
 - Final link audit caught collection item IDs differing from canonical dossier IDs. A failing regression now verifies the map uses `CandidateRecord.candidate_id`; rebuild and deploy the corrected explorer data with the same workflow.
+- Publication refresh: document tables now use fixed, wrapping wide layouts and labelled card rows below 760px, so the p02 tier-mark table keeps its rightmost column readable. The methods page now offers a compact view and a full suite-definition view with an accessible no-JavaScript fallback.
+- Updated the public candidate and historical batch wording to the current three-lead interpretation and linked `cygnus.multi`, tier gates and the full methods definitions from the methods, candidate and batch pages. The bounded `src/cygnus/analysis` project document now states its relationship to the production runner.
+- Verification for this refresh: targeted publication tests 3/3 passed; full gate 700 passed, 0 failed, 0 skipped; publication check and build completed at 574 pages / 581 public files. Deployment remains pending until the site bundle is pushed and the live pages are rechecked.
 
 ## Colab tier sync — 2026-10-03
 

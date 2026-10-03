@@ -203,11 +203,17 @@ def _render(md: str, *, demote_h1: bool = False) -> Rendered:
                 rows.append(_split_row(lines[i]))
                 i += 1
             thead = "".join(f'<th scope="col">{inline(c)}</th>' for c in header)
+            labels = [re.sub(r"[`*_]", "", c).strip() or f"Column {n + 1}" for n, c in enumerate(header)]
             body = "".join(
-                "<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in rows
+                "<tr>" + "".join(
+                    f'<td data-label="{html.escape(labels[n] if n < len(labels) else f"Column {n + 1}", quote=True)}">'
+                    f"{inline(c)}</td>"
+                    for n, c in enumerate(r)
+                ) + "</tr>"
+                for r in rows
             )
             out.append(
-                f'<div class="table-wrap" tabindex="0" role="region" aria-label="Table">'
+                f'<div class="table-wrap" data-responsive="cards" tabindex="0" role="region" aria-label="Table">'
                 f"<table><thead><tr>{thead}</tr></thead><tbody>{body}</tbody></table></div>"
             )
             continue

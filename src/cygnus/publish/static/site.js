@@ -5,6 +5,8 @@
 (function () {
   "use strict";
 
+  document.documentElement.classList.add("js");
+
   // ---------------------------------------------------------------- theme
   var root = document.documentElement;
   var toggle = document.querySelector("[data-theme-toggle]");
@@ -75,6 +77,29 @@
     });
     form.addEventListener("submit", function (e) { e.preventDefault(); apply(true); });
     apply(false);
+  }
+
+  // ------------------------------------------------------ methods definition view
+  var methodModes = document.querySelector("[data-methods-modes]");
+  if (methodModes) {
+    var modeButtons = Array.prototype.slice.call(methodModes.querySelectorAll("[data-methods-mode]"));
+    var methodPanels = Array.prototype.slice.call(document.querySelectorAll("[data-methods-panel]"));
+    var methodTocs = Array.prototype.slice.call(document.querySelectorAll("[data-methods-toc]"));
+    function setMethodsMode(mode) {
+      modeButtons.forEach(function (button) {
+        button.setAttribute("aria-pressed", String(button.dataset.methodsMode === mode));
+      });
+      methodPanels.forEach(function (panel) {
+        panel.hidden = panel.dataset.methodsPanel !== mode;
+      });
+      methodTocs.forEach(function (toc) {
+        toc.hidden = toc.dataset.methodsToc !== mode;
+      });
+    }
+    modeButtons.forEach(function (button) {
+      button.addEventListener("click", function () { setMethodsMode(button.dataset.methodsMode); });
+    });
+    setMethodsMode("compact");
   }
 
   // ----------------------------------------------------------------- copy
