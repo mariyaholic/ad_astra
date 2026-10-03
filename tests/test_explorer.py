@@ -41,7 +41,8 @@ def test_only_public_candidate_items_enter_featured_group(explorer, tmp_path):
     manifests = tmp_path / 'publish/collections'
     records.mkdir(parents=True)
     manifests.mkdir(parents=True)
-    record = {'evidence_level': 'unverified_lead', 'provenance': {'target': 'TOI-224.01 (TIC 70797900)'}}
+    record = {'candidate_id': 'CYG-2026-09-TOI224.01', 'evidence_level': 'unverified_lead',
+              'provenance': {'target': 'TOI-224.01 (TIC 70797900)'}}
     (records / 'lead.json').write_text(json.dumps(record), encoding='utf-8')
     manifest = {'status': 'draft', 'items': [{'kind': 'candidate', 'id': 'lead', 'source': 'publish/candidates/lead.json'}]}
     path = manifests / 'leads.json'
@@ -50,6 +51,7 @@ def test_only_public_candidate_items_enter_featured_group(explorer, tmp_path):
     manifest['status'] = 'published'
     path.write_text(json.dumps(manifest), encoding='utf-8')
     assert explorer.map_metadata(tmp_path)[0]['toi-224-01']['evidence'] == 'unverified_lead'
+    assert explorer.map_metadata(tmp_path)[0]['toi-224-01']['url'] == 'candidates/CYG-2026-09-TOI224.01/'
     manifest['items'][0]['access'] = 'restricted'
     path.write_text(json.dumps(manifest), encoding='utf-8')
     assert explorer.map_metadata(tmp_path)[0] == {}

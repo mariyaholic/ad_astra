@@ -427,7 +427,7 @@ def map_metadata(root: Path) -> tuple[dict, dict]:
             name = record.get('provenance', {}).get('target', '').split(' (')[0].split(',')[0]
             if name:
                 featured[slug(name)] = {'evidence': record.get('evidence_level'),
-                                        'url': f"candidates/{record.get('id', item['id'])}/"}
+                                        'url': f"candidates/{record['candidate_id']}/"}
     audits = []
     for path in (root / 'docs/colab_runs').glob('*/TIER_MARKS.json'):
         audit = json.loads(path.read_text(encoding='utf-8'))

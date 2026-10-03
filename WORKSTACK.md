@@ -9,6 +9,7 @@
 - Verified locally: full suite 697 passed, 37 deselected, existing All-NaN warning. Targeted publication/grouping suite 59 passed; changed Python Ruff and JavaScript syntax checks pass. Publication dry build: 574 pages/581 files.
 - Browser checks: desktop 1440px and phone 375px; T2 adds 30 to the default 19; Show all returns 1294; reset returns 19; empty selection is explicit; Enter finds hidden TOI-4280.01 and displays earned T1/run_at T0, then close restores 19. Reading theme toggle works; campaign/status phone pages have no horizontal page overflow. No console errors observed during those interactions.
 - Publishing uses the existing site-branch workflow. Palette source is `src/cygnus/publish/static/sky-theme.css`; explorer copy is generated and ignored. Rebuild both site and explorer before the whole-bundle leak scan; do not create another publisher or scheduler.
+- Final link audit caught collection item IDs differing from canonical dossier IDs. A failing regression now verifies the map uses `CandidateRecord.candidate_id`; rebuild and deploy the corrected explorer data with the same workflow.
 
 ## Colab tier sync — 2026-10-03
 
