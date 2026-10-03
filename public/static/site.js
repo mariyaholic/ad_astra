@@ -12,7 +12,7 @@
   function labelTheme() {
     if (!toggle) return;
     var t = currentTheme();
-    toggle.textContent = "Theme: " + t;
+    toggle.textContent = t === "system" ? "Theme: sky" : "Theme: " + t;
     toggle.setAttribute("aria-label", "Colour theme: " + t + ". Activate to change.");
   }
   if (toggle) {

@@ -6,8 +6,9 @@
 <title>Cygnus Sky</title>
 <meta name="description" content="Interactive sky showing every position Project Cygnus has queried, the exact archive footprints, real survey images and generated renditions of the targets.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="explorer.css?v=10">
-<script src="explorer.js?v=10" defer></script>
+<link rel="stylesheet" href="sky-theme.css">
+<link rel="stylesheet" href="explorer.css?v=11">
+<script src="explorer.js?v=11" defer></script>
 </head>
 <body>
 <p class="mock-note">Project Cygnus public record · every plotted position, footprint and image is from a recorded source (<a href="#sources" data-open="sources">sources</a>) · evidence levels describe evidence, not importance</p>
@@ -22,6 +23,7 @@
     <a href="candidates/">Candidates</a>
     <a href="log/">Search log</a>
     <a href="methods/">Methods</a>
+    <a href="repository/">Repository</a>
     <a href="about/">About</a>
     <a href="#sources" data-open="sources">Sources</a>
   </nav>
@@ -37,8 +39,9 @@
 
   <section class="intro" id="intro" aria-labelledby="intro-h">
     <p class="kicker">Project Cygnus · sky map</p>
-    <h1 id="intro-h">Where Cygnus has looked</h1>
-    <p>Each marker is a position the project resolved and queried in an archive. Zoom in to see the <em>exact patch</em> each query covered, the survey image of the field and the Gaia stars in it. Pick a target for its rendition and results.</p>
+    <h1 id="intro-h">A quieter view of the search</h1>
+    <p>Start with the surviving Unverified leads and familiar reference objects. Use <strong>Targets shown</strong> to add T2, T1 or T0 results, earlier tests and the wider target pool. Tiers describe analysis eligibility, not confirmation.</p>
+    <p>Pick a marker for its results. Zoom in for recorded query footprints, survey images and Gaia sources.</p>
     <p class="counts" id="counts"></p>
     <div class="intro-actions">
       <button type="button" id="tour">Tour the targets</button>
@@ -50,6 +53,13 @@
     <button type="button" class="rail-toggle" id="rail-toggle" aria-expanded="true" aria-controls="rail-list">Targets</button>
     <div id="rail-list"></div>
   </nav>
+
+  <details class="target-filters" id="target-filters" open>
+    <summary>Targets shown <span id="visible-count" aria-live="polite"></span></summary>
+    <div id="target-groups" role="group" aria-label="Target groups"></div>
+    <p>T2: pixel vetting eligible · T1: follow-up gates · T0: screening. Earned tiers, not tools already run.</p>
+    <div class="filter-actions"><button type="button" id="target-default">Default view</button><button type="button" id="target-all">Show all</button></div>
+  </details>
 
   <fieldset class="layers" id="layers">
     <legend>Layers</legend>
