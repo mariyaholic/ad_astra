@@ -13,11 +13,12 @@ Nothing here is an established discovery. As of 2026-09-30, three unresolved eve
 | [`ANALYSIS_STACK.md`](ANALYSIS_STACK.md) | Architecture and the module register (what is built vs. designed). |
 | [`DATA_SOURCES.md`](DATA_SOURCES.md) | Verified free archives and access tiers. |
 | [`docs/STORAGE.md`](docs/STORAGE.md) | **Where stored data lives** (Drive folders, batch evidence, Colab runs): the committed index `storage/locations.jsonl` and `python -m cygnus.storage`, for every harness. |
+| [`docs/COLAB_SYNC.md`](docs/COLAB_SYNC.md) | **Canonical Windows scheduler** for Colab tier marks and automatic repo notes. Reuse `\Cygnus-Colab-Sync`; do not create redundant schedules. |
 | [`docs/ANALYSIS_SUITE.md`](docs/ANALYSIS_SUITE.md) | Scope and limits of `src/cygnus/analysis/`. |
 | [`docs/SUITE_EXPANSION.md`](docs/SUITE_EXPANSION.md) | 2026-09-26 inventory: adapter data the pipeline discards, code no test exercises, and the expanded desired suite (L0–L3 + new record checks). |
 | [`docs/TEST_ARCHITECTURE_PLAN_DRAFT.md`](docs/TEST_ARCHITECTURE_PLAN_DRAFT.md) | Working-draft test plan and known gaps. |
 | [`docs/PUBLISHING.md`](docs/PUBLISHING.md) | The public repository site and its publication boundary. |
-| [`docs/AUTONOMY_STUDY.md`](docs/AUTONOMY_STUDY.md) | What runs by itself today, what is manual or only designed, and the next steps. |
+| [`docs/AUTONOMY_STUDY.md`](docs/AUTONOMY_STUDY.md) | Historical autonomy study, with a current capability note. See STATUS and COLAB_SYNC for operations. |
 | [`docs/AGENT_RUNBOOK.md`](docs/AGENT_RUNBOOK.md) | **Running a target through the pipeline** (any agent, any machine): five commands and the review rules; **batches** of many targets with `python -m cygnus.batch`. |
 | [`docs/CAMPAIGNS.md`](docs/CAMPAIGNS.md) | Campaign specs and the runner: how analyses are run, ledgered and calibrated. |
 | [`docs/SKY_RECORDS.md`](docs/SKY_RECORDS.md) | The `sky_record.json` every analysis must leave (enforced by tests). |
@@ -34,7 +35,7 @@ reports/             campaign reports, search logs and derived outputs
 docs/tier1_pack/     Tier-1 baseline pack manifests, name resolutions, search log
 publish/             curated publication manifests for the public site
 design-system/       Ad Astra design system source and redesign mockups
-notebooks/           Colab reanalysis pilot (not run against real products)
+notebooks/           Colab reanalysis, batch and tiered lead notebooks; completed runs indexed in docs/colab_runs/
 ```
 
 ## Setup

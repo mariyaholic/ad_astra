@@ -1,0 +1,4048 @@
+{
+  "checkpointed": 99,
+  "commit": "9250aee3b91d7da7d664681195a250ec85d8c43d",
+  "counts": {
+    "T0": 68,
+    "T1": 1,
+    "T2": 30,
+    "missing": 1
+  },
+  "location": "colab_runs/p02-b02-2026-10-02",
+  "requested": 100,
+  "run": "p02-b02-2026-10-02",
+  "schema": "cygnus.colab_tier_audit/1",
+  "source_link": "https://drive.google.com/drive/folders/1w76DYkcMMvkB9IB34LikeI3kF8IM_syN",
+  "source_utc": "2026-10-02T12:08:25.019610+00:00",
+  "targets": {
+    "toi-1012-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "e79304e9e73ea23a957884a76247d055a849eceac8c32b792dfb84f3aee7f75d",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-1012-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-1119-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "bc65dce3ec9abf02a692db726fb170550c6e97af40b038af7a5cbc2d306f0829",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-1119-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-1938-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "154d297c93ae78567da173dee0eaf50f099e8a065b19dd9c8905f8937d7520eb",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-1938-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-2191-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "c576461026905905c268b88680aafaf8b541b7eb1939b70297a1342955a89bf2",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2191-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-2557-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "851660bbfb047340d92397402f7a7ce575a9d8da22cd1b3133aa3026f8086d01",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2557-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-2629-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "f24c0c71a74076ff2ee9e95bfc4ebeca28e49690c06123f652d41531f81933ed",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2629-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-2676-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "ef502a0e07582e704f55886b918df0f65ab284fbfd839c6f47eb152350874d59",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2676-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-2916-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "20dc6949a75941f91a7cce3aa8d05f9505eb1d68728209d6d1ab5cd79efafb0d",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2916-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-2939-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "652bab304d32b18def91d9c2004c681f26c9bebb94ab27752dcabdd1dbcb6bb3",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2939-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-2952-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "ce6d5205464e2ede6b54fd5b7baf978b1b40c901864eea19c66cf87151cc2ed8",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2952-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-2956-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "d05db93f4cb0413feff87ce86fcbe7d91a7e56f3f2857747e38319123a403e0c",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2956-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-2964-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "b25cde8525b5888da2caafc4d6b88e396631ac52f5bf8b37f1d47446cf615b15",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2964-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-2995-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "96c4dda8981c1f30690d659dcd24261912b3f121ff3f4093d0a4b103e2c85dbf",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-2995-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-3035-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "e587cb6dcc15121cd5a525ddffc5ff1b984b4b390c322f9fe66623062ffd056e",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3035-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3037-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "1e07af634423cdf16308a088370d2e98d08cc559d23330b6ce232b19fc3aa7be",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3037-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3100-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "13c9b6f788d3ad2f10dac526cfb441d450f88beace8dda97f15a8d461221e638",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3100-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-311-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "212aacd82020c989ce451bb8a60164a0e5bdee99271599a593f2da957fa25655",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-311-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3117-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "5807e977d88844280e6b1ed6dc3c3f02f4e76900b9b01c844966bd72902e4cf6",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3117-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3141-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "3aaa085d1654e490c36206377fb295c14b6674d8b9f5a3d11adf1b394cf6dafb",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3141-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3149-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "fef0cb2ca17152cea33df75b1ef32067aa7b78a92be21f847062d21debc5a123",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3149-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3160-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "a1a95b071f7fdc1b0a8afb7fec8211727e1abe6643045a33007ee319f5545239",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3160-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3171-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "606d26fe804027933a141853344730eb0b6a9a5e6a0bdbab42d771ec9770bcee",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3171-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3298-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "a1922ba01c9de1d2fcb02e185e78dab9817c3dd4ecf95bef47b6187a5ea4a118",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3298-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3431-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "a60af3d16c1cc658fa2197a8144d66efb70d6d54d3af140baab2b5337fc99edc",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3431-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-3533-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "d32dc5fd4e104802592a584c2d307e0c15d12441e3bba910bfc12a017ed35f27",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3533-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-3556-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "c4073a5b6a7eff682ede9e598bc420d742533bae4f7daebe81b4a8158ae1298c",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3556-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3576-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "08f277242ef0eefe1ca470268e233e68b52ab43798e404bc38d173636027be75",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3576-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-363-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "9cc83e1c16b991b646a7be91faa9313bec3b6c455fc7447081ed454d18f0dce4",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-363-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3758-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "92b674d871193886c3bc01f13d91280b82e36958876175c41660b851cdfd6e0d",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3758-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3909-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "282aee7164a95a0af6d2d37e14af46222cc1a0d9ddb7bea1a09aafe88488f424",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-3909-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-3941-01": {
+      "blockers": [
+        "no shipped sky record"
+      ],
+      "checkpointed": false,
+      "run_at": null,
+      "source_record": "campaigns/toi-3941-01/sky_record.json",
+      "starting_tier": "T0",
+      "tier": "missing"
+    },
+    "toi-4084-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "bcf9431fce5ef1d0de9f8684222fb4272f6a35b77a306e865259a344231e3f0a",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4084-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4168-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "c98409269b677324106fea0b4ff08c84de7bc0a7a35ae3f1fdf1e63503b9b337",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4168-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4220-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "ecfc49084cd4c91196992a4159d7dc5c91d8a741e21bc039af2cfbbdf2d3805e",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4220-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4280-01": {
+      "blockers": [
+        "moving-object check not run"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument"
+        ],
+        "blockers": [
+          "moving-object check not run"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T2",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T1"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "e3d1f531111cfc10b31eaa68203bb1e9b8330e200f1e501ca02cc657a737c50d",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4280-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T1"
+    },
+    "toi-4289-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "ac581f7bbb250b259a7bea421b9d6df56bf223666e359b161e92b02e0254b7e3",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4289-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4487-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "42e98fe39c224ddbc5c8ae9b9e75c174857c514e9fe8d54a5b6b1b12343da2c8",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4487-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4622-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "82bc90701444800353d5b376e5e8509137e088c7ae004f69fc2e32d54685de6d",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4622-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4661-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "3c3c16d1176401f27d2e64a3eaa25dac3f353a4c7a9d1ea3cf8ab2b517011a64",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4661-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4772-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "9c585abc448c3e8a6090a14ac6e2a3963c01b7eeae27f60bc2c5eb772cab3cee",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4772-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-4880-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "accda1dc2989a6a203728bfab3382a68b9c893794974c72b73885ee0e658e495",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4880-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-4945-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "741d42bccb84625ddc8d4da7e7e32dddedaa6f86f4c26683dab405787c9e85ba",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-4945-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-5022-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "896cf5af077012a3276f1959724c809ce572370b802b15de20b20393cfbcf521",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5022-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5192-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "7066073b6a6833bd1ef22a55288a52259402b06ac4951ee5310a6075fed26900",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5192-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5207-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "452da4d09ec48c338ef75f3f0cf01aa41708e640b20d85b0966a53800669faf0",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5207-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5263-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "28e41345055b44e448fee76eaa1a29671d30e966d1416de592e179710007063b",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5263-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-5330-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "bbf6f7d22e51d74e7f6a0744c2c61ca5221a3730a8134363a8d6e3db66f25364",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5330-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-5498-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "c1b6a8731d835762931a40b2385aaa2c9d1f4761963cc4a7c77c6cfee444299a",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5498-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5565-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "7a91ce3617c6dba1c79b8518465c0c26563a520e378bf050ca7aeb901bd0d969",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5565-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5567-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "cea31156177bd67a676f1ddcf391eb78f7aa763adb89d4151179bfcfe2f2fe45",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5567-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5613-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "4087e5408227cf0bd198a810b752c5c276015bb769ca4ee39d00832eee15ddb7",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5613-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5615-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "d029b58a5dfef8b045dc5bf724c39d5c3b861e26ae99a7a2850d59253ebecd08",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5615-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-5694-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "238c63b241260810a68dabc724e8691eba1e2b7c4def83c0875d2fed91ad0bdf",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5694-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5699-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "2603b75ba15a0077814d1bfff77eef91f507fa9d5cb15d8de7394c1639a13fd3",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5699-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-5826-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "6ce39b657676a682df5f85215106b3dd37ed723561fc142303f8901ff3444e0c",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5826-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5833-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "8f647b720bfb29dee26ed72d92c90f72a9d3da98612efb11ebbbb0d7f3c3e822",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5833-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5879-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "31c12f79a4e76bc866d5e2536525083b3489f9a3f61f1a664cbd505e1aca77e7",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5879-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-5937-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "f51ea75b49d9e09cefaf3eab96237ccaddaff3ae8c94d9d49c314b23563b5651",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-5937-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6110-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "777f998aa677bd8c156f663b36855072d49e62eb360f7e25dcdb77653d8163f9",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6110-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-618-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "8fd94e0a254a17d0c5156e274acce12dd055d8ebc4dc949c0f349caa6f789048",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-618-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6224-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "b6354dec95834553e248e61ca4484364d0d529a52c0e731eb42366926443dd5e",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6224-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6319-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "cc5a4ec87380a9cf5e1aeb11d543a9ca4a2d40ca1376da4f64016b3ed3f142ba",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6319-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6370-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "3404cd7600317bcf23c70c0cce1db3d7214ed970cef05c70a07e7768f6a95f99",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6370-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6374-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "20ffdca974fc5785f2e94147e5eda8e49e6272d8e5199bfad5688cf0b5caa2de",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6374-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6409-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "00207827556c0dbfd95602ad9267b8369b32ddd46aeff74235f9c8875eb30dcb",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6409-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6410-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "16382511ab700ac71ceb9fd17335d2106d91c3d83e2b163f63f092f6fcdf63ce",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6410-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6462-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "1c9018e72d197eb59953f0864549223e2f492bfff9ac419e2aea52bcf9614a0f",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6462-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6480-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "e9cdadfa9f133527aafa7dab1e887200d42a8a6a40501272611a5f324f5b3085",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6480-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6510-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "e0919333dd7a4b7e03dbf73b825294d33c10d3944eb4e82ce1c862ffadf4edc8",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6510-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6521-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "ceb3c07afd3160f9a39f50f05436fdfb600d695c47a97d330e3eddefaf7abef0",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6521-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6559-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "52f7f01cdf879e82da1147fdf51ee19747cecc8ca18409f59e50928c01b79ad6",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6559-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6587-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "028f93a94fdb4c8db1e9b1cdba0cb73f368ac95eaf8e3996719cbedd2fd791e0",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6587-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6609-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "325499a795b4982db831086a819ebf000072425747dc521d90a62f22eebd9510",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6609-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6614-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "dca56eb12a59ae8ac6675946c4149419f63728d0e7a966bced9ead567575781a",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6614-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6769-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "21e65a5b440514d2da9bf68b9ee3d7fa24d51edd4258058fdcf63c44f0914793",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6769-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6777-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "14bd1b4b69029935885c2de0da26e48eed3ddf9fa4da6f849a520216c0eb9936",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6777-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6831-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "17d0fc8210e141678d4c0c91cfc290f9db7d4a0f587eaa4f6fa8bd3e8edf52bf",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6831-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-6859-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "98937f4b6092f6782ce6d5e8fc282d1811fe40096b26af7810929bf6148db1dd",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6859-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6881-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "56b8b318bcccec96dda3c432f56da8d7b5d351e9ef65050773aa789c11d4000d",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6881-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6906-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "a37f984ba9789176eccb864fb2f0891143192b50386c7d081777f90c12a4dd60",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6906-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-6928-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "06d56fa46f73e5e3cc476f0e083052aebe6f769799e1f6ada34218b2929d76b5",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-6928-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7021-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "c9e27814b99bd5169bd4c630b4b7c91f97f930e796e0755e7bcf1df529da2a85",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7021-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7024-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "b859b6c37edce8b2649c4eb35a4fcce68005637e5ba4c5c96d8b34d073de7d66",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7024-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7046-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "2219af3274b60c73d723248e9a3d0aa81e262acb6222696b2cd9f37a602a34b2",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7046-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7175-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "4398aaf37dce752c7afd4018d10da63b64928474323ddba1017f78c22c823dfa",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7175-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7286-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "ef92da9cb0386565827e8b88d603b15f24a53f7e9fdf7a33e16780fad8c5738b",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7286-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7290-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "fd6560fb39e9eb9003d6a7023f99effb42d983f606d1b6a95e91b20ccaf5c3a8",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7290-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7307-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "6ed8e57b5b15af52b281b703c264f8dbc400b958edaa2d1f2d84a1f73eac4531",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7307-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7339-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "c24afadb3b6d4324269c2729d5bbe071e0139a7591fb3bd38ddb5c4d9e3a5ac0",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7339-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7365-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "6a3d71162b495e2ed889a36cbc9e00c6809f08bb1b04bd0ce8357f46aa97d1c0",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7365-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7386-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "635d9a3dbc9898fd3173339b0bbeb3f9de8808d2df48f9311e6dbc0699b4d2e3",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7386-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7443-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "205d31f94adad2f87e58fa7c1dd83f500c5b45ff38e398f6c08c39759798c09b",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7443-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7446-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "4dc7b2d8b681aaf3b730ff423a286ca0bea59392ff855ae393d3d1c4f0865695",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7446-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7448-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "3c2f539ce9f630a1d0da800cb72a59351d7ec8c89077efa7f304187126551c07",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7448-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7644-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "115780e6449f47324eab6768cbe568c8cc20da738467d24aba6d3f419c9ad911",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7644-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7707-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "7f5b0257395868ec1cc70ad46d7d5a41fb17eb45b3b1ff39b5897e6b6338bcc7",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7707-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7785-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "b08e94a613350a8ab6f9917ef5714dfa1b1652b7b72ed62402eb9c4101e3a8ec",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7785-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-7795-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "213ec5960de7dced1387d9b9ccbe97d885b4cba4558c2820ccb19f237ca7984f",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-7795-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    },
+    "toi-917-01": {
+      "blockers": [
+        "localization inconclusive on defining events none (T2 vet must pass first)",
+        "blend census not passed",
+        "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+        "spec lacks budget and discriminating_question (T3)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)",
+          "period_aliases",
+          "event_census",
+          "analysis.events.box_measure/null_exceedance",
+          "stellar_context",
+          "multi.nss + archives.spectroscopy.gaia_exact_source",
+          "moving_objects",
+          "alias_cross_instrument",
+          "campaign vet (TPF difference image)",
+          "analysis.pixels",
+          "analysis.localize.block_bootstrap_offset",
+          "FFI/TESScut cutout",
+          "analysis.events.injection_recovery/classify_aliases"
+        ],
+        "blockers": [
+          "localization inconclusive on defining events none (T2 vet must pass first)",
+          "blend census not passed",
+          "event-epoch null exceedance (k/N) not passed: run the event_null step at T2",
+          "spec lacks budget and discriminating_question (T3)"
+        ],
+        "cost": "medium",
+        "defining_events": [],
+        "localization": "inconclusive",
+        "needs_approval": null,
+        "next_tier": "T3",
+        "reason": "outcome=lead, evidence=Unverified lead",
+        "tier": "T2"
+      },
+      "evidence": "Unverified lead",
+      "outcome": "lead",
+      "record_sha256": "aacc8596ea7a9aa8ee776f39e012a716af420a628aa6ab6616ed2a7e874d1961",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-917-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T2"
+    },
+    "toi-931-01": {
+      "blockers": [
+        "no persistent repeat event (outcome != lead)"
+      ],
+      "checkpointed": true,
+      "decision": {
+        "allowed": [
+          "target_queue",
+          "fetch_products",
+          "calibrate_screen",
+          "known_signal_recovery",
+          "residual_screen",
+          "prior_art (event-time gate)"
+        ],
+        "blockers": [
+          "no persistent repeat event (outcome != lead)"
+        ],
+        "cost": "light",
+        "defining_events": [],
+        "localization": null,
+        "needs_approval": null,
+        "next_tier": null,
+        "reason": "screen only; escalate only on a persistent repeat event",
+        "tier": "T0"
+      },
+      "evidence": null,
+      "outcome": "pipeline_check",
+      "record_sha256": "5b5bba63622020534cc1a897bcc7203e132b6fba2b7d1d697ac60e0778cc15eb",
+      "run_at": "T0",
+      "source_record": "campaigns/toi-931-01/sky_record.json",
+      "starting_tier": "T0",
+      "status": "completed",
+      "tier": "T0"
+    }
+  },
+  "verification": {
+    "manifest_files": 2573,
+    "manifest_sha256": "440b3780231eb6e05c69845fbfca201243889239d79d09cf891c34249c921f51",
+    "scope": "tier metadata and sky records only",
+    "unverified_files": 2472,
+    "verified_files": {
+      "campaigns/toi-1012-01/sky_record.json": "e79304e9e73ea23a957884a76247d055a849eceac8c32b792dfb84f3aee7f75d",
+      "campaigns/toi-1119-01/sky_record.json": "bc65dce3ec9abf02a692db726fb170550c6e97af40b038af7a5cbc2d306f0829",
+      "campaigns/toi-1938-01/sky_record.json": "154d297c93ae78567da173dee0eaf50f099e8a065b19dd9c8905f8937d7520eb",
+      "campaigns/toi-2191-01/sky_record.json": "c576461026905905c268b88680aafaf8b541b7eb1939b70297a1342955a89bf2",
+      "campaigns/toi-2557-01/sky_record.json": "851660bbfb047340d92397402f7a7ce575a9d8da22cd1b3133aa3026f8086d01",
+      "campaigns/toi-2629-01/sky_record.json": "f24c0c71a74076ff2ee9e95bfc4ebeca28e49690c06123f652d41531f81933ed",
+      "campaigns/toi-2676-01/sky_record.json": "ef502a0e07582e704f55886b918df0f65ab284fbfd839c6f47eb152350874d59",
+      "campaigns/toi-2916-01/sky_record.json": "20dc6949a75941f91a7cce3aa8d05f9505eb1d68728209d6d1ab5cd79efafb0d",
+      "campaigns/toi-2939-01/sky_record.json": "652bab304d32b18def91d9c2004c681f26c9bebb94ab27752dcabdd1dbcb6bb3",
+      "campaigns/toi-2952-01/sky_record.json": "ce6d5205464e2ede6b54fd5b7baf978b1b40c901864eea19c66cf87151cc2ed8",
+      "campaigns/toi-2956-01/sky_record.json": "d05db93f4cb0413feff87ce86fcbe7d91a7e56f3f2857747e38319123a403e0c",
+      "campaigns/toi-2964-01/sky_record.json": "b25cde8525b5888da2caafc4d6b88e396631ac52f5bf8b37f1d47446cf615b15",
+      "campaigns/toi-2995-01/sky_record.json": "96c4dda8981c1f30690d659dcd24261912b3f121ff3f4093d0a4b103e2c85dbf",
+      "campaigns/toi-3035-01/sky_record.json": "e587cb6dcc15121cd5a525ddffc5ff1b984b4b390c322f9fe66623062ffd056e",
+      "campaigns/toi-3037-01/sky_record.json": "1e07af634423cdf16308a088370d2e98d08cc559d23330b6ce232b19fc3aa7be",
+      "campaigns/toi-3100-01/sky_record.json": "13c9b6f788d3ad2f10dac526cfb441d450f88beace8dda97f15a8d461221e638",
+      "campaigns/toi-311-01/sky_record.json": "212aacd82020c989ce451bb8a60164a0e5bdee99271599a593f2da957fa25655",
+      "campaigns/toi-3117-01/sky_record.json": "5807e977d88844280e6b1ed6dc3c3f02f4e76900b9b01c844966bd72902e4cf6",
+      "campaigns/toi-3141-01/sky_record.json": "3aaa085d1654e490c36206377fb295c14b6674d8b9f5a3d11adf1b394cf6dafb",
+      "campaigns/toi-3149-01/sky_record.json": "fef0cb2ca17152cea33df75b1ef32067aa7b78a92be21f847062d21debc5a123",
+      "campaigns/toi-3160-01/sky_record.json": "a1a95b071f7fdc1b0a8afb7fec8211727e1abe6643045a33007ee319f5545239",
+      "campaigns/toi-3171-01/sky_record.json": "606d26fe804027933a141853344730eb0b6a9a5e6a0bdbab42d771ec9770bcee",
+      "campaigns/toi-3298-01/sky_record.json": "a1922ba01c9de1d2fcb02e185e78dab9817c3dd4ecf95bef47b6187a5ea4a118",
+      "campaigns/toi-3431-01/sky_record.json": "a60af3d16c1cc658fa2197a8144d66efb70d6d54d3af140baab2b5337fc99edc",
+      "campaigns/toi-3533-01/sky_record.json": "d32dc5fd4e104802592a584c2d307e0c15d12441e3bba910bfc12a017ed35f27",
+      "campaigns/toi-3556-01/sky_record.json": "c4073a5b6a7eff682ede9e598bc420d742533bae4f7daebe81b4a8158ae1298c",
+      "campaigns/toi-3576-01/sky_record.json": "08f277242ef0eefe1ca470268e233e68b52ab43798e404bc38d173636027be75",
+      "campaigns/toi-363-01/sky_record.json": "9cc83e1c16b991b646a7be91faa9313bec3b6c455fc7447081ed454d18f0dce4",
+      "campaigns/toi-3758-01/sky_record.json": "92b674d871193886c3bc01f13d91280b82e36958876175c41660b851cdfd6e0d",
+      "campaigns/toi-3909-01/sky_record.json": "282aee7164a95a0af6d2d37e14af46222cc1a0d9ddb7bea1a09aafe88488f424",
+      "campaigns/toi-4084-01/sky_record.json": "bcf9431fce5ef1d0de9f8684222fb4272f6a35b77a306e865259a344231e3f0a",
+      "campaigns/toi-4168-01/sky_record.json": "c98409269b677324106fea0b4ff08c84de7bc0a7a35ae3f1fdf1e63503b9b337",
+      "campaigns/toi-4220-01/sky_record.json": "ecfc49084cd4c91196992a4159d7dc5c91d8a741e21bc039af2cfbbdf2d3805e",
+      "campaigns/toi-4280-01/sky_record.json": "e3d1f531111cfc10b31eaa68203bb1e9b8330e200f1e501ca02cc657a737c50d",
+      "campaigns/toi-4289-01/sky_record.json": "ac581f7bbb250b259a7bea421b9d6df56bf223666e359b161e92b02e0254b7e3",
+      "campaigns/toi-4487-01/sky_record.json": "42e98fe39c224ddbc5c8ae9b9e75c174857c514e9fe8d54a5b6b1b12343da2c8",
+      "campaigns/toi-4622-01/sky_record.json": "82bc90701444800353d5b376e5e8509137e088c7ae004f69fc2e32d54685de6d",
+      "campaigns/toi-4661-01/sky_record.json": "3c3c16d1176401f27d2e64a3eaa25dac3f353a4c7a9d1ea3cf8ab2b517011a64",
+      "campaigns/toi-4772-01/sky_record.json": "9c585abc448c3e8a6090a14ac6e2a3963c01b7eeae27f60bc2c5eb772cab3cee",
+      "campaigns/toi-4880-01/sky_record.json": "accda1dc2989a6a203728bfab3382a68b9c893794974c72b73885ee0e658e495",
+      "campaigns/toi-4945-01/sky_record.json": "741d42bccb84625ddc8d4da7e7e32dddedaa6f86f4c26683dab405787c9e85ba",
+      "campaigns/toi-5022-01/sky_record.json": "896cf5af077012a3276f1959724c809ce572370b802b15de20b20393cfbcf521",
+      "campaigns/toi-5192-01/sky_record.json": "7066073b6a6833bd1ef22a55288a52259402b06ac4951ee5310a6075fed26900",
+      "campaigns/toi-5207-01/sky_record.json": "452da4d09ec48c338ef75f3f0cf01aa41708e640b20d85b0966a53800669faf0",
+      "campaigns/toi-5263-01/sky_record.json": "28e41345055b44e448fee76eaa1a29671d30e966d1416de592e179710007063b",
+      "campaigns/toi-5330-01/sky_record.json": "bbf6f7d22e51d74e7f6a0744c2c61ca5221a3730a8134363a8d6e3db66f25364",
+      "campaigns/toi-5498-01/sky_record.json": "c1b6a8731d835762931a40b2385aaa2c9d1f4761963cc4a7c77c6cfee444299a",
+      "campaigns/toi-5565-01/sky_record.json": "7a91ce3617c6dba1c79b8518465c0c26563a520e378bf050ca7aeb901bd0d969",
+      "campaigns/toi-5567-01/sky_record.json": "cea31156177bd67a676f1ddcf391eb78f7aa763adb89d4151179bfcfe2f2fe45",
+      "campaigns/toi-5613-01/sky_record.json": "4087e5408227cf0bd198a810b752c5c276015bb769ca4ee39d00832eee15ddb7",
+      "campaigns/toi-5615-01/sky_record.json": "d029b58a5dfef8b045dc5bf724c39d5c3b861e26ae99a7a2850d59253ebecd08",
+      "campaigns/toi-5694-01/sky_record.json": "238c63b241260810a68dabc724e8691eba1e2b7c4def83c0875d2fed91ad0bdf",
+      "campaigns/toi-5699-01/sky_record.json": "2603b75ba15a0077814d1bfff77eef91f507fa9d5cb15d8de7394c1639a13fd3",
+      "campaigns/toi-5826-01/sky_record.json": "6ce39b657676a682df5f85215106b3dd37ed723561fc142303f8901ff3444e0c",
+      "campaigns/toi-5833-01/sky_record.json": "8f647b720bfb29dee26ed72d92c90f72a9d3da98612efb11ebbbb0d7f3c3e822",
+      "campaigns/toi-5879-01/sky_record.json": "31c12f79a4e76bc866d5e2536525083b3489f9a3f61f1a664cbd505e1aca77e7",
+      "campaigns/toi-5937-01/sky_record.json": "f51ea75b49d9e09cefaf3eab96237ccaddaff3ae8c94d9d49c314b23563b5651",
+      "campaigns/toi-6110-01/sky_record.json": "777f998aa677bd8c156f663b36855072d49e62eb360f7e25dcdb77653d8163f9",
+      "campaigns/toi-618-01/sky_record.json": "8fd94e0a254a17d0c5156e274acce12dd055d8ebc4dc949c0f349caa6f789048",
+      "campaigns/toi-6224-01/sky_record.json": "b6354dec95834553e248e61ca4484364d0d529a52c0e731eb42366926443dd5e",
+      "campaigns/toi-6319-01/sky_record.json": "cc5a4ec87380a9cf5e1aeb11d543a9ca4a2d40ca1376da4f64016b3ed3f142ba",
+      "campaigns/toi-6370-01/sky_record.json": "3404cd7600317bcf23c70c0cce1db3d7214ed970cef05c70a07e7768f6a95f99",
+      "campaigns/toi-6374-01/sky_record.json": "20ffdca974fc5785f2e94147e5eda8e49e6272d8e5199bfad5688cf0b5caa2de",
+      "campaigns/toi-6409-01/sky_record.json": "00207827556c0dbfd95602ad9267b8369b32ddd46aeff74235f9c8875eb30dcb",
+      "campaigns/toi-6410-01/sky_record.json": "16382511ab700ac71ceb9fd17335d2106d91c3d83e2b163f63f092f6fcdf63ce",
+      "campaigns/toi-6462-01/sky_record.json": "1c9018e72d197eb59953f0864549223e2f492bfff9ac419e2aea52bcf9614a0f",
+      "campaigns/toi-6480-01/sky_record.json": "e9cdadfa9f133527aafa7dab1e887200d42a8a6a40501272611a5f324f5b3085",
+      "campaigns/toi-6510-01/sky_record.json": "e0919333dd7a4b7e03dbf73b825294d33c10d3944eb4e82ce1c862ffadf4edc8",
+      "campaigns/toi-6521-01/sky_record.json": "ceb3c07afd3160f9a39f50f05436fdfb600d695c47a97d330e3eddefaf7abef0",
+      "campaigns/toi-6559-01/sky_record.json": "52f7f01cdf879e82da1147fdf51ee19747cecc8ca18409f59e50928c01b79ad6",
+      "campaigns/toi-6587-01/sky_record.json": "028f93a94fdb4c8db1e9b1cdba0cb73f368ac95eaf8e3996719cbedd2fd791e0",
+      "campaigns/toi-6609-01/sky_record.json": "325499a795b4982db831086a819ebf000072425747dc521d90a62f22eebd9510",
+      "campaigns/toi-6614-01/sky_record.json": "dca56eb12a59ae8ac6675946c4149419f63728d0e7a966bced9ead567575781a",
+      "campaigns/toi-6769-01/sky_record.json": "21e65a5b440514d2da9bf68b9ee3d7fa24d51edd4258058fdcf63c44f0914793",
+      "campaigns/toi-6777-01/sky_record.json": "14bd1b4b69029935885c2de0da26e48eed3ddf9fa4da6f849a520216c0eb9936",
+      "campaigns/toi-6831-01/sky_record.json": "17d0fc8210e141678d4c0c91cfc290f9db7d4a0f587eaa4f6fa8bd3e8edf52bf",
+      "campaigns/toi-6859-01/sky_record.json": "98937f4b6092f6782ce6d5e8fc282d1811fe40096b26af7810929bf6148db1dd",
+      "campaigns/toi-6881-01/sky_record.json": "56b8b318bcccec96dda3c432f56da8d7b5d351e9ef65050773aa789c11d4000d",
+      "campaigns/toi-6906-01/sky_record.json": "a37f984ba9789176eccb864fb2f0891143192b50386c7d081777f90c12a4dd60",
+      "campaigns/toi-6928-01/sky_record.json": "06d56fa46f73e5e3cc476f0e083052aebe6f769799e1f6ada34218b2929d76b5",
+      "campaigns/toi-7021-01/sky_record.json": "c9e27814b99bd5169bd4c630b4b7c91f97f930e796e0755e7bcf1df529da2a85",
+      "campaigns/toi-7024-01/sky_record.json": "b859b6c37edce8b2649c4eb35a4fcce68005637e5ba4c5c96d8b34d073de7d66",
+      "campaigns/toi-7046-01/sky_record.json": "2219af3274b60c73d723248e9a3d0aa81e262acb6222696b2cd9f37a602a34b2",
+      "campaigns/toi-7175-01/sky_record.json": "4398aaf37dce752c7afd4018d10da63b64928474323ddba1017f78c22c823dfa",
+      "campaigns/toi-7286-01/sky_record.json": "ef92da9cb0386565827e8b88d603b15f24a53f7e9fdf7a33e16780fad8c5738b",
+      "campaigns/toi-7290-01/sky_record.json": "fd6560fb39e9eb9003d6a7023f99effb42d983f606d1b6a95e91b20ccaf5c3a8",
+      "campaigns/toi-7307-01/sky_record.json": "6ed8e57b5b15af52b281b703c264f8dbc400b958edaa2d1f2d84a1f73eac4531",
+      "campaigns/toi-7339-01/sky_record.json": "c24afadb3b6d4324269c2729d5bbe071e0139a7591fb3bd38ddb5c4d9e3a5ac0",
+      "campaigns/toi-7365-01/sky_record.json": "6a3d71162b495e2ed889a36cbc9e00c6809f08bb1b04bd0ce8357f46aa97d1c0",
+      "campaigns/toi-7386-01/sky_record.json": "635d9a3dbc9898fd3173339b0bbeb3f9de8808d2df48f9311e6dbc0699b4d2e3",
+      "campaigns/toi-7443-01/sky_record.json": "205d31f94adad2f87e58fa7c1dd83f500c5b45ff38e398f6c08c39759798c09b",
+      "campaigns/toi-7446-01/sky_record.json": "4dc7b2d8b681aaf3b730ff423a286ca0bea59392ff855ae393d3d1c4f0865695",
+      "campaigns/toi-7448-01/sky_record.json": "3c2f539ce9f630a1d0da800cb72a59351d7ec8c89077efa7f304187126551c07",
+      "campaigns/toi-7644-01/sky_record.json": "115780e6449f47324eab6768cbe568c8cc20da738467d24aba6d3f419c9ad911",
+      "campaigns/toi-7707-01/sky_record.json": "7f5b0257395868ec1cc70ad46d7d5a41fb17eb45b3b1ff39b5897e6b6338bcc7",
+      "campaigns/toi-7785-01/sky_record.json": "b08e94a613350a8ab6f9917ef5714dfa1b1652b7b72ed62402eb9c4101e3a8ec",
+      "campaigns/toi-7795-01/sky_record.json": "213ec5960de7dced1387d9b9ccbe97d885b4cba4558c2820ccb19f237ca7984f",
+      "campaigns/toi-917-01/sky_record.json": "aacc8596ea7a9aa8ee776f39e012a716af420a628aa6ab6616ed2a7e874d1961",
+      "campaigns/toi-931-01/sky_record.json": "5b5bba63622020534cc1a897bcc7203e132b6fba2b7d1d697ac60e0778cc15eb",
+      "done.json": "becb19dbe7ed9903144089d977a1095c0746b9eec738563d63eeebc9cf83245d",
+      "tier_board.json": "d575b5d3d63eb99b426a7348fa672b3cb158a56275b6d181bce4741651abca9d"
+    }
+  }
+}

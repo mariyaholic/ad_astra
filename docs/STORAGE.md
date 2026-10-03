@@ -2,6 +2,12 @@
 
 Every CLI, harness and notebook finds stored Cygnus data the same way: **`storage/locations.jsonl`** in this repository. It is one JSON object per location, in git, so every harness can read it whatever its Drive access. `python -m cygnus.storage list` prints it with links.
 
+**2026-10-03 verification:** this harness resolved an rclone route and read
+`Cygnus/colab_runs/p02-b02-2026-10-02`. Its LOCATION entry is now indexed, and
+`storage check` records current visibility. The dated scope limitations below
+describe their original tokens; they do not establish current access failures.
+See [Colab sync](COLAB_SYNC.md) for bounded tier audits and automatic repo-note updates.
+
 ```bash
 python -m cygnus.storage where            # how THIS harness reaches the Drive folder Cygnus/
 python -m cygnus.storage list             # every recorded location: link, writer, who can see it
@@ -25,7 +31,7 @@ python -m cygnus.storage add LOCATION.json   # record an entry another runtime w
      - `search` is a Drive search for the folder name, which works in any browser for the account owner;
    - `visible_via`: each access route that was checked, with `visible` / `not_visible` and the date;
    - the local copy, only scratch-relative (`scratch:…`), never a machine path.
-3. **Visibility is observed, never assumed.** A token with the `drive.file` scope sees only files created by the same OAuth app. Folders a Colab `drive.mount()` writes are therefore **invisible to this workstation's rclone token**: `rclone cat` exits 3, directory not found (checked 2026-09-26). A harness with a broader token does see them. Run `check` in each harness and commit the result.
+3. **Visibility is observed, never assumed.** On 2026-09-26 the original `drive.file`-scoped workstation token could not read a mount-written folder (`rclone cat` exited 3, directory not found); another harness could. Broader authorization and subsequent token changes can alter visibility. The 2026-10-03 route read the tiered exports successfully. Run `check` in each harness and record the dated result rather than treating the original scope failure as permanent.
 4. **One writer kind per area**, so a logical path always means one folder:
 
    | Area | Written through | Holds |

@@ -1,5 +1,10 @@
 # Handoff: revalidate and regenerate the `tess-periodic-01` queue (1,000 periodic TOIs)
 
+> **Completed handoff, 2026-10-03:** the repair is `tess-periodic-02`, a 300-target
+> queue with live periods; p02-b01 has run and p02-b02 has 99 shipped checkpoints.
+> The legacy queue/specs remain frozen history. Do not repeat this regeneration
+> or execute the old specs. Read [STATUS.md](STATUS.md) and the current runbook.
+
 Written 2026-09-30 for the next agent. Read `AGENTS.md`, `docs/STATUS.md`, `docs/AGENT_RUNBOOK.md` (*Claim-time catalogue and candidate gates*, *Batches*) and `docs/CAMPAIGNS.md` (*Tier gating*) first.
 
 ## Why this exists

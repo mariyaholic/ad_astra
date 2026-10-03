@@ -1,6 +1,6 @@
 # Publishing the Cygnus public repository site
 
-Maintained: 2026-09-24 (UTC). Code: `src/cygnus/publish/`. Tests: `tests/test_publish.py`.
+Maintained: 2026-10-03 (Asia/Manila). Code: `src/cygnus/publish/`. Tests: `tests/test_publish.py`.
 
 ## What it is
 
@@ -189,7 +189,8 @@ manual fallback, from a machine with wrangler logged in, is unchanged:
 
 ## Storage, backup, retention
 
-- Build output is small (≈ 1 MB today) and fully reproducible; do not back it up.
+- Build output is reproducible; measure its current size from `build_pages_bundle.py`
+  instead of relying on the original 2026-09-24 estimate. Do not back it up.
 - Back up `publish/` with the worktree: it is the publication record.
 - The site never stores uploads; there is nothing on the host to back up.
 - Removal: withdraw (tombstone) or delete the collection file (404), rebuild,
@@ -197,7 +198,7 @@ manual fallback, from a machine with wrangler logged in, is unchanged:
 
 ## Verification record (2026-09-24)
 
-- `pytest`: 95 passed (42 existing + 53 publication tests), 2 network tests deselected (2026-09-24 record; the current gate is 188 passed, 2 deselected as of 2026-09-25).
+- Historical `pytest`: 95 passed (42 existing + 53 publication tests), 2 network tests deselected. These are 2026-09-24 results; current verification belongs in `WORKSTACK.md` and `docs/STATUS.md`.
 - Built 16 pages and 24 public files; leak scan clean; checked in a browser at
   `http://localhost:8765/` in light and dark themes at desktop and 375 px width
   (no horizontal page overflow), keyboard order (skip link → nav → filters),
@@ -215,7 +216,11 @@ https://claude.ai/artifact/KwjsvzHFkTnBphVwdY1mxz (private; reachable only from 
 properties. When a token or component changes in `site.css`, update the design
 system in the same change.
 
-## Known data issues surfaced by the site
+## Historical data issues surfaced by the site (2026-09-24)
+
+These observations describe the original ledger snapshot. They are not a current
+open-problem inventory; consult `docs/STATUS.md`. The source-archive restriction
+remains in force unless the user explicitly authorizes its release.
 
 - Ledger measurements from run #1 cite product `tesscut-219.7570--80.5310-sec12`,
   but the ledger product row is `…-sec12-cam3-ccd1`. Shown as **unresolved**.

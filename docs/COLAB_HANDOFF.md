@@ -1,5 +1,12 @@
 # Handoff: Colab connectivity for Cygnus batches
 
+> **Historical connectivity brief. Current note, 2026-10-03:** mount-written
+> exports have since been read through a verified workstation route; scope and
+> visibility remain harness-specific, dated observations. Resolve the route with
+> `python -m cygnus.storage where`. Use [COLAB_SYNC.md](COLAB_SYNC.md) for current
+> export auditing and the one canonical scheduler; do not implement a second
+> sync from the proposal below. Companion-ledger and provenance rules still apply.
+
 Written 2026-09-26 for the next agent. **Status: pilot done by another harness; see `docs/STATUS.md` and `docs/STORAGE.md` for the verified outcome and the storage standard.** Read `AGENTS.md`, `docs/STATUS.md` and `docs/AGENT_RUNBOOK.md` (*Batches*) first. This file is a brief, not a design: decide the details, test them, then record the outcome in `docs/STATUS.md` and `DATA_SOURCES.md`.
 
 ## Goal

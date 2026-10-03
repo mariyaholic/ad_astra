@@ -1,5 +1,15 @@
 # How autonomous is the Cygnus pipeline? (study, 2026-09-24)
 
+> **Historical assessment. Current capability note, 2026-10-03:** the original
+> study below predates the campaign and multi-archive runners, batch execution,
+> pixel vetting, CI and completed Colab runs. It is retained as design history,
+> not an inventory of current gaps. Known-object work uses the resumable commands
+> in [AGENT_RUNBOOK.md](AGENT_RUNBOOK.md); evidence promotion still requires review.
+> One canonical Windows task refreshes exported Colab tier marks and repo notes
+> daily without Codex running; see [COLAB_SYNC.md](COLAB_SYNC.md). It does not run
+> research, commit, push or publish. Current results and unresolved work are in
+> [STATUS.md](STATUS.md).
+
 Question: once started, which parts of the AGENTS.md research loop run without a person or agent steering each step, and which are still hand-driven or only designed? Evidence is the code, the ledger and the records as of commit `e25dbcb`.
 
 > **Update, later on 2026-09-24:** problems 1–4 and steps 1–6 below were acted on the same day.
