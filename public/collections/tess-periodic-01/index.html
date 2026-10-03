@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>TESS periodic-candidate screen, batch colab-p01 (100 of 1,000 targets) · Project Cygnus / Astraea</title>
-<meta name="description" content="First 100 of 1,000 queued periodic PC/APC TOIs processed end to end on a Google Colab CPU runtime (batch colab-p01, pinned commit 2b65d44). Outcomes: 2 unverified leads and 98 pipeline checks after lead vetting; 0 failed runs.">
+<meta name="description" content="First 100 of 1,000 queued periodic PC/APC TOIs processed end to end on a Google Colab CPU runtime (batch colab-p01, pinned commit 2b65d44). Current outcomes after follow-up: 1 unverified lead and 99 pipeline checks; 0 failed runs.">
 <link rel="stylesheet" href="/static/site.css">
 <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
@@ -52,15 +52,16 @@
   <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span>collections<span aria-hidden="true">/</span><span class="id">tess-periodic-01</span></p>
   <p class="kicker">Collection · campaign</p>
   <h1>TESS periodic-candidate screen, batch colab-p01 (100 of 1,000 targets)</h1>
-  <p class="lede">First 100 of 1,000 queued periodic PC/APC TOIs processed end to end on a Google Colab CPU runtime (batch colab-p01, pinned commit 2b65d44). Outcomes: 2 unverified leads and 98 pipeline checks after lead vetting; 0 failed runs.</p>
-  <p class="badges"><span class="badge">Published</span> <span class="badge">Completed runs · 2 unverified leads after vetting · 98 pipeline checks</span></p>
+  <p class="lede">First 100 of 1,000 queued periodic PC/APC TOIs processed end to end on a Google Colab CPU runtime (batch colab-p01, pinned commit 2b65d44). Current outcomes after follow-up: 1 unverified lead and 99 pipeline checks; 0 failed runs.</p>
+  <p class="badges"><span class="badge">Published</span> <span class="badge">Completed runs · 1 unverified lead · 99 pipeline checks</span></p>
 </header>
 
 <div class="grid-2">
   <div>
 <div class="prose"><p>Runs executed on Colab (CPU High-RAM, 8 vCPU) at <code>--jobs 7</code>, pinned to commit <code>2b65d44</code>; the checkpoint shipped to Drive under <code>Cygnus/colab_runs/colab-p01/</code> (3,330 objects) and was verified intact: all 3,327 manifest-listed files hash-match, all 100 specs byte-match the committed specs, and all 387 product SHA-256s inside the records match the Drive files.</p>
-<p><strong>Lead vetting 2026-09-26 (complete).</strong> Every lead in this batch was vetted (<code>python -m cygnus.campaign vet</code>, per-campaign <code>vetting/</code> artifacts and per-lead readings in <code>campaigns/tess-periodic-01/LEAD_VETTING_LOG.md</code>). <strong>51 of the 57 flagged repeat trains turned out to be the targets’ own catalogued ephemeris transits</strong> — the queue CSV carried no period column, so the specs ran with <code>period_days: null</code> while the TOI table already held the periods; the vet’s sibling-ephemerides check caught every one. Those 51 records are reconciled to <code>pipeline_check</code>. Two leads survive vetting with complete audits: <strong>TOI-224.01</strong> (four on-target events fitting a single data-allowed period P = 31.5798 d; the TOI table’s own P 705.58 d is incommensurate with the observed train) and <strong>TOI-7610.01</strong> (an event 28.7 catalogued periods from the reference, on-target difference image; a +5.9-sigma centroid excursion is the residual caveat). Both remain <strong>Unverified leads</strong>; no candidate dossier is published. Catalogue guards flagged: VSX collisions (toi-6806-01, toi-3157-01, toi-3241-01, toi-621-01), a SIMBAD EB* match (toi-630-01, 0.1 arcsec), a moving-object failure (toi-2782-01), positive-control failures (toi-340-01, toi-1149-01, toi-1986-01, toi-3157-01, toi-6568-01), and 8 no-data campaigns. The per-event pointing/quality census failed in 85/100 records — a systematic check-health finding under investigation, not 85 science signals.</p>
-<p><strong>Provenance limits, stated honestly.</strong> The run-level ledger for this batch is a companion Colab ledger (archived beside the batch; SHA-256 recorded in <code>docs/STATUS.md</code>), which is <strong>never merged</strong> into the local ledger, so these runs have no rows on the site log page; the sites log mechanism keys on exact script names and does not fit batch runs. Runner products stay on Drive, indexed in <code>storage/locations.jsonl</code> (<code>colab_runs/colab-p01</code>). The remaining 900 queued targets have specs and draft records but have <strong>not</strong> been run yet.</p></div>
+<p><strong>Lead vetting 2026-09-26 (complete).</strong> Every lead in this batch was vetted (<code>python -m cygnus.campaign vet</code>, per-campaign <code>vetting/</code> artifacts and per-lead readings in <code>campaigns/tess-periodic-01/LEAD_VETTING_LOG.md</code>). <strong>51 of the 57 flagged repeat trains turned out to be the targets’ own catalogued ephemeris transits</strong> — the queue CSV carried no period column, so the specs ran with <code>period_days: null</code> while the TOI table already held the periods; the vet’s sibling-ephemerides check caught every one. Those 51 records are reconciled to <code>pipeline_check</code>. Catalogue guards flagged: VSX collisions (toi-6806-01, toi-3157-01, toi-3241-01, toi-621-01), a SIMBAD EB* match (toi-630-01, 0.1 arcsec), a moving-object failure (toi-2782-01), positive-control failures (toi-340-01, toi-1149-01, toi-1986-01, toi-3157-01, toi-6568-01), and 8 no-data campaigns. The per-event pointing/quality census failed in 85/100 records — a systematic check-health finding under investigation, not 85 science signals.</p>
+<p><strong>Provenance limits, stated honestly.</strong> The run-level ledger for this batch is a companion Colab ledger (archived beside the batch; SHA-256 recorded in <code>docs/STATUS.md</code>), which is <strong>never merged</strong> into the local ledger, so these runs have no rows on the site log page; the sites log mechanism keys on exact script names and does not fit batch runs. Runner products stay on Drive, indexed in <code>storage/locations.jsonl</code> (<code>colab_runs/colab-p01</code>). The remaining 900 queued targets have specs and draft records but have <strong>not</strong> been run yet.</p>
+<p><strong>2026-09-27 follow-up:</strong> TOI-224.01 remains the batch's one Unverified lead; its depths are 74–78 ppt (7.4–7.8%), host RUWE is 9.18, and E4 localization fails. TOI-7610.01 is now a pipeline check: its E1 localization fails at 2.9 arcsec/5.9 bootstrap sigma and the exact host has a Gaia DR3 SB1 orbit (P 90.4224 d, K1 12.14 km/s, 23 accepted RVs), giving a stellar-mass companion. See the follow-up report and rejection note.</p></div>
     <h2 class="section-title">Contents <span class="count">300 items</span></h2>
     <section class="section" id="toi-1019-01-spec" aria-labelledby="toi-1019-01-spec-title">
       <h3 id="toi-1019-01-spec-title"><a href="/campaigns/toi-1019-01/">Known-object test, TOI-1019.01</a></h3>
@@ -1745,7 +1746,7 @@
     <section class="section" id="toi-224-01-spec" aria-labelledby="toi-224-01-spec-title">
       <h3 id="toi-224-01-spec-title"><a href="/campaigns/toi-224-01/">Known-object test, TOI-224.01</a></h3>
       <p class="badges"><span class="badge badge--accent">Download available</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">campaign</span></p>
-<p class="prose">Known-object test on TOI-224.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 10, 8, —, 4.5, —; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth none on grid, none on grid, 2%, 2%, none on grid (completeness for 2000 ppm: 0%, 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 24 threshold entries outside the known-signal veto across 5 light curve(s), forming 4 distinct event(s), 4 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2459092.1803 (ΔT 726.34 d); 18 period aliases remain. Unverified lead until vetted.</p>
+<p class="prose">Unverified lead: four 74–78 ppt events are compatible with a 31.5798-d timing family; host RUWE 9.18 and E4 pointing/localization failures prevent a physical classification. See current dossier and 2026-09-27 archive verification.</p>
       <dl class="meta">
         <dt>Campaign</dt><dd class="id">toi-224-01</dd>
         <dt>Status</dt><dd>completed · lead (Unverified lead)</dd>
@@ -1768,7 +1769,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">12.1 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">13.2 KB</span></dd>
         <dt>Public copy</dt><dd>Private storage locations replaced with placeholders</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -1778,7 +1779,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 12.1 KB · <span class="id" title="sha256 84f8e69872a98da45febc6c2a7f738479c0255c4952301803863977f4d8e2e54">sha256 84f8e69872a9…</span> <button type="button" class="copy" data-copy="84f8e69872a98da45febc6c2a7f738479c0255c4952301803863977f4d8e2e54" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 13.2 KB · <span class="id" title="sha256 dd5ba90cd2ddd81fae1ed5bcc7208a6ddca8f388fbf799ef4e1c00ffd66d41fc">sha256 dd5ba90cd2dd…</span> <button type="button" class="copy" data-copy="dd5ba90cd2ddd81fae1ed5bcc7208a6ddca8f388fbf799ef4e1c00ffd66d41fc" hidden>copy</button></span>
     <a class="btn" href="/files/tess-periodic-01/toi-224-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -1788,7 +1789,7 @@
 <p class="prose">Exact products, checksums, queries, exclusions and untested checks.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">1.5 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">2.6 KB</span></dd>
         <dt>Public copy</dt><dd>Private storage locations replaced with placeholders</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -1798,7 +1799,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">SEARCH_LOG.md</span>
-    <span class="fmeta">Markdown source (public copy) · 1.5 KB · <span class="id" title="sha256 b33eb189fdb05b8b409b749bda6ba3594c90f45f1862fb82bcc47c337fce2f0b">sha256 b33eb189fdb0…</span> <button type="button" class="copy" data-copy="b33eb189fdb05b8b409b749bda6ba3594c90f45f1862fb82bcc47c337fce2f0b" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 2.6 KB · <span class="id" title="sha256 cbe959dff7f2daaa3a7750450b355363840a9f0fe73ad82d4d6329898b120f92">sha256 cbe959dff7f2…</span> <button type="button" class="copy" data-copy="cbe959dff7f2daaa3a7750450b355363840a9f0fe73ad82d4d6329898b120f92" hidden>copy</button></span>
     <a class="btn" href="/files/tess-periodic-01/toi-224-01-search-log/SEARCH_LOG.md" download>Download<span class="visually-hidden"> SEARCH_LOG.md</span></a>
   </li>
 </ul>    </section>
@@ -5465,10 +5466,10 @@
     <section class="section" id="toi-7610-01-spec" aria-labelledby="toi-7610-01-spec-title">
       <h3 id="toi-7610-01-spec-title"><a href="/campaigns/toi-7610-01/">Known-object test, TOI-7610.01</a></h3>
       <p class="badges"><span class="badge badge--accent">Download available</span> <span class="badge badge--quiet" title="Authored in this project">Project-authored</span> <span class="badge badge--quiet">campaign</span></p>
-<p class="prose">Known-object test on TOI-7610.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* ≤2.5, 3.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2% (completeness for 2000 ppm: 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit recovered (1 covered epoch). Residual screen: 39 threshold entries outside the known-signal veto across 2 light curve(s), forming 9 distinct event(s), 6 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2461066.2847 (ΔT 365.31 d); 21 period aliases remain. Unverified lead until vetted.</p>
+<p class="prose">Pipeline check after follow-up: the 15.8 ppt S99 event repeatedly fails target localization, and the exact host has a Gaia DR3 SB1 orbit with P 90.4224 d, K1 12.14 km/s and a stellar-mass companion. The photometric anomaly is preserved, but the exoplanet lead is retired; see REJECTION.md.</p>
       <dl class="meta">
         <dt>Campaign</dt><dd class="id">toi-7610-01</dd>
-        <dt>Status</dt><dd>completed · lead (Unverified lead)</dd>
+        <dt>Status</dt><dd>completed · pipeline_check</dd>
         <dt>Domain</dt><dd class="id">worlds.planetary.monotransit</dd>
         <dt>Steps</dt><dd>11</dd>
       </dl>
@@ -5488,7 +5489,7 @@
 <p class="prose">Generated report (draft marker intact; pending review). Outcome, provenance, artifact-audit states and caveats.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">11.9 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">12.5 KB</span></dd>
         <dt>Public copy</dt><dd>Private storage locations replaced with placeholders</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -5498,7 +5499,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">REPORT.md</span>
-    <span class="fmeta">Markdown source (public copy) · 11.9 KB · <span class="id" title="sha256 3c3fb8d9c8ae417649b467604ba00062929d7878f30d4bbc6012fe2ae6e6c4c4">sha256 3c3fb8d9c8ae…</span> <button type="button" class="copy" data-copy="3c3fb8d9c8ae417649b467604ba00062929d7878f30d4bbc6012fe2ae6e6c4c4" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 12.5 KB · <span class="id" title="sha256 0a1daf372b0d9ea7b2d0502450ca658bd460ccd69d9c57943f5a92188dd7b4bc">sha256 0a1daf372b0d…</span> <button type="button" class="copy" data-copy="0a1daf372b0d9ea7b2d0502450ca658bd460ccd69d9c57943f5a92188dd7b4bc" hidden>copy</button></span>
     <a class="btn" href="/files/tess-periodic-01/toi-7610-01-report/REPORT.md" download>Download<span class="visually-hidden"> REPORT.md</span></a>
   </li>
 </ul>    </section>
@@ -5508,7 +5509,7 @@
 <p class="prose">Exact products, checksums, queries, exclusions and untested checks.</p>
       <dl class="meta">
         <dt>Maintained</dt><dd><span class="unset">not recorded</span></dd>
-        <dt>Size</dt><dd><span class="mono">1.2 KB</span></dd>
+        <dt>Size</dt><dd><span class="mono">1.8 KB</span></dd>
         <dt>Public copy</dt><dd>Private storage locations replaced with placeholders</dd>
         <dt>License</dt><dd>Apache-2.0</dd>
       </dl>
@@ -5518,7 +5519,7 @@
 <h4>Files</h4><ul class="files">
   <li>
     <span class="fname">SEARCH_LOG.md</span>
-    <span class="fmeta">Markdown source (public copy) · 1.2 KB · <span class="id" title="sha256 ba592996b06b3dabbd8a4536dbfe9d45e8a765fc6af4d55610476ffbf2d23283">sha256 ba592996b06b…</span> <button type="button" class="copy" data-copy="ba592996b06b3dabbd8a4536dbfe9d45e8a765fc6af4d55610476ffbf2d23283" hidden>copy</button></span>
+    <span class="fmeta">Markdown source (public copy) · 1.8 KB · <span class="id" title="sha256 bbd7821c6f643be564e97396a7a8f64cd469bd827db2c71b85c87fb19014fd03">sha256 bbd7821c6f64…</span> <button type="button" class="copy" data-copy="bbd7821c6f643be564e97396a7a8f64cd469bd827db2c71b85c87fb19014fd03" hidden>copy</button></span>
     <a class="btn" href="/files/tess-periodic-01/toi-7610-01-search-log/SEARCH_LOG.md" download>Download<span class="visually-hidden"> SEARCH_LOG.md</span></a>
   </li>
 </ul>    </section>
@@ -6095,7 +6096,7 @@
   <div class="wrap">
     <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
     <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
-    <p>Built <time datetime="2026-09-26T23:30:32Z" class="mono">2026-09-26T23:30:32Z</time> by cygnus 0.1.0 from curated publication manifests.
+    <p>Built <time datetime="2026-10-03T03:05:45Z" class="mono">2026-10-03T03:05:45Z</time> by cygnus 0.1.0 from curated publication manifests.
       <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
   </div>
 </footer>

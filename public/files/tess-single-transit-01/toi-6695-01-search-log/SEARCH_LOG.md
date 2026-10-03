@@ -1,3 +1,5 @@
+> **Retraction, 2026-09-27:** S34 and S61 are published TOI-6695 b transits; the earlier lead/alias interpretation below is historical and superseded by [REJECTION.md](REJECTION.md). S88 E2 remains rejected. Current outcome: pipeline check.
+
 # Search log: toi-6695-01
 
 > Generated draft; see REPORT.md.

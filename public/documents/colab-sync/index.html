@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Colab output sync and scheduler ownership · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/operations-2026-10/">operations-2026-10</a><span aria-hidden="true">/</span><span class="id">COLAB_SYNC.md</span></p>
+  <p class="kicker">Document · COLAB_SYNC.md</p>
+  <h1>Colab output sync and scheduler ownership</h1>
+  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span>  </p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#canonical-scheduler-agents-must-reuse-it">Canonical scheduler — agents must reuse it</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">COLAB_SYNC.md</span>
+    <span class="fmeta">Markdown source (public copy) · 6.3 KB · <span class="id" title="sha256 f869d34ff661167b69db31d2940a38fd0da3beca9e2d769ec7d64be2efa67799">sha256 f869d34ff661…</span> <button type="button" class="copy" data-copy="f869d34ff661167b69db31d2940a38fd0da3beca9e2d769ec7d64be2efa67799" hidden>copy</button></span>
+    <a class="btn" href="/files/operations-2026-10/colab-sync/COLAB_SYNC.md" download>Download<span class="visually-hidden"> COLAB_SYNC.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/operations-2026-10/">Current operations and Colab tier audits</a>.</p>
+  </aside>
+  <article class="doc-body prose">
+    <p>The post-run sky record determines which tools a target has earned. The historical <code>p02-b02-2026-10-02</code> board was calculated before execution; its T0 entries describe the starting state. Its 99 saved checkpoints retain <code>run_at: T0</code>.</p>
+<p>Use the tier policy in <code>src/cygnus/campaign/tiers.py</code>; never assign tiers by editing a queue CSV or use T2 eligibility as a vetted-candidate evidence claim.</p>
+<pre><code class="lang-bash">python -m cygnus.colab_sync --run p02-b02-2026-10-02 --update-notes</code></pre>
+<p>The command resolves the route through <code>cygnus.storage</code>, stays under <code>Cygnus/colab_runs/&lt;run&gt;/</code>, and downloads only LOCATION, manifest, board, done, sky records and rejection notes. It reuses cached files when their SHA-256 agrees with the current manifest. Raw products and companion ledgers remain separate. On a mounted Drive route the same command works without rclone.</p>
+<p>For an already retrieved packet, pass <code>--local &lt;packet-directory&gt;</code> to audit offline. Omit <code>--update-notes</code> for a read-only preview.</p>
+<p>The manifest digest must agree with LOCATION, and every tier input must agree with its manifest hash. The board and LOCATION must identify the same run and commit. Unknown check names, missing listed inputs, unsafe paths, mismatched identities and checksum failures stop the audit before STATUS is updated. These checks establish source-package consistency, not independent scientific validation or authenticity of a signed release. No heavy-tier budget is assumed.</p>
+<p>Outputs are <code>docs/colab_runs/&lt;run&gt;/TIER_MARKS.json</code> and <code>TIER_MARKS.md</code>, with all requested targets retained, including missing/incomplete ones. STATUS changes are limited to a run-specific managed block; manual decisions remain intact. Repeated identical runs produce identical marks and notes. The source records, draft markers, evidence labels and companion ledger are not overwritten.</p>
+<p>The official <code>notebooks/cygnus_lead_colab.ipynb</code> now refreshes earned tiers from the newly written sky record at each checkpoint. <code>run_at</code> retains the actual tier selected for execution. This change applies when the notebook runs a new commit containing <code>cygnus.colab_sync</code>; a notebook pinned to an older commit does not receive it automatically. A T0 run that earns T2 still needs a subsequent T2 execution; the checkpoint refresh does not run pixel vetting.</p>
+<h2 id="canonical-scheduler-agents-must-reuse-it">Canonical scheduler — agents must reuse it<a class="anchor" href="#canonical-scheduler-agents-must-reuse-it" aria-label="Link to this section">#</a></h2>
+<p><strong>Windows Task Scheduler owns this workflow.</strong> The one canonical task is <code>\Cygnus-Colab-Sync</code>, registered on the workstation on 2026-10-03. It runs daily at <strong>09:00 local UTC+08:00 (Asia/Manila)</strong>. The former Codex heartbeat <code>cygnus-colab-tier-sync</code> is <strong>PAUSED</strong>, superseded by this task.</p>
+<p><strong>Do not create another Codex automation, per-batch Windows task, startup helper, or separate scheduled script for this sync.</strong> Inspect the canonical task first; update it in place if a change is authorized. New exports are discovered by the same task automatically. Task identity is the root task path <code>\</code> plus the exact name <code>Cygnus-Colab-Sync</code>; folder/run names are not scheduler identities.</p>
+<p>The action runs the detected <code>pythonw.exe</code> directly, with the repository as its working directory, using:</p>
+<pre><code class="lang-bash">python -m cygnus.colab_sync --all --update-notes --log state/colab_sync/latest.json</code></pre>
+<p><code>--all</code> lists direct folders inside <code>Cygnus/colab_runs</code>, identifies tiered packets, skips legacy folders without a board, reports incomplete packets as errors, and compares LOCATION manifest hashes with existing marks to skip unchanged runs. Verified new/changed exports get tier marks, managed STATUS blocks and storage index entries. Errors produce a nonzero task result and a JSON result log; no scientific promotion is inferred from an incomplete upload.</p>
+<p>The task runs without Codex and without an authenticated Colab browser. It uses the existing signed-in user's rclone configuration; no password or new Drive credential is stored. Windows sign-in must remain active (a locked session is fine). Codex may be fully quit. A powered-off PC cannot run it. WakeToRun and StartWhenAvailable are enabled, but actual wake requires permitted Windows and hardware wake timers; wake-from-sleep was not physically tested. The task retries twice at 15-minute intervals after failure, has a one-hour execution limit, and ignores overlapping scheduled instances. Both Python and all rclone subprocesses run without console windows (<code>pythonw.exe</code> plus Windows <code>CREATE_NO_WINDOW</code>). The initial live check exposed child-console flashes; the launcher was corrected and covered by a Windows regression test before final scheduler verification.</p>
+<p>Inspect or trigger the existing task in PowerShell:</p>
+<pre><code class="lang-powershell">Get-ScheduledTask -TaskName &#x27;Cygnus-Colab-Sync&#x27; -TaskPath &#x27;\&#x27;
+Get-ScheduledTaskInfo -TaskName &#x27;Cygnus-Colab-Sync&#x27; -TaskPath &#x27;\&#x27;
+Start-ScheduledTask -TaskName &#x27;Cygnus-Colab-Sync&#x27; -TaskPath &#x27;\&#x27;
+Get-Content -LiteralPath &#x27;state/colab_sync/latest.json&#x27;</code></pre>
+<p>The reproducible, idempotent registration tool is <code>tools/register_colab_sync.ps1</code> (<code>Get-Help</code> describes it; <code>-VerifyOnly</code> inspects). It detects Python, rclone and the repository directory, and registers the same task name with <code>-Force</code>. If the PC's time zone changes, review the 09:00 trigger. Do not run a manual writer while the scheduled task is active. The task writes local repo notes only: no commits, pushes, publication, ledger merge or science. It logs results rather than sending Codex notifications. History and private runtime logs stay under ignored <code>state/</code>; repo documentation records ownership.</p>
+<p>Live verification on 2026-10-03: the corrected Windows task completed with <code>LastTaskResult: 0</code> and JSON <code>exit_code: 0</code>, no errors, two unchanged exports and three skipped probe/legacy folders. This exercised the scheduled Pythonw action, existing Drive credentials, automatic discovery and result logging. The earlier run discovered and marked <code>smoke-2026-10-01</code> (three T2-eligible targets); its record checks remain a gate audit, not completed scientific review.</p>
+<p>Validation: <code>python -m pytest -q</code>. Focused regressions live in <code>tests/test_colab_sync.py</code>: post-run promotion from a stale starting board, missing/incomplete targets, corrupt inputs, unsafe manifest paths, idempotent notes and notebook checkpoint refresh.</p>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-10-03T03:05:45Z" class="mono">2026-10-03T03:05:45Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

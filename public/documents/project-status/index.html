@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Current project status · Project Cygnus / Astraea</title>
+<meta name="description" content="Cygnus re-examines public archive data for signals that survey pipelines may have discarded, and records every test that could show a signal is an artifact. This site publishes the parts of that work the operator has chosen to release.">
+<link rel="stylesheet" href="/static/site.css">
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/json" href="/data/catalog.json" title="Publication catalog (JSON)">
+<script src="/static/theme.js"></script>
+<script src="/static/site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M16 3.5V28.5M4.5 15.5L27.5 10.5"/>
+        </g>
+        <g fill="currentColor">
+          <rect x="14.4" y="1.9" width="3.2" height="3.2"/>
+          <rect x="14.6" y="11.6" width="2.8" height="2.8"/>
+          <rect x="14.8" y="27.3" width="2.4" height="2.4"/>
+          <rect x="3.3" y="14.3" width="2.4" height="2.4"/>
+          <rect x="26.3" y="9.3" width="2.4" height="2.4"/>
+        </g>
+      </svg>
+      <span>Cygnus <small>Astraea · repository</small></span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/">Sky map</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/repository/">Repository</a></li>
+        <li><a href="/campaigns/">Campaigns</a></li>
+        <li><a href="/candidates/">Candidates</a></li>
+        <li><a href="/log/">Search log</a></li>
+        <li><a href="/methods/">Methods</a></li>
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle hidden>Theme</button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+<header class="page-head">
+  <p class="crumbs"><a href="/repository/">Repository</a><span aria-hidden="true">/</span><a href="/collections/operations-2026-10/">operations-2026-10</a><span aria-hidden="true">/</span><span class="id">STATUS.md</span></p>
+  <p class="kicker">Document · STATUS.md</p>
+  <h1>Current project status</h1>
+  <p class="badges"><span class="badge badge--quiet" title="Authored in this project">Project-authored</span>  <span class="badge badge--quiet" title="Private storage paths replaced with placeholders">Public copy · paths redacted</span></p>
+</header>
+<div class="doc">
+  <aside class="toc" aria-label="On this page">
+    <p class="panel-title">On this page</p>
+    <ol>
+<li class="l2"><a href="#current-state">Current state</a></li><li class="l2"><a href="#batch-state-and-next-work">Batch state and next work</a></li><li class="l2"><a href="#automation-ownership">Automation ownership</a></li><li class="l2"><a href="#repository-and-website">Repository and website</a></li><li class="l2"><a href="#decisions-still-requiring-the-user">Decisions still requiring the user</a></li><li class="l2"><a href="#known-limits">Known limits</a></li><li class="l2"><a href="#historical-record">Historical record</a></li>    </ol>
+<div class="section"><ul class="files">
+  <li>
+    <span class="fname">STATUS.md</span>
+    <span class="fmeta">Markdown source (public copy) · 7.0 KB · <span class="id" title="sha256 a9381cf95d5d3732bdfa7136095a9d39ff66e09357c508619b4b85385f630f56">sha256 a9381cf95d5d…</span> <button type="button" class="copy" data-copy="a9381cf95d5d3732bdfa7136095a9d39ff66e09357c508619b4b85385f630f56" hidden>copy</button></span>
+    <a class="btn" href="/files/operations-2026-10/project-status/STATUS.md" download>Download<span class="visually-hidden"> STATUS.md</span></a>
+  </li>
+</ul></div>    <p class="small muted section">Part of <a href="/collections/operations-2026-10/">Current operations and Colab tier audits</a>. Locations of private storage in this public copy read “[private path]” or “[private Drive store]”.</p>
+  </aside>
+  <article class="doc-body prose">
+    <p><strong>Colab sync smoke-2026-10-01:</strong> T2: 3; 3/3 checkpointed. Post-run tiers derived from manifest-verified sky records; saved starting board is historical. Bulk products and scientific interpretations remain unreviewed. Tier marks.</p>
+<p><strong>Colab sync p02-b02-2026-10-02:</strong> T0: 68, T1: 1, T2: 30, missing: 1; 99/100 checkpointed. Post-run tiers derived from manifest-verified sky records; saved starting board is historical. Bulk products and scientific interpretations remain unreviewed. Tier marks.</p>
+<p>Last updated: 2026-10-03 (Asia/Manila). Read after <code>AGENTS.md</code>.</p>
+<h2 id="current-state">Current state<a class="anchor" href="#current-state" aria-label="Link to this section">#</a></h2>
+<p>Three event interpretations remain <strong>Unverified leads</strong>: TOI-224.01, TOI-2666.01 and TOI-3500.02. No established discovery, component orbit or proved planet is claimed. TOI-6695.01 and TOI-7610.01 remain retracted pipeline checks; their rejection notes and original measurements are preserved. Canonical candidate records are <code>publish/candidates/*.json</code>. The latest bounded follow-up and validation are in the 2026-09-30 packet.</p>
+<p>The recovered spectrum rerun accounted for 31 unique cached inputs (29 profiles and two retained failures). Relative CCF comparisons reached 10.9458 / 10.8503 m/s RMS for the R50 G2 / K0 reductions, both failing the 10 m/s requirement. FEROS precision remains unvalidated. Three HIRES primary headers support the intended TOI-2666 target identity; calibration association lists do not establish applicable calibrations or an extracted component velocity. The older failed write and pause checkpoint are history, superseded by the recovered outputs. Scientific proof/disproof remains unfinished; no research process is implied between chats by these notes.</p>
+<h2 id="batch-state-and-next-work">Batch state and next work<a class="anchor" href="#batch-state-and-next-work" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><code>p02-b02-2026-10-02</code>: 99/100 saved checkpoints, executed at T0. Derived earned tiers are 68 T0, one T1 and 30 T2; one target is missing. These marks audit manifest-verified metadata, not the full bulk products or scientific conclusions.</li>
+<li>TOI-3941.01 has no shipped checkpoint or sky record. Inspect the notebook's failure evidence before retrying; the NaN serialization repair is committed.</li>
+<li>TOI-4280.01 remains T1 because the moving-object check is <code>not_tested</code> for one unanswered event epoch. The 30 T2 targets need a subsequent pixel-vetting run and review before any evidence promotion.</li>
+<li><code>p02-b01</code>: 98 completed but unreviewed, with 41 escalations including 35 outcome-lead repeat candidates. Retain draft markers until runbook review.</li>
+<li>The legacy <code>tess-periodic-01</code> queue lacks usable periods for the current suite. Use repaired <code>tess-periodic-02</code> (300 targets with live periods). Preserve old specs as historical comparisons rather than rerunning them on current defaults.</li>
+</ul>
+<p>For established leads, next tests remain component-aware localization and phase-spanning binary RVs for TOI-224, an SB2/eclipse orbit for TOI-2666, and validated empirical PRF or resolved photometry for TOI-3500. The pursuit plan and runbook govern fresh campaigns and event-identity checks. Historical campaign numeric outputs must not be overwritten.</p>
+<h2 id="automation-ownership">Automation ownership<a class="anchor" href="#automation-ownership" aria-label="Link to this section">#</a></h2>
+<p>Windows <code>\Cygnus-Colab-Sync</code> is the <strong>one canonical Colab sync task</strong>, daily 09:00 UTC+08:00. Codex heartbeat <code>cygnus-colab-tier-sync</code> is PAUSED. Agents must inspect/update the existing Windows task; do not create per-batch or redundant schedules. COLAB_SYNC.md records registration, logs and limits.</p>
+<p>The task discovers new exports, verifies tier inputs, updates separate marks, managed blocks above and <code>storage/locations.jsonl</code>. It runs with Codex closed while Windows remains signed in, including a locked session. Physical waking from sleep is untested. It performs no science, commit, push or publication. All Python/rclone launches suppress console windows. The corrected scheduled run completed on 2026-10-03 with result 0 and no export errors.</p>
+<h2 id="repository-and-website">Repository and website<a class="anchor" href="#repository-and-website" aria-label="Link to this section">#</a></h2>
+<p>The offline gate, curated site build, explorer and whole-bundle leak scan are the checks required before deployment; fresh outcomes are recorded in WORKSTACK.md. Website content is selected only through <code>publish/collections/*.json</code>; PUBLISHING.md describes the existing <code>site</code> branch / Cloudflare Pages deployment route.</p>
+<p>The 2026-10-03 cleanup separates current instructions from historical status, corrects the notebook and access descriptions, and keeps local editor/browser artifacts ignored. It includes the reviewed tier-sync implementation and its regressions. Scientific records, rejected leads and source products are preserved. Publishing the exported tier audit does not import the companion ledger or replace the canonical campaign records with the Colab copy.</p>
+<h2 id="decisions-still-requiring-the-user">Decisions still requiring the user<a class="anchor" href="#decisions-still-requiring-the-user" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Release of the restricted software source archive remains undecided. A general site update does not remove that collection item's restriction.</li>
+<li>Explorer per-target/log design, repository-page restyling and final logo seed remain design choices; they do not block rebuilding the current site.</li>
+<li>Separate publication of the two NSS campaigns remains undecided. Their inconclusive results may not be promoted into cleared companion checks.</li>
+<li>Observer contact, catalogue submission and journal submission require explicit authorization. None is part of a repository or website update.</li>
+</ul>
+<p>Fleet recomputation, periodic campaign publication and survivor dossiers were already authorized and completed in the dated history; do not ask again or repeat them merely because an older note lists them as open.</p>
+<h2 id="known-limits">Known limits<a class="anchor" href="#known-limits" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Evidence promotion requires scientific review; software tests and tier gating do not validate astrophysical interpretations.</li>
+<li>Empirical null exceedances retain finite sample resolution and dependence; zero exceedances never mean zero probability or Gaussian significance.</li>
+<li>Position-only catalogue matches cannot clear event-time prior art. Depths are stored in ppm; <code>1 ppt = 1,000 ppm = 0.1%</code>.</li>
+<li>Archive availability and token visibility are dated observations, not permanent promises. Resolve Drive through <code>cygnus.storage</code>; only <code>Cygnus/</code> is authorized.</li>
+<li>Companion Colab ledgers remain separate. Bulk hashes are outside the current post-run tier audit scope.</li>
+</ul>
+<h2 id="historical-record">Historical record<a class="anchor" href="#historical-record" aria-label="Link to this section">#</a></h2>
+<p>STATUS_HISTORY_2026-10-02.md preserves the previous handoff, including its old five-lead claims, errata, resolved decisions and superseded pause instructions. It is not a current task queue. Dated reports, search logs, rejections and campaign measurements remain in their original paths.</p>
+  </article>
+</div>
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Project Cygnus / Astraea</strong><br>A public, curated view of a private research worktree. External archive products are linked to their source archives, not re-hosted.</p>
+    <p>Identifiers beginning <span class="id">CYG-</span> are local working identifiers, not official designations. Evidence levels describe evidence, not importance.</p>
+    <p>Built <time datetime="2026-10-03T03:05:45Z" class="mono">2026-10-03T03:05:45Z</time> by cygnus 0.1.0 from curated publication manifests.
+      <a href="/data/catalog.json">Machine-readable catalog</a> · <a href="/methods/#publication-boundary">What is public</a></p>
+  </div>
+</footer>
+</body>
+</html>

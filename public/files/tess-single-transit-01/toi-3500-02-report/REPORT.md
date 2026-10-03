@@ -1,3 +1,8 @@
+<!-- follow-up-2026-09-30 -->
+> Historical analysis below. Current evidence and dossier: [2026-09-30 follow-up](../../reports/lead-resolution-2026-09-30/REPORT.md). S64/S90 dips persist, but official UPDATED_2.0 TESS PRFs do not assign the deficit robustly between the0.18-pixel-separated Gaia A/B pair. Source preference reverses with allowed registration and1/3/5-percent model floors; static PRF residuals exceed nominal interpolation accuracy. S101 remains rejected and supplies no period preference. All16 baseline aliases remain open; Gaia RV summaries provide no orbit or companion-mass bound. Unverified lead.
+
+> **2026-09-27 verification update:** Canonical dossier units, local-null claims and difference-image states were corrected. New live MAST/TOI metadata and independent cached-TPF checks are linked from the [follow-up report](../../reports/lead-followup-2026-09-27/REPORT.md). A two-source Gaussian-PSF sensitivity grid usually favors the target in S64/S90 but reverses under plausible PSF/registration choices because the target and 3.71-arcsec companion are only 0.184 TESS pixel apart; localization remains inconclusive. Older interpretations below are historical where they conflict.
+
 # Known-object test, TOI-3500.02
 
 > **Generated draft** (`python -m cygnus.campaign report`). Numbers are copied from the runner's saved

@@ -1,3 +1,8 @@
+<!-- follow-up-2026-09-30 -->
+> Historical analysis below. Current evidence and dossier: [2026-09-30 follow-up](../../reports/lead-resolution-2026-09-30/REPORT.md). S35/S99 V-shaped dips persist under independent baseline choices. Zhang2024 primary Keck/HIRES evidence identifies HIP45621/TOI2666 as a spectroscopic binary with35-km/s component separation, corroborating the close-companion alternative. The later eclipse is not linked to a solved stellar orbit. Earlier S8 FFI tests robustly exclude0 of52 historical aliases across exposure integration and timing slack; noisy reductions cannot supply a clean nondetection. Unverified event interpretation; binarity independently established.
+
+> **2026-09-27 verification update:** Canonical dossier units, local-null claims and difference-image states were corrected. New live MAST/TOI metadata is in [the archive verification report](../../reports/lead-verification-2026-09-27/REPORT.md), and the independent cached-TPF result is in [the follow-up report](../../reports/lead-followup-2026-09-27/REPORT.md); older interpretations below are historical where they conflict.
+
 # Search log: toi-2666-01
 
 > Drafted by the runner's report command; reviewed 2026-09-24.
