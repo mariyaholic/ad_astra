@@ -32,6 +32,32 @@
     gaia: [true, 'Gaia DR3 sources', 'Project', '', 'var(--svc-gaia)'],
   };
   const on = k => layers[k][0];
+  const targetGroups = [
+    ['leads', 'Active leads · Unverified'], ['T2', 'T2 · pixel vetting eligible'],
+    ['T1', 'T1 · follow-up gates'], ['T0', 'T0 · screening'],
+    ['known', 'Known objects & reference fields'], ['tested', 'Earlier tests & null results'],
+    ['other', 'Other targets · not tiered'],
+  ];
+  const shownGroups = new Set(['leads', 'known']);
+  const targetShown = t => selected === t || shownGroups.has(t.map_group);
+
+  function updateTargetFilters() {
+    hover = null; $('#tip').hidden = true;
+    const shown = SKY.targets.filter(targetShown);
+    $('#visible-count').textContent = `${shown.length} / ${SKY.targets.length}`;
+    for (const [group] of targetGroups) {
+      const input = document.querySelector(`[data-target-group="${group}"]`);
+      if (input) input.checked = shownGroups.has(group);
+    }
+    document.querySelectorAll('.rail button.t[data-id]').forEach(b => {
+      b.hidden = !shown.some(t => t.id === b.dataset.id);
+    });
+    document.querySelectorAll('.rail h2[data-group]').forEach(h => {
+      h.hidden = !shown.some(t => t.map_group === h.dataset.group);
+    });
+    $('#rail-empty').hidden = shown.length !== 0;
+    dirty = true;
+  }
 
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const SVC_COL = {}; // filled after load
@@ -261,7 +287,7 @@
     ctx.textAlign = 'left';
   }
 
-  function targetVisibleAt(t, fmax) { return fovDeg() < fmax && dot(t.v, C) > Math.cos(view.fov * 1.2); }
+  function targetVisibleAt(t, fmax) { return targetShown(t) && fovDeg() < fmax && dot(t.v, C) > Math.cos(view.fov * 1.2); }
 
   function drawImages(f) {
     if (!on('image')) return;
@@ -354,7 +380,7 @@
       return y;
     };
     for (const t of SKY.targets) {
-      if (dot(t.v, C) < Math.cos(view.fov * 1.2)) continue;
+      if (!targetShown(t) || dot(t.v, C) < Math.cos(view.fov * 1.2)) continue;
       for (const p of t.patches) {
         const size = (p.r ? p.r * 2 : p.w) * D * scale;
         if (size < 5) continue;
@@ -380,7 +406,10 @@
 
   function drawTargets(f) {
     ctx.font = `600 12.5px ${css('--sans')}`;
-    for (const t of SKY.targets) {
+    const labels = [];
+    for (const t of [...SKY.targets].sort((a, b) => Number(b === selected || b === hover || b.map_group === 'leads') - Number(a === selected || a === hover || a.map_group === 'leads'))) {
+      t.screen = null;
+      if (!targetShown(t)) continue;
       const s = project(t.v); if (!s || s[0] < -20 || s[0] > W + 20 || s[1] < -20 || s[1] > H + 20) continue;
       t.screen = s;
       const col = STATUS_COL[t.status], hot = hover === t || selected === t;
@@ -394,7 +423,10 @@
       if (t.status === 'analysed') { ctx.fillStyle = col; ctx.beginPath(); ctx.arc(s[0], s[1], 2.4, 0, 7); ctx.fill(); }
       ctx.fillStyle = hot ? '#fff' : 'rgba(232,228,220,.88)';
       ctx.shadowColor = 'rgba(0,0,0,.9)'; ctx.shadowBlur = 4;
-      ctx.fillText(t.name, s[0] + R + 11, s[1] + 4);
+      const x = s[0] + R + 11, y = s[1], width = ctx.measureText(t.name).width;
+      if (hot || !labels.some(l => Math.abs(l.y - y) < 17 && x < l.x + l.width && x + width > l.x)) {
+        ctx.fillText(t.name, x, y + 4); labels.push({ x, y, width });
+      }
       ctx.shadowBlur = 0;
     }
   }
@@ -504,19 +536,19 @@
   });
   function hitTarget(x, y) {
     let best = null, bd = 16;
-    for (const t of SKY.targets) if (t.screen && project(t.v)) { const d = Math.hypot(t.screen[0] - x, t.screen[1] - y); if (d < bd) { bd = d; best = t; } }
+    for (const t of SKY.targets) if (targetShown(t) && t.screen && project(t.v)) { const d = Math.hypot(t.screen[0] - x, t.screen[1] - y); if (d < bd) { bd = d; best = t; } }
     return best;
   }
   function hitImage(x, y) {
     if (!on('image')) return null;
     for (const t of SKY.targets) {
-      const m = t._img; if (!m || !t.image || fovDeg() > t.image.fov * 4) continue;
+      const m = t._img; if (!targetShown(t) || !m || !t.image || fovDeg() > t.image.fov * 4) continue;
       const dx = x - m.c[0], dy = y - m.c[1], u = dx * Math.cos(-m.rot) - dy * Math.sin(-m.rot), v = dx * Math.sin(-m.rot) + dy * Math.cos(-m.rot);
       if (Math.abs(u) < m.S / 2 && Math.abs(v) < m.S / 2) return t;
     }
     return null;
   }
-  function nearestTarget() { let b = null, bd = -2; for (const t of SKY.targets) { const d = dot(t.v, C); if (d > bd) { bd = d; b = t; } } return b; }
+  function nearestTarget() { let b = null, bd = -2; for (const t of SKY.targets.filter(targetShown)) { const d = dot(t.v, C); if (d > bd) { bd = d; b = t; } } return b; }
   function hoverAt(x, y) {
     const [ra, de] = radec(unproject(x, y));
     $('#ro-pos').textContent = `α ${hms(ra / D, fovDeg() < 1 ? 1 : 0)}  δ ${dms(de / D, fovDeg() < 1 ? 1 : 0)}  ICRS`;
@@ -562,11 +594,11 @@
     const toggleLayers = () => { const o = lf.classList.toggle('open'); lgd.setAttribute('aria-expanded', String(o)); };
     lgd.addEventListener('click', toggleLayers);
     lgd.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleLayers(); } });
-    const groups = [['analysed', 'Analysed'], ['planned', 'Analysis planned'], ['retrieved', 'Products retrieved'], ['failed', 'Probe only']];
+    const groups = targetGroups;
     const list = $('#rail-list'), dl = $('#target-names');
     for (const [st, title] of groups) {
-      const ts = SKY.targets.filter(t => t.status === st); if (!ts.length) continue;
-      const h = document.createElement('h2'); h.textContent = title; list.append(h);
+      const ts = SKY.targets.filter(t => t.map_group === st); if (!ts.length) continue;
+      const h = document.createElement('h2'); h.textContent = title; h.dataset.group = st; list.append(h);
       for (const t of ts.sort((a, b) => a.ra - b.ra)) {
         const b = document.createElement('button'); b.type = 'button'; b.className = 't'; b.dataset.id = t.id;
         const d = document.createElement('span'); d.className = `dot ${t.status}`;
@@ -577,6 +609,28 @@
         list.append(b);
       }
     }
+    const empty = document.createElement('p'); empty.id = 'rail-empty'; empty.className = 'note';
+    empty.textContent = 'No target groups selected. Use Targets shown or search for a target.'; list.append(empty);
+    for (const [group, label] of targetGroups) {
+      const buttonLabel = document.createElement('label'), input = document.createElement('input');
+      input.type = 'checkbox'; input.dataset.targetGroup = group;
+      const count = SKY.targets.filter(t => t.map_group === group).length;
+      buttonLabel.append(input, document.createTextNode(`${label} (${count})`));
+      input.addEventListener('change', () => {
+        stopTour(); if (input.checked) shownGroups.add(group); else shownGroups.delete(group);
+        updateTargetFilters();
+      });
+      $('#target-groups').append(buttonLabel);
+    }
+    $('#target-default').addEventListener('click', () => {
+      stopTour(); shownGroups.clear(); shownGroups.add('leads'); shownGroups.add('known');
+      if (selected) closePanel(); updateTargetFilters();
+    });
+    $('#target-all').addEventListener('click', () => {
+      stopTour(); targetGroups.forEach(([g]) => shownGroups.add(g)); updateTargetFilters();
+    });
+    updateTargetFilters();
+    if (matchMedia('(max-width: 760px)').matches) $('#target-filters').open = false;
     if (SKY.campaigns.length) {
       const hh = document.createElement('h2'); hh.textContent = 'Campaigns, no position yet'; list.append(hh);
       for (const r of SKY.campaigns) {
@@ -589,10 +643,12 @@
       }
     }
     for (const t of SKY.targets) { const o = document.createElement('option'); o.value = t.name; dl.append(o); }
-    $('#find').addEventListener('change', e => {
+    const goToTarget = e => {
       const q = e.target.value.trim().toLowerCase(), t = SKY.targets.find(x => x.name.toLowerCase() === q) || SKY.targets.find(x => x.name.toLowerCase().includes(q));
-      if (t) { select(t); e.target.value = ''; }
-    });
+      if (q && t) { stopTour(); select(t); e.target.value = ''; }
+    };
+    $('#find').addEventListener('change', goToTarget);
+    $('#find').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); goToTarget(e); } });
     $('#rail-toggle').addEventListener('click', e => { const b = e.currentTarget; b.setAttribute('aria-expanded', b.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); });
     $('#mode').addEventListener('click', e => {
       const onN = document.body.classList.toggle('night'); e.currentTarget.setAttribute('aria-pressed', String(onN));
@@ -604,15 +660,15 @@
     $('#p-close').addEventListener('click', closePanel);
     document.querySelectorAll('[data-open="sources"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openSources(); }));
     const nT = SKY.targets.length, nP = SKY.targets.reduce((s, t) => s + t.patches.length, 0);
-    const uniq = new Map([...SKY.targets.flatMap(t => t.records || []), ...SKY.campaigns].map(r => [r.id, r]));
-    const nA = SKY.targets.filter(t => t.status === 'analysed').length, nC = [...uniq.values()].filter(r => r.outcome === 'candidate').length;
-    $('#counts').textContent = `${nT} positions · ${nP} query footprints · ${SKY.manifest_rows} archive requests · ${uniq.size} analysis records · ${nA} target${nA === 1 ? '' : 's'} analysed · ${nC} candidate${nC === 1 ? '' : 's'}`;
+    const nA = SKY.targets.filter(t => t.status === 'analysed').length;
+    const active = SKY.targets.filter(t => t.map_group === 'leads').length;
+    $('#counts').textContent = `${nT} recorded positions · ${active} active Unverified leads · ${nA} targets analysed · ${nP} query footprints`;
   }
 
   // ------------------------------------------------------------ tour
   async function startTour() {
     $('#intro').hidden = true;
-    const order = [...SKY.targets].sort((a, b) => (a.status === 'analysed' ? -1 : 0) - (b.status === 'analysed' ? -1 : 0) || a.ra - b.ra);
+    const order = SKY.targets.filter(targetShown).sort((a, b) => (a.status === 'analysed' ? -1 : 0) - (b.status === 'analysed' ? -1 : 0) || a.ra - b.ra);
     const my = tour = { i: 0 };
     for (const t of order) {
       if (tour !== my) return;
@@ -631,7 +687,7 @@
     return el;
   };
   function closePanel() {
-    $('#panel').hidden = true; document.body.classList.remove('panel-open'); selected = null; dirty = true; clearRend();
+    $('#panel').hidden = true; document.body.classList.remove('panel-open'); selected = null; dirty = true; clearRend(); updateTargetFilters();
     document.querySelectorAll('.rail button.t').forEach(b => b.removeAttribute('aria-current'));
     history.replaceState(null, '', location.pathname);
     cv.focus();
@@ -639,7 +695,7 @@
   function fitFov(t) { return t.field ? Math.max(0.12, t.field.radius * 2.6) : 0.4; }
 
   async function select(t, fromTour = false) {
-    selected = t; dirty = true;
+    selected = t; dirty = true; updateTargetFilters();
     $('#intro').hidden = true;
     document.querySelectorAll('.rail button.t').forEach(b => b.toggleAttribute('aria-current', b.dataset.id === t.id));
     document.querySelectorAll('.rail button.t[aria-current]').forEach(b => b.setAttribute('aria-current', 'true'));
@@ -661,6 +717,9 @@
       h('p', { class: 'coord' }, `α ${hms(t.ra, 2)}   δ ${dms(t.dec, 1)}`,
         h('small', {}, t.resolved ? `ICRS, J2000.0 · ${t.resolver} · resolved ${t.resolved.replace('T', ' ').replace('Z', ' UTC')}` : `${t.frame} · position from ${t.resolver}`)),
       h('p', { class: `status ${t.status}` }, t.statusText),
+      t.dossier ? h('p', { class: 'note' }, 'Active lead · Unverified. ', h('a', { href: t.dossier.url }, 'Read current dossier')) : null,
+      t.tier_audit ? h('p', { class: 'note' }, `Earned ${t.tier_audit.tier} · run at ${t.tier_audit.run_at || 'not checkpointed'} · ${t.tier_audit.run}. Eligibility does not imply completed vetting.`,
+        h('br'), t.tier_audit.blockers.join('; ')) : null,
       h('div', { class: 'zooms' },
         zoomBtn('Whole sky', () => flyTo(t.ra * D, t.dec * D, 140 * D)),
         zoomBtn('Constellation', () => flyTo(t.ra * D, t.dec * D, 25 * D)),
@@ -1027,7 +1086,7 @@
       h('p', { class: 'note' }, 'Collected automatically from the sky_record.json beside each report. States are copied from the reports, including checks that were not tested.'));
   }
   function openCampaign(r) {
-    selected = null; dirty = true; clearRend();
+    selected = null; dirty = true; clearRend(); updateTargetFilters();
     const P = $('#p-body'); P.replaceChildren();
     $('#panel').hidden = false; document.body.classList.add('panel-open');
     P.append(h('p', { class: 'kicker' }, 'Campaign · no sky position yet'), h('h2', { id: 'p-title' }, r.title), recordCard(r),
@@ -1181,11 +1240,13 @@
     if (t.field) items.push(`Gaia DR3 sources (J2016.0 positions): ${t.field.n} rows, retrieved ${t.field.retrieved}. Query: ${t.field.query}`);
     if (t.image) items.push(`Image: ${t.image.source}, retrieved ${t.image.retrieved}.`);
     if (t.system) items.push('Planets: NASA Exoplanet Archive pscomppars (see data/PROVENANCE.json for the query).');
+    if (t.dossier) items.push('Active lead: a candidate item in a published collection. The current dossier carries the interpretation and evidence limits.');
+    if (t.tier_audit) items.push(`Tier: docs/colab_runs/${t.tier_audit.run}/TIER_MARKS.json; source export ${t.tier_audit.source_utc}. Saved run_at and earned tier are separate.`);
     d.append(h('pre', {}, items.join('\n\n')));
     return h('section', {}, h('h3', {}, 'Provenance'), d);
   }
   function openSources() {
-    selected = null; dirty = true; clearRend();
+    selected = null; dirty = true; clearRend(); updateTargetFilters();
     const P = $('#p-body'); P.replaceChildren();
     $('#panel').hidden = false; document.body.classList.add('panel-open');
     P.append(h('h2', { id: 'p-title' }, 'Sources'),

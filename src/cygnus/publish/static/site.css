@@ -2,73 +2,6 @@
    Tokens first; every color, size and space below references them.
    No external fonts or requests: stacks fall back to good system faces. */
 
-:root {
-  color-scheme: light;
-  /* surfaces */
-  --bg: #f3f2ee;
-  --surface: #fbfaf7;
-  --surface-sunk: #ebe9e3;
-  --rule: #d6d3ca;
-  --rule-strong: #a9a59a;
-  --grid: #e4e1d9;
-  /* ink */
-  --ink: #15171c;
-  --ink-2: #454a54;
-  --ink-3: #5f646e;
-  /* single accent: plotting-ink blue */
-  --accent: #214c96;
-  --accent-ink: #1a3d7a;
-  --accent-wash: #e3e9f4;
-  /* reserved states — never reused for decoration */
-  --pass: #1d6b45;   --pass-wash: #e2efe7;
-  --fail: #a8261b;   --fail-wash: #f6e3e0;
-  --warn: #8a5300;   --warn-wash: #f5ead6;
-  --none: #5f646e;   --none-wash: #ecebe6;
-  --draft: #8a5300;
-  /* chart: neutral 'held' segment, validated against --fail in both modes */
-  --seg-held: #454a54;
-  /* type */
-  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
-  --font-serif: "Source Serif 4", Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
-  --fs-xs: 0.75rem; --fs-sm: 0.8125rem; --fs-base: 1rem; --fs-md: 1.125rem;
-  --fs-lg: 1.375rem; --fs-xl: 1.875rem; --fs-2xl: 2.5rem;
-  --lh: 1.6;
-  /* space (4px base) */
-  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
-  --radius: 3px;
-  --measure: 72ch;
-  --page: 1180px;
-  --focus: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg: #0e1014; --surface: #15181e; --surface-sunk: #1b1f26;
-    --rule: #2a2f38; --rule-strong: #454c58; --grid: #1f242b;
-    --ink: #e6e8ec; --ink-2: #b4b9c3; --ink-3: #9299a4;
-    --accent: #8fb0ec; --accent-ink: #a9c3f2; --accent-wash: #1c2638;
-    --pass: #6cc394; --pass-wash: #16281f;
-    --fail: #f08a7e; --fail-wash: #2e1a18;
-    --warn: #e0b060; --warn-wash: #2b2415;
-    --none: #9299a4; --none-wash: #1d2027;
-    --draft: #e0b060; --seg-held: #6f7784;
-  }
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0e1014; --surface: #15181e; --surface-sunk: #1b1f26;
-  --rule: #2a2f38; --rule-strong: #454c58; --grid: #1f242b;
-  --ink: #e6e8ec; --ink-2: #b4b9c3; --ink-3: #9299a4;
-  --accent: #8fb0ec; --accent-ink: #a9c3f2; --accent-wash: #1c2638;
-  --pass: #6cc394; --pass-wash: #16281f;
-  --fail: #f08a7e; --fail-wash: #2e1a18;
-  --warn: #e0b060; --warn-wash: #2b2415;
-  --none: #9299a4; --none-wash: #1d2027;
-  --draft: #e0b060; --seg-held: #6f7784;
-}
-
 /* ---------------------------------------------------------------- base */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -102,6 +35,12 @@ li + li { margin-top: var(--s1); }
 /* --------------------------------------------------------------- shell */
 .wrap { max-width: var(--page); margin: 0 auto; padding: 0 var(--s5); }
 .site-header { border-bottom: 1px solid var(--rule); background: var(--surface); }
+.site-header { background: var(--sky-1); }
+.brand svg { color: var(--accent); }
+.brand small { display: none; }
+body { background: radial-gradient(ellipse at 60% 0, var(--sky-1), var(--bg) 65%); }
+.page-head h1 { font-weight: 400; }
+.panel { box-shadow: var(--shadow); }
 .site-header .wrap { display: flex; align-items: center; gap: var(--s5); min-height: 60px; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: var(--s2); color: var(--ink); text-decoration: none; font-weight: 600; letter-spacing: 0.01em; }
 .brand svg { width: 26px; height: 26px; flex: none; }

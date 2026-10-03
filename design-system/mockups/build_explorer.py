@@ -129,7 +129,6 @@ def parse_footprint(row: dict, anchors: dict) -> dict | None:
         qj = json.loads(q) if q.strip().startswith("{") else {}
     except json.JSONDecodeError:
         qj = {}
-    ex = json.loads(row["extra_json"] or "{}")
     filt = qj.get("filters", {}) if isinstance(qj.get("filters"), dict) else {}
     if "coordinates" in filt and "radius_deg" in filt:
         (ra, dec), r = filt["coordinates"], float(filt["radius_deg"])
@@ -151,7 +150,6 @@ def parse_footprint(row: dict, anchors: dict) -> dict | None:
     if m:
         s = float(m.group(4))
         return {"shape": "box", "ra": float(m.group(1)), "dec": float(m.group(2)), "w": s, "h": s, "what": f"SkyView {m.group(3)} cutout"}
-    field = ex.get("field") or qj.get("field")
     m = re.search(r"within ([\d.]+) deg", q)
     if m and row["service"] == "irsa":
         fname = re.search(r"ztf_lc_(.+?)_\d+as", pid)
@@ -268,7 +266,7 @@ def characterise(pl: dict) -> list[dict]:
     """Derived descriptions with their rule and basis stated. 'derived' = arithmetic on archive values;
     'expected' = textbook physics for that regime, not an observation of this planet."""
     out = []
-    R, M, rho, teq, P = pl.get("rade"), pl.get("mass_e"), pl.get("dens"), pl.get("teq"), pl.get("P")
+    R, rho, teq, P = pl.get("rade"), pl.get("dens"), pl.get("teq"), pl.get("P")
     if R is not None:
         if R < 1.6:
             cls, why = "rocky-size", "radius below ~1.6 R⊕, where most well-measured planets are rocky"
@@ -334,8 +332,11 @@ def field_stars(name: str) -> dict | None:
     ra, dec, g, c, t = [], [], [], [], []
     rows = list(csv.DictReader(f.open(encoding="utf-8")))
     for r in rows:
-        ra.append(round(float(r["ra"]), 6)); dec.append(round(float(r["dec"]), 6)); g.append(round(float(r["g"]), 2))
-        c.append(None if not r["bp_rp"] else round(float(r["bp_rp"]), 3)); t.append(None if not r["teff_gspphot"] else round(float(r["teff_gspphot"])))
+        ra.append(round(float(r["ra"]), 6))
+        dec.append(round(float(r["dec"]), 6))
+        g.append(round(float(r["g"]), 2))
+        c.append(None if not r["bp_rp"] else round(float(r["bp_rp"]), 3))
+        t.append(None if not r["teff_gspphot"] else round(float(r["teff_gspphot"])))
     return {"ra": ra, "dec": dec, "g": g, "bp_rp": c, "teff": t, "plx": [fnum(r["parallax"]) for r in rows],
             "pmra": [fnum(r["pmra"]) for r in rows], "pmdec": [fnum(r["pmdec"]) for r in rows]}
 
@@ -409,6 +410,49 @@ def record_for_site(r: dict) -> dict:
 
 
 # ------------------------------------------------------------------ build
+def map_metadata(root: Path) -> tuple[dict, dict]:
+    """Public active dossiers and newest dated tier audit, never a confidence rank."""
+    featured, tiers = {}, {}
+    for path in sorted((root / 'publish/collections').glob('*.json')):
+        manifest = json.loads(path.read_text(encoding='utf-8'))
+        if manifest.get('status') != 'published':
+            continue
+        for item in manifest.get('items', []):
+            if item.get('kind') != 'candidate' or item.get('access', 'public') != 'public':
+                continue
+            source = (root / item['source']).resolve()
+            if not source.is_relative_to((root / 'publish/candidates').resolve()):
+                raise ValueError('candidate source outside publication directory')
+            record = json.loads(source.read_text(encoding='utf-8'))
+            name = record.get('provenance', {}).get('target', '').split(' (')[0].split(',')[0]
+            if name:
+                featured[slug(name)] = {'evidence': record.get('evidence_level'),
+                                        'url': f"candidates/{record.get('id', item['id'])}/"}
+    audits = []
+    for path in (root / 'docs/colab_runs').glob('*/TIER_MARKS.json'):
+        audit = json.loads(path.read_text(encoding='utf-8'))
+        if audit.get('schema') == 'cygnus.colab_tier_audit/1':
+            audits.append(audit)
+    for audit in sorted(audits, key=lambda a: (a['source_utc'], a['run'])):
+        for cid, row in audit['targets'].items():
+            tiers[slug(cid)] = {'tier': row['tier'], 'run_at': row.get('run_at'),
+                                'run': audit['run'], 'source_utc': audit['source_utc'],
+                                'blockers': row.get('blockers', [])}
+    return featured, tiers
+
+
+def map_group(target: dict, featured: dict, tiers: dict) -> str:
+    """Exclusive browsing groups; only recorded tiers receive a T label."""
+    if target['id'] in featured:
+        return 'leads'
+    tier = tiers.get(target['id'], {}).get('tier')
+    if tier in ('T0', 'T1', 'T2'):
+        return tier
+    if target.get('system') or target.get('cat') in ('bench', 'field', 'tess'):
+        return 'known'
+    return 'tested' if target.get('status') == 'analysed' else 'other'
+
+
 def build() -> None:
     (OUT / "data" / "fields").mkdir(parents=True, exist_ok=True)
     (OUT / "img").mkdir(exist_ok=True)
@@ -419,7 +463,7 @@ def build() -> None:
     anchors = {k: (v["ra_deg"], v["dec_deg"]) for k, v in res.items() if v.get("ok")}
     names = list(anchors)
     systems = planets_by_host()
-    from fetch_sky_data import EXO_HOSTS, FIELD_RADIUS, DEFAULT_RADIUS
+    from fetch_sky_data import EXO_HOSTS
 
     targets = {n: {"name": n, "id": slug(n), "ra": anchors[n][0], "dec": anchors[n][1], "resolved": res[n]["resolved_utc"],
                    "frame": res[n]["frame"], "resolver": res[n]["resolver"],
@@ -455,6 +499,7 @@ def build() -> None:
                       "patches": {}, "unshaped": [], "counts": {}}
         anchors[n] = (pos["ra_deg"], pos["dec_deg"])
     field_prov = {k: v for k, v in prov.items() if k.startswith("field_")}
+    featured, tiers = map_metadata(WT)
     out_targets = []
     for n, T in targets.items():
         T["patches"] = sorted(T["patches"].values(), key=lambda p: -(p.get("r") or p.get("w") or 0))
@@ -484,12 +529,18 @@ def build() -> None:
         st = T["counts"]
         done = any(r["status"] == "completed" for r in recs)
         T["status"] = "analysed" if done else "planned" if recs else ("retrieved" if st.get("drive_only") else ("failed" if st else "resolved"))
+        T['map_group'] = map_group(T, featured, tiers)
+        if T['id'] in featured:
+            T['dossier'] = featured[T['id']]
+        if T['id'] in tiers:
+            T['tier_audit'] = tiers[T['id']]
         out_targets.append(T)
 
     stars, consts = load_bsc()
     sky = {
         "generated_from": ["docs/tier1_pack/NAME_RESOLUTIONS.json", "docs/tier1_pack/MASTER_MANIFEST.csv",
-                           "docs/tier1_pack/RUN_CONFIG.json", "design-system/mockups/data/PROVENANCE.json"],
+                           "docs/tier1_pack/RUN_CONFIG.json", "design-system/mockups/data/PROVENANCE.json",
+                           "publish/collections/*.json", "docs/colab_runs/*/TIER_MARKS.json"],
         "provenance": {k: {kk: vv for kk, vv in v.items() if kk in ("source", "retrieved_utc", "rows", "terms", "note", "query", "endpoint")}
                        for k, v in prov.items() if not k.startswith(("field_", "fields/", "FAILED"))},
         "manifest_rows": len(rows), "unassigned": unassigned,
@@ -498,6 +549,7 @@ def build() -> None:
         "services": SVC, "stars": stars, "consts": consts, "mw": load_density(), "targets": out_targets,
     }
     (OUT / "data" / "sky.json").write_text(json.dumps(sky, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    shutil.copyfile(WT / 'src/cygnus/publish/static/sky-theme.css', OUT / 'sky-theme.css')
     np_ = sum(len(t["patches"]) for t in out_targets)
     print(f"targets {len(out_targets)}, patches {np_}, unshaped {sum(len(t['unshaped']) for t in out_targets)}, "
           f"unassigned {len(unassigned)}, stars {len(stars)}, mw cells {len(sky['mw'])}")

@@ -59,3 +59,20 @@ The page must be served over HTTP (it fetches `data/sky.json`); opening the file
 ## Checked so far
 
 Checked in a browser: whole sky, WASP-12, TRAPPIST-1, Pleiades and M44 views, renditions, the comparison viewer, the tour and night vision, at narrow and ~800 px widths. **Not yet checked:** full-width desktop, keyboard-only use, screen readers.
+
+
+## Target groups and shared look (2026-10-03)
+
+The map starts with active published leads plus known objects/reference fields.
+Targets shown adds independent T2, T1, T0, earlier-test and untiered groups;
+Show all restores the complete pool, Default view resets it. Search retains all
+targets, and a selected hidden target remains visible until its panel closes.
+Overlapping labels are suppressed without removing their markers.
+
+`build_explorer.py` reads active candidate items from published collections and
+the newest `docs/colab_runs/*/TIER_MARKS.json` per target. Tier metadata is dated
+eligibility, not confidence or completed vetting. Missing/incomplete records
+stay untiered. Existing coordinates are required; tier files never invent a
+position. Shared colours/type come from `src/cygnus/publish/static/sky-theme.css`,
+copied to ignored `explorer/sky-theme.css` during the build. Rebuild both halves
+before deploying. Grouping regression tests live in `tests/test_explorer.py`.

@@ -2,23 +2,6 @@
    The sky is always dark. Menus are quiet glass instruments over it: one surface, one border, one radius,
    small-caps labels, mono numerals. Colour is reserved for data keys (archives, states), never decoration.
    "Night vision" maps everything to deep red for dark-adapted eyes. */
-:root {
-  --sky-0: #03050a; --sky-1: #070b14;
-  --ink: #ece7de; --ink-2: #bdb6aa; --ink-3: #8b857b; --ink-4: #5f5a52;
-  --line: rgba(236, 231, 222, .10); --line-2: rgba(236, 231, 222, .18);
-  --glass: rgba(10, 13, 21, .80); --glass-2: rgba(255, 255, 255, .035); --glass-3: rgba(255, 255, 255, .07);
-  --solid: #0b0f17; --solid-2: #111623;
-  --accent: #f0c27a; --accent-ink: #1a140a;
-  --st-analysed: #ffcf7a; --st-planned: #c9a6ff; --st-retrieved: #9fd3ff; --st-failed: #ff8f8f;
-  --s-passed: #8fd6a3; --s-failed: #ff8f8f; --s-inconclusive: #f2c46b; --s-not_tested: #8b857b;
-  --svc-mast: #f2b25c; --svc-gaia: #6ad1c8; --svc-skyview: #b99cff; --svc-irsa: #ff8fa3; --svc-legacysurvey: #b6e06a;
-  --radius: 8px; --radius-s: 5px;
-  --shadow: 0 10px 30px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .04);
-  --serif: "Source Serif 4", Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
-  --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
-  color-scheme: dark;
-}
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body { margin: 0; background: var(--sky-0); color: var(--ink); font: 14.5px/1.5 var(--sans); overflow: hidden;
@@ -75,7 +58,7 @@ button { font: inherit; color: inherit; }
 .intro .counts { font: 11.5px/1.7 var(--mono); color: var(--ink-3); padding: 10px 0; margin: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .intro-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .intro[hidden] { display: none; }
-.intro button { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer;
+.intro button { background: var(--accent); color: var(--accent-on); border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer;
   font-weight: 600; font-size: 13px; transition: filter .15s; }
 .intro button:hover { filter: brightness(1.08); }
 .intro button.ghost { background: transparent; color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line-2); font-weight: 500; }
@@ -266,12 +249,35 @@ summary .state { margin-left: 6px; }
 .lb-card > .note { font-size: 12px; color: var(--ink-3); margin: 12px 0 0; max-width: 90ch; }
 
 /* ------------------------------------------------------------------ small screens */
+.target-filters { position: absolute; right: 18px; top: 18px; width: 280px; z-index: 3;
+  background: var(--glass); border: 1px solid var(--line-2); border-radius: var(--radius); box-shadow: var(--shadow);
+  backdrop-filter: blur(12px); padding: 12px 14px; max-height: calc(100% - 145px); overflow: auto; }
+.target-filters summary { cursor: pointer; font-size: 13px; color: var(--ink); }
+#visible-count { font: 11px var(--mono); color: var(--accent); margin-left: 6px; }
+#target-groups { display: grid; gap: 4px; margin-top: 12px; }
+#target-groups label { display: flex; align-items: center; gap: 8px; min-height: 29px; font-size: 12px; color: var(--ink-2); cursor: pointer; }
+#target-groups input { accent-color: var(--accent); }
+.target-filters p { font-size: 11px; color: var(--ink-3); margin: 10px 0; }
+.filter-actions { display: flex; gap: 8px; }
+.filter-actions button { border: 1px solid var(--line-2); border-radius: 999px; background: var(--glass-2); padding: 5px 10px; cursor: pointer; font-size: 12px; }
+.layers { top: auto; bottom: 18px; right: 80px; max-height: 55%; overflow: auto; }
+.rail [hidden] { display: none !important; }
+.rail .note { padding: 8px 16px; }
 @media (max-width: 760px) {
+  .mock-note { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand { order: 0; }
+  .mode { order: 1; margin-left: auto; }
+  .bar nav { order: 2; width: 100%; }
+  .intro { max-height: calc(100% - 175px); overflow: auto; }
+  .target-filters { top: auto; bottom: 112px; right: 12px; width: min(280px, calc(100% - 24px)); max-height: 55%; }
+  body.panel-open .target-filters { display: none; }
   .bar { gap: 8px; padding: 0 12px; }
   .bar nav a { padding: 12px 6px; }
+  .bar nav { max-width: 100%; overflow-x: auto; }
+  .bar nav a { white-space: nowrap; }
   .find { order: 5; width: 100%; margin: 0 0 8px; }
   .find input { width: 100%; }
-  .layers { top: auto; bottom: 64px; right: 12px; max-height: 50vh; overflow: auto; }
+  .layers { top: auto; bottom: 64px; right: 70px; max-height: 50vh; overflow: auto; }
   .rail { top: 12px; left: 12px; bottom: auto; width: auto; min-width: 190px; max-height: 55vh; }
   .rail-toggle { display: flex; align-items: center; gap: 8px; background: none; border: 0; padding: 8px 14px; font-size: 13px; color: var(--ink); cursor: pointer; width: 100%; }
   .rail-toggle::after { content: ""; margin-left: auto; width: 6px; height: 6px; border-right: 1.5px solid var(--ink-3); border-bottom: 1.5px solid var(--ink-3); transform: rotate(45deg); }

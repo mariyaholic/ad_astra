@@ -234,3 +234,12 @@ remains in force unless the user explicitly authorizes its release.
 ## Candidate correction gate (2026-09-27)
 
 Before adding a candidate item to a published collection, use the event-identity and quantitative checks in `docs/AGENT_RUNBOOK.md`. Candidate copy is generated from the canonical `publish/candidates/*.json` record; do not fix only the rendered dossier or collection blurb. A known-object self-match is a campaign `pipeline_check` with a dated rejection note and must be removed from the active candidate collection. Update the campaign collection status and call `Ledger.retire_candidate` on the local ledger so the old row is archived rather than counted active, then run `python -m cygnus.publish check` before a build. The TOI-6695.01 retraction in `campaigns/toi-6695-01/REJECTION.md` is the worked example.
+
+
+### Shared sky appearance (2026-10-03)
+
+`static/sky-theme.css` is the canonical palette for the map and repository pages;
+`static/site.css` implements the reading layouts. The explorer builder copies
+the same palette to its ignored generated bundle. Dark sky is the default;
+repository pages also offer a saved light reading theme. Keep palette metadata
+in `design-system/project/tokens.json` synchronized when changing colours.

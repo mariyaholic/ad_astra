@@ -1,6 +1,6 @@
 Ad Astra is the visual and verbal system of the Project Cygnus / Astraea public repository: a field notebook kept on an instrument console. It exists to make research records legible and to make their status impossible to misread. Every rule below serves one principle: **the design must never claim more than the evidence does.**
 
-The reference implementation is the static site in `src/cygnus/publish/` (stylesheet `static/site.css`, macros `templates/_macros.html.j2`). Token names here are the site's CSS custom property names, so `var(--ink)` means the same thing in both.
+The reference implementation is the static site in `src/cygnus/publish/` (stylesheets `static/sky-theme.css` and `static/site.css`, macros `templates/_macros.html.j2`). Token names here are the site's CSS custom property names, so `var(--ink)` means the same thing in both.
 
 ## Content fundamentals
 
@@ -27,22 +27,22 @@ The reference implementation is the static site in `src/cygnus/publish/` (styles
 
 ## Visual foundations
 
-**Colour.** Two themes built from the same roles: *Paper* (light, default) and *Console* (dark). Grounds are `bg` (page), `surface` (raised: header, panels, tables) and `surface-sunk` (recessed: table heads, code). Text is `ink`, `ink-2`, `ink-3` in descending emphasis; every text token clears 4.5:1 on all three grounds in both themes (lowest pair: `ink-3` on `surface-sunk`, 4.89:1 light / 5.76:1 dark).
+**Colour.** The sky map and repository pages share *Sky* (dark, default), with an optional *Paper* reading theme on document pages. Canonical palette: `src/cygnus/publish/static/sky-theme.css`; the explorer build copies it into its generated bundle. Grounds are `bg` (page), `surface` (raised: header, panels, tables) and `surface-sunk` (recessed: table heads, code). Text is `ink`, `ink-2`, `ink-3` in descending emphasis; secondary text is raised for readable contrast on the dark surfaces.
 
-- One accent: `accent` (plotting-ink blue) for the current-page underline, solid buttons, focus ring and route arrows; `accent-ink` for link text; `accent-wash` for hover. Nothing else is blue.
+- One accent: `accent` (warm instrument gold) for the current-page underline, solid buttons, focus ring and route arrows; `accent-ink` for link text; `accent-wash` for hover. Use the accent for navigation and focus, not evidence promotion.
 - State colours are reserved and never decorative: `pass`, `fail`, `warn`, `none`, each with its `-wash` ground. They always travel with a glyph and a word (see StateChip), so no state depends on hue. `draft` marks drafts and nothing else.
-- Neutrals are warm-grey paper and cool-grey console, chosen, not defaulted. No gradients anywhere.
+- Neutrals are warm-grey paper and cool-grey console, chosen, not defaulted. The page ground uses the map’s faint dark radial falloff.
 
 **Type.** Three roles, all system-installed faces with named preferred families first; the site loads no web fonts and makes no third-party requests.
 
-- `serif` (`page-title`, `display-hero`): the one `h1` per page. Archival, quiet, 600 weight.
+- `serif` (`page-title`, `display-hero`): the one `h1` per page. Archival, quiet, 400 weight.
 - `ui` (`heading-2`, `heading-3`, `lede`, `body`, `small`): everything read.
 - `mono` (`kicker`, `stat`, `id-title`, `data`, `chip-label`): everything *recorded* — identifiers, hashes, timestamps, labels, figures. If a string could be pasted into a query, it is mono.
 - Tabular figures everywhere (`font-feature-settings: "tnum"`). Prose max `measure` (72ch).
 
 **Space and layout.** A 4px scale `s1`–`s8`. Pages sit in `page` (1180px) with `s5` gutters (`s4` under 640px). Detail pages use `.grid-2`: main column 2fr, facts sidebar 1fr, stacked below 900px. Long documents use `.doc`: a 230px sticky table of contents beside the text. Sections are separated by `s7` and a heading row with a `rule` hairline, not by boxes.
 
-**Lines, not shadows.** Structure is drawn with hairlines: `rule` between regions, `grid` inside tables, `rule-strong` for outlines and the ruler. Corners are nearly square — `radius` (3px) on panels and controls, `radius-tight` (2px) on badges and chips. The only shadow is `focus`.
+**Console surfaces.** Structure is drawn with hairlines: `rule` between regions, `grid` inside tables, `rule-strong` for outlines and the ruler. Corners are nearly square — `radius` (8px) on panels and controls, `radius-tight` (2px) on badges and chips. Panels share the map’s quiet shadow; avoid nested panels.
 
 **Motifs** — each has exactly one meaning:
 
@@ -57,7 +57,7 @@ The reference implementation is the static site in `src/cygnus/publish/` (styles
 
 **States and focus.** Hover: `accent-wash` ground or a thicker underline. Pressed chip: `ink` fill with `bg` text. Keyboard focus: the `focus` ring (2px `surface` gap + 2px `accent`) on every interactive element. First tab stop on every page is "Skip to content".
 
-**Theming mechanics.** Light tokens on `:root`; dark under `@media (prefers-color-scheme: dark)` guarded by `:root:not([data-theme="light"])`, and again under `:root[data-theme="dark"]`. The theme toggle writes `data-theme` and remembers it per browser.
+**Theming mechanics.** Shared dark tokens apply by default, independent of OS appearance. The repository reading-theme toggle sets `data-theme="light"` or `"dark"` and remembers the choice. The map retains its dark sky and separate night-vision mode.
 
 ## Iconography
 
@@ -92,3 +92,21 @@ The brand mark is the Northern Cross (see Logos): five square stars on two hairl
 3. Main column: sections with `heading-2` rows; DataTables, MetaLists, Steps, StateBars.
 4. Sidebar Panels: record facts, citation, files, RelatedList, EvidenceLadder.
 5. EmptyState wherever a section has nothing — with the real count and the condition under which it fills.
+
+
+## Sky continuity — 2026-10-03
+
+Audience: readers following an archival search from map to research records.
+Concept: a quiet observing instrument with a readable field notebook attached.
+Three words: nocturnal, warm, precise.
+References: the existing Cygnus Sky console; printed astronomical observing logs.
+Density: dense instruments on the map, measured prose on detail pages.
+Forbidden: an unrelated light dashboard, confidence implied by colour or tier.
+
+The circular coordinate mark, warm gold links, serif titles and dark surfaces
+continue across campaigns, candidates, log, methods, repository and documents.
+Map target groups are exclusive browsing groups: active published leads first,
+then audited T2/T1/T0, known objects/reference fields, earlier tests/nulls, and
+untiered targets. Default view selects leads and references. Search and deep
+links can temporarily reveal a selected target from any group. Labels avoid
+collisions; hidden targets cannot be picked, toured or fetch map overlays.

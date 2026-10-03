@@ -1,5 +1,15 @@
 # Workstack
 
+## Shared sky appearance and target groups — 2026-10-03
+
+- Implemented shared dark sky palette, gold coordinate mark/navigation, serif headings and console surfaces across the generated public pages. Optional light reading theme remains available.
+- Default map: 19/1294 positioned targets, comprising 3 active published Unverified leads and 16 known objects/reference fields. Separate toggles retain T2 30, T1 1, T0 68, earlier tests/nulls 273 and untiered pool 903.
+- Active lead membership follows public candidate manifests; audited tiers follow the newest dated source export per target, including demotions. Missing/incomplete rows stay untiered. No evidence level or measurement changed.
+- Filters affect markers, picking, footprints, map image/source retrieval, rail and tour. Full-catalogue search/links can temporarily reveal a selected hidden target; closing restores the filtered view. Overlapping marker labels are suppressed.
+- Verified locally: full suite 697 passed, 37 deselected, existing All-NaN warning. Targeted publication/grouping suite 59 passed; changed Python Ruff and JavaScript syntax checks pass. Publication dry build: 574 pages/581 files.
+- Browser checks: desktop 1440px and phone 375px; T2 adds 30 to the default 19; Show all returns 1294; reset returns 19; empty selection is explicit; Enter finds hidden TOI-4280.01 and displays earned T1/run_at T0, then close restores 19. Reading theme toggle works; campaign/status phone pages have no horizontal page overflow. No console errors observed during those interactions.
+- Publishing uses the existing site-branch workflow. Palette source is `src/cygnus/publish/static/sky-theme.css`; explorer copy is generated and ignored. Rebuild both site and explorer before the whole-bundle leak scan; do not create another publisher or scheduler.
+
 ## Colab tier sync — 2026-10-03
 
 - Implemented: bounded manifest-verified tier sync, separate tier marks, managed STATUS updates, refreshed notebook checkpoints.
