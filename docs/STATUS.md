@@ -14,7 +14,7 @@
 <!-- cygnus:colab-sync:p02-b02-2026-10-02:end -->
 
 
-Last updated: 2026-10-03 (Asia/Manila). Read after `AGENTS.md`.
+Last updated: 2026-10-08 (Asia/Manila). Read after `AGENTS.md`.
 
 ## Current state
 
@@ -37,6 +37,14 @@ between chats by these notes.
 
 ## Batch state and next work
 
+- Reusable T2 follow-up notebook built: `notebooks/cygnus_higher_tiers_colab.ipynb`.
+  It discovers first-stage exports, derives eligible targets and keeps
+  source/revision-bound resume state; no manually copied target list. The
+  initial shipped-cell and sync tests passed, but independent review found four
+  integrity/completion gaps. Corrections and regression checks now pass, and
+  focused independent re-review cleared the four gaps and stale closure receipt.
+  Real Colab/live-archive execution remains user-run and has not been claimed.
+  [Operation and limits](HIGHER_TIERS_COLAB.md).
 - `p02-b02-2026-10-02`: 99/100 saved checkpoints, executed at T0. Derived earned
   tiers are 68 T0, one T1 and 30 T2; one target is missing. These marks audit
   manifest-verified metadata, not the full bulk products or scientific conclusions.
@@ -103,6 +111,12 @@ repeat them merely because an older note lists them as open.
 
 ## Known limits
 
+- The reviewed T2 notebook is delivered as a local attachment. Its Drive kit
+  was listed under `Cygnus/batches/higher-tiers-t2-v1-c3f37cbbb62b/`, but a
+  shared rclone-client quota error (HTTP 403 `RATE_LIMIT_EXCEEDED`) blocked
+  byte read-back and LOCATION registration. Treat that cloud copy as uncertified
+  until verified; the storage index records partial staging. This does not claim
+  a Colab mount or live archive failure.
 - Evidence promotion requires scientific review; software tests and tier gating
   do not validate astrophysical interpretations.
 - Empirical null exceedances retain finite sample resolution and dependence;

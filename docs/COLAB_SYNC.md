@@ -40,6 +40,15 @@ containing `cygnus.colab_sync`; a notebook pinned to an older commit does not
 receive it automatically. A T0 run that earns T2 still needs a subsequent T2
 execution; the checkpoint refresh does not run pixel vetting.
 
+## Reusable T2 follow-up
+
+`notebooks/cygnus_higher_tiers_colab.ipynb` consumes finalized exports of the
+first-stage lead notebook, automatically re-derives earned T2 eligibility and
+runs native vetting plus event-null/injection tests on the saved event selection.
+Its source/revision-bound checkpoints and exports use the same audit/sync
+interfaces below. No manual target list or new scheduler is needed. Read
+[HIGHER_TIERS_COLAB.md](HIGHER_TIERS_COLAB.md) for operation, limits and validation.
+
 ## Canonical scheduler — agents must reuse it
 
 **Windows Task Scheduler owns this workflow.** The one canonical task is

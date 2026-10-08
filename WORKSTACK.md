@@ -1,5 +1,15 @@
 # Workstack
 
+## Reusable higher-tier Colab notebook — 2026-10-08
+
+- Built `notebooks/cygnus_higher_tiers_colab.ipynb` from reviewable source cells and a deterministic builder. It consumes first-stage exports, derives earned T2 targets and uses source/revision-bound resume state; no manual per-batch target list.
+- Existing native vetting and event-null/injection adapters are reused with exact first-stage product/event selection. T3/T4 and evidence promotion are not executed, and the frozen specialist leads stay excluded.
+- Corrected notebook suite: 35 passed, one native empty-legend plotting warning. Parent guard/sync checks: 60 passed, the already-exercised integration deliberately deselected. Ruff, diff checks, all six shipped-cell compilations and helper/source equality passed. Cached manifest-verified p02-b02 source selection: 30 eligible, 70 excluded, all 100 requested rows accounted, 99 checkpointed. This is not a live T2 science run.
+- Independent review found four integrity/completion defects that initial passing fixtures did not cover: missing digest pinning, no-fit completion, corrupted checkpoint export, and mutable done-tier assertions. Red/green regressions and corrections address all four plus stale closure receipts; focused independent re-review passed with no remaining findings in that scope. Corrected revision `t2-v1-c3f37cbbb62b`, notebook SHA-256 `04e2009fd47b3e6741017817224df4030eac886d33bc3c252c2a0dd453b38d5a`.
+- Full-project offline gate exceeded the 180-second local budget; broader native/setup gate exceeded 90 seconds. Neither was passed. Colab mount/install and live archives remain user-run. The build/staging phase performed no commit, remote compute, publication, companion-ledger merge or new scheduler; commit/push were subsequently authorized by the user.
+- Delivery: the reviewed local notebook is provided directly. Drive listed the staged kit under `Cygnus/batches/higher-tiers-t2-v1-c3f37cbbb62b/`, but remote-byte verification and LOCATION registration were blocked by shared-client HTTP 403 `RATE_LIMIT_EXCEEDED`, including a bounded retry. The cloud copy is not checksum certified; the storage index records partial staging. No authorization change or cloud compute was attempted.
+- Operation and maintenance: [docs/HIGHER_TIERS_COLAB.md](docs/HIGHER_TIERS_COLAB.md). Use the existing `\\Cygnus-Colab-Sync` task for eventual exports.
+
 ## Shared sky appearance and target groups — 2026-10-03
 
 - Implemented shared dark sky palette, gold coordinate mark/navigation, serif headings and console surfaces across the generated public pages. Optional light reading theme remains available.

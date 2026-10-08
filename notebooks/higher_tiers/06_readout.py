@@ -1,0 +1,10 @@
+# This cell can be rerun after a kernel restart once configuration/setup/helpers/discovery were rerun.
+open_run(RUN_DIR, CONTRACT)
+READOUT = export_run(RUN_DIR, CONTRACT, SOURCE_AUDIT, ELIGIBLE, EXCLUDED, REPO_DIR)
+print(json.dumps(READOUT, indent=2))
+print('Outputs:', 'Cygnus/colab_runs/' + RUN_ID)
+print('Read READOUT.md, campaign REPORT.md/VETTING.md, event_null.json, SOURCE_LINK.json and errors/.')
+print('Workstation: python -m cygnus.colab_sync --run ' + RUN_ID + ' --update-notes')
+print('The existing Cygnus-Colab-Sync scheduler also discovers this export; no extra scheduled task is needed.')
+print('Next batch: finish/export stage one, then Run all here again. The source digest gives it separate resume state.')
+print('T3/T4, primary literature, PRF/spectral/RV work and any evidence promotion remain separate reviewed work.')
