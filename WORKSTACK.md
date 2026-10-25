@@ -1,5 +1,12 @@
 # Workstack
 
+## Three specialist leads advanced — 2026-10-11
+
+- Ran separately attributable follow-up [reports/lead-advancement-2026-10-11/REPORT.md](reports/lead-advancement-2026-10-11/REPORT.md), reusing native Cygnus scientific methods.24 exact source/archive queries and known-answer controls answered; eight retained/reference event rows plus S107 pass configured local event-null/injection tests. Known3500.01 sibling ephemeris excluded; rejected224/S106 and3500/S101 excluded. No blind-search significance claim.
+- Retrieved and verified newly available224/S107 official LC/TPF (52.7MB). Dip persists; both aperture/block choices fail source-localization diagnostic. Retrieved22 HIRES CCD3/QA browse products (4.24MB) for2666: February red QA passes and line-profile double minimum is descriptive, May red QA fails. Recovered Paredes2022 CHIRON source:9epochs, RV MAD23.533km/s, NO ORBIT; no usable numerical componentRV series extracted. Representative previously restricted3500 HARPS/FEROS inputs remain401.
+- All three retain conservative T2 and Unverified-lead interpretations. Frozen campaigns, canonical candidates, publication and ledger remain untouched. Current gate views, per-lead notes, input/source hashes, environment and aggregate sky record retained. Scientific work still open: source/systematics covariance for224/3500, calibrated eclipse-linked component orbit for2666, and original-search calibration. Do not count same-pixel reduction as independent sky or archive browseQA as RV precision.
+- Verified: full suite735 passed/37deselected/two warnings in183.98seconds; separate adapter/native controls27 passed; fatal-error lint/diff checks passed; publication check dry build574pages/581public files passed without deployment. Frozen campaign/spec/candidate paths unchanged. New-input retention:26files read back SHA256-identical under `Cygnus/batches/lead-advancement-2026-10-11/`, storage index/INPUT_LOCATION receipt retained.
+
 ## Cloud Tier 2 batch — 2026-10-10
 
 - Continued the shipped notebook through the Codex in-app browser on a CPU Colab runtime after explicit Drive approval. Two verified local checkpoints were reused; all 28 remaining targets were attempted automatically. Final total: 19/30 checkpoints, 17 T2, two closed routes (TOI-2191.01 and TOI-4880.01), 11 incomplete event-coverage guard failures.

@@ -30,7 +30,14 @@ TOI-2666.01 and TOI-3500.02. No established discovery, component orbit or
 proved planet is claimed. TOI-6695.01 and TOI-7610.01 remain retracted pipeline
 checks; their rejection notes and original measurements are preserved.
 Canonical candidate records are `publish/candidates/*.json`. The latest bounded
-follow-up and validation are in [the 2026-09-30 packet](../reports/lead-resolution-2026-09-30/VALIDATION.md).
+follow-up and validation of the specialist spectral work are in [the 2026-09-30 packet](../reports/lead-resolution-2026-09-30/VALIDATION.md).
+The newer [2026-10-11 advancement packet](../reports/lead-advancement-2026-10-11/REPORT.md)
+completes native event-null/injection checks on retained epochs and adds official
+S107 SPOC pixels plus a public HIRES red-order/QA pilot. All three remain
+conservative T2 and Unverified leads: source/orbit gates are unresolved.
+S107 official pixel localization fails the new diagnostic; February2021 HIRES
+red orders pass browse QA but May red orders fail; the recovered CHIRON thesis
+explicitly has no orbit. Original frozen campaigns remain historical comparisons.
 
 The recovered spectrum rerun accounted for 31 unique cached inputs (29 profiles
 and two retained failures). Relative CCF comparisons reached 10.9458 / 10.8503
@@ -43,6 +50,13 @@ Scientific proof/disproof remains unfinished; no research process is implied
 between chats by these notes.
 
 ## Batch state and next work
+
+- Specialist advancement 2026-10-11: exact source rows refreshed; eight retained/reference
+  event rows plus S107 conditional epoch pass configured local null/injection tests.
+  These are not original-search FAP calibration. Current-check records and bounded
+  archival findings are in the new advancement packet. Next: resolve224/3500 source
+  assignment and obtain precision-validated2666 component series; do not promote
+  a browse spectrum, failed-QA epoch or a periodogram label into an orbit.
 
 - Cloud higher-tier batch on 2026-10-10 finished through the Codex browser:
   two verified local checkpoints reused, all 28 remaining targets attempted.

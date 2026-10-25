@@ -1,0 +1,266 @@
+{
+  "toi-224-01": {
+    "tier": "T2",
+    "decision": {
+      "tier": "T2",
+      "allowed": [
+        "target_queue",
+        "fetch_products",
+        "calibrate_screen",
+        "known_signal_recovery",
+        "residual_screen",
+        "prior_art (event-time gate)",
+        "period_aliases",
+        "event_census",
+        "analysis.events.box_measure/null_exceedance",
+        "stellar_context",
+        "multi.nss + archives.spectroscopy.gaia_exact_source",
+        "moving_objects",
+        "alias_cross_instrument",
+        "campaign vet (TPF difference image)",
+        "analysis.pixels",
+        "analysis.localize.block_bootstrap_offset",
+        "FFI/TESScut cutout",
+        "analysis.events.injection_recovery/classify_aliases"
+      ],
+      "next_tier": "T3",
+      "blockers": [
+        "localization failed on defining events ['E1', 'E2', 'E3'] (T2 vet must pass first)",
+        "calibrated null inconclusive: needs a passed result before heavy tools"
+      ],
+      "reason": "outcome=lead, evidence=Unverified lead",
+      "cost": "medium",
+      "needs_approval": null,
+      "localization": "failed",
+      "defining_events": [
+        "E1",
+        "E2",
+        "E3"
+      ]
+    },
+    "comparison": "Historical baseline plus fresh native null/injection and unresolved localization. Canonical record untouched.",
+    "current_checks": [
+      {
+        "name": "Event-epoch null exceedance (k/N)",
+        "state": "passed",
+        "note": "BJD 2458365.844: 0/923 event-free windows at least as deep; resolution 1/923, not a probability of zero; BJD 2459092.180: 0/770 event-free windows at least as deep; resolution 1/770, not a probability of zero; BJD 2460197.472: 0/821 event-free windows at least as deep; resolution 1/821, not a probability of zero; BJD 2460923.795: 0/873 event-free windows at least as deep; resolution 1/873, not a probability of zero"
+      },
+      {
+        "name": "Event-depth injection-recovery",
+        "state": "passed",
+        "note": "BJD 2458365.844: 189/189 recovered; BJD 2459092.180: 154/154 recovered; BJD 2460197.472: 159/159 recovered; BJD 2460923.795: 178/178 recovered"
+      },
+      {
+        "name": "Independent cached TPF localization (2026-10-11)",
+        "state": "failed",
+        "note": "Two apertures and block lengths3/10; same pixels, descriptive offsets; no resolved component assignment or independent-sky confirmation."
+      }
+    ],
+    "spec": {
+      "campaign_id": "toi-224-01-advance-2026-10-11",
+      "outputs": "reports/lead-advancement-2026-10-11/toi-224-01",
+      "targets": [
+        {
+          "name": "TOI-224.01",
+          "tic": 70797900,
+          "ra_deg": 1.977969,
+          "dec_deg": -29.979603,
+          "frame": "ICRS",
+          "epoch": "J2015.5",
+          "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)",
+          "t0_bjd": 2458365.843684,
+          "period_days": 705.5844658,
+          "depth_ppm": 101204.8459939,
+          "duration_h": 1.24729878,
+          "tmag": 11.1427,
+          "catalogue_row_updated": "2026-02-02 16:00:02",
+          "source": "archive_refresh.json exact TOI row; frozen events retained as fixed test hypotheses"
+        }
+      ],
+      "random_seed": 20261011,
+      "veto": {
+        "kind": "ephemeris",
+        "period_days": 705.5844658,
+        "t0_bjd": 2458365.843684,
+        "veto_phase": 0.02,
+        "source_toi": "224.01"
+      },
+      "budget": "Completed bounded2026-10-11 follow-up: cached inputs,52.7MB newTESS,4.24MB HIRES browse pilot; no extra bulk transfer",
+      "discriminating_question": "Which component produces the retained dip, and can a validated component orbit explain its epochs?"
+    }
+  },
+  "toi-2666-01": {
+    "tier": "T2",
+    "decision": {
+      "tier": "T2",
+      "allowed": [
+        "target_queue",
+        "fetch_products",
+        "calibrate_screen",
+        "known_signal_recovery",
+        "residual_screen",
+        "prior_art (event-time gate)",
+        "period_aliases",
+        "event_census",
+        "analysis.events.box_measure/null_exceedance",
+        "stellar_context",
+        "multi.nss + archives.spectroscopy.gaia_exact_source",
+        "moving_objects",
+        "alias_cross_instrument",
+        "campaign vet (TPF difference image)",
+        "analysis.pixels",
+        "analysis.localize.block_bootstrap_offset",
+        "FFI/TESScut cutout",
+        "analysis.events.injection_recovery/classify_aliases"
+      ],
+      "next_tier": "T3",
+      "blockers": [
+        "localization inconclusive on defining events ['E1'] (T2 vet must pass first)"
+      ],
+      "reason": "outcome=lead, evidence=Unverified lead",
+      "cost": "medium",
+      "needs_approval": null,
+      "localization": "inconclusive",
+      "defining_events": [
+        "E1"
+      ]
+    },
+    "comparison": "Historical baseline plus fresh native null/injection and unresolved localization. Canonical record untouched.",
+    "current_checks": [
+      {
+        "name": "Event-epoch null exceedance (k/N)",
+        "state": "passed",
+        "note": "BJD 2459259.158: 0/718 event-free windows at least as deep; resolution 1/718, not a probability of zero; BJD 2461049.164: 0/620 event-free windows at least as deep; resolution 1/620, not a probability of zero"
+      },
+      {
+        "name": "Event-depth injection-recovery",
+        "state": "passed",
+        "note": "BJD 2459259.158: 143/143 recovered; BJD 2461049.164: 121/121 recovered"
+      },
+      {
+        "name": "Independent cached TPF localization (2026-10-11)",
+        "state": "inconclusive",
+        "note": "Two apertures and block lengths3/10; same pixels, descriptive offsets; no resolved component assignment or independent-sky confirmation."
+      }
+    ],
+    "spec": {
+      "campaign_id": "toi-2666-01-advance-2026-10-11",
+      "outputs": "reports/lead-advancement-2026-10-11/toi-2666-01",
+      "targets": [
+        {
+          "name": "TOI-2666.01",
+          "tic": 170889511,
+          "ra_deg": 139.480865,
+          "dec_deg": -3.387525,
+          "frame": "ICRS",
+          "epoch": "J2015.5",
+          "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)",
+          "t0_bjd": 2459259.141383,
+          "period_days": null,
+          "depth_ppm": 22040.0,
+          "duration_h": 1.156,
+          "tmag": 6.9887,
+          "catalogue_row_updated": "2022-04-19 12:02:07",
+          "source": "archive_refresh.json exact TOI row; frozen events retained as fixed test hypotheses"
+        }
+      ],
+      "random_seed": 20261011,
+      "veto": {
+        "kind": "single_epoch",
+        "t0_bjd": 2459259.141383,
+        "veto_hours": 4.0,
+        "source_toi": "2666.01"
+      },
+      "budget": "Completed bounded2026-10-11 follow-up: cached inputs,52.7MB newTESS,4.24MB HIRES browse pilot; no extra bulk transfer",
+      "discriminating_question": "Which component produces the retained dip, and can a validated component orbit explain its epochs?"
+    }
+  },
+  "toi-3500-02": {
+    "tier": "T2",
+    "decision": {
+      "tier": "T2",
+      "allowed": [
+        "target_queue",
+        "fetch_products",
+        "calibrate_screen",
+        "known_signal_recovery",
+        "residual_screen",
+        "prior_art (event-time gate)",
+        "period_aliases",
+        "event_census",
+        "analysis.events.box_measure/null_exceedance",
+        "stellar_context",
+        "multi.nss + archives.spectroscopy.gaia_exact_source",
+        "moving_objects",
+        "alias_cross_instrument",
+        "campaign vet (TPF difference image)",
+        "analysis.pixels",
+        "analysis.localize.block_bootstrap_offset",
+        "FFI/TESScut cutout",
+        "analysis.events.injection_recovery/classify_aliases"
+      ],
+      "next_tier": "T3",
+      "blockers": [
+        "localization failed on defining events ['E1'] (T2 vet must pass first)",
+        "blend census not passed"
+      ],
+      "reason": "outcome=lead, evidence=Unverified lead",
+      "cost": "medium",
+      "needs_approval": null,
+      "localization": "failed",
+      "defining_events": [
+        "E1"
+      ]
+    },
+    "comparison": "Historical baseline plus fresh native null/injection and unresolved localization. Canonical record untouched.",
+    "current_checks": [
+      {
+        "name": "Event-epoch null exceedance (k/N)",
+        "state": "passed",
+        "note": "BJD 2460056.696: 0/926 event-free windows at least as deep; resolution 1/926, not a probability of zero; BJD 2460757.320: 0/954 event-free windows at least as deep; resolution 1/954, not a probability of zero"
+      },
+      {
+        "name": "Event-depth injection-recovery",
+        "state": "passed",
+        "note": "BJD 2460056.696: 191/191 recovered; BJD 2460757.320: 193/193 recovered"
+      },
+      {
+        "name": "Independent cached TPF localization (2026-10-11)",
+        "state": "inconclusive",
+        "note": "Two apertures and block lengths3/10; same pixels, descriptive offsets; no resolved component assignment or independent-sky confirmation."
+      }
+    ],
+    "spec": {
+      "campaign_id": "toi-3500-02-advance-2026-10-11",
+      "outputs": "reports/lead-advancement-2026-10-11/toi-3500-02",
+      "targets": [
+        {
+          "name": "TOI-3500.02",
+          "tic": 443666343,
+          "ra_deg": 186.816884,
+          "dec_deg": -29.832996,
+          "frame": "ICRS",
+          "epoch": "J2015.5",
+          "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)",
+          "t0_bjd": 2460056.706283,
+          "period_days": null,
+          "depth_ppm": 8094.9889377,
+          "duration_h": 7.9079384,
+          "tmag": 10.8298,
+          "catalogue_row_updated": "2025-07-22 12:04:25",
+          "source": "archive_refresh.json exact TOI row; frozen events retained as fixed test hypotheses"
+        }
+      ],
+      "random_seed": 20261011,
+      "veto": {
+        "kind": "ephemeris",
+        "period_days": 7.3436151,
+        "t0_bjd": 2459315.357469,
+        "veto_phase": 0.02,
+        "source_toi": "3500.01"
+      },
+      "budget": "Completed bounded2026-10-11 follow-up: cached inputs,52.7MB newTESS,4.24MB HIRES browse pilot; no extra bulk transfer",
+      "discriminating_question": "Which component produces the retained dip, and can a validated component orbit explain its epochs?"
+    }
+  }
+}

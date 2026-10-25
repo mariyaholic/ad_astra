@@ -1,0 +1,248 @@
+{
+  "prediction_bjd_tdb": 2461271.1726396587,
+  "prediction_source": "historical conditional31.57966184d timing family; not a solved orbit",
+  "same_epoch_as_prior_ffi": true,
+  "sensitivity_trials": 9,
+  "measurements": [
+    {
+      "shift_days": -0.02,
+      "degree": 1,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 64707.05511577996,
+        "coverage": 0.9888285839339118,
+        "n_event": 37,
+        "n_flank": 1042,
+        "residual_rms_ppm": 8886.53567463721
+      }
+    },
+    {
+      "shift_days": 0.0,
+      "degree": 1,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 73024.26683736008,
+        "coverage": 0.9888285839339118,
+        "n_event": 37,
+        "n_flank": 1042,
+        "residual_rms_ppm": 6410.683868881439
+      }
+    },
+    {
+      "shift_days": 0.02,
+      "degree": 1,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 39664.944251836816,
+        "coverage": 1.0155536807969905,
+        "n_event": 38,
+        "n_flank": 1041,
+        "residual_rms_ppm": 12841.17200929277
+      }
+    },
+    {
+      "shift_days": -0.02,
+      "degree": 2,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 63972.53470909323,
+        "coverage": 0.9888285839339118,
+        "n_event": 37,
+        "n_flank": 1042,
+        "residual_rms_ppm": 8868.658912653242
+      }
+    },
+    {
+      "shift_days": 0.0,
+      "degree": 2,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 72574.07697184314,
+        "coverage": 0.9888285839339118,
+        "n_event": 37,
+        "n_flank": 1042,
+        "residual_rms_ppm": 6400.620811842488
+      }
+    },
+    {
+      "shift_days": 0.02,
+      "degree": 2,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 37650.57384299403,
+        "coverage": 1.0155536807969905,
+        "n_event": 38,
+        "n_flank": 1041,
+        "residual_rms_ppm": 12745.528665933998
+      }
+    },
+    {
+      "shift_days": -0.02,
+      "degree": 3,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 63968.42131510132,
+        "coverage": 0.9888285839339118,
+        "n_event": 37,
+        "n_flank": 1042,
+        "residual_rms_ppm": 8801.71974578157
+      }
+    },
+    {
+      "shift_days": 0.0,
+      "degree": 3,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 72576.89261563879,
+        "coverage": 0.9888285839339118,
+        "n_event": 37,
+        "n_flank": 1042,
+        "residual_rms_ppm": 6358.258731161373
+      }
+    },
+    {
+      "shift_days": 0.02,
+      "degree": 3,
+      "measurement": {
+        "state": "measured",
+        "depth_ppm": 37650.6224219063,
+        "coverage": 1.0155536807969905,
+        "n_event": 38,
+        "n_flank": 1041,
+        "residual_rms_ppm": 12740.280739031557
+      }
+    }
+  ],
+  "native_null": {
+    "events": [
+      {
+        "event_bjd": 2461271.1726396587,
+        "product": "tess2026221103959-s0107-0000000070797900-0309-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 72574.07697184314,
+          "coverage": 0.9888285839339118,
+          "n_event": 37,
+          "n_flank": 1042,
+          "residual_rms_ppm": 6400.620811842488
+        },
+        "null": {
+          "n_drawn": 1000,
+          "n_covered": 602,
+          "n_exceed": 0,
+          "resolution": 0.0016611295681063123,
+          "note": "0/602 event-free windows at least as deep; resolution 1/602, not a probability of zero",
+          "state": "passed",
+          "k": 0,
+          "n": 602,
+          "fraction": 0.0,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 129,
+          "n_recovered": 129,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 1.0,
+          "state": "passed"
+        }
+      }
+    ],
+    "file": "reports/lead-advancement-2026-10-11/toi-224-s107/event_null.json"
+  },
+  "native_checks": {
+    "Event-epoch null exceedance (k/N)": {
+      "state": "passed",
+      "note": "BJD 2461271.173: 0/602 event-free windows at least as deep; resolution 1/602, not a probability of zero",
+      "step": null
+    },
+    "Event-depth injection-recovery": {
+      "state": "passed",
+      "note": "BJD 2461271.173: 129/129 recovered",
+      "step": null
+    }
+  },
+  "localization": [
+    {
+      "aperture": "pipeline",
+      "result": {
+        "state": "failed_localization",
+        "offset_pix": [
+          -0.019730141826948433,
+          0.007889611441639133
+        ],
+        "distance_pix": 0.021249105044955263,
+        "bootstrap_sigma_pix": [
+          0.0031468145419844377,
+          0.002582884353707783
+        ],
+        "offset_over_bootstrap_sigma": 5.219518843866574,
+        "n_valid": 300,
+        "block": 3,
+        "note": "'passed' is never returned: this test cannot prove localization"
+      },
+      "distance_arcsec_approx": 0.4462312059440605
+    },
+    {
+      "aperture": "pipeline",
+      "result": {
+        "state": "failed_localization",
+        "offset_pix": [
+          -0.019730141826948433,
+          0.007889611441639133
+        ],
+        "distance_pix": 0.021249105044955263,
+        "bootstrap_sigma_pix": [
+          0.0018805420504652735,
+          0.0034827577567650477
+        ],
+        "offset_over_bootstrap_sigma": 5.368599764141768,
+        "n_valid": 300,
+        "block": 10,
+        "note": "'passed' is never returned: this test cannot prove localization"
+      },
+      "distance_arcsec_approx": 0.4462312059440605
+    },
+    {
+      "aperture": "dilated",
+      "result": {
+        "state": "failed_localization",
+        "offset_pix": [
+          -0.03135775881745495,
+          0.013066292340185193
+        ],
+        "distance_pix": 0.03397112058164782,
+        "bootstrap_sigma_pix": [
+          0.00416069664595062,
+          0.00449223372249903
+        ],
+        "offset_over_bootstrap_sigma": 5.548085111300069,
+        "n_valid": 300,
+        "block": 3,
+        "note": "'passed' is never returned: this test cannot prove localization"
+      },
+      "distance_arcsec_approx": 0.7133935322146042
+    },
+    {
+      "aperture": "dilated",
+      "result": {
+        "state": "failed_localization",
+        "offset_pix": [
+          -0.03135775881745495,
+          0.013066292340185193
+        ],
+        "distance_pix": 0.03397112058164782,
+        "bootstrap_sigma_pix": [
+          0.0020595607213802335,
+          0.005891199406527949
+        ],
+        "offset_over_bootstrap_sigma": 5.443361486123277,
+        "n_valid": 300,
+        "block": 10,
+        "note": "'passed' is never returned: this test cannot prove localization"
+      },
+      "distance_arcsec_approx": 0.7133935322146042
+    }
+  ],
+  "caveat": "same sky pixels, independent reduction; selection-touched null diagnostics; no component assignment or search-wide FAP"
+}

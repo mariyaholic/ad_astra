@@ -1,0 +1,13 @@
+# Search log — three-lead advancement, 2026-10-11
+
+Targets: exact TIC70797900/TOI224.01; TIC170889511/TOI2666.01; TIC443666343/TOI3500.02, including sibling3500.01. No new blind sky search or frozen-campaign rescreen. Historical rejected epochs224/S106 and3500/S101 are excluded.
+
+24 exact TOI/GaiaDR3/NSS/MAST/TESScut metadata queries answered and MAST control answered (50rows). ESO named-object selections0/2/53; KOA coordinate selections0/3/0, exact2666-name0; both known-answer controls answered. Exact selection strings, footprints, product IDs and UTC query timestamps are saved in archive_refresh.json, rv_name_archive.json, koa_hires_archive.json. Empty selections are not comprehensive archive absence. Primary-literature selections/access failures are recorded in PRIOR_ART_REFRESH.md; a later direct thesis download succeeded and is separately documented.
+
+Eight retained/reference LC event rows underwent native event-null/injection tests; one conditional S107 row underwent the same test in a newly retrieved official product. Counts are in REPORT.md/event_null_summary.json/S107_TESTS.json. No original-search FAP calibration was claimed. Two apertures ×two block lengths per source epoch tested localization; failed and inconclusive results were retained. Same-pixel reductions were never counted as independent sky.
+
+S107 LC/TPF screened52,701,120bytes, both downloaded and verified. Three exact HIRES IDs queried through the documented Level1-list route;592 listed files for2021February. Pilot filtered to22 CCD3 flux/QA files,4,243,380bytes, omitting unrelated/bulk products. February red QA passed; May red QA failed and Ca-I order2 lacked extracted flux. Three initial wrong-endpoint failures are operational history, not archive absence; the corrected route retrieved products successfully. One formerly restricted ESO example per instrument (HARPS,FEROS) re-probed and both remained401. No repeated unauthorized transfer or login attempt.
+
+Primary Paredes2022 thesis retrieved25,279,625bytes; Fig157 identity, CHIRON variability and NO ORBIT verified visually and by text. No numerical component-RV epoch table or eclipse-linked ephemeris recovered. The25.6d periodogram label remains a non-significant diagnostic. The February HIRES double profile is descriptive, not a calibrated RV/companion mass.
+
+Unsearched/uncompleted: exhaustive ADS/ExoFOP/individual-TTV audit; all NOIRLab CHIRON raw frames and calibrations; full raw-HIRES instrument-specific reduction; failed May spectra repair; inaccessible ESO products; resolved A/B photometry; calibrated empirical source PRF/systematics covariance; new observer data. No promotion, publication, canonical record overwrite, ledger merge or observer contact.
