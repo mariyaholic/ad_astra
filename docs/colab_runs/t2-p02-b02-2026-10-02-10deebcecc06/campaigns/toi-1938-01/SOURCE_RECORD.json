@@ -1,0 +1,172 @@
+{
+  "schema": "cygnus.sky_record/1",
+  "id": "toi-1938-01",
+  "title": "Known-object test, TOI-1938.01",
+  "kind": "known-object test",
+  "status": "completed",
+  "outcome": "lead",
+  "evidence": "Unverified lead",
+  "date": "2026-10-02",
+  "summary": "Known-object test on TOI-1938.01: positive control on the catalogued transit(s), calibrated screen for further dips, catalogue cross-match. Runner: Calibration on each light curve (sign-flip null, injection–recovery): k* 3, ≤2.5, ≤2.5, ≤2.5; at the declared k = 5 the screen recovers ≥90% of 4-h dips only from depth 2%, 2%, 2%, 2% (completeness for 2000 ppm: 0%, 0%, 0%, 0%). The null result excludes only dips deeper than that. Positive control: catalogued transit gap, not recovered, partial, recovered (9 covered epochs). Residual screen: 422 threshold entries outside the known-signal veto across 4 light curve(s), forming 225 distinct event(s), 3 persistent in SAP and PDCSAP at two or more baselines. Repeat candidate: a persistent event matching the catalogued depth at BJD 2460075.1009 (ΔT 729.03 d); 7 period aliases remain. Unverified lead until vetted.",
+  "spec": "campaigns/toi-1938-01.yaml",
+  "report": "campaigns/toi-1938-01/REPORT.md",
+  "search_log": "campaigns/toi-1938-01/SEARCH_LOG.md",
+  "targets": [
+    {
+      "name": "TOI-1938.01",
+      "ra_deg": 219.389377,
+      "dec_deg": -42.0294,
+      "frame": "ICRS",
+      "epoch": "J2015.5",
+      "position_source": "NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified reports/position-epoch-audit-01)"
+    }
+  ],
+  "products": [
+    {
+      "id": "tess2021118034608-s0038-0000000128449971-0209-s_lc.fits",
+      "archive": "MAST",
+      "sha256": "2c80d9ff1b6730eb6495de5de00fe4ed7441b27d4d8758a80ad74b966b3dc618",
+      "format": "spoc_lc"
+    },
+    {
+      "id": "tess2023124020739-s0065-0000000128449971-0259-s_lc.fits",
+      "archive": "MAST",
+      "sha256": "87b993dce0c337b2fbf283d95f0ecb77b3ad91da323c05b3e674c84c7ebb5da1",
+      "format": "spoc_lc"
+    },
+    {
+      "id": "tess2026086090000-s0102-0000000128449971-0304-s_lc.fits",
+      "archive": "MAST",
+      "sha256": "ba98ff2d754b9eea7d2152ff66e9c8e700a0f2f6627abe4d6d9f3542b954759d",
+      "format": "spoc_lc"
+    },
+    {
+      "id": "tess2026111101500-s0103-0000000128449971-0305-s_lc.fits",
+      "archive": "MAST",
+      "sha256": "8ed6face2155e53d5ff0145c5f75e2e553f100af05ce7f7ce2162f693f533592",
+      "format": "spoc_lc"
+    }
+  ],
+  "checks": [
+    {
+      "name": "Product integrity (SHA-256)",
+      "state": "passed",
+      "note": "4 product(s) from MAST checksummed at first retrieval",
+      "source": "campaign runner, step fetch_products"
+    },
+    {
+      "name": "Known-signal recovery (positive control)",
+      "state": "passed",
+      "note": "BJD 2459346.0735: recovered, depth 5656 ± 250 ppm (catalogue 5160 ppm); BJD 2459358.7796: not recovered, depth 1694 ± 245 ppm (catalogue 5160 ppm); BJD 2460070.3204: recovered, depth 4918 ± 242 ppm (catalogue 5160 ppm); BJD 2460083.0265: partial, depth 367 ± 320 ppm (catalogue 5160 ppm); BJD 2460095.7326: gap (catalogue 5160 ppm); BJD 2461137.6317: recovered, depth 3389 ± 260 ppm (catalogue 5160 ppm); BJD 2461150.3378: recovered, depth 4588 ± 315 ppm (catalogue 5160 ppm); BJD 2461163.0439: recovered, depth 2829 ± 240 ppm (catalogue 5160 ppm); BJD 2461175.7500: partial, depth 3468 ± 241 ppm (catalogue 5160 ppm)",
+      "source": "campaign runner, step known_signal_recovery"
+    },
+    {
+      "name": "Calibrated false-alarm threshold (sign-flip null)",
+      "state": "passed",
+      "note": "screen run at each light curve's own k* (3, ≤2.5, ≤2.5, ≤2.5; ≤ 0 persistent null events outside the veto)",
+      "source": "campaign runner, step residual_screen"
+    },
+    {
+      "name": "Synthetic signal injection–recovery",
+      "state": "inconclusive",
+      "note": "completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 10%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json",
+      "source": "campaign runner, step residual_screen"
+    },
+    {
+      "name": "Catalogue cross-match",
+      "state": "passed",
+      "note": "1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table",
+      "source": "campaign runner, step prior_art"
+    },
+    {
+      "name": "Period aliases (repeat events)",
+      "state": "inconclusive",
+      "note": "3 repeat-candidate event(s); first at BJD 2460075.1009, ΔT = 729.025 d, 7 of 729 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data (729.025, 243.008, 145.805, 104.147, 34.7155, 31.6968, 19.7034 d)",
+      "source": "campaign runner, step period_aliases"
+    },
+    {
+      "name": "Alternative detrending",
+      "state": "not_tested"
+    },
+    {
+      "name": "Difference-image centroids / blend audit",
+      "state": "not_tested"
+    },
+    {
+      "name": "Pointing / jitter correlation",
+      "state": "not_tested"
+    },
+    {
+      "name": "Literature (ADS) audit",
+      "state": "not_tested"
+    },
+    {
+      "name": "Light-curve suitability for the residual screen",
+      "state": "passed",
+      "note": "4 light curve(s) screenable",
+      "source": "campaign runner, step fetch_products"
+    },
+    {
+      "name": "Target-to-Gaia identification (proper motion propagated)",
+      "state": "passed",
+      "note": "TOI-1938.01: Gaia DR3 6100120270737811072 at 0.00\" (propagated 2016.0 → J2015.5; 0.01\" unpropagated, proper-motion shift 0.01\")",
+      "source": "campaign runner, step stellar_context"
+    },
+    {
+      "name": "Stellar priors (Gaia colour and parallax)",
+      "state": "inconclusive",
+      "note": "TOI-1938.01: dwarf priors not applied — RUWE 3.6803052 ≥ 1.4 (or missing): astrometry may be perturbed",
+      "source": "campaign runner, step stellar_context"
+    },
+    {
+      "name": "Blend and dilution census (Gaia DR3 cone)",
+      "state": "inconclusive",
+      "note": "TOI-1938.01: 32 Gaia neighbour(s) within 52.5\", contamination 39.60%; depth 5656 ppm (measured depth of the recovered catalogued transit); 2 could produce it if fully eclipsed (brightest 6100120305097553536, 26.7\", ΔG 0.75); a centroid test is needed",
+      "source": "campaign runner, step stellar_context"
+    },
+    {
+      "name": "Pointing and quality census per event",
+      "state": "failed",
+      "note": "3 persistent event(s), 1 clean; BJD 2460082.5023 suspect: SAP_BKG z=+161.4; BJD 2460082.5537 suspect: SAP_BKG z=+151.8",
+      "source": "campaign runner, step event_census"
+    },
+    {
+      "name": "Moving objects at screen-event epochs",
+      "state": "passed",
+      "note": "3 event epoch(s) queried in SkyBoT (observer C57, r=600\"); no known object bright enough within 63\" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin)",
+      "source": "campaign runner, step moving_objects"
+    },
+    {
+      "name": "Independent repetition (other MAST collections)",
+      "state": "not_tested",
+      "note": "no usable light curve from this instrument (Kepler/K2 answered, 0 light curve(s) within 4.0\")",
+      "source": "campaign runner, step alias_cross_instrument"
+    },
+    {
+      "name": "Independent-epoch confirmation (ZTF)",
+      "state": "not_tested",
+      "note": "no usable light curve from this instrument (ZTF answered, 1 light curve(s) within 3.0\")",
+      "source": "campaign runner, step alias_cross_instrument"
+    },
+    {
+      "name": "Variable-catalogue collision (VSX)",
+      "state": "passed",
+      "note": "TOI-1938.01: no VSX entry within 10\"",
+      "source": "campaign runner, step variability_guard"
+    },
+    {
+      "name": "Object-class guard (SIMBAD)",
+      "state": "passed",
+      "note": "TOI-1938.01: TOI-1938 otype * (star_or_other) at 0.3\"",
+      "source": "campaign runner, step variability_guard"
+    },
+    {
+      "name": "Event-time prior art",
+      "state": "inconclusive",
+      "note": "2 possible published-ephemeris overlap(s) within 1 d (TOI-1938.01); inspect individual published mid-times/TTVs before candidate promotion; the screening tolerance does not prove identity",
+      "source": "campaign runner, step prior_art"
+    }
+  ],
+  "generated_by": "cygnus_multi campaign runner",
+  "generated_utc": "2026-10-02T10:41:47Z"
+}

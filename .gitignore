@@ -63,3 +63,10 @@ campaigns/*/*.draft.md
 
 # wrangler local cache (holds account id; machine-local)
 .wrangler/
+
+# never commit worktrees of this repository (agent task branches)
+.worktrees/
+# Colab run folders commit their small audit files; Drive capsule mirrors and bulky alias grids stay on Drive
+# (indexed in storage/locations.jsonl)
+docs/colab_runs/*/cloud/
+docs/colab_runs/*/campaigns/*/period_aliases.json

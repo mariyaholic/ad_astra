@@ -1,5 +1,21 @@
 # Workstack
 
+## Cloud Tier 2 batch — 2026-10-10
+
+- Continued the shipped notebook through the Codex in-app browser on a CPU Colab runtime after explicit Drive approval. Two verified local checkpoints were reused; all 28 remaining targets were attempted automatically. Final total: 19/30 checkpoints, 17 T2, two closed routes (TOI-2191.01 and TOI-4880.01), 11 incomplete event-coverage guard failures.
+- No target passes the implemented T3 scientific gates or full saved-spec eligibility. No T3/T4 execution, evidence promotion, canonical candidate replacement, publication or companion-ledger merge occurred.
+- Final report: [reports/cloud-t2-2026-10-10/REPORT.md](reports/cloud-t2-2026-10-10/REPORT.md). Cloud capsule is separate from the original local capsule. Incomplete attempts are explicitly preserved, not checkpointed.
+- Full export downloaded from the authorized Cygnus folder: archive SHA256 matched and all 515 payload files verified; repository copy separately rechecked (516 retained files, no FITS/SQLite). Full repository validation: 735 passed, 37 deselected, two warnings in 152.59 seconds; retention-helper fatal-error lint and diff checks passed. The original local-run entry below is historical and superseded for current batch counts. Scientific review remains open; the target loop has finished and the retained runtime is idle.
+
+## Local Tier 2 notebook execution — 2026-10-10
+
+- Ran the shipped higher-tier configuration/helpers/target loop/readout with a local CPU setup and science pinned to `05ba4f4ee6e2053c256240ab04f7fbb527e32afe`; no Google Colab runtime connected.
+- Source `p02-b02-2026-10-02` re-audited: 30 eligible, 70 excluded. Run `t2-p02-b02-2026-10-02-10deebcecc06` ended with two verified T2 checkpoints (TOI-1938.01, TOI-2629.01), one live attempt failing event-null coverage (TOI-2557.01), and 27 targets stopped before science on missing source receipts.
+- Shared rclone Google client returned HTTP 403 `RATE_LIMIT_EXCEEDED`; one bounded later retry also failed. Partial receipt transfer was manifest-checked; missing receipts were never reconstructed. Resume the same lineage when Drive access returns; completed checkpoints skip.
+- Scientific checks remain mixed/failed: localization is inconclusive for both checkpointed targets; TOI-2629 has failed background/common-mode, event-null and injection diagnostics. No evidence promotion, canonical candidate replacement, publication, Drive upload or companion-ledger merge.
+- Retained report, search log, aggregate sky record and small per-target capsule: [reports/local-t2-2026-10-10/REPORT.md](reports/local-t2-2026-10-10/REPORT.md). FITS and companion ledger remain in designated scratch. The capsule's `LOCAL_EXECUTION.json` distinguishes actual local execution from the unmodified notebook's Colab-mount labels.
+- Verified: full repository suite 735 passed / 37 deselected / two warnings; notebook/sync tests 61 passed; pinned native setup gate 58 passed; post-artifact sky-record/native checks 40 passed. Export audited and copied small outputs compared by SHA-256. Outstanding: 28 valid checkpoints, scientific review and unavailable independent/primary-literature checks.
+
 ## Reusable higher-tier Colab notebook — 2026-10-08
 
 - Built `notebooks/cygnus_higher_tiers_colab.ipynb` from reviewable source cells and a deterministic builder. It consumes first-stage exports, derives earned T2 targets and uses source/revision-bound resume state; no manual per-batch target list.
