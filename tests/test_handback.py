@@ -281,3 +281,12 @@ def test_real_colab_export_with_an_edited_tier_label_is_rejected(tmp_path):
 
 def test_handbacks_committed_to_this_repository_match_their_receipts():
     assert hb().check_imported(ROOT) == []
+
+
+def test_git_stores_handback_payloads_byte_exact():
+    # 2026-10-25: autocrlf/eol=lf normalization would rewrite CRLF payload files on checkout,
+    # so a fresh clone's imported hashes would stop matching their ingest receipts.
+    import subprocess
+    out = subprocess.run(["git", "check-attr", "text", "--", "docs/handbacks/x/REPORT.md"], cwd=ROOT,
+                         capture_output=True, text=True).stdout
+    assert out.strip().endswith("text: unset")
