@@ -29,7 +29,7 @@ Let `python -m cygnus.batch` run campaigns on a **Google Colab** runtime so that
 ## What exists now
 
 - `notebooks/cygnus_reanalysis_colab.ipynb`: a **read-only single-product reanalysis pilot**. It mounts Drive, expects hand-edited `REPO_ROOT`/`PACK_ROOT`/`PRODUCT_ID`, installs `[analysis]` and compares SAP and PDCSAP for one product. It does not run campaigns or batches. Keep it; build a separate batch notebook.
-- The repository is public (`https://github.com/mapsugui/ad_astra`, checked 2026-09-26), so a runtime can `git clone` it without credentials.
+- The repository is public (`https://github.com/mariyaholic/ad_astra`, transferred from `mapsugui` on 2026-10-25; checked 2026-09-26), so a runtime can `git clone` it without credentials.
 - `cygnus.config.scratch_dir()` honours `CYGNUS_SCRATCH`. Set it to a VM path such as `/content/scratch` (never the Drive mount; FITS reads over the mount are slow).
 - The batch driver takes `--spec`, `--jobs`, `--redo` and `--timeout`, keeps a journal under `state/batches/<id>/`, and holds one lock per ledger (`state/ledger.sqlite`).
 - Live archive health check: `python -m cygnus.multi archives --check all` (run it first on the Colab VM; Google's egress IPs may be treated differently from this workstation's).

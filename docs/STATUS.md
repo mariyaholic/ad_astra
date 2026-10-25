@@ -21,7 +21,7 @@
 <!-- cygnus:colab-sync:p02-b02-2026-10-02:end -->
 
 
-Last updated: 2026-10-08 (Asia/Manila). Read after `AGENTS.md`.
+Last updated: 2026-10-25 (Asia/Manila; repository transfer, branch cleanup and the 2026-10-10/11 records). Read after `AGENTS.md`.
 
 ## Current state
 
@@ -135,6 +135,16 @@ artifacts ignored. It includes the reviewed tier-sync implementation and its
 regressions. Scientific records, rejected leads and source products are preserved.
 Publishing the exported tier audit does not import the companion ledger or
 replace the canonical campaign records with the Colab copy.
+
+On 2026-10-25 the GitHub repository moved from `mapsugui/ad_astra` to
+`mariyaholic/ad_astra` (public; `origin` updated). GitHub redirects the old URL,
+but current instructions now name the new one; dated history keeps the old name.
+`notebooks/higher_tiers/02_setup.py` and `docs/CODEX_CLOUD.md` still clone or
+select `mapsugui/ad_astra` and belong to the cloud-workflow work; the hosted
+Codex environment must be re-pointed at the new repository before its next run.
+Colab run folders commit their small audit files; each Drive capsule mirror
+(`docs/colab_runs/*/cloud/`) and per-target `period_aliases.json` stay on Drive,
+indexed in `storage/locations.jsonl`.
 
 ## Decisions still requiring the user
 

@@ -5,7 +5,7 @@ For any agent (any model, any tool) running one target through the pipeline. You
 ## Setup (once per machine)
 
 ```bash
-git clone https://github.com/mapsugui/ad_astra && cd ad_astra
+git clone https://github.com/mariyaholic/ad_astra && cd ad_astra
 python -m pip install -e ".[test,campaign]"
 ```
 
