@@ -1,0 +1,147 @@
+{
+  "step": "event_null",
+  "run_id": 79,
+  "result": {
+    "events": [
+      {
+        "event_bjd": 2461046.1161680953,
+        "state": "uncovered",
+        "coverage": 0.5333726406097412
+      },
+      {
+        "event_bjd": 2461046.1279744124,
+        "state": "uncovered",
+        "coverage": 0.60448899269104
+      },
+      {
+        "event_bjd": 2461046.1376972627,
+        "state": "uncovered",
+        "coverage": 0.6667158007621765
+      },
+      {
+        "event_bjd": 2461101.584918763,
+        "product": "tess2026060005000-s0101-0000000291668351-0303-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": -3628.430702426911,
+          "coverage": 0.9956252574920654,
+          "n_event": 112,
+          "n_flank": 898,
+          "residual_rms_ppm": 18068.578709617414
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 281,
+          "n_exceed": 260,
+          "resolution": 0.0035587188612099642,
+          "note": "260/281 event-free windows at least as deep; resolution 1/281, not a probability of zero",
+          "state": "failed",
+          "k": 260,
+          "n": 281,
+          "fraction": 0.9252669039145908,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 95,
+          "n_recovered": 12,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.12631578947368421,
+          "state": "failed"
+        }
+      },
+      {
+        "event_bjd": 2461101.7120124977,
+        "product": "tess2026060005000-s0101-0000000291668351-0303-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": -1128.3989516528902,
+          "coverage": 1.0045147687196732,
+          "n_event": 113,
+          "n_flank": 966,
+          "residual_rms_ppm": 17858.970613500762
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 265,
+          "n_exceed": 193,
+          "resolution": 0.0037735849056603774,
+          "note": "193/265 event-free windows at least as deep; resolution 1/265, not a probability of zero",
+          "state": "failed",
+          "k": 193,
+          "n": 265,
+          "fraction": 0.7283018867924528,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 88,
+          "n_recovered": 32,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.36363636363636365,
+          "state": "failed"
+        }
+      },
+      {
+        "event_bjd": 2461125.032391347,
+        "product": "tess2026060005000-s0101-0000000291668351-0303-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 2081.752646334357,
+          "coverage": 0.9956252574920654,
+          "n_event": 112,
+          "n_flank": 801,
+          "residual_rms_ppm": 17521.725081777182
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 265,
+          "n_exceed": 42,
+          "resolution": 0.0037735849056603774,
+          "note": "42/265 event-free windows at least as deep; resolution 1/265, not a probability of zero",
+          "state": "failed",
+          "k": 42,
+          "n": 265,
+          "fraction": 0.15849056603773584,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 90,
+          "n_recovered": 71,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.7888888888888889,
+          "state": "failed"
+        }
+      },
+      {
+        "event_bjd": 2461151.3100454835,
+        "state": "uncovered",
+        "coverage": 0.6133622914552689
+      },
+      {
+        "event_bjd": 2461151.3156012073,
+        "state": "uncovered",
+        "coverage": 0.5778050571680069
+      }
+    ],
+    "file": "state/higher_tiers/t2-p02-b02-2026-10-02-10deebcecc06/toi-6609-01/event_null.json"
+  },
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "3 product(s) verified; pinned checksums matched",
+      "step": "fetch_products"
+    },
+    "Event-epoch null exceedance (k/N)": {
+      "state": "not_tested",
+      "note": "BJD 2461101.585: 260/281 event-free windows at least as deep; resolution 1/281, not a probability of zero; BJD 2461101.712: 193/265 event-free windows at least as deep; resolution 1/265, not a probability of zero; BJD 2461125.032: 42/265 event-free windows at least as deep; resolution 1/265, not a probability of zero",
+      "step": "event_null"
+    },
+    "Event-depth injection-recovery": {
+      "state": "not_tested",
+      "note": "BJD 2461101.585: 12/95 recovered; BJD 2461101.712: 32/88 recovered; BJD 2461125.032: 71/90 recovered",
+      "step": "event_null"
+    }
+  }
+}

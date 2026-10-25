@@ -39,6 +39,7 @@ python -m cygnus.storage add LOCATION.json   # record an entry another runtime w
    | `colab_runs/` | a mounted folder (Colab `drive.mount()`) | Colab batch evidence: companion ledger, journal, reports, manifest |
    | `batches/` | rclone | workstation batch state: journal, summary, logs, ledger snapshot |
    | `data/` | rclone | archive packs (`data/tier1/`) |
+   | `handbacks/` | rclone | cloud-agent tier handbacks (`python -m cygnus.tier`, docs/TIERS.md) |
 
    A `drive.file` token that wrote into `colab_runs/` would create a second folder of the same name beside Colab's (Drive allows duplicates). `cygnus.storage upload` refuses that.
 5. **Uploads are verified from Drive's side**: after the copy, every file's SHA-256 is read back through the same route and must match the manifest. Only then is the entry written.

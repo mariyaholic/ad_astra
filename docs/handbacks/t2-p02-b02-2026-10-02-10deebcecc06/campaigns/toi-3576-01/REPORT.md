@@ -1,0 +1,38 @@
+# T2 follow-up: toi-3576-01
+
+<!-- cygnus:generated-draft -->
+
+Source: `p02-b02-2026-10-02` at `9250aee3b91d7da7d664681195a250ec85d8c43d`. Executed tier: T2.
+Evidence remains **Unverified lead**. No T3/T4 execution or candidate promotion.
+
+Read `vetting/VETTING.md`, `event_null.json` and `FOLLOWUP_PRODUCTS.json` before scientific review.
+Missing pixels/archives/coverage remain not_tested or inconclusive; local nulls are not search-wide FAP.
+
+| Check | State | Note |
+| --- | --- | --- |
+| Product integrity (SHA-256) | passed | 6 product(s) verified; pinned checksums matched |
+| Known-signal recovery (positive control) | passed | BJD 2459826.6770: recovered, depth 13488 ± 579 ppm (catalogue 11400 ppm); BJD 2459831.3157: recovered, depth 10893 ± 563 ppm (catalogue 11400 ppm); BJD 2459835.9545: recovered, depth 10408 ± 583 ppm (catalogue 11400 ppm); BJD 2459840.5933: recovered, depth 11118 ± 554 ppm (catalogue 11400 ppm); BJD 2459845.2320: recovered, depth 10180 ± 597 ppm (catalogue 11400 ppm); BJD 2459849.8708: recovered, depth 11272 ± 575 ppm (catalogue 11400 ppm); BJD 2459771.0117: not recovered, depth 10760 ± 687 ppm (catalogue 11400 ppm); BJD 2459775.6505: recovered, depth 9925 ± 775 ppm (catalogue 11400 ppm); BJD 2459780.2893: recovered, depth 10785 ± 734 ppm (catalogue 11400 ppm); BJD 2459784.9281: recovered, depth 10989 ± 627 ppm (catalogue 11400 ppm); BJD 2459789.5668: partial, depth 10547 ± 772 ppm (catalogue 11400 ppm); BJD 2459794.2056: recovered, depth 13052 ± 749 ppm (catalogue 11400 ppm); BJD 2459798.8444: recovered, depth 10920 ± 536 ppm (catalogue 11400 ppm); BJD 2459803.4831: partial, depth 10307 ± 590 ppm (catalogue 11400 ppm); BJD 2459808.1219: recovered, depth 10950 ± 654 ppm (catalogue 11400 ppm); BJD 2459812.7607: recovered, depth 11674 ± 539 ppm (catalogue 11400 ppm); BJD 2459817.3994: recovered, depth 9341 ± 569 ppm (catalogue 11400 ppm); BJD 2459822.0382: recovered, depth 9594 ± 642 ppm (catalogue 11400 ppm); BJD 2460341.5803: recovered, depth 19397 ± 817 ppm (catalogue 11400 ppm); BJD 2460346.2191: not recovered, depth 8322 ± 1542 ppm (catalogue 11400 ppm); BJD 2460350.8579: not recovered, depth 10506 ± 658 ppm (catalogue 11400 ppm); BJD 2460355.4966: recovered, depth 12292 ± 749 ppm (catalogue 11400 ppm); BJD 2460360.1354: not recovered, depth 6777 ± 1177 ppm (catalogue 11400 ppm); BJD 2460364.7742: not recovered, depth 10336 ± 651 ppm (catalogue 11400 ppm); BJD 2460369.4129: not recovered, depth 10890 ± 655 ppm (catalogue 11400 ppm); BJD 2460374.0517: recovered, depth 12937 ± 806 ppm (catalogue 11400 ppm); BJD 2460378.6905: not recovered, depth 12330 ± 625 ppm (catalogue 11400 ppm); BJD 2460383.3292: recovered, depth 10256 ± 639 ppm (catalogue 11400 ppm); BJD 2460387.9680: recovered, depth 12182 ± 653 ppm (catalogue 11400 ppm); BJD 2460392.6068: not recovered, depth 11575 ± 609 ppm (catalogue 11400 ppm); BJD 2460508.5760: recovered, depth 11094 ± 597 ppm (catalogue 11400 ppm); BJD 2460513.2148: recovered, depth 13313 ± 660 ppm (catalogue 11400 ppm); BJD 2460517.8535: gap (catalogue 11400 ppm); BJD 2460522.4923: recovered, depth 10746 ± 615 ppm (catalogue 11400 ppm); BJD 2460527.1311: recovered, depth 10757 ± 628 ppm (catalogue 11400 ppm); BJD 2460531.7698: gap (catalogue 11400 ppm) |
+| Calibrated false-alarm threshold (sign-flip null) | passed | screen run at each light curve's own k* (≤2.5, ≤2.5, ≤2.5, 3, 3, ≤2.5; ≤ 0 persistent null events outside the veto) |
+| Synthetic signal injection–recovery | inconclusive | completeness for the reference box (2000ppm_4h) at each light curve's k*: 0%, 10%, 0%, 0%, 0%, 0% (pass mark 90%); 90%-completeness depths are in calibration.json |
+| Catalogue cross-match | passed | 1 target(s) × 4 services, radius 30″; 4 answered, 0 errored; results in the ledger prior_art table |
+| Period aliases (repeat events) | inconclusive | 12 repeat-candidate event(s); first at BJD 2460344.1213, ΔT = 517.446 d, 9 of 517 aliases P = ΔT/n ≥ 1 d allowed by the retrieved data (517.446, 258.723, 172.482, 129.361, 103.489, 86.241, 73.9208, 64.6807, 57.494 d); duration likelihood under Gaia priors (circular orbits) peaks at 57.5 d (weight 0.36) |
+| Alternative detrending | not_tested |  |
+| Difference-image centroids / blend audit | not_tested | Worst defining-event pixel localization: no pixel localization was produced; a blend census is a separate check |
+| Pointing / jitter correlation | not_tested |  |
+| Literature (ADS) audit | not_tested |  |
+| Light-curve suitability for the residual screen | passed | 6 light curve(s) screenable |
+| Target-to-Gaia identification (proper motion propagated) | passed | TOI-3576.01: Gaia DR3 2089213384322221056 at 0.00" (propagated 2016.0 → J2015.5; 0.01" unpropagated, proper-motion shift 0.01") |
+| Stellar priors (Gaia colour and parallax) | passed | TOI-3576.01: Teff 5501 K, R* 1.05 ± 0.08, M* 1.02 ± 0.10, ρ* 0.89 ± 0.23 ρ☉ (dwarf sequence, M_G 4.50, no extinction) |
+| Blend and dilution census (Gaia DR3 cone) | inconclusive | TOI-3576.01: 38 Gaia neighbour(s) within 52.5", contamination 49.43%; depth 13488 ppm (measured depth of the recovered catalogued transit); 4 could produce it if fully eclipsed (brightest 2089213075084572160, 51.9", ΔG 0.61); a centroid test is needed |
+| Pointing and quality census per event | failed | 15 persistent event(s), 0 clean; BJD 2459836.9144 suspect: SAP_BKG z=+15.0; BJD 2459791.7977 suspect: SAP_BKG z=+11.0; BJD 2460344.1213 suspect: scattered light 2 (in event), SAP_BKG z=+20.6; BJD 2460344.1450 suspect: scattered light 2 (within ±0.25 d), SAP_BKG z=+21.7 |
+| Moving objects at screen-event epochs | passed | 15 event epoch(s) queried in SkyBoT (observer C57, r=600"); no known object bright enough within 63" plus its motion at any queried epoch (supports, does not prove, a non-asteroid origin) |
+| Independent repetition (other MAST collections) | not_tested | no usable light curve from this instrument (Kepler/K2 answered, 0 light curve(s) within 4.0") |
+| Independent-epoch confirmation (ZTF) | not_tested | no usable light curve from this instrument (ZTF failed: ) |
+| Variable-catalogue collision (VSX) | passed | TOI-3576.01: no VSX entry within 10" |
+| Object-class guard (SIMBAD) | passed | TOI-3576.01: TOI-3576 otype * (star_or_other) at 0.4" |
+| Event-time prior art | inconclusive | no 1-d published-ephemeris overlap in answered catalogue rows; missing ephemerides and TTVs remain untested |
+| Vetting difference-image localization (E1) | not_tested | no pixel localization was produced |
+| Vetting difference-image localization (E2) | passed | difference-image centroid 1.1″ from the out-of-transit centroid (0.0σ bootstrap); 146.6″ from the catalogue position; 16% of the deficit in the optimal aperture |
+| Vetting difference-image localization (E3) | not_tested | no pixel localization was produced |
+| Event-epoch null exceedance (k/N) | not_tested | BJD 2460344.213: 4/184 event-free windows at least as deep; resolution 1/184, not a probability of zero; BJD 2460344.266: 97/206 event-free windows at least as deep; resolution 1/206, not a probability of zero; BJD 2460344.287: 46/184 event-free windows at least as deep; resolution 1/184, not a probability of zero; BJD 2460344.405: 107/195 event-free windows at least as deep; resolution 1/195, not a probability of zero; BJD 2460529.028: 0/169 event-free windows at least as deep; resolution 1/169, not a probability of zero |
+| Event-depth injection-recovery | not_tested | BJD 2460344.213: 52/74 recovered; BJD 2460344.266: 31/66 recovered; BJD 2460344.287: 42/69 recovered; BJD 2460344.405: 27/73 recovered; BJD 2460529.028: 70/73 recovered |

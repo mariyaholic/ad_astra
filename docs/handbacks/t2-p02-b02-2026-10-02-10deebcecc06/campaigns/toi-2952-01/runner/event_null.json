@@ -1,0 +1,73 @@
+{
+  "step": "event_null",
+  "run_id": 20,
+  "result": {
+    "events": [
+      {
+        "event_bjd": 2460093.8219227223,
+        "product": "tess2023124020739-s0065-0000000302527524-0259-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": -908.7574615021348,
+          "coverage": 0.9895957737261561,
+          "n_event": 60,
+          "n_flank": 561,
+          "residual_rms_ppm": 5528.339178047932
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 269,
+          "n_exceed": 238,
+          "resolution": 0.0037174721189591076,
+          "note": "238/269 event-free windows at least as deep; resolution 1/269, not a probability of zero",
+          "state": "failed",
+          "k": 238,
+          "n": 269,
+          "fraction": 0.8847583643122676,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 94,
+          "n_recovered": 27,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.2872340425531915,
+          "state": "failed"
+        }
+      },
+      {
+        "event_bjd": 2460093.8802549047,
+        "state": "uncovered",
+        "coverage": 0.9895957737261561
+      },
+      {
+        "event_bjd": 2460093.885810351,
+        "state": "uncovered",
+        "coverage": 0.9895957737261561
+      },
+      {
+        "event_bjd": 2460093.9274761947,
+        "state": "uncovered",
+        "coverage": 0.5772642013402578
+      }
+    ],
+    "file": "state/higher_tiers/t2-p02-b02-2026-10-02-10deebcecc06/toi-2952-01/event_null.json"
+  },
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "5 product(s) verified; pinned checksums matched",
+      "step": "fetch_products"
+    },
+    "Event-epoch null exceedance (k/N)": {
+      "state": "not_tested",
+      "note": "BJD 2460093.822: 238/269 event-free windows at least as deep; resolution 1/269, not a probability of zero",
+      "step": "event_null"
+    },
+    "Event-depth injection-recovery": {
+      "state": "not_tested",
+      "note": "BJD 2460093.822: 27/94 recovered",
+      "step": "event_null"
+    }
+  }
+}

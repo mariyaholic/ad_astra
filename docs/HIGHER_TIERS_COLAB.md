@@ -115,6 +115,13 @@ exports. Do not add another scheduled task. For a manual, non-overlapping sync:
 python -m cygnus.colab_sync --run <printed-stage-two-run-id> --update-notes
 ```
 
+To import the whole export as a verified handback, run (2026-10-25)
+`python -m cygnus.tier colab ingest --latest`, or `--run <id>`, or `--all`. It fetches every
+manifest-listed file except the companion ledger, re-verifies each checkpoint with the notebook's
+own helpers and the tier contracts, then imports the review set into `docs/handbacks/<id>/`.
+It also regenerates `reports/handback-<id>/`. The tier marks above only audit tier inputs.
+See [TIERS.md](TIERS.md).
+
 ## Release preflight
 
 The initial 31 passing fixtures did not cover four defects found by independent

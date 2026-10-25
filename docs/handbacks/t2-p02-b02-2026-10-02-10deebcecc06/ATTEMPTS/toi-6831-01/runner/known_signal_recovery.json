@@ -1,0 +1,87 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 1148,
+  "config_hash": "2e92079be3cba779",
+  "finished_utc": "2026-10-02T12:00:09Z",
+  "result": {
+    "per_product": {
+      "tess2021232031932-s0042-0000000380884709-0213-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-6831.01",
+        "channel_mode": "SAP+PDCSAP",
+        "catalogue": {
+          "epoch_source": "campaigns/tess-periodic-02/target_queue.csv (rank 225), NASA Exoplanet Archive TOI row refreshed 2026-10-02T07:25:36Z (rowupdate 2024-09-20 12:02:42)",
+          "depth_ppm": 3388.0,
+          "duration_h": 5.271
+        },
+        "time_span_bjd": [
+          2459447.6892223214,
+          2459473.164311988
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2459465.6214176,
+            "usable_in_transit_cadences": 158,
+            "screen_entries": 8,
+            "flux_types": [
+              "PDCSAP",
+              "SAP"
+            ],
+            "measured_depth_ppm": 2336.508257879122,
+            "depth_err_ppm": 118.78414691797819,
+            "depth_ratio_to_catalogue": 0.6896423429395283,
+            "entry_offset_hours": -1.5953951887786388,
+            "state": "recovered"
+          }
+        ]
+      },
+      "tess2021258175143-s0043-0000000380884709-0214-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-6831.01",
+        "channel_mode": "SAP+PDCSAP",
+        "catalogue": {
+          "epoch_source": "campaigns/tess-periodic-02/target_queue.csv (rank 225), NASA Exoplanet Archive TOI row refreshed 2026-10-02T07:25:36Z (rowupdate 2024-09-20 12:02:42)",
+          "depth_ppm": 3388.0,
+          "duration_h": 5.271
+        },
+        "time_span_bjd": [
+          2459474.1671305695,
+          2459498.893984737
+        ],
+        "epochs": []
+      },
+      "tess2023263165758-s0070-0000000380884709-0265-s_lc.fits": {
+        "k_mad": 2.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-6831.01",
+        "channel_mode": "SAP+PDCSAP",
+        "catalogue": {
+          "epoch_source": "campaigns/tess-periodic-02/target_queue.csv (rank 225), NASA Exoplanet Archive TOI row refreshed 2026-10-02T07:25:36Z (rowupdate 2024-09-20 12:02:42)",
+          "depth_ppm": 3388.0,
+          "duration_h": 5.271
+        },
+        "time_span_bjd": [
+          2460208.3544320795,
+          2460233.8241905873
+        ],
+        "epochs": []
+      }
+    },
+    "states": [
+      "recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2459465.6214: recovered, depth 2337 ± 119 ppm (catalogue 3388 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit recovered (1 covered epoch)."
+  ],
+  "outcome": null
+}

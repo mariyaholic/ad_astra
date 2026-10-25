@@ -1,0 +1,29 @@
+# CPU pilot. Increase limit only after reviewing the first cloud run.
+# This is an orchestration recipe, not an astronomical campaign measurement.
+schema: cygnus.cloud/1
+queue: campaigns/tess-periodic-02/target_queue.csv
+limit: 1
+max_tier: T3
+seed: 20261017
+source_max_age_hours: 24
+max_source_queries: 2
+retries: 1
+budget:
+  scratch_mb: 1024
+  min_free_mb: 1024
+  stage_seconds: 1800
+  run_seconds: 3600
+discriminating_question: >-
+  Do calibrated source models or transit-tied archival velocities support an
+  off-target or stellar-companion explanation for the retained event?
+null_params:
+  n_null: 300
+  n_inject: 100
+  min_n: 100
+t3:
+  tests: [archive_metadata, rv_fit, prf_source_fit]
+  archives: [koa]
+  # Packets are keyed by the selected campaign slug, then test name.
+  # Missing data/validation remains not_tested and cannot complete T3.
+  # See docs/CODEX_CLOUD.md for CSV/NPZ, event identity and quality contracts.
+  inputs: {}

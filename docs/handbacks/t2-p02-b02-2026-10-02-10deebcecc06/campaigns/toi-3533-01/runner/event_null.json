@@ -1,0 +1,105 @@
+{
+  "step": "event_null",
+  "run_id": 35,
+  "result": {
+    "events": [
+      {
+        "event_bjd": 2459820.315964351,
+        "product": "tess2022217014003-s0055-0000000313408643-0242-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 107.42988765451699,
+          "coverage": 0.9939340027895842,
+          "n_event": 82,
+          "n_flank": 560,
+          "residual_rms_ppm": 5594.016386257869
+        },
+        "null": {
+          "n_drawn": 254,
+          "n_covered": 188,
+          "n_exceed": 67,
+          "resolution": 0.005319148936170213,
+          "note": "67/188 event-free windows at least as deep; resolution 1/188, not a probability of zero",
+          "state": "failed",
+          "k": 67,
+          "n": 188,
+          "fraction": 0.35638297872340424,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 74,
+          "n_recovered": 38,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.5135135135135135,
+          "state": "failed"
+        }
+      },
+      {
+        "event_bjd": 2459820.329853089,
+        "product": "tess2022217014003-s0055-0000000313408643-0242-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 427.45921635723715,
+          "coverage": 0.9939340027895842,
+          "n_event": 82,
+          "n_flank": 550,
+          "residual_rms_ppm": 5532.431298875686
+        },
+        "null": {
+          "n_drawn": 243,
+          "n_covered": 171,
+          "n_exceed": 47,
+          "resolution": 0.005847953216374269,
+          "note": "47/171 event-free windows at least as deep; resolution 1/171, not a probability of zero",
+          "state": "failed",
+          "k": 47,
+          "n": 171,
+          "fraction": 0.27485380116959063,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 69,
+          "n_recovered": 47,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.6811594202898551,
+          "state": "failed"
+        }
+      },
+      {
+        "event_bjd": 2459820.4027689616,
+        "state": "uncovered",
+        "coverage": 0.9818128564141014
+      },
+      {
+        "event_bjd": 2459824.258280273,
+        "state": "uncovered",
+        "coverage": 0.5818150260231713
+      },
+      {
+        "event_bjd": 2460355.550310502,
+        "state": "uncovered",
+        "coverage": 0.7878774201328105
+      }
+    ],
+    "file": "state/higher_tiers/t2-p02-b02-2026-10-02-10deebcecc06/toi-3533-01/event_null.json"
+  },
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "3 product(s) verified; pinned checksums matched",
+      "step": "fetch_products"
+    },
+    "Event-epoch null exceedance (k/N)": {
+      "state": "not_tested",
+      "note": "BJD 2459820.316: 67/188 event-free windows at least as deep; resolution 1/188, not a probability of zero; BJD 2459820.330: 47/171 event-free windows at least as deep; resolution 1/171, not a probability of zero",
+      "step": "event_null"
+    },
+    "Event-depth injection-recovery": {
+      "state": "not_tested",
+      "note": "BJD 2459820.316: 38/74 recovered; BJD 2459820.330: 47/69 recovered",
+      "step": "event_null"
+    }
+  }
+}

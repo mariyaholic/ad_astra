@@ -1,0 +1,117 @@
+schema: cygnus.campaign/1
+runner: cygnus.campaign
+campaign_id: toi-2629-01
+parent: tess-periodic-02
+domain: worlds.planetary.transit
+objective: 'Known-object test on TOI-2629.01 (TIC 259901731, PC): check that the calibrated
+  residual screen recovers every catalogued transit in its retrieved light curves,
+  measure the depth, then screen the same light curves for further transit-like dips
+  outside the catalogued transits. A further dip is an unverified lead until vetted;
+  it does not imply a period.
+
+  '
+outputs: state/higher_tiers/t2-p02-b02-2026-10-02-10deebcecc06/toi-2629-01
+random_seed: 20260927
+targets:
+- name: TOI-2629.01
+  tic: 259901731
+  ra_deg: 41.51867
+  dec_deg: -68.957624
+  frame: ICRS
+  epoch: J2015.5
+  position_source: NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified
+    reports/position-epoch-audit-01)
+  t0_bjd: 2460134.412089
+  period_days: 11.4856846
+  depth_ppm: 11370.1513147
+  duration_h: 4.6321783
+  tmag: 13.1508
+  catalogue_row_updated: '2024-08-22 10:08:01'
+  catalogue_query: SELECT toi, tid, tfopwg_disp, ra, dec, st_tmag, pl_trandep, pl_trandurh,
+    pl_tranmid, pl_orbper, sectors, toi_created, rowupdate FROM toi WHERE tid = 259901731
+  catalogue_retrieved_utc: '2026-10-02T07:25:26Z'
+veto:
+  kind: ephemeris
+  period_days: 11.4856846
+  t0_bjd: 2460134.412089
+  veto_phase: 0.0252
+  depth_ppm: 11370.1513147
+  duration_h: 4.6321783
+  source: campaigns/tess-periodic-02/target_queue.csv (rank 190), NASA Exoplanet Archive
+    TOI row refreshed 2026-10-02T07:25:26Z (rowupdate 2024-08-22 10:08:01)
+steps:
+- fetch_products: {}
+- event_null:
+    n_null: 300
+    n_inject: 100
+    min_n: 100
+record:
+  path: campaigns/toi-2629-01/sky_record.json
+  title: Known-object test, TOI-2629.01
+  kind: known-object test
+  outcome: pipeline_check
+  report: campaigns/toi-2629-01/REPORT.md
+  search_log: campaigns/toi-2629-01/SEARCH_LOG.md
+  summary: 'Known-object test on TOI-2629.01: positive control on the catalogued transit(s),
+    calibrated screen for further dips, catalogue cross-match.
+
+    '
+  checks:
+  - name: Product integrity (SHA-256)
+    state: not_tested
+  - name: Known-signal recovery (positive control)
+    state: not_tested
+  - name: Calibrated false-alarm threshold (sign-flip null)
+    state: not_tested
+  - name: "Synthetic signal injection\u2013recovery"
+    state: not_tested
+  - name: Catalogue cross-match
+    state: not_tested
+  - name: Period aliases (repeat events)
+    state: not_tested
+  - name: Alternative detrending
+    state: not_tested
+  - name: Difference-image centroids / blend audit
+    state: not_tested
+  - name: Pointing / jitter correlation
+    state: not_tested
+  - name: Literature (ADS) audit
+    state: not_tested
+input:
+  products:
+  - product_id: tess2023181235917-s0067-0000000259901731-0261-s_lc.fits
+    expected_sha256: 267742f953015de707cde0b5e9555c984b5b9a811a3c872bbeaa3510be764ab5
+    expected_bytes: 2027520
+    target: TOI-2629.01
+    tic: 259901731
+    sector: 67
+  - product_id: tess2023209231226-s0068-0000000259901731-0262-s_lc.fits
+    expected_sha256: 161c551f9e7f4499b3be8653c67102acce96ca781d82c5077ff602971b95c032
+    expected_bytes: 2013120
+    target: TOI-2629.01
+    tic: 259901731
+    sector: 68
+  - product_id: tess2023237165326-s0069-0000000259901731-0264-s_lc.fits
+    expected_sha256: 5daa3bd8d2136486f8a661e1abbb8d28c58c896598303bb01248c6e8302ac9c3
+    expected_bytes: 1886400
+    target: TOI-2629.01
+    tic: 259901731
+    sector: 69
+  - product_id: tess2025180145000-s0094-0000000259901731-0291-s_lc.fits
+    expected_sha256: b0639a52841da538d6d1a77b57bf731872c239a00be719a7c9678df76b01680a
+    expected_bytes: 1892160
+    target: TOI-2629.01
+    tic: 259901731
+    sector: 94
+  - product_id: tess2025206162959-s0095-0000000259901731-0292-s_lc.fits
+    expected_sha256: 5b4046a344dc84bebc3d7580c4c4e86a81114ff50faf4be79749cbc30c9a83db
+    expected_bytes: 1846080
+    target: TOI-2629.01
+    tic: 259901731
+    sector: 95
+  - product_id: tess2025232030459-s0096-0000000259901731-0293-s_lc.fits
+    expected_sha256: 7e4e8985cba6521d3e96ab0e27cf984df6c807a878dd1d1437889055cd1b3c7b
+    expected_bytes: 1877760
+    target: TOI-2629.01
+    tic: 259901731
+    sector: 96

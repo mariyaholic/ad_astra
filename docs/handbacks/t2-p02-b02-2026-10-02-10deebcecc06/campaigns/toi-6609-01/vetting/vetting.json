@@ -1,0 +1,1345 @@
+{
+ "campaign_id": "toi-6609-01",
+ "target": "TOI-6609.01",
+ "tic": 291668351,
+ "events": [
+  {
+   "label": "E1",
+   "product": "tess2026005125623-s0099-0000000291668351-0300-s_lc.fits",
+   "sector": 99,
+   "camera": 4,
+   "ccd": 4,
+   "given_by_hand": false,
+   "screen_candidates": 3,
+   "screen_span_h": 0.516700018197298,
+   "max_aliases_allowed": 2,
+   "fit": {
+    "mid_bjd": 2461046.2047097515,
+    "duration_h": 1.875,
+    "depth_ppm": -5382.815395903861,
+    "depth_err_ppm": 2325.4824206412195,
+    "delta_chi2": 6.002755221307211,
+    "n_in": 56,
+    "vshape_index": null,
+    "sigma_ppm": 13297.045164871866,
+    "weighted": {
+     "depth_ppm": -5384.2768402094425,
+     "depth_err_formal_ppm": 2568.750718343011,
+     "depth_err_scaled_ppm": 2568.750718343011,
+     "chi2_reduced": 0.8627496504749929,
+     "scatter_over_quoted_error": 0.86419486570051,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "passed",
+     "weighted depth -5384 \u00b1 2569 ppm (\u03c7\u00b2\u03bd 0.86) vs unweighted -5383 \u00b1 2325 ppm; residual scatter / quoted error 0.86"
+    ],
+    "Box fit finds a dip": [
+     "failed",
+     "best box depth -5383 \u00b1 2325 ppm: no significant dip near the screen candidates; the screen entries are not a transit-shaped event"
+    ],
+    "Sibling TOI ephemerides": [
+     "passed",
+     "1 periodic TOI(s) on this TIC; none predicted at the event"
+    ],
+    "Background / centroid / pointing": [
+     "failed",
+     "SAP_BKG +10.7\u03c3; MOM_CENTR1 -1.1\u03c3; MOM_CENTR2 +0.8\u03c3; POS_CORR1 -3.0\u03c3; POS_CORR2 +4.6\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "inconclusive",
+     "56/56 usable in-transit cadences; flags within \u00b10.5 d: {'earth point': 1, 'momentum dump': 4, 'manual exclude': 1}; nearest momentum dump 2.3 h"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S99 cam 4 CCD 4; 0 dip \u2265 4\u03c3 at the event"
+    ]
+   },
+   "significant_dip": false,
+   "ephemerides": [
+    {
+     "toi": "6609.01",
+     "disposition": "PC",
+     "period_days": 12.9414603,
+     "depth_ppm": 13164.0,
+     "duration_h": 3.75,
+     "predicted_bjd": 2461041.4404722,
+     "offset_h": 114.34170123562217,
+     "ephemeris_sigma_h": 0.16799489059658926,
+     "coincides": false
+    }
+   ],
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": -4019.7620518537165,
+    "PDCSAP poly2": -5510.486080470316,
+    "PDCSAP poly3": -5619.669558399556,
+    "PDCSAP median 0.5 d": 1421.5991228626244,
+    "PDCSAP median 1 d": 9674.786940840037,
+    "PDCSAP median 2 d": 14770.525401538118,
+    "SAP poly1": -420.2285616724136,
+    "SAP poly2": -1098.1123220596846,
+    "SAP poly3": -1248.1302544806906,
+    "SAP median 0.5 d": 3234.371935330761,
+    "SAP median 1 d": 8761.156410692394,
+    "SAP median 2 d": 13194.719934334304
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": 0.005578997557395172,
+     "z": 2.269726439188677,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.05
+    },
+    "SAP": {
+     "event": 0.0011001291504876196,
+     "z": 0.9520114717477723,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.3566666666666667
+    },
+    "SAP_BKG": {
+     "event": 4.8979600674568,
+     "z": 10.693779626456,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.13333333333333333
+    },
+    "MOM_CENTR1": {
+     "event": -0.0005446612835433891,
+     "z": -1.111156461755714,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.26
+    },
+    "MOM_CENTR2": {
+     "event": 0.0003437177206007748,
+     "z": 0.7617489515219044,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.43333333333333335
+    },
+    "POS_CORR1": {
+     "event": -0.00046124320231784576,
+     "z": -2.9566043250245633,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.10666666666666667
+    },
+    "POS_CORR2": {
+     "event": 0.0005828880342012356,
+     "z": 4.5854007101042935,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.08333333333333333
+    }
+   },
+   "quality": {
+    "flags_within_pad": {
+     "earth point": 1,
+     "momentum dump": 4,
+     "manual exclude": 1
+    },
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 2.258341681212187,
+    "usable_in_box": 56,
+    "expected_in_box": 56
+   },
+   "gaia_neighbours": {
+    "state": "not_tested",
+    "note": "no recorded Gaia field (field_toi-6609-01.csv); fetch with fetch_sky_data.py --missing"
+   },
+   "neighbours": [
+    {
+     "product": "tess2026005125623-s0099-0000000291042435-0300-s_lc.fits",
+     "tic": "291042435",
+     "tmag": 9.48820019,
+     "sep_deg": 0.203,
+     "pdcsap_shift_ppm": -1192.0566806653246,
+     "pdcsap_z": -0.49393286921362756,
+     "sap_z": -0.0917968888552284
+    },
+    {
+     "product": "tess2026005125623-s0099-0000000292419302-0300-s_lc.fits",
+     "tic": "292419302",
+     "tmag": 8.48620033,
+     "sep_deg": 0.294,
+     "pdcsap_shift_ppm": -135.76782594422465,
+     "pdcsap_z": -1.3275290077442738,
+     "sap_z": -0.4813303956013191
+    },
+    {
+     "product": "tess2026005125623-s0099-0000001042208394-0300-s_lc.fits",
+     "tic": "1042208394",
+     "tmag": 12.40530014,
+     "sep_deg": 0.33,
+     "pdcsap_shift_ppm": -1306.2449898916707,
+     "pdcsap_z": -0.5612407766723413,
+     "sap_z": 1.3223831271541862
+    },
+    {
+     "product": "tess2026005125623-s0099-0000000291040350-0300-s_lc.fits",
+     "tic": "291040350",
+     "tmag": 9.4989996,
+     "sep_deg": 0.331,
+     "pdcsap_shift_ppm": 389.78058838419685,
+     "pdcsap_z": 3.469742285573202,
+     "sap_z": 2.6830885619262803
+    },
+    {
+     "product": "tess2026005125623-s0099-0000000292422455-0300-s_lc.fits",
+     "tic": "292422455",
+     "tmag": 5.40080023,
+     "sep_deg": 0.641,
+     "pdcsap_shift_ppm": 118.69564131599833,
+     "pdcsap_z": 2.1216300629450267,
+     "sap_z": -0.19457880900080118
+    }
+   ]
+  },
+  {
+   "label": "E2",
+   "product": "tess2026060005000-s0101-0000000291668351-0303-s_lc.fits",
+   "sector": 101,
+   "camera": 2,
+   "ccd": 2,
+   "given_by_hand": false,
+   "screen_candidates": 2,
+   "screen_span_h": 3.050249632447958,
+   "max_aliases_allowed": 0,
+   "fit": {
+    "mid_bjd": 2461101.7498493046,
+    "duration_h": 7.5,
+    "depth_ppm": -5909.74362251485,
+    "depth_err_ppm": 1567.7731504485735,
+    "delta_chi2": 15.698620836160899,
+    "n_in": 225,
+    "vshape_index": null,
+    "sigma_ppm": 16299.050593831898,
+    "weighted": {
+     "depth_ppm": -5581.110864184422,
+     "depth_err_formal_ppm": 1602.807130042367,
+     "depth_err_scaled_ppm": 1602.807130042367,
+     "chi2_reduced": 0.9148334458208952,
+     "scatter_over_quoted_error": 0.9398630689474988,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "passed",
+     "weighted depth -5581 \u00b1 1603 ppm (\u03c7\u00b2\u03bd 0.91) vs unweighted -5910 \u00b1 1568 ppm; residual scatter / quoted error 0.94"
+    ],
+    "Box fit finds a dip": [
+     "failed",
+     "best box depth -5910 \u00b1 1568 ppm: no significant dip near the screen candidates; the screen entries are not a transit-shaped event"
+    ],
+    "Sibling TOI ephemerides": [
+     "passed",
+     "1 periodic TOI(s) on this TIC; none predicted at the event"
+    ],
+    "Background / centroid / pointing": [
+     "passed",
+     "SAP_BKG +1.2\u03c3; MOM_CENTR1 -0.0\u03c3; MOM_CENTR2 +0.4\u03c3; POS_CORR1 -1.0\u03c3; POS_CORR2 -1.0\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "passed",
+     "225/225 usable in-transit cadences; flags within \u00b10.5 d: none; nearest momentum dump 25.6 h"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S101 cam 2 CCD 2; 0 dip \u2265 4\u03c3 at the event"
+    ]
+   },
+   "significant_dip": false,
+   "ephemerides": [
+    {
+     "toi": "6609.01",
+     "disposition": "PC",
+     "period_days": 12.9414603,
+     "depth_ppm": 13164.0,
+     "duration_h": 3.75,
+     "predicted_bjd": 2461106.1477737003,
+     "offset_h": -105.55018549785018,
+     "ephemeris_sigma_h": 0.17402253861198552,
+     "coincides": false
+    }
+   ],
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 9951.583957804627,
+    "PDCSAP poly2": -2588.6781005814246,
+    "PDCSAP poly3": -2589.609109764023,
+    "PDCSAP median 0.5 d": 7217.950731315559,
+    "PDCSAP median 1 d": 6652.9472452677555,
+    "PDCSAP median 2 d": 14123.06255919955,
+    "SAP poly1": 5660.5260190328245,
+    "SAP poly2": -294.8741075363554,
+    "SAP poly3": -294.4186039086115,
+    "SAP median 0.5 d": 3362.0702765970295,
+    "SAP median 1 d": 3601.414041351564,
+    "SAP median 2 d": 6138.755851896842
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": 0.002544261030086896,
+     "z": 1.4580116835776156,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.22
+    },
+    "SAP": {
+     "event": 0.00029616614764337425,
+     "z": 0.6291708699414756,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.5266666666666666
+    },
+    "SAP_BKG": {
+     "event": 0.3686164639870145,
+     "z": 1.2303084729899194,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.33666666666666667
+    },
+    "MOM_CENTR1": {
+     "event": -1.7348647817117228e-05,
+     "z": -0.04860912882015793,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.9633333333333334
+    },
+    "MOM_CENTR2": {
+     "event": 0.00019504716816274797,
+     "z": 0.3955893033596927,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.6933333333333334
+    },
+    "POS_CORR1": {
+     "event": -0.0001607240090621013,
+     "z": -0.9657231931585426,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.37333333333333335
+    },
+    "POS_CORR2": {
+     "event": -0.00014090855348915737,
+     "z": -0.9814180555437703,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.36666666666666664
+    }
+   },
+   "quality": {
+    "flags_within_pad": {},
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 25.64342524856329,
+    "usable_in_box": 225,
+    "expected_in_box": 225
+   },
+   "gaia_neighbours": {
+    "state": "not_tested",
+    "note": "no recorded Gaia field (field_toi-6609-01.csv); fetch with fetch_sky_data.py --missing"
+   },
+   "neighbours": [
+    {
+     "product": "tess2026060005000-s0101-0000000291042435-0303-s_lc.fits",
+     "tic": "291042435",
+     "tmag": 9.48820019,
+     "sep_deg": 0.203,
+     "pdcsap_shift_ppm": -3932.4874951176225,
+     "pdcsap_z": -0.6731286595044921,
+     "sap_z": -0.6146639504537547
+    },
+    {
+     "product": "tess2026060005000-s0101-0000000292419302-0303-s_lc.fits",
+     "tic": "292419302",
+     "tmag": 8.48620033,
+     "sep_deg": 0.294,
+     "pdcsap_shift_ppm": 84.00116255534594,
+     "pdcsap_z": 1.208089897905467,
+     "sap_z": 0.0466765803604368
+    },
+    {
+     "product": "tess2026060005000-s0101-0000001042208394-0303-s_lc.fits",
+     "tic": "1042208394",
+     "tmag": 12.40530014,
+     "sep_deg": 0.33,
+     "pdcsap_shift_ppm": -674.6766140805842,
+     "pdcsap_z": -0.4332249471773034,
+     "sap_z": -0.5120028107886542
+    },
+    {
+     "product": "tess2026060005000-s0101-0000000291040350-0303-s_lc.fits",
+     "tic": "291040350",
+     "tmag": 9.4989996,
+     "sep_deg": 0.331,
+     "pdcsap_shift_ppm": 30.22723345950329,
+     "pdcsap_z": 0.14469251696958665,
+     "sap_z": -0.4534495785096053
+    },
+    {
+     "product": "tess2026060005000-s0101-0000000292422455-0303-s_lc.fits",
+     "tic": "292422455",
+     "tmag": 5.40080023,
+     "sep_deg": 0.641,
+     "pdcsap_shift_ppm": 170.81276423093328,
+     "pdcsap_z": 2.12042863321935,
+     "sap_z": 1.5397590239552283
+    }
+   ]
+  },
+  {
+   "label": "E3",
+   "product": "tess2026060005000-s0101-0000000291668351-0303-s_lc.fits",
+   "sector": 101,
+   "camera": 2,
+   "ccd": 2,
+   "given_by_hand": false,
+   "screen_candidates": 1,
+   "screen_span_h": 0.0,
+   "max_aliases_allowed": 0,
+   "fit": {
+    "mid_bjd": 2461125.1035718936,
+    "duration_h": 7.5,
+    "depth_ppm": 5438.740174859507,
+    "depth_err_ppm": 1653.2928996695384,
+    "delta_chi2": 10.955489107306676,
+    "n_in": 225,
+    "vshape_index": 0.9091548132272166,
+    "sigma_ppm": 17599.035548672287,
+    "weighted": {
+     "depth_ppm": 5265.149034370191,
+     "depth_err_formal_ppm": 1647.40852029218,
+     "depth_err_scaled_ppm": 1647.40852029218,
+     "chi2_reduced": 0.9790616341733074,
+     "scatter_over_quoted_error": 1.0305538626882604,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "passed",
+     "weighted depth 5265 \u00b1 1647 ppm (\u03c7\u00b2\u03bd 0.98) vs unweighted 5439 \u00b1 1653 ppm; residual scatter / quoted error 1.03"
+    ],
+    "Sibling TOI ephemerides": [
+     "passed",
+     "1 periodic TOI(s) on this TIC; none predicted at the event"
+    ],
+    "Shape matches reference transit": [
+     "failed",
+     "depth ratio 0.35 \u00b1 0.12, duration ratio 2.00 (box fits; duration grid step ~25%)"
+    ],
+    "Detrending alternatives": [
+     "failed",
+     "PDCSAP depth 5141\u201317712 ppm across 6 detrendings (box fit 5439); SAP poly2 1349 ppm"
+    ],
+    "Red-noise significance": [
+     "failed",
+     "local robust-z descriptor 2.7 against 300 random epochs of this light curve; fraction as extreme 0.080; finite local null only, not a Gaussian significance or search-wide false-alarm probability"
+    ],
+    "Background / centroid / pointing": [
+     "failed",
+     "SAP_BKG -141.6\u03c3; MOM_CENTR1 -0.3\u03c3; MOM_CENTR2 -0.8\u03c3; POS_CORR1 -2.0\u03c3; POS_CORR2 -1.3\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "inconclusive",
+     "225/225 usable in-transit cadences; flags within \u00b10.5 d: {'scattered light 2': 135, 'insufficient targets': 16}; nearest momentum dump 116.2 h"
+    ],
+    "Gaia neighbours able to mimic the depth": [
+     "not_tested",
+     "no recorded Gaia field (field_toi-6609-01.csv); fetch with fetch_sky_data.py --missing"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "5 neighbour light curve(s) in S101 cam 2 CCD 2; 0 dip \u2265 4\u03c3 at the event"
+    ],
+    "Difference-image centroid": [
+     "inconclusive",
+     "difference-image centroid 41.9\u2033 from the out-of-transit centroid (0.8\u03c3 bootstrap); 118.5\u2033 from the catalogue position; 9% of the deficit in the optimal aperture"
+    ]
+   },
+   "significant_dip": true,
+   "aliases_from_reference": {
+    "reference_bjd": 2461119.0889723985,
+    "delta_t_days": 6.01459949510172,
+    "n_aliases": 6,
+    "n_allowed": 0,
+    "allowed_periods_days": [],
+    "rule": "P = dT/n >= 1 d; excluded when a predicted transit lands on usable data (>=50% of the window) shallower than 0.3 x the event depth"
+   },
+   "ephemerides": [
+    {
+     "toi": "6609.01",
+     "disposition": "PC",
+     "period_days": 12.9414603,
+     "depth_ppm": 13164.0,
+     "duration_h": 3.75,
+     "predicted_bjd": 2461119.089234,
+     "offset_h": 144.34410944581032,
+     "ephemeris_sigma_h": 0.1752493229202327,
+     "coincides": false
+    }
+   ],
+   "shape_vs_reference": {
+    "depth_ratio": 0.3548907890774569,
+    "depth_ratio_err": 0.11649846248216644,
+    "duration_ratio": 2.0,
+    "ref_vshape": 1.153995260633045,
+    "event_vshape": 0.9091548132272166
+   },
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": 12067.954389643905,
+    "PDCSAP poly2": 5140.990614056766,
+    "PDCSAP poly3": 7155.776113345374,
+    "PDCSAP median 0.5 d": 17613.544863567455,
+    "PDCSAP median 1 d": 15681.608975625624,
+    "PDCSAP median 2 d": 17711.928888075327,
+    "SAP poly1": 5518.367057769265,
+    "SAP poly2": 1348.689996697055,
+    "SAP poly3": 419.86493050332047,
+    "SAP median 0.5 d": 6623.651743235184,
+    "SAP median 1 d": 6200.544723594087,
+    "SAP median 2 d": 7713.0372267992225
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": -0.005189911520927524,
+     "z": -2.6962974230996215,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.08
+    },
+    "SAP": {
+     "event": -0.0013334948786712436,
+     "z": -2.19102484245001,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.15666666666666668
+    },
+    "SAP_BKG": {
+     "event": -42.09290856064094,
+     "z": -141.56280064246982,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.013333333333333334
+    },
+    "MOM_CENTR1": {
+     "event": -9.233213564685785e-05,
+     "z": -0.2841062099430944,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.7566666666666667
+    },
+    "MOM_CENTR2": {
+     "event": -0.0003353001728977587,
+     "z": -0.8331084534701735,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.4033333333333333
+    },
+    "POS_CORR1": {
+     "event": -0.00029847415526351295,
+     "z": -1.9946668562382857,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.18333333333333332
+    },
+    "POS_CORR2": {
+     "event": -0.0001903518846987834,
+     "z": -1.3292696324167206,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.2633333333333333
+    }
+   },
+   "quality": {
+    "flags_within_pad": {
+     "scattered light 2": 135,
+     "insufficient targets": 16
+    },
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 116.19864401221275,
+    "usable_in_box": 225,
+    "expected_in_box": 225
+   },
+   "gaia_neighbours": {
+    "state": "not_tested",
+    "note": "no recorded Gaia field (field_toi-6609-01.csv); fetch with fetch_sky_data.py --missing"
+   },
+   "neighbours": [
+    {
+     "product": "tess2026060005000-s0101-0000000291042435-0303-s_lc.fits",
+     "tic": "291042435",
+     "tmag": 9.48820019,
+     "sep_deg": 0.203,
+     "pdcsap_shift_ppm": -1752.5934041306964,
+     "pdcsap_z": -0.22024619447983468,
+     "sap_z": -0.280484165736985
+    },
+    {
+     "product": "tess2026060005000-s0101-0000000292419302-0303-s_lc.fits",
+     "tic": "292419302",
+     "tmag": 8.48620033,
+     "sep_deg": 0.294,
+     "pdcsap_shift_ppm": 217.1761712686927,
+     "pdcsap_z": 2.302966987055053,
+     "sap_z": 3.878400034538737
+    },
+    {
+     "product": "tess2026060005000-s0101-0000001042208394-0303-s_lc.fits",
+     "tic": "1042208394",
+     "tmag": 12.40530014,
+     "sep_deg": 0.33,
+     "pdcsap_shift_ppm": -356.2026025858403,
+     "pdcsap_z": -0.32020661532753775,
+     "sap_z": 1.7938066673733701
+    },
+    {
+     "product": "tess2026060005000-s0101-0000000291040350-0303-s_lc.fits",
+     "tic": "291040350",
+     "tmag": 9.4989996,
+     "sep_deg": 0.331,
+     "pdcsap_shift_ppm": -22.831405212443794,
+     "pdcsap_z": -0.2822908553305195,
+     "sap_z": 1.9576699021735096
+    },
+    {
+     "product": "tess2026060005000-s0101-0000000292422455-0303-s_lc.fits",
+     "tic": "292422455",
+     "tmag": 5.40080023,
+     "sep_deg": 0.641,
+     "pdcsap_shift_ppm": -105.84194768363118,
+     "pdcsap_z": -1.7923076706861816,
+     "sap_z": -1.2747490421317762
+    }
+   ],
+   "aliases_density": [],
+   "difference_image": {
+    "state": "done",
+    "in_cadences": 180,
+    "flank_cadences": 404,
+    "diff_centroid_xy": [
+     8.754747631952226,
+     7.565140998794231
+    ],
+    "oot_centroid_xy": [
+     9.75460511577587,
+     9.291022877339804
+    ],
+    "offset_from_target_pix": [
+     4.392685217164107,
+     3.5421484230892695
+    ],
+    "offset_from_target_arcsec": 118.50123206496241,
+    "bootstrap_sigma_pix": [
+     1.337355400111843,
+     2.1392597943613123
+    ],
+    "offset_over_sigma": 2.236691085544121,
+    "offset_from_oot_centroid_pix": [
+     -0.9998574838236447,
+     -1.7258818785455734
+    ],
+    "offset_from_oot_centroid_arcsec": 41.88635830163223,
+    "oot_offset_over_sigma": 0.7905980603459771,
+    "fraction_of_positive_difference_in_optimal_aperture": 0.09239919712820019,
+    "peak_pixel": [
+     9,
+     8
+    ],
+    "image": [
+     [
+      -1.1320412873484145,
+      -1.2633308822012523,
+      -1.1036855771430538,
+      -0.4926387837235495,
+      0.4833283519231557,
+      0.9178728312931312,
+      -0.13270565124679834,
+      0.045294407770224865,
+      0.7893093204693589,
+      1.108593835315265,
+      0.4216243857997988
+     ],
+     [
+      -1.3369853312377487,
+      -0.9303255972041171,
+      -0.971081673055366,
+      -0.3471820342214613,
+      0.52570593984791,
+      0.9509430592041213,
+      -0.49480012047067135,
+      -0.18422013355778688,
+      0.8136874899078066,
+      1.1279268353945433,
+      0.1307550756441671
+     ],
+     [
+      -0.9217667047349245,
+      -0.9697497418139704,
+      -0.9144213931097909,
+      -0.2524569134056236,
+      0.8688853594853754,
+      0.6542340293493112,
+      -0.19850424782669052,
+      -0.05243932539714535,
+      0.7361704357893615,
+      1.0931406332064473,
+      -0.053680425250995256
+     ],
+     [
+      -1.0982636480022876,
+      -1.8789684816817953,
+      -1.1580950730781296,
+      -0.45360195075721776,
+      0.37774134766428347,
+      1.1207858896763838,
+      0.020027889656461184,
+      -0.0570693572996106,
+      1.1109958735665835,
+      1.0068364700476167,
+      -0.3760012730641762
+     ],
+     [
+      -1.3179643451408083,
+      -1.2390050451036814,
+      -1.3594584055186374,
+      -0.3455403990571426,
+      0.8266786910597261,
+      0.8974404251814008,
+      -0.1767620327141799,
+      -0.2941996177261643,
+      1.0866525051923581,
+      1.108273069367586,
+      -0.030236267883282153
+     ],
+     [
+      -1.485528450145722,
+      -1.4240920733817006,
+      -1.2507685860566653,
+      -0.6029454446244813,
+      0.7816701213865542,
+      0.6046898089851993,
+      -0.690778641457058,
+      -0.3612864487663501,
+      0.6568038267088099,
+      1.0323192146725275,
+      -0.3152964616097371
+     ],
+     [
+      -1.1736282635501993,
+      -1.7882353580057497,
+      -0.627713173977611,
+      -0.09186489922861085,
+      0.8778017221382299,
+      0.5138217297712231,
+      -0.15529398365379166,
+      -0.7370292486298808,
+      0.888206320585752,
+      0.9727048841678876,
+      -0.19603080286708163
+     ],
+     [
+      -0.995926369692711,
+      -1.334398904282608,
+      -0.9530519088755796,
+      -0.36478732148731297,
+      0.9811411905419334,
+      0.3886457916744206,
+      -0.5478161550475988,
+      0.13992692052346456,
+      0.7443639350384927,
+      1.0750326050980212,
+      0.4756338725852878
+     ],
+     [
+      -1.0060525171076549,
+      -1.031032059953347,
+      -1.259739604691248,
+      -0.2990764480731798,
+      0.8887910412232287,
+      0.6803108312513046,
+      -0.43520625576201155,
+      -0.3741005773883046,
+      0.8021162347943402,
+      1.708951832150774,
+      -0.02172333296607576
+     ],
+     [
+      -1.3114823668097095,
+      -0.9337350492603278,
+      -1.0245436709282814,
+      -0.4704045084806907,
+      0.7501021612625749,
+      0.836407427159557,
+      -0.05474819174179402,
+      0.40070399138795665,
+      0.14290967125339193,
+      -0.024617200236434655,
+      -2.5879637570733394
+     ],
+     [
+      -0.8953809943864925,
+      -1.2454332579982221,
+      -1.0671382478678098,
+      0.0573710716985012,
+      0.9232790478071706,
+      0.8860499541991089,
+      -0.4709191872466931,
+      -0.09572496323346513,
+      0.2427943778094459,
+      1.0761772579519402,
+      -2.6486177061319722
+     ]
+    ],
+    "target_pixel_xy": [
+     4.362062414788118,
+     4.022992575704961
+    ],
+    "aperture": [
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "label": "E4",
+   "product": "tess2026086090000-s0102-0000000291668351-0304-s_lc.fits",
+   "sector": 102,
+   "camera": 2,
+   "ccd": 4,
+   "given_by_hand": false,
+   "screen_candidates": 2,
+   "screen_span_h": 0.1333373710513115,
+   "max_aliases_allowed": 0,
+   "fit": {
+    "mid_bjd": 2461151.34650381,
+    "duration_h": 1.3125,
+    "depth_ppm": -16351.937916825786,
+    "depth_err_ppm": 5555.985469828833,
+    "delta_chi2": 8.661961649585805,
+    "n_in": 7,
+    "vshape_index": null,
+    "sigma_ppm": 13788.72810189366,
+    "weighted": {
+     "depth_ppm": -15826.835469068827,
+     "depth_err_formal_ppm": 6460.4036073235875,
+     "depth_err_scaled_ppm": 6460.4036073235875,
+     "chi2_reduced": 0.8154168057534403,
+     "scatter_over_quoted_error": 1.0190608083474535,
+     "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+    }
+   },
+   "checks": {
+    "Error-weighted box fit": [
+     "passed",
+     "weighted depth -15827 \u00b1 6460 ppm (\u03c7\u00b2\u03bd 0.82) vs unweighted -16352 \u00b1 5556 ppm; residual scatter / quoted error 1.02"
+    ],
+    "Box fit finds a dip": [
+     "failed",
+     "best box depth -16352 \u00b1 5556 ppm: no significant dip near the screen candidates; the screen entries are not a transit-shaped event"
+    ],
+    "Sibling TOI ephemerides": [
+     "passed",
+     "1 periodic TOI(s) on this TIC; none predicted at the event"
+    ],
+    "Background / centroid / pointing": [
+     "failed",
+     "SAP_BKG +8.9\u03c3; MOM_CENTR1 -1.4\u03c3; MOM_CENTR2 -5.4\u03c3; POS_CORR1 -2.5\u03c3; POS_CORR2 +0.2\u03c3 (shift at the event vs random epochs)"
+    ],
+    "Quality flags and coverage": [
+     "inconclusive",
+     "7/39 usable in-transit cadences; flags within \u00b10.5 d: {'argabrightening': 10, 'manual exclude': 3, 'scattered light 2': 275}; nearest momentum dump 122.7 h"
+    ],
+    "Common mode (same camera/CCD)": [
+     "passed",
+     "4 neighbour light curve(s) in S102 cam 2 CCD 4; 0 dip \u2265 4\u03c3 at the event"
+    ]
+   },
+   "significant_dip": false,
+   "ephemerides": [
+    {
+     "toi": "6609.01",
+     "disposition": "PC",
+     "period_days": 12.9414603,
+     "depth_ppm": 13164.0,
+     "duration_h": 3.75,
+     "predicted_bjd": 2461144.9721546,
+     "offset_h": 152.98438103869557,
+     "ephemeris_sigma_h": 0.17772297759558273,
+     "coincides": false
+    }
+   ],
+   "detrending_depths_ppm": {
+    "PDCSAP poly1": -11319.004985791636,
+    "PDCSAP poly2": -18124.666613923568,
+    "PDCSAP poly3": -21771.87566879381,
+    "PDCSAP median 0.5 d": -20084.129290559453,
+    "PDCSAP median 1 d": -20084.129290559453,
+    "PDCSAP median 2 d": -20084.129290559453,
+    "SAP poly1": -6678.653107860152,
+    "SAP poly2": -9623.760315167317,
+    "SAP poly3": -10470.32321997846,
+    "SAP median 0.5 d": -8366.743239800975,
+    "SAP median 1 d": -8366.743239800975,
+    "SAP median 2 d": -8366.743239800975
+   },
+   "empirical": {
+    "PDCSAP": {
+     "event": 0.018100727291312752,
+     "z": 8.165991801476773,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP": {
+     "event": 0.00961974332617702,
+     "z": 7.478001816971903,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.0
+    },
+    "SAP_BKG": {
+     "event": 4.099442550704972,
+     "z": 8.903780919646263,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.11666666666666667
+    },
+    "MOM_CENTR1": {
+     "event": -0.0007967308095869287,
+     "z": -1.3668047818761737,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.18333333333333332
+    },
+    "MOM_CENTR2": {
+     "event": -0.003205150121922478,
+     "z": -5.3886563170230035,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.03333333333333333
+    },
+    "POS_CORR1": {
+     "event": -0.0007820422544054914,
+     "z": -2.496963597091318,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.10333333333333333
+    },
+    "POS_CORR2": {
+     "event": 8.82117964911114e-05,
+     "z": 0.23713498237604594,
+     "n_random": 300,
+     "fraction_random_as_extreme": 0.8033333333333333
+    }
+   },
+   "quality": {
+    "flags_within_pad": {
+     "argabrightening": 10,
+     "manual exclude": 3,
+     "scattered light 2": 275
+    },
+    "pad_days": 0.5,
+    "nearest_momentum_dump_h": 122.72910570725799,
+    "usable_in_box": 7,
+    "expected_in_box": 39
+   },
+   "gaia_neighbours": {
+    "state": "not_tested",
+    "note": "no recorded Gaia field (field_toi-6609-01.csv); fetch with fetch_sky_data.py --missing"
+   },
+   "neighbours": [
+    {
+     "product": "tess2026086090000-s0102-0000000291042435-0304-s_lc.fits",
+     "tic": "291042435",
+     "tmag": 9.48820019,
+     "sep_deg": 0.203,
+     "pdcsap_shift_ppm": -506.79039296360384,
+     "pdcsap_z": -0.07861845365309707,
+     "sap_z": 0.29731718711621463
+    },
+    {
+     "product": "tess2026086090000-s0102-0000000292419302-0304-s_lc.fits",
+     "tic": "292419302",
+     "tmag": 8.48620033,
+     "sep_deg": 0.294,
+     "pdcsap_shift_ppm": 29.93676994326263,
+     "pdcsap_z": 0.49424060009999743,
+     "sap_z": -0.3854019151847448
+    },
+    {
+     "product": "tess2026086090000-s0102-0000001042208394-0304-s_lc.fits",
+     "tic": "1042208394",
+     "tmag": 12.40530014,
+     "sep_deg": 0.33,
+     "pdcsap_shift_ppm": null,
+     "pdcsap_z": null,
+     "sap_z": null
+    },
+    {
+     "product": "tess2026086090000-s0102-0000000291040350-0304-s_lc.fits",
+     "tic": "291040350",
+     "tmag": 9.4989996,
+     "sep_deg": 0.331,
+     "pdcsap_shift_ppm": 298.0453640344521,
+     "pdcsap_z": 2.0107490374872965,
+     "sap_z": 2.511506850626187
+    },
+    {
+     "product": "tess2026086090000-s0102-0000000292422455-0304-s_lc.fits",
+     "tic": "292422455",
+     "tmag": 5.40080023,
+     "sep_deg": 0.641,
+     "pdcsap_shift_ppm": 27.416034083985828,
+     "pdcsap_z": 0.6512865675665027,
+     "sap_z": -0.12450226310091586
+    }
+   ]
+  }
+ ],
+ "reference": {
+  "product": "tess2026060005000-s0101-0000000291668351-0303-s_lc.fits",
+  "sector": 101,
+  "fit": {
+   "mid_bjd": 2461119.0889723985,
+   "duration_h": 3.75,
+   "depth_ppm": 15325.109420274277,
+   "depth_err_ppm": 1898.8146163628476,
+   "delta_chi2": 65.13914230835655,
+   "n_in": 112,
+   "vshape_index": 1.153995260633045,
+   "sigma_ppm": 17388.680459802825,
+   "weighted": {
+    "depth_ppm": 15322.211589272598,
+    "depth_err_formal_ppm": 1869.5939164495855,
+    "depth_err_scaled_ppm": 1869.5939164495855,
+    "chi2_reduced": 0.9070062962002601,
+    "scatter_over_quoted_error": 0.9204513328524984,
+    "errors": "PDCSAP_FLUX_ERR (pipeline), normalised with the flux"
+   }
+  },
+  "difference_image": {
+   "state": "done",
+   "in_cadences": 90,
+   "flank_cadences": 328,
+   "diff_centroid_xy": [
+    10.0,
+    9.931593183048882
+   ],
+   "oot_centroid_xy": [
+    9.75509111985908,
+    9.319998201538276
+   ],
+   "offset_from_target_pix": [
+    5.637937585211882,
+    5.908600607343921
+   ],
+   "offset_from_target_arcsec": 171.5044445376438,
+   "bootstrap_sigma_pix": [
+    1.7885860689853856,
+    1.9157706801650878
+   ],
+   "offset_over_sigma": 3.1160359036746463,
+   "offset_from_oot_centroid_pix": [
+    0.24490888014092072,
+    0.6115949815106063
+   ],
+   "offset_from_oot_centroid_arcsec": 13.834980752156827,
+   "oot_offset_over_sigma": 0.2513654784083802,
+   "fraction_of_positive_difference_in_optimal_aperture": 0.3031089684170086,
+   "peak_pixel": [
+    10,
+    10
+   ],
+   "image": [
+    [
+     0.07549245169379759,
+     -0.45084529528470796,
+     0.00048383978526089777,
+     -0.16033716686645505,
+     0.057876597960415666,
+     0.11825813746770564,
+     0.02321559538201967,
+     0.003176412019360697,
+     -0.14699608475739367,
+     -0.0884446059749191,
+     -0.2378089372107226
+    ],
+    [
+     -0.04502060775685024,
+     0.005202429115676921,
+     0.23293852905432288,
+     -0.3862106494306943,
+     -0.20957142394794914,
+     -0.05748618299949726,
+     -0.015499868457396815,
+     -0.17388002138402925,
+     0.10815303655565955,
+     0.13899689847281316,
+     0.5209092024061022
+    ],
+    [
+     -0.2955283191665341,
+     0.04288403018488651,
+     -0.5936474925443207,
+     -0.019111691979190937,
+     -0.10420969084975695,
+     0.11864658004324724,
+     0.018896501432351442,
+     0.2439231465895233,
+     0.21731098295900964,
+     -0.19787498006162707,
+     -0.32768867490274545
+    ],
+    [
+     -0.2901327863987575,
+     0.8848437689292155,
+     -0.14983555420374728,
+     0.6519383466662134,
+     1.0535176106713493,
+     0.8285470483649391,
+     0.21374876748076588,
+     -0.07413105850466195,
+     -0.10780523909697948,
+     -0.09236178351480717,
+     0.24904340932812374
+    ],
+    [
+     -0.10208172676553318,
+     -0.02303669968023314,
+     0.3520223662138733,
+     0.5474060672432017,
+     1.7474645793748778,
+     1.8066862809759812,
+     -0.24896873573636924,
+     -0.23607669010935695,
+     -0.06554521610936703,
+     -0.2642593464116523,
+     0.12044149837020512
+    ],
+    [
+     0.13552947747149346,
+     0.6477780413670189,
+     0.20574896217323158,
+     0.27273515783227253,
+     0.5673075601466167,
+     1.1834807838610288,
+     -0.17097913837901046,
+     -0.23334811151391932,
+     0.3550694060552644,
+     0.11170363046455378,
+     -0.1204301704513071
+    ],
+    [
+     -0.24222254463592208,
+     -0.24833815725594377,
+     -0.08803902914524997,
+     0.5011247293508063,
+     0.11140471276284813,
+     -0.16480802849268628,
+     -0.18791240084624405,
+     -0.19632583098518808,
+     -0.08982754896022271,
+     -0.22343525793804453,
+     0.282853104447334
+    ],
+    [
+     -0.38221530602336884,
+     0.03082581251376837,
+     0.21796266741688441,
+     -0.21769428719636608,
+     0.16626109779419096,
+     -0.4415031418419062,
+     0.4186841797161094,
+     -0.2650426052381363,
+     0.09651688649665147,
+     -0.30035961443185544,
+     -0.7187604915131125
+    ],
+    [
+     -0.01787946925688999,
+     0.4657568710878479,
+     -0.3775134465233805,
+     -0.2492892514038232,
+     -0.04893800239275947,
+     -0.16435350133325244,
+     0.09885065426158235,
+     -0.12535940722381156,
+     -0.4641254910054329,
+     -1.7336243786162413,
+     -1.6573118953563153
+    ],
+    [
+     0.12084406072587228,
+     0.016498767357674637,
+     -0.24337086249781237,
+     -0.17209698346037783,
+     -0.0024871006277464858,
+     -0.008122538782174615,
+     -0.09597157666618727,
+     -0.6414918216779597,
+     -0.11434530504016038,
+     -0.4717783230182704,
+     0.2691244680645468
+    ],
+    [
+     0.13415550640799268,
+     0.1630376627641965,
+     -0.21515851826317345,
+     0.08154889463330406,
+     0.04054546010293336,
+     -0.11285701411085824,
+     -0.22896183883511867,
+     -0.1611114964532021,
+     0.23503747251209006,
+     -0.5851216501876024,
+     3.665051686584775
+    ]
+   ]
+  }
+ },
+ "siblings": {
+  "query": "SELECT toi, tid, tfopwg_disp, pl_orbper, pl_orbpererr1, pl_tranmid, pl_tranmiderr1, pl_trandurh, pl_trandep, st_rad, st_logg, rowupdate FROM toi WHERE tid = 291668351 ORDER BY toi",
+  "service": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync",
+  "rows": [
+   {
+    "toi": "6609.01",
+    "tid": "291668351",
+    "tfopwg_disp": "PC",
+    "pl_orbper": "12.9414603",
+    "pl_orbpererr1": "0.0000684",
+    "pl_tranmid": "2460083.7724100",
+    "pl_tranmiderr1": "0.004835",
+    "pl_trandurh": "3.7500000",
+    "pl_trandep": "13164.0000000",
+    "st_rad": "1.0100000",
+    "st_logg": "4.4500000",
+    "rowupdate": "2024-08-22 10:08:01"
+   }
+  ]
+ },
+ "star": {
+  "radius_rsun": 1.01,
+  "logg_cgs": 4.45,
+  "mass_msun_from_logg": 1.0482521669161984,
+  "source": "NASA Exoplanet Archive toi table"
+ }
+}

@@ -1,0 +1,39 @@
+# Finite public astronomy pilot. No scientific tier is earned by acquisition.
+schema: cygnus.scout/1
+sources:
+  - exoarchive
+  - gaia
+  - vizier
+  - simbad
+  - ned
+  - irsa
+  - mast
+  - skyview
+  - legacysurvey
+  - eso
+  - koa
+  - horizons
+  - sbdb
+  - mpc
+  - skybot
+bootstrap_top: 100
+field_limit: 1
+target_limit: 3
+rows_per_catalogue: 10
+products_per_source: 2
+cone_arcsec: 60
+max_jobs: 100
+mast_collections: [TESS, Kepler, K2, HST, JWST]
+# Empty fields: derive the pilot field from the fresh, unclaimed TOI sample.
+# Explicit fields instead need name, ra_deg, dec_deg and position_source.
+fields: []
+# Solar context requires actual designations or a UTC epoch/observer, not guesses.
+solar_objects: []
+# epoch_utc: '2026-10-17T00:00:00Z'
+# observer: '500'
+budget:
+  scratch_mb: 512
+  product_mb: 32
+  job_seconds: 180
+  run_seconds: 1800
+  min_free_mb: 1024

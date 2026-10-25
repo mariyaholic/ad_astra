@@ -1,0 +1,63 @@
+{
+  "step": "event_null",
+  "run_id": 58,
+  "result": {
+    "events": [
+      {
+        "event_bjd": 2460312.9154263637,
+        "state": "uncovered",
+        "coverage": 0.9200719315564867
+      },
+      {
+        "event_bjd": 2460519.912806103,
+        "product": "tess2024196212429-s0081-0000000158552665-0276-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 3592.095854339302,
+          "coverage": 0.9976666870408967,
+          "n_event": 90,
+          "n_flank": 538,
+          "residual_rms_ppm": 11086.059248702084
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 266,
+          "n_exceed": 2,
+          "resolution": 0.0037593984962406013,
+          "note": "2/266 event-free windows at least as deep; resolution 1/266, not a probability of zero",
+          "state": "passed",
+          "k": 2,
+          "n": 266,
+          "fraction": 0.007518796992481203,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 89,
+          "n_recovered": 75,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.8426966292134831,
+          "state": "failed"
+        }
+      }
+    ],
+    "file": "state/higher_tiers/t2-p02-b02-2026-10-02-10deebcecc06/toi-5937-01/event_null.json"
+  },
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "4 product(s) verified; pinned checksums matched",
+      "step": "fetch_products"
+    },
+    "Event-epoch null exceedance (k/N)": {
+      "state": "not_tested",
+      "note": "BJD 2460519.913: 2/266 event-free windows at least as deep; resolution 1/266, not a probability of zero",
+      "step": "event_null"
+    },
+    "Event-depth injection-recovery": {
+      "state": "failed",
+      "note": "BJD 2460519.913: 75/89 recovered",
+      "step": "event_null"
+    }
+  }
+}
