@@ -81,6 +81,9 @@ and anonymous. what u can set:
 | [`ANALYSIS_STACK.md`](ANALYSIS_STACK.md) | Architecture and the module register (what is built vs. designed). |
 | [`DATA_SOURCES.md`](DATA_SOURCES.md) | Verified free archives and access tiers. |
 | [`docs/STORAGE.md`](docs/STORAGE.md) | **Where stored data lives** (Drive folders, batch evidence, Colab runs): the committed index `storage/locations.jsonl` and `python -m cygnus.storage`, for every harness. |
+| [`docs/TIERS.md`](docs/TIERS.md) | **Run a tier anywhere:** one command per environment (local, cloud agent, Colab), tier contracts, verified handbacks and failure classes. |
+| [`docs/CODEX_CLOUD.md`](docs/CODEX_CLOUD.md) | **Codex Cloud workflow:** CPU setup, target selection, notebook-style T0–T3 gates/checkpoints and the Luna/xhigh task brief. |
+| [`docs/CLOUD_SCOUTING.md`](docs/CLOUD_SCOUTING.md) | **Before T0:** fresh public-archive scouting, bounded downloads, source coverage and input/review queues. |
 | [`docs/COLAB_SYNC.md`](docs/COLAB_SYNC.md) | **Canonical Windows scheduler** for Colab tier marks and automatic repo notes. Reuse `\Cygnus-Colab-Sync`; do not create redundant schedules. |
 | [`docs/HIGHER_TIERS_COLAB.md`](docs/HIGHER_TIERS_COLAB.md) | **Reusable second-stage notebook:** discover first-stage exports, select earned T2 targets, reuse exact products and resume by source/revision. No manual target list or automatic promotion. |
 | [`docs/ANALYSIS_SUITE.md`](docs/ANALYSIS_SUITE.md) | Scope and limits of `src/cygnus/analysis/`. |

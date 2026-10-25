@@ -1,0 +1,122 @@
+{
+  "step": "event_null",
+  "run_id": 3,
+  "result": {
+    "events": [
+      {
+        "event_bjd": 2460075.100938268,
+        "product": "tess2023124020739-s0065-0000000128449971-0259-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 1506.3831791529524,
+          "coverage": 0.9953196804904553,
+          "n_event": 74,
+          "n_flank": 1005,
+          "residual_rms_ppm": 1900.4878632253274
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 190,
+          "n_exceed": 0,
+          "resolution": 0.005263157894736842,
+          "note": "0/190 event-free windows at least as deep; resolution 1/190, not a probability of zero",
+          "state": "passed",
+          "k": 0,
+          "n": 190,
+          "fraction": 0.0,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 62,
+          "n_recovered": 54,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.8709677419354839,
+          "state": "failed"
+        }
+      },
+      {
+        "event_bjd": 2460082.502314433,
+        "product": "tess2023124020739-s0065-0000000128449971-0259-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 1675.5814880271344,
+          "coverage": 0.9953196804904553,
+          "n_event": 74,
+          "n_flank": 836,
+          "residual_rms_ppm": 2327.6438713675575
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 210,
+          "n_exceed": 0,
+          "resolution": 0.004761904761904762,
+          "note": "0/210 event-free windows at least as deep; resolution 1/210, not a probability of zero",
+          "state": "passed",
+          "k": 0,
+          "n": 210,
+          "fraction": 0.0,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 71,
+          "n_recovered": 64,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.9014084507042254,
+          "state": "passed"
+        }
+      },
+      {
+        "event_bjd": 2460082.5537030464,
+        "product": "tess2023124020739-s0065-0000000128449971-0259-s_lc.fits",
+        "observed": {
+          "state": "measured",
+          "depth_ppm": 1621.768176934199,
+          "coverage": 0.9953196804904553,
+          "n_event": 74,
+          "n_flank": 872,
+          "residual_rms_ppm": 2375.9911373688096
+        },
+        "null": {
+          "n_drawn": 300,
+          "n_covered": 202,
+          "n_exceed": 0,
+          "resolution": 0.0049504950495049506,
+          "note": "0/202 event-free windows at least as deep; resolution 1/202, not a probability of zero",
+          "state": "passed",
+          "k": 0,
+          "n": 202,
+          "fraction": 0.0,
+          "min_n": 100,
+          "max_frac": 0.05
+        },
+        "injection": {
+          "n_covered": 69,
+          "n_recovered": 58,
+          "note": "uncovered epochs excluded, not counted as misses",
+          "recovery_fraction": 0.8405797101449275,
+          "state": "failed"
+        }
+      }
+    ],
+    "file": "state/higher_tiers/t2-p02-b02-2026-10-02-10deebcecc06/toi-1938-01/event_null.json"
+  },
+  "checks": {
+    "Product integrity (SHA-256)": {
+      "state": "passed",
+      "note": "4 product(s) verified; pinned checksums matched",
+      "step": "fetch_products"
+    },
+    "Event-epoch null exceedance (k/N)": {
+      "state": "passed",
+      "note": "BJD 2460075.101: 0/190 event-free windows at least as deep; resolution 1/190, not a probability of zero; BJD 2460082.502: 0/210 event-free windows at least as deep; resolution 1/210, not a probability of zero; BJD 2460082.554: 0/202 event-free windows at least as deep; resolution 1/202, not a probability of zero",
+      "step": "event_null"
+    },
+    "Event-depth injection-recovery": {
+      "state": "failed",
+      "note": "BJD 2460075.101: 54/62 recovered; BJD 2460082.502: 64/71 recovered; BJD 2460082.554: 58/69 recovered",
+      "step": "event_null"
+    }
+  }
+}

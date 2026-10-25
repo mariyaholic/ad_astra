@@ -1,5 +1,12 @@
 # Project status and handoff
 
+<!-- cygnus:handback:t2-p02-b02-2026-10-02-10deebcecc06:start -->
+
+**Handback t2-p02-b02-2026-10-02-10deebcecc06** (colab, cygnus.higher_tier_export/1): T2: 17, closed: 2, incomplete: 11. Verified and imported; scientific review pending, no evidence promoted. [Report](../reports/handback-t2-p02-b02-2026-10-02-10deebcecc06/REPORT.md).
+
+<!-- cygnus:handback:t2-p02-b02-2026-10-02-10deebcecc06:end -->
+
+
 <!-- cygnus:colab-sync:t2-p02-b02-2026-10-02-10deebcecc06:start -->
 
 **Colab sync t2-p02-b02-2026-10-02-10deebcecc06:** T2: 17, closed: 2, missing: 11; 19/30 checkpointed. Post-run tiers derived from manifest-verified sky records; saved starting board is historical. Bulk products and scientific interpretations remain unreviewed. [Tier marks](colab_runs/t2-p02-b02-2026-10-02-10deebcecc06/TIER_MARKS.md).
@@ -21,7 +28,7 @@
 <!-- cygnus:colab-sync:p02-b02-2026-10-02:end -->
 
 
-Last updated: 2026-10-25 (Asia/Manila; repository transfer, branch cleanup and the 2026-10-10/11 records). Read after `AGENTS.md`.
+Last updated: 2026-10-25 (Asia/Manila; repository transfer and branch cleanup; 2026-10-17 cloud software preparation and hosted base-environment setup). Read after `AGENTS.md`.
 
 ## Current state
 
@@ -50,6 +57,43 @@ Scientific proof/disproof remains unfinished; no research process is implied
 between chats by these notes.
 
 ## Batch state and next work
+
+- Hosted base environment configured 2026-10-17: private `ad_astra` for
+  `mapsugui/ad_astra`, Python 3.12 `.venv`, CI extras, five accepted variables,
+  Package managers plus 20 astronomy hosts, and guarded start instructions.
+  Hosted onboarding reports 734 passed, one skipped and 37 deselected tests,
+  1,283 campaign specs validated, and passing site/explorer, leak and HTTP checks.
+  This covers the existing GitHub checkout. New controller/scouting files remain
+  uncommitted locally and require publication to the selected GitHub branch;
+  the start skill stops research if they are absent. No archive sweep or science
+  pilot was run. Snapshot publication status is recorded in WORKSTACK and the
+  [cloud guide](CODEX_CLOUD.md); model/effort availability remains unverified.
+
+- Public archive scout/acquisition added 2026-10-17: fresh finite catalogue
+  scouting, explicit source-capability inventory, bounded public input retrieval,
+  provenance/checkpoint integrity and `plan --acquisition` reuse are implemented.
+  Only acquired, input-checked SPOC data enter the native transit route; other
+  products retain review routes. One real workstation Gaia query/download control
+  retained a verified 313-byte catalogue CSV, not a scientific lead. Other source
+  endpoints and hosted execution remain unverified live. Final offline gate:
+  788 passed, 37 deselected, three warnings; Ruff/diff checks passed. See
+  [scouting operations and coverage](CLOUD_SCOUTING.md). Full final offline
+  validation is recorded in WORKSTACK; shared-interpreter dependency limitations
+  below still apply.
+
+- Codex Cloud workflow development 2026-10-17: local setup and a serial
+  `cygnus.cloud` controller now prepare fresh exact-source queue selection,
+  native T0/T1 screening, gated T2 vet/null checks and configured T3 metadata or
+  validated-input conditional RV/PRF diagnostics. Notebook source/product/event
+  and checkpoint integrity rules are reused. Failed artifact checks stop
+  continuation; missing T3 input packets remain not_tested and incomplete.
+  This is software preparation with synthetic/native regression coverage,
+  not a live cloud research run or a change to any lead/tier above. Full-workflow
+  Linux preflight, archive access, hosted Luna/xhigh and the first pilot remain
+  unverified. See [the environment and task guide](CODEX_CLOUD.md) and WORKSTACK.
+  Final local offline suite: 764 passed, 37 deselected, three warnings; Ruff and
+  diff checks passed. Actual shared-interpreter preflight fails Gradio dependency
+  compatibility; the newer cloud workflow still needs isolated hosted preflight.
 
 - Specialist advancement 2026-10-11: exact source rows refreshed; eight retained/reference
   event rows plus S107 conditional epoch pass configured local null/injection tests.
@@ -156,6 +200,18 @@ indexed in `storage/locations.jsonl`.
   inconclusive results may not be promoted into cleared companion checks.
 - Observer contact, catalogue submission and journal submission require explicit
   authorization. None is part of a repository or website update.
+- Tier automation (2026-10-25, [TIERS.md](TIERS.md)). Open decisions:
+  1. Whether the canonical `\Cygnus-Colab-Sync` task should also run
+     `python -m cygnus.tier colab ingest --all`. It currently runs only the tier-marks sync; changing
+     it means re-registering the task, so it is not done without approval.
+  2. Whether to rebuild the T2 notebook so `02_setup.py` clones `mariyaholic/ad_astra` directly.
+     It still names `mapsugui/ad_astra` and relies on GitHub's transfer redirect. Rebuilding
+     changes the notebook revision and its pinned-history tests.
+  3. Whether to delete the untracked 72 MB raw copy
+     `docs/colab_runs/t2-p02-b02-2026-10-02-10deebcecc06/cloud/` or move it to scratch. Its
+     verified review set is now in `docs/handbacks/`. It is not deleted automatically.
+  4. Whether the Codex hosted environment, created for `mapsugui/ad_astra`, follows the
+     repository transfer or must be recreated; also the first hosted cycle run itself.
 
 Fleet recomputation, periodic campaign publication and survivor dossiers were
 already authorized and completed in the dated history; do not ask again or

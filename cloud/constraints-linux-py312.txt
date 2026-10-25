@@ -1,0 +1,118 @@
+# Resolved pins for the cloud-agent environment: Linux x86_64, CPython 3.12, extras [test,site,campaign].
+# Generated 2026-10-25 with:
+#   uv pip compile pyproject.toml --extra test --extra site --extra campaign --python-version 3.12 #     --python-platform x86_64-unknown-linux-gnu --exclude-newer 2026-10-11T00:00:00Z --no-header
+# This is a resolution, not a tested install: the first cloud preflight + pytest run validates it.
+# tools/setup_cloud.py applies it as pip constraints only on Linux CPython 3.12 (Colab and Windows
+# resolve their own versions; every handback records actual package versions).
+astropy==8.0.1
+    # via
+    #   cygnus (pyproject.toml)
+    #   astroquery
+    #   pyvo
+astropy-iers-data==0.2026.10.5.1.0.7
+    # via astropy
+astroquery==0.4.11
+    # via cygnus (pyproject.toml)
+beautifulsoup4==4.15.0
+    # via astroquery
+certifi==2026.7.22
+    # via requests
+cffi==2.1.1
+    # via cryptography
+charset-normalizer==3.5.2
+    # via requests
+contourpy==1.4.0
+    # via matplotlib
+cryptography==50.0.2
+    # via secretstorage
+cycler==0.12.1
+    # via matplotlib
+fonttools==4.66.1
+    # via matplotlib
+html5lib==1.1
+    # via astroquery
+idna==3.20
+    # via requests
+iniconfig==2.3.1
+    # via pytest
+jaraco-classes==3.4.0
+    # via keyring
+jaraco-context==6.1.2
+    # via keyring
+jaraco-functools==4.6.0
+    # via keyring
+jeepney==0.9.0
+    # via
+    #   keyring
+    #   secretstorage
+jinja2==3.1.6
+    # via cygnus (pyproject.toml)
+keyring==25.7.0
+    # via astroquery
+kiwisolver==1.5.1
+    # via matplotlib
+markupsafe==3.0.4
+    # via jinja2
+matplotlib==3.11.2
+    # via cygnus (pyproject.toml)
+more-itertools==11.1.0
+    # via
+    #   jaraco-classes
+    #   jaraco-functools
+numpy==2.5.4
+    # via
+    #   cygnus (pyproject.toml)
+    #   astropy
+    #   astroquery
+    #   contourpy
+    #   matplotlib
+    #   pyerfa
+    #   scipy
+packaging==26.3
+    # via
+    #   astropy
+    #   matplotlib
+    #   pytest
+pillow==12.3.0
+    # via matplotlib
+pluggy==1.6.0
+    # via pytest
+pycparser==3.11
+    # via cffi
+pyerfa==2.0.1.5
+    # via astropy
+pygments==2.21.0
+    # via pytest
+pyparsing==3.3.3
+    # via matplotlib
+pytest==9.1.1
+    # via cygnus (pyproject.toml)
+python-dateutil==2.9.0.post0
+    # via matplotlib
+pyvo==1.9.1
+    # via astroquery
+pyyaml==6.0.3
+    # via
+    #   cygnus (pyproject.toml)
+    #   astropy
+requests==2.34.2
+    # via
+    #   cygnus (pyproject.toml)
+    #   astroquery
+    #   pyvo
+scipy==1.18.1
+    # via cygnus (pyproject.toml)
+secretstorage==3.5.0
+    # via keyring
+six==1.17.0
+    # via
+    #   html5lib
+    #   python-dateutil
+soupsieve==2.10
+    # via beautifulsoup4
+typing-extensions==4.16.0
+    # via beautifulsoup4
+urllib3==2.8.0
+    # via requests
+webencodings==0.6.1
+    # via html5lib

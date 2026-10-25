@@ -53,6 +53,17 @@ Before working on TOI-224.01, TOI-2666.01, TOI-3500.02 or TOI-7610.01, read `doc
 
 ## Batches (many targets, unattended)
 
+For notebook-style cloud continuation, use
+[`CODEX_CLOUD.md`](CODEX_CLOUD.md) and `python -m cygnus.cloud`. It selects fresh
+targets, drives the native T0/T1 methods, and automatically continues only
+gate-eligible targets to native T2 and supported, input-bound T3 diagnostics.
+It retains incomplete states and never promotes evidence or executes T4.
+The manual loop above still escalates to review; cloud continuation is the
+separately configured, tested execution route.
+For fresh multi-archive target discovery and bounded downloads before T0, use
+[`CLOUD_SCOUTING.md`](CLOUD_SCOUTING.md), then `plan --acquisition` with its
+verified receipt. Catalogue/image/spectral review queues do not earn transit tiers.
+
 `python -m cygnus.batch` (`src/cygnus/batch.py`) drives the same loop for tens to hundreds of targets. It calls the same commands (`cygnus.multi new`, `run` and `report`), so every campaign it produces is identical to one made by hand.
 
 ```bash

@@ -80,7 +80,7 @@ class MastAdapter(ArchiveAdapter):
 
     def discover(self, target: Target, *, limit: int = 5, collection: str = "TESS",
                  provenance: str = "SPOC", subgroup: str = "LC", radius_arcsec: float | None = None,
-                 **opts) -> list[ProductRef]:
+                 dataproduct_type: str = "timeseries", **opts) -> list[ProductRef]:
         """Timeseries products by target name (default) or, with ``radius_arcsec``, by position.
 
         ``collection``, ``provenance`` and ``subgroup`` accept comma-separated lists. The position search
@@ -92,7 +92,9 @@ class MastAdapter(ArchiveAdapter):
         # Mast.Caom.Filtered takes column filters; Mast.Caom.Cone takes only ra/dec/radius and rejects them
         # ("Missing Required Parameter: RA"). Mast.Caom.Filtered.Position takes both (checked 2026-09-26 on
         # Kepler-10: two Kepler timeseries observations of kplr011904151 within 10").
-        filters: dict[str, list] = {"obs_collection": colls, "dataproduct_type": ["timeseries"]}
+        if dataproduct_type not in ("timeseries", "image", "spectrum", "cube"):
+            raise ValueError("unsupported MAST data product type")
+        filters: dict[str, list] = {"obs_collection": colls, "dataproduct_type": [dataproduct_type]}
         if radius_arcsec is None:
             filters["target_name"] = [key]
         if provenance:
@@ -131,7 +133,8 @@ class MastAdapter(ArchiveAdapter):
             coll = str(p.get("obs_collection") or colls[0])
             uri = p.get("dataURI") or f"mast:{coll}/product/{fn}"
             rows.append({"product_id": fn, "url": f"{MAST_DL}?uri={uri}",
-                         "format": self._fmt_for(fn, coll),
+                         "format": "fits_image" if dataproduct_type == "image" else
+                                   "fits_cube" if dataproduct_type == "cube" else self._fmt_for(fn, coll),
                          "description": f"MAST {coll} {sub} {fn}",
                          "obsid": p.get("obsID"), "sector": _sector_of(fn), "tic": target.tic,
                          "size_bytes": int(p["size"]) if str(p.get("size") or "").isdigit() else None})
@@ -200,8 +203,6 @@ class GaiaAdapter(ArchiveAdapter):
 
     def fetch(self, ref: ProductRef, dest: Path, *, timeout_s: float = 120.0) -> Path:
         if ref.extra.get("inline"):
-            import json as _json
-
             rows = ref.extra.get("rows", [])
             columns = list(rows[0].keys()) if rows else []
             dest.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,141 @@
+{
+  "step": "known_signal_recovery",
+  "run_id": 428,
+  "config_hash": "8117f77677221b66",
+  "finished_utc": "2026-10-02T10:30:39Z",
+  "result": {
+    "per_product": {
+      "tess2026005125623-s0099-0000000291668351-0300-s_lc.fits": {
+        "k_mad": 2.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-6609.01",
+        "channel_mode": "SAP+PDCSAP",
+        "catalogue": {
+          "epoch_source": "campaigns/tess-periodic-02/target_queue.csv (rank 165), NASA Exoplanet Archive TOI row refreshed 2026-10-02T07:25:19Z (rowupdate 2024-08-22 10:08:01)",
+          "depth_ppm": 13164.0,
+          "duration_h": 3.75
+        },
+        "time_span_bjd": [
+          2461046.106445246,
+          2461073.7764664767
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2461054.3819325003,
+            "usable_in_transit_cadences": 113,
+            "screen_entries": 0,
+            "flux_types": [],
+            "measured_depth_ppm": 15167.32269062493,
+            "depth_err_ppm": 1337.823020899384,
+            "depth_ratio_to_catalogue": 1.1521819120802894,
+            "state": "not_recovered"
+          },
+          {
+            "epoch_bjd": 2461067.3233928,
+            "usable_in_transit_cadences": 0,
+            "screen_entries": 0,
+            "flux_types": [],
+            "state": "gap"
+          }
+        ]
+      },
+      "tess2026060005000-s0101-0000000291668351-0303-s_lc.fits": {
+        "k_mad": 2.5,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-6609.01",
+        "channel_mode": "SAP+PDCSAP",
+        "catalogue": {
+          "epoch_source": "campaigns/tess-periodic-02/target_queue.csv (rank 165), NASA Exoplanet Archive TOI row refreshed 2026-10-02T07:25:19Z (rowupdate 2024-08-22 10:08:01)",
+          "depth_ppm": 13164.0,
+          "duration_h": 3.75
+        },
+        "time_span_bjd": [
+          2461100.6772062555,
+          2461126.808191268
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2461106.1477737003,
+            "usable_in_transit_cadences": 112,
+            "screen_entries": 0,
+            "flux_types": [],
+            "measured_depth_ppm": 17439.004536872304,
+            "depth_err_ppm": 1604.3991807027003,
+            "depth_ratio_to_catalogue": 1.3247496609596099,
+            "state": "not_recovered"
+          },
+          {
+            "epoch_bjd": 2461119.089234,
+            "usable_in_transit_cadences": 112,
+            "screen_entries": 9,
+            "flux_types": [
+              "PDCSAP",
+              "SAP"
+            ],
+            "measured_depth_ppm": 15860.81812940321,
+            "depth_err_ppm": 1627.416611209499,
+            "depth_ratio_to_catalogue": 1.2048631213463392,
+            "entry_offset_hours": 1.4937216974794865,
+            "state": "recovered"
+          }
+        ]
+      },
+      "tess2026086090000-s0102-0000000291668351-0304-s_lc.fits": {
+        "k_mad": 3.0,
+        "threshold_source": "calibrated (calibrate_screen)",
+        "target": "TOI-6609.01",
+        "channel_mode": "SAP+PDCSAP",
+        "catalogue": {
+          "epoch_source": "campaigns/tess-periodic-02/target_queue.csv (rank 165), NASA Exoplanet Archive TOI row refreshed 2026-10-02T07:25:19Z (rowupdate 2024-08-22 10:08:01)",
+          "depth_ppm": 13164.0,
+          "duration_h": 3.75
+        },
+        "time_span_bjd": [
+          2461127.019316214,
+          2461151.7274193885
+        ],
+        "epochs": [
+          {
+            "epoch_bjd": 2461132.0306943003,
+            "usable_in_transit_cadences": 113,
+            "screen_entries": 0,
+            "flux_types": [],
+            "measured_depth_ppm": 16220.036022770335,
+            "depth_err_ppm": 1261.7858977577685,
+            "depth_ratio_to_catalogue": 1.2321510196574244,
+            "state": "not_recovered"
+          },
+          {
+            "epoch_bjd": 2461144.9721546,
+            "usable_in_transit_cadences": 111,
+            "screen_entries": 0,
+            "flux_types": [],
+            "measured_depth_ppm": 14314.11023743223,
+            "depth_err_ppm": 1225.420800637638,
+            "depth_ratio_to_catalogue": 1.0873678393673831,
+            "state": "not_recovered"
+          }
+        ]
+      }
+    },
+    "states": [
+      "not_recovered",
+      "gap",
+      "not_recovered",
+      "recovered",
+      "not_recovered",
+      "not_recovered"
+    ]
+  },
+  "checks": {
+    "Known-signal recovery (positive control)": {
+      "state": "passed",
+      "note": "BJD 2461054.3819: not recovered, depth 15167 ± 1338 ppm (catalogue 13164 ppm); BJD 2461067.3234: gap (catalogue 13164 ppm); BJD 2461106.1478: not recovered, depth 17439 ± 1604 ppm (catalogue 13164 ppm); BJD 2461119.0892: recovered, depth 15861 ± 1627 ppm (catalogue 13164 ppm); BJD 2461132.0307: not recovered, depth 16220 ± 1262 ppm (catalogue 13164 ppm); BJD 2461144.9722: not recovered, depth 14314 ± 1225 ppm (catalogue 13164 ppm)",
+      "step": "known_signal_recovery"
+    }
+  },
+  "notes": [
+    "Positive control: catalogued transit gap, not recovered, recovered (6 covered epochs)."
+  ],
+  "outcome": null
+}

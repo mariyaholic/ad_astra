@@ -1,5 +1,204 @@
 # Workstack
 
+## Tier automation, contracts and verified handbacks — 2026-10-25
+
+- Added `cygnus.handback` (tier contracts, handback verify/pack/ingest, failure classes, retries)
+  and `cygnus.tier` (one-command `cycle` for local and cloud-agent runs, `colab stage/ingest`,
+  `verify`, `ingest`, `check`, `status`, `contracts`). Guide: [docs/TIERS.md](docs/TIERS.md).
+- Defect fixed: cloud capsules sat under `reports/cloud/<id>/`, where every stage's sky record has
+  the same target id, so a real run would have failed the suite with duplicate ids. Capsules now
+  live in `docs/handbacks/<plan-id>/`; ingest generates `reports/handback-<id>/`.
+- Handbacks are rejected for manifest gaps, mismatches or extras; FITS, SQLite or credentials;
+  private paths; changed checkpoints, decisions, board or HANDBACK claims; missing contract outputs;
+  promoted or changed evidence; T4; and unknown or dirty code commits. Tests pin each case, plus
+  the real 2026-10-10 Colab export (17 T2 / 2 closed / 11 incomplete re-derived).
+- Cloud-agent pins: `cloud/constraints-linux-py312.txt` (uv resolution, `--exclude-newer
+  2026-10-11`) is applied by `tools/setup_cloud.py` on Linux CPython 3.12 only. It is not yet a
+  tested hosted install.
+- Still needs a person: pressing Run all in Colab (Drive consent); pulling a cloud agent's branch;
+  scientific review of every handback. Open decisions are in STATUS (scheduler ingest, notebook
+  clone URL, the 72 MB raw copy, hosted environment after the repository transfer).
+
+From→To: claude.impl → any   model: opus
+Done: One-command tier cycles, enforced contracts, verified handback ingest for local/cloud/Colab.
+Next: First hosted `cygnus.tier cycle --env cloud-agent` pilot; decide the STATUS items.
+Files: src/cygnus/handback.py; src/cygnus/tier.py; src/cygnus/cloud.py; docs/TIERS.md; tests/test_handback.py; tests/test_tier_cycle.py.
+Verify: python -m pytest -q; python -m cygnus.tier check.
+Blockers: Hosted pilot not run; Colab execution needs the owner's interactive Drive consent.
+
+## Hosted Codex environment settings — 2026-10-17
+
+- Created and published private `ad_astra` for `mapsugui/ad_astra` through the
+  hosted UI. Existing unrelated environment was preserved. The configuration
+  panel visibly showed **Published** after one transient publish failure and a
+  successful retry. The initial failure retained all settings.
+- Hosted onboarding reported Python 3.12, isolated `.venv` with
+  `.[test,site,campaign]`, 734 passed / one skipped / 37 deselected tests, all
+  1,283 campaign specs validated, and passing site/explorer builds, bundle leak
+  scan and local HTTP checks. These are the existing remote checkout's results,
+  not a hosted execution of the newer local cloud controller/scouting code.
+- Saved install script creates the venv, installs CI extras and runs pip check.
+  Start skill uses explicit venv Python, checks revision/history and dependencies,
+  stops research if cloud workflow files are missing, requires cloud preflight
+  when present, preserves native tier/checkpoint rules and keeps the first
+  authorized pilot to one target. No research starts merely from environment
+  startup. Luna/xhigh is an intended task selection, not an environment field.
+- Saved CYGNUS_REQUIRE_SITE=1, MPLBACKEND=Agg, OMP_NUM_THREADS=1,
+  OPENBLAS_NUM_THREADS=1 and MKL_NUM_THREADS=1 at environment scope. Hosted UI
+  rejected PYTHONUNBUFFERED as reserved; removed it and documented python -u.
+  No secrets added. CYGNUS_SCRATCH/LEDGER/MULTI_ROOT remain unset. Privacy stayed
+  Only me; Package managers plus 20 exact astronomy hosts were saved.
+- Remaining: reviewed commit/push of the local workflow files, remote preflight
+  against that revision, actual Luna/xhigh availability, archive access checks
+  and one-target hosted pilot. `git ls-files --error-unmatch tools/setup_cloud.py`
+  confirms the setup tool remains untracked locally. No commit/push, scientific
+  campaign, Drive transfer, lead promotion or public content publication occurred.
+- Settings proof: ignored `scratch/cloud-environment-settings-2026-10-17.jpg`.
+  Updated cloud guide and STATUS with observed state. Documentation-only local
+  edits; final `git diff --check` passed (only the existing adapter CRLF notice).
+  No science code changed.
+
+## Public archive scout and acquisition — 2026-10-17
+
+- Added `cygnus.cloud sources/scout/acquire`, `cloud/scout.yaml` and the
+  acquisition-bound `plan --acquisition` route. Fresh bounded TOI rows seed
+  finite fields; Gaia, VizieR/VSX, SIMBAD, NED and AllWISE contribute source-ID
+  target rows. Native adapters discover light curves, images, ESO science links,
+  KOA metadata and explicitly requested solar context. All registered/linked
+  sources are inventoried; manual/account/AOI routes are never fake downloads.
+- Exact-source IDs deduplicate within catalogues; coincident cross-catalogue
+  positions remain separate. Generated cutouts are planned until access occurs.
+  Source query/selection, footprint, limits, exclusions, failed attempts and raw
+  rows remain in receipts. Acquisition routes are separate from scientific tiers.
+- Per-job supervised checkpoints bind code/runtime, source output and acquired
+  hashes. Same-task resume skips verified work; summary/queue/product corruption
+  fails closed. Direct downloads stream with byte caps; truncated, empty,
+  size-mismatched or wrong-TIC files cannot feed transit testing. Valid acquired
+  SPOC bytes are copied, hash checked and reused by the existing native fetch.
+- Added MAST image-type discovery and image readers for HST/JWST; SkyView uses
+  documented image-list resolution; ESO acquisition selects science #this
+  rather than auxiliary links. Images/spectra/other time series remain review
+  routes; KOA raw/calibration work and validated RV extraction remain specialist.
+- Pilot: one field, three retrieval targets, ten rows/catalogue, two products per
+  source, 512 MiB retained scratch, 32 MiB/product, 180 s/job and 1800 s/invocation.
+  Source-specific failures and unavailable auth remain explicit; no all-sky or
+  all-service health claim. Updated guide, model brief and preflight imports.
+- Focused archive/controller/setup gate passed 73 tests before the final
+  corrections. The final scout/controller/native-lead combination passed 71,
+  including 24 scout cases and native pinned-fetch reuse without a second
+  download. The broad suite found a shared-adapter restoration defect; new
+  regressions failed before correcting class-method lookup restoration in scout
+  tracing and T3 metadata. Final full offline retry: 788 passed, 37 deselected,
+  three native plotting/NaN warnings in 118.94 s. Ruff, whitespace checks,
+  recipe validation and CLI help pass. The failed earlier run is superseded
+  by this verified retry; no tests or scientific thresholds were weakened.
+- Real bounded workstation CLI probe: one Gaia cone row gathered and a 313-byte
+  catalogue CSV retained; SHA-256
+  `56a958ee061d3dc38ac4d8f02f4773f5b0eb97a6c9582a115e9362e4c6d23506` verified.
+  It remains catalogue_review, not transit eligible. Acquisition resumed with
+  the verified checkpoint. Receipts/report are in designated disposable scratch:
+  `cloud_scout_validation/reports/cloud-scout/scout-82abf6793c189c4c/`.
+  This final-code run's complete capsule manifest verified with zero problems.
+  The first CLI attempt exposed Windows relative-path normalization; regression
+  failed before the fix and passes after. The interrupted broad suite is not
+  counted as a pass. Other sources and hosted Linux remain unverified live.
+- Existing uncommitted research/storage work preserved. No scientific campaign,
+  lead promotion, publication, remote task, commit, push, credential change or
+  automatic Drive retention was performed.
+
+From→To: codex.impl → codex.impl   model: luna
+Done: Added finite multi-archive scouting, acquisition and verified transit-input reuse.
+Next: Put reviewed files on the chosen branch; validate the isolated cloud environment and bounded pilot.
+Files: src/cygnus/cloud_scout.py; src/cygnus/cloud.py; cloud/scout.yaml; docs/CLOUD_SCOUTING.md; docs/prompts/cloud-task.md.
+Verify: python -m pytest -q; python -m cygnus.cloud sources; isolated cloud setup_cloud.py --check.
+Blockers: Hosted setup/all-source live access unverified; non-transit scientific review and specialist RV/PRF inputs remain separate.
+
+## Gated Codex Cloud controller — 2026-10-17
+
+- Extended cloud preparation into `python -m cygnus.cloud plan/run/status/report`,
+  with the one-target pilot in `cloud/workflow.yaml`. It ranks unclaimed queue
+  rows, refreshes exact TOI/TIC provenance, records every exclusion, and reuses
+  native screen, vet, event-null, conditional RV and PRF methods. No live target
+  selection/query or astronomical campaign was run during development.
+- Notebook-style gates bind queue/source, code/runtime, products, event identity,
+  output bytes and upstream receipts. Earned tier and executed stage remain
+  separate. Missing/failed localization, blend/null gates, covered failed positive
+  controls and failed native artifact checks prevent automatic continuation.
+  Frozen/retracted specialist targets remain excluded; no evidence promotion.
+- T3 is limited to metadata and validated-input conditional RV/PRF diagnostics.
+  Empty input packets remain not_tested/incomplete. Raw spectral extraction,
+  calibrated PRF construction, TTV fitting, T4 and independent confirmation are
+  not automated. Quality receipts declare validation; their sources still need
+  scientific review. No cloud/account/model availability is inferred from tests.
+- The serial supervisor enforces stage/run time, managed scratch occupancy and
+  minimum free-space budgets. Only the parent commits checkpoints after final
+  resource checks. Corruption fails closed, partial attempts are preserved,
+  verified stages skip on resume, and interrupted final journal appends recover.
+  Resource sampling may overshoot during one response; it is not a download meter.
+- Reports retain selection, ranked board, scientific records, full source/runtime
+  lineage, checksums and checkpoint copies. Same-task resume is supported; no
+  automatic cross-task state import, Drive mount/upload or notebook export claim.
+- Final offline suite: 764 passed, 37 deselected, three warnings in 288.92 s.
+  Warnings are two native empty-legend plots and the existing all-NaN centroid
+  fixture. Python Ruff and `git diff --check` passed. CLI plan/run help and the
+  shipped recipe validated offline. The 24 new workflow cases cover source/
+  checkpoint integrity, native T2, RV/PRF, missing inputs, artifact interlocks,
+  resource postconditions, interrupted journals and resume without recomputation.
+- Actual workstation preflight imports the new controller and all required
+  scientific packages, confirms full Git history and 26.36 GiB free scratch,
+  but correctly returns nonzero for global dependency conflicts: Gradio 5.29.1
+  requires Pillow <12 and Pydantic <2.12; installed versions are 12.3.0/2.13.4.
+  Do not certify this shared interpreter or change unrelated app dependencies.
+  Use the task-local Python 3.12 cloud venv and require a clean preflight there.
+- Existing October 10–11 uncommitted science/status/storage work remains separate.
+  No commit, push, deployment, publication, new hosted task or candidate change.
+
+From→To: codex.impl → codex.impl   model: luna
+Done: Built bounded target selection and notebook-style gated T0–T3 orchestration.
+Next: Put reviewed files on the selected branch; validate Linux setup and a one-target cloud pilot.
+Files: src/cygnus/cloud.py; src/cygnus/cloud_diagnostics.py; cloud/workflow.yaml; docs/CODEX_CLOUD.md; docs/prompts/cloud-task.md.
+Verify: python -m pytest -q; python -m cygnus.cloud --help; .venv/bin/python tools/setup_cloud.py --check in cloud.
+Blockers: Hosted environment and archive access unverified; T3 RV/PRF need validated input packets.
+
+## Codex Cloud preparation — 2026-10-17
+
+- Prepared `docs/CODEX_CLOUD.md`, the environment install/preflight command
+  `tools/setup_cloud.py` and `docs/prompts/cloud-task.md`. The default Luna/xhigh
+  science task is one fresh target from the repaired periodic queue, with exact
+  source refresh, native campaign execution, artifact review and escalation gates.
+- Setup reuses the existing CI extras and records offline readiness, source
+  revision/history and package names/versions in ignored local state. Cloud
+  scratch/ledger remain task-local; Drive access and retention require runtime
+  resolution and verification under `Cygnus/`.
+- Latest local October 10–11 research/status changes predate this task and remain
+  separate uncommitted work. A cloud checkout must verify its actual revision
+  and input receipts before continuing those investigations.
+- Verified: five setup regressions passed after their initial missing-feature
+  failures; Python Ruff and diff checks passed. Full workstation offline gate:
+  740 passed, 37 deselected, two warnings (empty plot legend and all-NaN
+  centroids), 893.67 seconds. Isolated publication dry build passed: 574 pages,
+  581 public files. Tool audit: no variant-suffixed scripts or clusters.
+- Fresh Windows/Python 3.13 dependency installation was stopped after a
+  15-minute local budget; ignored `.venv/` remains incomplete and uncertified.
+  Its actual preflight returned nonzero and named missing dependencies, as
+  required. The receipt is ignored `state/cloud/environment.json`; resume an
+  install with `python tools/setup_cloud.py` if needed. The full gate above used
+  the existing workstation interpreter, not this incomplete venv.
+- A duplicate publication check initially collided in shared `site_check/`
+  scratch (WinError 32). Both old attempts were stopped; the verified retry
+  used a separate `CYGNUS_SCRATCH` under the designated scratch root. The guide
+  now documents dry-build writes and sequential/per-task-isolated verification.
+- Linux/Python 3.12 cloud installation, archive allowlist probes, hosted Luna
+  selection and environment publication remain unverified. No research
+  campaign, commit, push or deployment was performed for this preparation.
+
+From→To: codex.impl → codex.impl   model: luna
+Done: Prepared repeatable cloud setup, environment guide and bounded task brief.
+Next: Verify and publish the prepared environment, then launch one bounded task.
+Files: tools/setup_cloud.py; docs/CODEX_CLOUD.md; docs/prompts/cloud-task.md; fresh campaign paths only.
+Verify: .venv/bin/python tools/setup_cloud.py --check
+Blockers: Workflow files must reach the selected GitHub branch; hosted environment is not configured here.
+
 ## Three specialist leads advanced — 2026-10-11
 
 - Ran separately attributable follow-up [reports/lead-advancement-2026-10-11/REPORT.md](reports/lead-advancement-2026-10-11/REPORT.md), reusing native Cygnus scientific methods.24 exact source/archive queries and known-answer controls answered; eight retained/reference event rows plus S107 pass configured local event-null/injection tests. Known3500.01 sibling ephemeris excluded; rejected224/S106 and3500/S101 excluded. No blind-search significance claim.

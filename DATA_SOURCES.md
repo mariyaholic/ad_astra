@@ -1,6 +1,18 @@
 # CYGNUS DATA SOURCES — Data-Gathering Reference
 
-Maintained: 2026-09-30 (Asia/Manila; exact query timestamps in report JSON).
+Cloud scout service control 2026-10-17 [V, bounded workstation]: the production
+`cygnus.cloud scout/acquire` CLI queried one 10-arcsec Gaia cone centered on a
+declared footprint from the dated TOI-2929.01 queue row (no current target
+identity/proper-motion claim). One returned catalogue row was retained as a
+313-byte CSV; SHA-256 `56a958ee061d3dc38ac4d8f02f4773f5b0eb97a6c9582a115e9362e4c6d23506`
+verified, with a successful checkpoint reuse. It is catalogue_review and not
+transit eligible. Exact queries, runtime/source hashes and acquisition checks:
+designated disposable scratch `cloud_scout_validation/reports/cloud-scout/scout-82abf6793c189c4c/`.
+This is not hosted-cloud or all-source access verification. Software coverage
+and explicit manual/metadata/account limits: `docs/CLOUD_SCOUTING.md`.
+
+Maintained: 2026-10-17 (Asia/Manila; bounded Gaia control and cloud software coverage).
+Other source verification dates remain as stated below; exact query timestamps are in report JSON.
 
 ESO targeted spectra verification2026-09-30 [V, bounded]: exact-name `ivoa.ObsCore` selections answer after spatial-query timeouts. TOI3500:24HARPS/29FEROS metadata rows;6HARPS/23FEROS science products public,18HARPS/6FEROS productsHTTP401. TOI2666:2publicFEROS spectra.31unique science products total108,622,080bytes. DATALINK VOTable `#this` supplies science URL; `#auxiliary` supplies pipeline bundles. Six public HARPS bundles supplyG2 target-fibre CCFs with correctedRVC,NOISE,BJD andFWHM; later ancillary productsHTTP401. Some FEROS bundles are gzip-compressed even when served asTAR; sparse HTTP Range cannot parse compressed members directly. Anonymous metadata visibility is not public-data eligibility. Exact queries/header/hash/access history: `reports/lead-resolution-2026-09-30/{rv_name_archive.json,spectra_manifest.json,harps_rv.json}`. No credentials required for verified public products; restricted products were not bypassed.
 

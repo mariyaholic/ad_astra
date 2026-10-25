@@ -45,11 +45,11 @@ INDEX = WORKTREE / "storage" / "locations.jsonl"
 LOCATION_FILE = "LOCATION.json"
 MANIFEST_NAME = "MANIFEST.sha256"
 COLAB_MYDRIVE = Path("/content/drive/MyDrive")
-KINDS = ("colab_run", "batch", "tier1_pack", "other")
+KINDS = ("colab_run", "batch", "tier1_pack", "handback", "other")
 # One writer kind per top-level area. A drive.file token cannot see folders another app created, so
 # if both kinds wrote the same area, rclone would create a second, same-named folder beside the
 # mount's (Drive allows duplicate names) and the logical path would stop meaning one place.
-AREA_WRITER = {"colab_runs": "path", "batches": "rclone", "data": "rclone"}
+AREA_WRITER = {"colab_runs": "path", "batches": "rclone", "data": "rclone", "handbacks": "rclone"}
 SCHEMA = "cygnus.storage_location/1"
 
 Runner = Callable[..., subprocess.CompletedProcess]
