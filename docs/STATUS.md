@@ -1,5 +1,12 @@
 # Project status and handoff
 
+<!-- cygnus:colab-sync:t2-p02-b02-2026-10-02-10deebcecc06:start -->
+
+**Colab sync t2-p02-b02-2026-10-02-10deebcecc06:** T2: 17, closed: 2, missing: 11; 19/30 checkpointed. Post-run tiers derived from manifest-verified sky records; saved starting board is historical. Bulk products and scientific interpretations remain unreviewed. [Tier marks](colab_runs/t2-p02-b02-2026-10-02-10deebcecc06/TIER_MARKS.md).
+
+<!-- cygnus:colab-sync:t2-p02-b02-2026-10-02-10deebcecc06:end -->
+
+
 <!-- cygnus:colab-sync:smoke-2026-10-01:start -->
 
 **Colab sync smoke-2026-10-01:** T2: 3; 3/3 checkpointed. Post-run tiers derived from manifest-verified sky records; saved starting board is historical. Bulk products and scientific interpretations remain unreviewed. [Tier marks](colab_runs/smoke-2026-10-01/TIER_MARKS.md).
@@ -37,13 +44,33 @@ between chats by these notes.
 
 ## Batch state and next work
 
+- Cloud higher-tier batch on 2026-10-10 finished through the Codex browser:
+  two verified local checkpoints reused, all 28 remaining targets attempted.
+  Final result: 19/30 checkpoints, 17 T2, two closed routes (TOI-2191.01,
+  TOI-4880.01), 11 incomplete event-coverage guard failures. None passes the
+  implemented T3 scientific gate or full saved-spec eligibility. No evidence
+  promotion or canonical candidate replacement. Review native diagnostics;
+  do not bypass the coverage guard. [Cloud report](../reports/cloud-t2-2026-10-10/REPORT.md).
+  The local entry below preserves the earlier execution history.
+
+- Local higher-tier execution on 2026-10-10: source `p02-b02-2026-10-02`
+  yielded 30 eligible and 70 excluded. Two targets have verified T2 checkpoints
+  (TOI-1938.01, TOI-2629.01); TOI-2557.01 failed the event-null coverage guard;
+  27 targets could not enter science because exact source receipts were missing.
+  The shared rclone client returned HTTP 403 `RATE_LIMIT_EXCEEDED`, including
+  a bounded later retry. This was a local CPU run, not Google Colab execution.
+  Both checkpointed targets retain Unverified-lead labels and have inconclusive
+  localization; other scientific checks include failures. Resume the same lineage
+  when source access returns, then review the outputs before any promotion.
+  [Execution report and retained diagnostics](../reports/local-t2-2026-10-10/REPORT.md).
+
 - Reusable T2 follow-up notebook built: `notebooks/cygnus_higher_tiers_colab.ipynb`.
   It discovers first-stage exports, derives eligible targets and keeps
   source/revision-bound resume state; no manually copied target list. The
   initial shipped-cell and sync tests passed, but independent review found four
   integrity/completion gaps. Corrections and regression checks now pass, and
   focused independent re-review cleared the four gaps and stale closure receipt.
-  Real Colab/live-archive execution remains user-run and has not been claimed.
+  Real CPU Colab/live-archive execution is now recorded in the cloud report above.
   [Operation and limits](HIGHER_TIERS_COLAB.md).
 - `p02-b02-2026-10-02`: 99/100 saved checkpoints, executed at T0. Derived earned
   tiers are 68 T0, one T1 and 30 T2; one target is missing. These marks audit
@@ -51,8 +78,9 @@ between chats by these notes.
 - TOI-3941.01 has no shipped checkpoint or sky record. Inspect the notebook's
   failure evidence before retrying; the NaN serialization repair is committed.
 - TOI-4280.01 remains T1 because the moving-object check is `not_tested` for one
-  unanswered event epoch. The 30 T2 targets need a subsequent pixel-vetting run
-  and review before any evidence promotion.
+  unanswered event epoch. Of the 30 eligible T2 targets, 19 now have follow-up
+  checkpoints and 11 remain incomplete. Scientific review is still
+  required before any evidence promotion.
 - `p02-b01`: 98 completed but unreviewed, with 41 escalations including 35
   outcome-lead repeat candidates. Retain draft markers until runbook review.
 - The legacy `tess-periodic-01` queue lacks usable periods for the current suite.

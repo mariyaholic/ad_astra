@@ -1,0 +1,105 @@
+schema: cygnus.campaign/1
+runner: cygnus.campaign
+campaign_id: toi-2557-01
+parent: tess-periodic-02
+domain: worlds.planetary.transit
+objective: 'Known-object test on TOI-2557.01 (TIC 269400980, PC): check that the calibrated
+  residual screen recovers every catalogued transit in its retrieved light curves,
+  measure the depth, then screen the same light curves for further transit-like dips
+  outside the catalogued transits. A further dip is an unverified lead until vetted;
+  it does not imply a period.
+
+  '
+outputs: state/higher_tiers/t2-p02-b02-2026-10-02-10deebcecc06/toi-2557-01
+random_seed: 20260927
+targets:
+- name: TOI-2557.01
+  tic: 269400980
+  ra_deg: 119.245948
+  dec_deg: -49.473563
+  frame: ICRS
+  epoch: J2015.5
+  position_source: NASA Exoplanet Archive TOI table (Gaia DR2 epoch J2015.5, verified
+    reports/position-epoch-audit-01)
+  t0_bjd: 2459238.558507
+  period_days: 9.8302309
+  depth_ppm: 5116.722044
+  duration_h: 4.0164674
+  tmag: 11.2047
+  catalogue_row_updated: '2025-07-10 10:08:01'
+  catalogue_query: SELECT toi, tid, tfopwg_disp, ra, dec, st_tmag, pl_trandep, pl_trandurh,
+    pl_tranmid, pl_orbper, sectors, toi_created, rowupdate FROM toi WHERE tid = 269400980
+  catalogue_retrieved_utc: '2026-10-02T07:25:12Z'
+veto:
+  kind: ephemeris
+  period_days: 9.8302309
+  t0_bjd: 2459238.558507
+  veto_phase: 0.0255
+  depth_ppm: 5116.722044
+  duration_h: 4.0164674
+  source: campaigns/tess-periodic-02/target_queue.csv (rank 140), NASA Exoplanet Archive
+    TOI row refreshed 2026-10-02T07:25:12Z (rowupdate 2025-07-10 10:08:01)
+steps:
+- fetch_products: {}
+- event_null:
+    n_null: 300
+    n_inject: 100
+    min_n: 100
+record:
+  path: campaigns/toi-2557-01/sky_record.json
+  title: Known-object test, TOI-2557.01
+  kind: known-object test
+  outcome: pipeline_check
+  report: campaigns/toi-2557-01/REPORT.md
+  search_log: campaigns/toi-2557-01/SEARCH_LOG.md
+  summary: 'Known-object test on TOI-2557.01: positive control on the catalogued transit(s),
+    calibrated screen for further dips, catalogue cross-match.
+
+    '
+  checks:
+  - name: Product integrity (SHA-256)
+    state: not_tested
+  - name: Known-signal recovery (positive control)
+    state: not_tested
+  - name: Calibrated false-alarm threshold (sign-flip null)
+    state: not_tested
+  - name: "Synthetic signal injection\u2013recovery"
+    state: not_tested
+  - name: Catalogue cross-match
+    state: not_tested
+  - name: Period aliases (repeat events)
+    state: not_tested
+  - name: Alternative detrending
+    state: not_tested
+  - name: Difference-image centroids / blend audit
+    state: not_tested
+  - name: Pointing / jitter correlation
+    state: not_tested
+  - name: Literature (ADS) audit
+    state: not_tested
+input:
+  products:
+  - product_id: tess2021014023720-s0034-0000000269400980-0204-s_lc.fits
+    expected_sha256: 44e10f54a77aff335c97b0cf4bf6062f5c65ceb6916c4147b29cf536ca76add2
+    expected_bytes: 1854720
+    target: TOI-2557.01
+    tic: 269400980
+    sector: 34
+  - product_id: tess2021039152502-s0035-0000000269400980-0205-s_lc.fits
+    expected_sha256: 53144ce8f8326d3a95ef3cb7f83c7875637bcccc789ffa4370ff1cc0fb123b56
+    expected_bytes: 1828800
+    target: TOI-2557.01
+    tic: 269400980
+    sector: 35
+  - product_id: tess2023018032328-s0061-0000000269400980-0250-s_lc.fits
+    expected_sha256: 5b4eca515e5cf5c5e5d24b0d000273b3b43cc0c5b3e3531dabcc5c46a6b85a89
+    expected_bytes: 1860480
+    target: TOI-2557.01
+    tic: 269400980
+    sector: 61
+  - product_id: tess2025014115807-s0088-0000000269400980-0285-s_lc.fits
+    expected_sha256: 91b90e8e94707329398e389f114e4b20b61f5797ac511fa95223b38ac0149f41
+    expected_bytes: 2030400
+    target: TOI-2557.01
+    tic: 269400980
+    sector: 88
