@@ -59,7 +59,7 @@ between chats by these notes.
 ## Batch state and next work
 
 - Hosted base environment configured 2026-10-17: private `ad_astra` for
-  `mapsugui/ad_astra`, Python 3.12 `.venv`, CI extras, five accepted variables,
+  the repository under its former owner, Python 3.12 `.venv`, CI extras, five accepted variables,
   Package managers plus 20 astronomy hosts, and guarded start instructions.
   Hosted onboarding reports 734 passed, one skipped and 37 deselected tests,
   1,283 campaign specs validated, and passing site/explorer, leak and HTTP checks.
@@ -180,12 +180,10 @@ regressions. Scientific records, rejected leads and source products are preserve
 Publishing the exported tier audit does not import the companion ledger or
 replace the canonical campaign records with the Colab copy.
 
-On 2026-10-25 the GitHub repository moved from `mapsugui/ad_astra` to
-`mariyaholic/ad_astra` (public; `origin` updated). GitHub redirects the old URL,
-but current instructions now name the new one; dated history keeps the old name.
-`notebooks/higher_tiers/02_setup.py` and `docs/CODEX_CLOUD.md` still clone or
-select `mapsugui/ad_astra` and belong to the cloud-workflow work; the hosted
-Codex environment must be re-pointed at the new repository before its next run.
+On 2026-10-25 the GitHub repository moved to `mariyaholic/ad_astra` (public;
+`origin` updated). The notebook setup now clones the current URL. Whether the
+hosted Codex environment follows the transfer or needs reconfiguration remains
+unverified and should be checked before its next run.
 Colab run folders commit their small audit files; each Drive capsule mirror
 (`docs/colab_runs/*/cloud/`) and per-target `period_aliases.json` stay on Drive,
 indexed in `storage/locations.jsonl`.
@@ -204,13 +202,12 @@ indexed in `storage/locations.jsonl`.
   1. Whether the canonical `\Cygnus-Colab-Sync` task should also run
      `python -m cygnus.tier colab ingest --all`. It currently runs only the tier-marks sync; changing
      it means re-registering the task, so it is not done without approval.
-  2. Whether to rebuild the T2 notebook so `02_setup.py` clones `mariyaholic/ad_astra` directly.
-     It still names `mapsugui/ad_astra` and relies on GitHub's transfer redirect. Rebuilding
-     changes the notebook revision and its pinned-history tests.
+  2. The T2 notebook and its setup source now clone `mariyaholic/ad_astra` directly.
+     Verify notebook generation and pinned-history tests before the next hosted run.
   3. Whether to delete the untracked 72 MB raw copy
      `docs/colab_runs/t2-p02-b02-2026-10-02-10deebcecc06/cloud/` or move it to scratch. Its
      verified review set is now in `docs/handbacks/`. It is not deleted automatically.
-  4. Whether the Codex hosted environment, created for `mapsugui/ad_astra`, follows the
+  4. Whether the Codex hosted environment, created before the transfer, follows the
      repository transfer or must be recreated; also the first hosted cycle run itself.
 
 Fleet recomputation, periodic campaign publication and survivor dossiers were
