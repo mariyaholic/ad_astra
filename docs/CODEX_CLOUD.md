@@ -11,7 +11,7 @@ repository re-verifies it with `python -m cygnus.tier ingest docs/handbacks/<pla
 Contracts, rejection rules and failure classes are in [TIERS.md](TIERS.md). The step-by-step
 commands below remain valid for inspection and debugging.
 
-The repository moved from `mapsugui/ad_astra` to `mariyaholic/ad_astra` on 2026-10-25. The hosted
+The repository moved to `mariyaholic/ad_astra` on 2026-10-25. The hosted
 environment observed below was created for the old path. Whether it follows the transfer is
 unverified; if it does not, recreate it for `mariyaholic/ad_astra` with the same settings.
 
@@ -19,7 +19,7 @@ unverified; if it does not, recreate it for `mariyaholic/ad_astra` with the same
 
 ### Hosted setup observed 2026-10-17
 
-The private `ad_astra` environment was created and published for `mapsugui/ad_astra`
+The private `ad_astra` environment was created and published for the repository under its former owner
 through the hosted setup UI. Its Python 3.12 onboarding reported 734 passed,
 one skipped and 37 deselected tests, all 1,283 campaign specifications validated,
 and passing site/explorer builds, bundle leak scan and local HTTP checks.
