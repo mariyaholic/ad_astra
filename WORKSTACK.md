@@ -28,7 +28,7 @@ Blockers: Hosted pilot not run; Colab execution needs the owner's interactive Dr
 
 ## Hosted Codex environment settings — 2026-10-17
 
-- Created and published private `ad_astra` for `mapsugui/ad_astra` through the
+- Created and published private `ad_astra` for the repository under its former owner through the
   hosted UI. Existing unrelated environment was preserved. The configuration
   panel visibly showed **Published** after one transient publish failure and a
   successful retry. The initial failure retained all settings.
