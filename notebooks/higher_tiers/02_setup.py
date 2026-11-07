@@ -17,7 +17,7 @@ if not CYGNUS_ROOT.is_dir():
     raise FileNotFoundError('BLOCK: Cygnus/ is not visible in the mounted Drive. Fix the mount; nothing outside it is read.')
 REPO_DIR = Path('/content/cygnus_stage_two')
 if not (REPO_DIR / '.git').is_dir():
-    subprocess.run(['git', 'clone', '--quiet', 'https://github.com/mapsugui/ad_astra', str(REPO_DIR)], check=True)
+    subprocess.run(['git', 'clone', '--quiet', 'https://github.com/mariyaholic/ad_astra', str(REPO_DIR)], check=True)
 else:
     subprocess.run(['git', '-C', str(REPO_DIR), 'fetch', '--quiet', 'origin'], check=True)
 subprocess.run(['git', '-C', str(REPO_DIR), 'checkout', '--quiet', '--detach', PINNED_COMMIT], check=True)
