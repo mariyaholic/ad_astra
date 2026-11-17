@@ -2,9 +2,9 @@
 
 _made with love by [maria](https://github.com/mariyaholic)_
 
-A little astronomy data-forensics lab that digs back through public archive data (TESS, Kepler, Gaia, WISE, ZTF,
+This is my little astronomy data-forensics lab. I dig back through public archive data (TESS, Kepler, Gaia, WISE, ZTF,
 Legacy Surveys and a bunch more) looking for signals the standard survey pipelines might have missed - and then
-tries really hard to explain every one of them away before calling it a lead. Everything runs on free, anonymous
+I try really hard to explain every one of them away before calling it a lead. Everything runs on free, anonymous
 archives. You don't need any login, telescope time, payment, whatever. Just Python!
 
 Nothing in here is an established discovery. Right now it looks like this:
@@ -21,16 +21,16 @@ TOI-7610.01   retracted                 a Gaia SB1 stellar binary, and localizat
 ## Look at it
 
 The public record lives at **[cygnus-sky.pages.dev](https://cygnus-sky.pages.dev)**. It opens on a sky map of every
-recorded target, and u can zoom from the whole sky down to the query footprints, survey images and Gaia sources
+recorded target, and you can zoom from the whole sky down to the query footprints, survey images and Gaia sources
 around each one. The campaigns, candidate dossiers, search log and methods are all there too. Every plotted
-position, footprint and image comes from a recorded source.
+position, footprint and image comes from a recorded source. I love how it feels to wander around in it, and I hope you enjoy it too.
 
 For the up-to-date state of each lead and what's still left to prove or disprove, read
 [`docs/STATUS.md`](docs/STATUS.md).
 
 ## How to use it
 
-- **Run one target:** This is the normal loop, and u never write analysis code for it. It claims a target, runs it
+- **Run one target:** This is the normal loop, and you never write analysis code for it. It claims a target, runs it
   and writes the report:
   ```sh
   python -m cygnus.campaign queue                       # rank, target, state, positive control, review
@@ -61,15 +61,15 @@ up, and *Established* needs community confirmation. They describe evidence, not 
 
 ## Settings
 
-No credentials are needed. MAST, NASA Exoplanet Archive, VizieR, SIMBAD and the other services used are public
-and anonymous. what u can set:
+No credentials are needed. MAST, NASA Exoplanet Archive, VizieR, SIMBAD and the other services I use are public
+and anonymous. What you can set:
 - `CYGNUS_SCRATCH`: where light curves and other downloads go (default `~/.cache/cygnus/scratch`). about 2 MB per
-  TESS sector per target, and its always safe to delete
+  TESS sector per target, and it is always safe to delete
 - `CYGNUS_LEDGER`: the SQLite provenance ledger (default `state/ledger.sqlite`, made on first use). on a machine
-  other than the main workstation use ur own and name the run IDs in ur report so they can be merged later
+  other than the main workstation use your own and name the run IDs in your report so they can be merged later
 - `campaigns/<id>.yaml`: the parameters of one analysis. steps are ledgered, resumable and regenerate the
   `sky_record.json` every analysis has to leave behind (the tests fail without it)
-- `python -m cygnus.storage where`: tells u how the current machine reaches the shared Drive storage, since every
+- `python -m cygnus.storage where`: tells you how the current machine reaches the shared Drive storage, since every
   harness gets there its own way
 
 ## Docs
@@ -121,7 +121,7 @@ python -m venv .venv
 ```
 
 On Windows the venv python is `.venv\Scripts\python`. The science extras are `mast`, `timing`, `imaging`, `moving`
-and `analysis` if u want more than the campaign runner (see `pyproject.toml`). The tests are offline by default,
+and `analysis` if you want more than the campaign runner (see `pyproject.toml`). The tests are offline by default,
 `-m network` runs the live archive probes.
 
 Bulk archive data, the ledger (`state/`), scratch downloads and credentials are kept out of the repo on purpose
@@ -132,8 +132,10 @@ with `python -m cygnus.publish build`.
 ## License
 
 [Apache 2.0](LICENSE) © 2026 mariyaholic - Use it, change it, share it, just keep the license and notices with it.
-And if u build something on top of it please credit this repo as the original source!
+And if you build something on top of it please credit this repo as the original source!
 
-The data keep their own terms tho: Gaia-derived files (ESA/Gaia/DPAC) are CC BY-SA 3.0 IGO, and Pan-STARRS1,
+The data keep their own terms though: Gaia-derived files (ESA/Gaia/DPAC) are CC BY-SA 3.0 IGO, and Pan-STARRS1,
 2MASS, MAST/TESS and NASA Exoplanet Archive material need the acknowledgements recorded in
 `design-system/mockups/data/PROVENANCE.json` and in each report.
+
+Thank you for looking at my little corner of the sky. ♡
