@@ -142,3 +142,24 @@ These instructions are tool-neutral; any agent (or person) picking up the work s
 4. **Sky explorer (the site's home page since 2026-09-25):** `design-system/mockups/README.md`. Rebuild with `python design-system/mockups/build_explorer.py`; new catalogue fetches go through `fetch_sky_data.py` so provenance is recorded.
 5. **Decisions that belong to the user** are listed in `docs/STATUS.md`; ask rather than assume. Update that file when a decision is made or a known problem changes.
 6. **Before committing:** tests pass, no credentials or private storage paths in new files, no archive products (`*.fits`) or `state/`.
+
+<!-- uika:law:begin -->
+## Uika estate law (generated — do not edit inside the markers)
+
+This repo is part of the Uika estate. The estate layer lives in the harness homes; this
+block carries only what every session here must obey. Edit the source (Uika `estate.json`),
+never this block; `uika docs render` regenerates it.
+
+- **Session start:** freshness scan (mtime-first), then read `WORKSTACK.md`.
+- **Handoff:** one 6-line block in the WORKSTACK thread — `From→To / Done / Next / Files / Verify / Blockers` (skills/handoff-protocol).
+- **Names:** handle `<harness>.<role>`; harness ∈ {claude, codex, opencode, cline, gemini, commandcode, dsh, freebuff, mimo, hermes}; role ∈ {tower, scout, impl, review, judge}. Model is a field, never a name.
+- **Branches:** `<feat|fix|docs|chore>/<kebab-topic>`, ≤ 4 words, no agent names. Never push or rewrite main.
+- **Posture:** near-autopilot, secrets egress-locked, self-edit lock full.
+- **Find things:** `uika find` / `uika where` before exploring; `uika path` / `uika layout` for where a file goes.
+- **Prose:** in chat replies, files, code comments, commits and product text, never write a negation-first reveal, significance designation, abstraction agency, deferred noun, coy or thesis-shaped header, aphoristic closer, straw-man knockdown, fragment cadence, dressed metaphor or label-first framing (skills/plain-prose, ADR-0062).
+- **Finish:** run the wrap checklist; update `WORKSTACK.md`.
+
+Full laws: Uika `AGENTS.md` and `register/adr/`. Skills: skills/handoff-protocol, find-fast, estate-sync, plain-prose.
+<!-- uika:generated from estate.json; edit the source, not this file -->
+<!-- uika:docs v1 · sha256:e2ad5a28c274 -->
+<!-- uika:law:end -->
